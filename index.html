@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Перевіряна база можливостей фінансової допомоги для українських абітурієнтів у США." />
+    <title>FullRide UA — College Finder</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230c2b24'/%3E%3Cpath d='M14 22 32 13l18 9-18 9-18-9Zm5 8v13l13 7 13-7V30l-13 7-13-7Z' fill='%23c6ed6d'/%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="FullRide UA">
+        <span class="brand-mark">FR</span><span>FullRide <i>UA</i></span>
+      </a>
+      <nav aria-label="Main navigation">
+        <a href="#finder" data-i18n="navFinder">Пошук університетів</a>
+        <a href="#method" data-i18n="navMethod">Як користуватися</a>
+        <a href="#about" data-i18n="navAbout">Про проєкт</a>
+      </nav>
+      <div class="language-switch" aria-label="Language">
+        <button class="active" data-lang="uk">UA</button>
+        <button data-lang="ru">RU</button>
+        <button data-lang="en">EN</button>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="intro" aria-labelledby="page-title">
+        <div class="eyebrow"><span></span><span data-i18n="eyebrow">Незалежна база для абітурієнтів з України</span></div>
+        <h1 id="page-title" data-i18n-html="title">Шукайте університети,<br /><em>а не випадкові поради.</em></h1>
+        <p class="intro-copy" data-i18n="intro">FullRide UA допомагає звузити пошук американських університетів із сильною need-based financial aid для іноземних студентів. Кожен запис веде на офіційне джерело.</p>
+        <div class="intro-meta">
+          <span><b id="college-count">5</b> <span data-i18n="verifiedRecords">перевірених записів</span></span>
+          <span class="dot"></span>
+          <span data-i18n="updated">Оновлено 16 вересня 2026</span>
+        </div>
+      </section>
+
+      <section id="finder" class="finder" aria-labelledby="finder-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow-label" data-i18n="directory">База університетів</p>
+            <h2 id="finder-title" data-i18n="finderTitle">Почніть із реальних варіантів</h2>
+          </div>
+          <p data-i18n="finderHint">Фільтри не замінюють перевірку вимог. Відкрийте офіційну сторінку перед подачею.</p>
+        </div>
+
+        <div class="filter-panel">
+          <label class="search-field">
+            <span class="sr-only" data-i18n="searchLabel">Назва університету</span>
+            <input id="search" type="search" data-i18n-placeholder="searchPlaceholder" placeholder="Пошук за назвою університету" />
+            <span aria-hidden="true">⌕</span>
+          </label>
+          <div class="filters" role="group" data-i18n-aria="filterGroup">
+            <label class="filter-check"><input id="need-blind" type="checkbox" /><span data-i18n="needBlind">Need-blind для international</span></label>
+            <label class="filter-check"><input id="test-flexible" type="checkbox" /><span data-i18n="testFlexible">Є альтернатива SAT/ACT</span></label>
+            <label class="filter-check"><input id="fee-waiver" type="checkbox" /><span data-i18n="feeWaiver">Можливий fee waiver</span></label>
+            <label class="select-wrap"><span class="sr-only" data-i18n="englishLabel">Тест англійської</span><select id="english-test"><option value="all" data-i18n="englishAll">Тест англійської: будь-який</option><option value="required" data-i18n="englishRequired">Тест англійської: може бути потрібен</option><option value="notRequired" data-i18n="englishNotRequired">Тест англійської: зазвичай не потрібен</option></select></label>
+          </div>
+        </div>
+
+        <div class="results-line"><span id="results-count"></span><button id="reset" data-i18n="reset">Скинути фільтри</button></div>
+        <div id="results" class="results" aria-live="polite"></div>
+      </section>
+
+      <section id="method" class="method" aria-labelledby="method-title">
+        <div class="method-title"><p class="eyebrow-label" data-i18n="methodLabel">Підхід</p><h2 id="method-title" data-i18n="methodTitle">Як читати цю базу</h2></div>
+        <ol>
+          <li><span>01</span><div><h3 data-i18n="step1Title">Відфільтруйте стартовий список</h3><p data-i18n="step1Text">Почніть із політики фінансової допомоги та доступних для вас форматів тестування.</p></div></li>
+          <li><span>02</span><div><h3 data-i18n="step2Title">Відкрийте першоджерело</h3><p data-i18n="step2Text">Умови, дедлайни й документи завжди перевіряйте на сторінці admissions самого університету.</p></div></li>
+          <li><span>03</span><div><h3 data-i18n="step3Title">Зберіть збалансований список</h3><p data-i18n="step3Text">Навіть університети з full need є дуже конкурентними. Додавайте також реалістичні варіанти.</p></div></li>
+        </ol>
+      </section>
+
+      <section id="about" class="about">
+        <div><p class="eyebrow-label" data-i18n="aboutLabel">Про проєкт</p><h2 data-i18n="aboutTitle">Чесна інформація —<br />кращий початок.</h2></div>
+        <div><p data-i18n="aboutText">FullRide UA — не агентство і не гарантія вступу. Це відкритий проєкт, створений, щоб українським учням було простіше знаходити перевірену інформацію про фінансову допомогу в США.</p><a class="feedback" href="mailto:fullrideua.project@gmail.com?subject=FullRide%20UA%20feedback" data-i18n="feedback">Повідомити про неточність <span>↗</span></a></div>
+      </section>
+    </main>
+
+    <footer><span>© 2026 FullRide UA</span><span data-i18n="footer">Пілотна версія · Дані потребують регулярної перевірки</span></footer>
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
