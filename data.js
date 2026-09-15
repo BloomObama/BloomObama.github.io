@@ -15,6 +15,9 @@ const colleges = [
     testFlexible: false,
     englishStatus: "required",
     feeWaiver: true
+    ,photo: "https://upload.wikimedia.org/wikipedia/commons/d/d8/MIT_Campus_%288222169333%29.jpg"
+    ,photoCredit: "Aleksandr Zykov · CC BY-SA 2.0"
+    ,photoSource: "https://commons.wikimedia.org/wiki/File:MIT_Campus_(8222169333).jpg"
   },
   {
     name: "Harvard University",
@@ -32,6 +35,9 @@ const colleges = [
     testFlexible: true,
     englishStatus: "notRequired",
     feeWaiver: true
+    ,photo: "https://upload.wikimedia.org/wikipedia/commons/3/34/Harvard_Yard.jpg"
+    ,photoCredit: "Andrew Haggard · CC BY-SA 1.0"
+    ,photoSource: "https://commons.wikimedia.org/wiki/File:Harvard_Yard.jpg"
   },
   {
     name: "Yale University",
@@ -49,6 +55,9 @@ const colleges = [
     testFlexible: false,
     englishStatus: "required",
     feeWaiver: true
+    ,photo: "https://upload.wikimedia.org/wikipedia/commons/d/df/Yale_University_Campus_Scene_-_New_Haven_-_CT_-_USA_-_05_%287088652497%29.jpg"
+    ,photoCredit: "Adam Jones · CC BY-SA 2.0"
+    ,photoSource: "https://commons.wikimedia.org/wiki/File:Yale_University_Campus_Scene_-_New_Haven_-_CT_-_USA_-_05_(7088652497).jpg"
   },
   {
     name: "Princeton University",
@@ -66,6 +75,9 @@ const colleges = [
     testFlexible: true,
     englishStatus: "required",
     feeWaiver: true
+    ,photo: "https://upload.wikimedia.org/wikipedia/commons/2/2b/Princeton_University_campus.jpg"
+    ,photoCredit: "Mankhach · CC BY-SA 4.0"
+    ,photoSource: "https://commons.wikimedia.org/wiki/File:Princeton_University_campus.jpg"
   },
   {
     name: "Dartmouth College",
@@ -83,5 +95,8 @@ const colleges = [
     testFlexible: true,
     englishStatus: "required",
     feeWaiver: true
+    ,photo: "https://upload.wikimedia.org/wikipedia/commons/9/9d/Dartmouth_Hall_at_Dartmouth_College.jpg"
+    ,photoCredit: "Kenneth C. Zirkel · CC BY 4.0"
+    ,photoSource: "https://commons.wikimedia.org/wiki/File:Dartmouth_Hall_at_Dartmouth_College.jpg"
   }
 ];
