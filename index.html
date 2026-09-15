@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230c2b24'/%3E%3Cpath d='M14 22 32 13l18 9-18 9-18-9Zm5 8v13l13 7 13-7V30l-13 7-13-7Z' fill='%23c6ed6d'/%3E%3C/svg%3E" />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css?v=4" />
   </head>
   <body>
     <header class="topbar">
@@ -77,6 +77,20 @@
         <div id="results" class="results" aria-live="polite"></div>
       </section>
 
+      <section class="aid-guide" aria-labelledby="aid-guide-title">
+        <div class="aid-guide-heading">
+          <p class="eyebrow-label" data-i18n="guideLabel">Короткий словник</p>
+          <h2 id="aid-guide-title" data-i18n-html="guideTitle">Що насправді означають<br />умови фінансування</h2>
+          <p data-i18n="guideIntro">Ці терміни схожі, але впливають на вашу заявку по-різному. Перевіряйте обидва: політику вступу та спосіб розрахунку допомоги.</p>
+        </div>
+        <div class="guide-grid">
+          <article><span>01</span><h3>Need-blind</h3><p data-i18n="needBlindExplain">Фінансова потреба не враховується під час рішення про вступ.</p></article>
+          <article><span>02</span><h3>Full demonstrated need</h3><p data-i18n="fullNeedExplain">Університет покриває розраховану ним потребу після вступу, але сума може відрізнятися від очікуваної.</p></article>
+          <article><span>03</span><h3>Need-based aid</h3><p data-i18n="needBasedExplain">Допомога залежить від фінансів сім’ї, а не лише від оцінок чи досягнень.</p></article>
+          <article><span>04</span><h3>Fee waiver</h3><p data-i18n="feeWaiverExplain">Звільнення від application fee; умови й спосіб підтвердження різняться.</p></article>
+        </div>
+      </section>
+
       <section id="method" class="method" aria-labelledby="method-title">
         <div class="method-title"><p class="eyebrow-label" data-i18n="methodLabel">Підхід</p><h2 id="method-title" data-i18n="methodTitle">Як читати цю базу</h2></div>
         <ol>
@@ -92,8 +106,8 @@
       </section>
     </main>
 
-    <footer><span>© 2026 FullRide UA</span><span data-i18n="footer">Пілотна версія · Дані потребують регулярної перевірки</span></footer>
-    <script src="data.js"></script>
-    <script src="app.js"></script>
+    <footer><div><strong>FullRide UA</strong><span data-i18n="footerTagline">Перевіряйте. Порівнюйте. Подавайтеся усвідомлено.</span></div><div class="footer-meta"><span>© 2026</span><span data-i18n="footer">Пілотна версія · Дані потребують регулярної перевірки</span></div></footer>
+    <script src="data.js?v=4"></script>
+    <script src="app.js?v=4"></script>
   </body>
 </html>
