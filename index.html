@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230c2b24'/%3E%3Cpath d='M14 22 32 13l18 9-18 9-18-9Zm5 8v13l13 7 13-7V30l-13 7-13-7Z' fill='%23c6ed6d'/%3E%3C/svg%3E" />
-    <link rel="stylesheet" href="styles.css?v=4" />
+    <link rel="stylesheet" href="styles.css?v=5" />
   </head>
   <body>
     <header class="topbar">
@@ -36,7 +36,7 @@
             <h1 id="page-title" data-i18n-html="title">Шукайте університети,<br /><em>а не випадкові поради.</em></h1>
             <p class="intro-copy" data-i18n="intro">FullRide UA допомагає звузити пошук американських університетів із сильною need-based financial aid для іноземних студентів. Кожен запис веде на офіційне джерело.</p>
             <div class="intro-meta">
-              <span><b id="college-count">5</b> <span data-i18n="verifiedRecords">перевірених записів</span></span>
+              <span><b id="college-count">50</b> <span id="record-label">університетів у базі</span></span>
               <span class="dot"></span>
               <span data-i18n="updated">Оновлено 16 вересня 2026</span>
             </div>
@@ -75,6 +75,7 @@
 
         <div class="results-line"><span id="results-count"></span><button id="reset" data-i18n="reset">Скинути фільтри</button></div>
         <div id="results" class="results" aria-live="polite"></div>
+        <button id="show-more" class="show-more" type="button" hidden>Показати ще</button>
       </section>
 
       <section class="aid-guide" aria-labelledby="aid-guide-title">
@@ -107,7 +108,7 @@
     </main>
 
     <footer><div><strong>FullRide UA</strong><span data-i18n="footerTagline">Перевіряйте. Порівнюйте. Подавайтеся усвідомлено.</span></div><div class="footer-meta"><span>© 2026</span><span data-i18n="footer">Пілотна версія · Дані потребують регулярної перевірки</span></div></footer>
-    <script src="data.js?v=4"></script>
-    <script src="app.js?v=4"></script>
+    <script src="data.js?v=5"></script>
+    <script src="app.js?v=5"></script>
   </body>
 </html>

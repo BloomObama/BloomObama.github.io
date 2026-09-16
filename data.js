@@ -1,102 +1,103 @@
+const directoryCollege = ({ name, short, location, description, source, needBlind = false, aidShort = "Check aid", testFlexible = false, feeWaiver = false, englishStatus = "required" }) => ({
+  name, short, location, description,
+  aid: needBlind ? "Need-blind for first-year international applicants; confirm the current aid application requirements." : "International funding varies by applicant and year; review the official financial-aid guidance before applying.",
+  aidShort,
+  testing: "Confirm the current testing policy on the official admissions website.",
+  english: "English-proficiency requirements depend on your schooling history and curriculum.",
+  fee: feeWaiver ? "A fee-waiver route may be available; check the official instructions." : "Check the official application fee and waiver instructions.",
+  deadline: "Check the current admissions calendar.",
+  source, aidSource: source, needBlind, testFlexible, englishStatus, feeWaiver
+});
+
 const colleges = [
   {
-    name: "Massachusetts Institute of Technology",
-    short: "MIT",
-    location: "Cambridge, Massachusetts",
-    aid: "Need-blind · meets full demonstrated need for admitted international students",
-    aidShort: "Need-blind + full need",
-    testing: "SAT or ACT required",
-    english: "English test strongly recommended in some cases; minimums are published",
-    fee: "Fee waiver available for eligible applicants",
-    deadline: "Check the current Early Action / Regular Action calendar",
-    source: "https://mitadmissions.org/apply/firstyear/tests-scores/",
-    aidSource: "https://sfs.mit.edu/undergraduate-students/apply-for-aid/international-students/",
-    needBlind: true,
-    testFlexible: false,
-    englishStatus: "required",
-    feeWaiver: true
-    ,photo: "https://upload.wikimedia.org/wikipedia/commons/d/d8/MIT_Campus_%288222169333%29.jpg"
-    ,photoCredit: "Aleksandr Zykov · CC BY-SA 2.0"
-    ,photoSource: "https://commons.wikimedia.org/wiki/File:MIT_Campus_(8222169333).jpg"
+    name: "Massachusetts Institute of Technology", short: "MIT", location: "Cambridge, Massachusetts",
+    description: "A science- and technology-centered research university with a highly collaborative undergraduate culture.",
+    aid: "Need-blind · meets full demonstrated need for admitted international students", aidShort: "Need-blind + full need", testing: "SAT or ACT required",
+    english: "English test strongly recommended in some cases; minimums are published", fee: "Fee waiver available for eligible applicants", deadline: "Check the current Early Action / Regular Action calendar",
+    source: "https://mitadmissions.org/apply/firstyear/international/", aidSource: "https://sfs.mit.edu/undergraduate-students/apply-for-aid/international-students/",
+    needBlind: true, testFlexible: false, englishStatus: "required", feeWaiver: true,
+    photo: "https://commons.wikimedia.org/wiki/Special:Redirect/file/MIT_Main_Campus_aerial.jpg?width=2000", photoCredit: "Dllu · CC BY-SA 4.0", photoSource: "https://commons.wikimedia.org/wiki/File:MIT_Main_Campus_aerial.jpg"
   },
   {
-    name: "Harvard University",
-    short: "Harvard",
-    location: "Cambridge, Massachusetts",
-    aid: "Need-blind · meets demonstrated need regardless of citizenship",
-    aidShort: "Need-blind + full need",
-    testing: "SAT/ACT expected; alternative academic results may be considered in exceptional access cases",
-    english: "English proficiency exam is not required, but may be submitted",
-    fee: "Application fee is waived when it presents hardship",
-    deadline: "Check the current Restrictive Early Action / Regular Decision calendar",
-    source: "https://college.harvard.edu/admissions/apply/international-applicants",
-    aidSource: "https://college.harvard.edu/financial-aid/how-aid-works",
-    needBlind: true,
-    testFlexible: true,
-    englishStatus: "notRequired",
-    feeWaiver: true
-    ,photo: "https://upload.wikimedia.org/wikipedia/commons/3/34/Harvard_Yard.jpg"
-    ,photoCredit: "Andrew Haggard · CC BY-SA 1.0"
-    ,photoSource: "https://commons.wikimedia.org/wiki/File:Harvard_Yard.jpg"
+    name: "Harvard University", short: "Harvard", location: "Cambridge, Massachusetts",
+    description: "A broad research university whose historic undergraduate campus is centered on Harvard Yard.",
+    aid: "Need-blind · meets demonstrated need regardless of citizenship", aidShort: "Need-blind + full need", testing: "SAT/ACT expected; alternative academic results may be considered in exceptional access cases",
+    english: "English proficiency exam is not required, but may be submitted", fee: "Application fee is waived when it presents hardship", deadline: "Check the current Restrictive Early Action / Regular Decision calendar",
+    source: "https://college.harvard.edu/admissions/apply/international-applicants", aidSource: "https://college.harvard.edu/financial-aid/how-aid-works",
+    needBlind: true, testFlexible: true, englishStatus: "notRequired", feeWaiver: true,
+    photo: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Harvard_University_main_campus_aerial.JPG?width=2000", photoCredit: "Dllu · CC BY-SA 4.0", photoSource: "https://commons.wikimedia.org/wiki/File:Harvard_University_main_campus_aerial.JPG"
   },
   {
-    name: "Yale University",
-    short: "Yale",
-    location: "New Haven, Connecticut",
-    aid: "Need-blind · meets 100% of demonstrated need for international students",
-    aidShort: "Need-blind + full need",
-    testing: "SAT or ACT required for first-year applicants",
-    english: "Required if you have not completed at least two years of English-medium secondary education",
-    fee: "Fee waivers accepted through application platforms for eligible applicants",
-    deadline: "Check the current Single-Choice Early Action / Regular Decision calendar",
-    source: "https://admissions.yale.edu/international",
-    aidSource: "https://finaid.yale.edu/faq",
-    needBlind: true,
-    testFlexible: false,
-    englishStatus: "required",
-    feeWaiver: true
-    ,photo: "https://upload.wikimedia.org/wikipedia/commons/d/df/Yale_University_Campus_Scene_-_New_Haven_-_CT_-_USA_-_05_%287088652497%29.jpg"
-    ,photoCredit: "Adam Jones · CC BY-SA 2.0"
-    ,photoSource: "https://commons.wikimedia.org/wiki/File:Yale_University_Campus_Scene_-_New_Haven_-_CT_-_USA_-_05_(7088652497).jpg"
+    name: "Yale University", short: "Yale", location: "New Haven, Connecticut",
+    description: "A residential research university known for its collegiate Gothic campus and liberal-arts foundation.",
+    aid: "Need-blind · meets 100% of demonstrated need for international students", aidShort: "Need-blind + full need", testing: "SAT or ACT required for first-year applicants",
+    english: "Required if you have not completed at least two years of English-medium secondary education", fee: "Fee waivers accepted through application platforms for eligible applicants", deadline: "Check the current Single-Choice Early Action / Regular Decision calendar",
+    source: "https://admissions.yale.edu/international", aidSource: "https://finaid.yale.edu/faq",
+    needBlind: true, testFlexible: false, englishStatus: "required", feeWaiver: true,
+    photo: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Yale_University_Aerial_view.jpg?width=2000", photoCredit: "Emilie Foyer · CC BY-SA 3.0", photoSource: "https://commons.wikimedia.org/wiki/File:Yale_University_Aerial_view.jpg"
   },
   {
-    name: "Princeton University",
-    short: "Princeton",
-    location: "Princeton, New Jersey",
-    aid: "Need-blind · meets full demonstrated need with grant aid",
-    aidShort: "Need-blind + full need",
-    testing: "Test-optional through the 2026–27 cycle; SAT/ACT returns for fall 2028 entry",
-    english: "Required when English is not your native language and is not the language of instruction",
-    fee: "Princeton-specific fee waiver is available to low-income applicants",
-    deadline: "Check the current Single-Choice Early Action / Regular Decision calendar",
-    source: "https://admission.princeton.edu/apply/international-students",
-    aidSource: "https://admission.princeton.edu/cost-aid",
-    needBlind: true,
-    testFlexible: true,
-    englishStatus: "required",
-    feeWaiver: true
-    ,photo: "https://upload.wikimedia.org/wikipedia/commons/2/2b/Princeton_University_campus.jpg"
-    ,photoCredit: "Mankhach · CC BY-SA 4.0"
-    ,photoSource: "https://commons.wikimedia.org/wiki/File:Princeton_University_campus.jpg"
+    name: "Princeton University", short: "Princeton", location: "Princeton, New Jersey",
+    description: "A research university with a strong undergraduate focus, residential colleges and a compact historic campus.",
+    aid: "Need-blind · meets full demonstrated need with grant aid", aidShort: "Need-blind + full need", testing: "Test-optional through the 2026–27 cycle; SAT/ACT returns for fall 2028 entry",
+    english: "Required when English is not your native language and is not the language of instruction", fee: "Princeton-specific fee waiver is available to low-income applicants", deadline: "Check the current Single-Choice Early Action / Regular Decision calendar",
+    source: "https://admission.princeton.edu/apply/international-students", aidSource: "https://admission.princeton.edu/cost-aid",
+    needBlind: true, testFlexible: true, englishStatus: "required", feeWaiver: true,
+    photo: "https://tigerlife.princeton.edu/sites/default/files/styles/7x5__focal_point_scale_and_crop__md-lg/public/2024-07/20210425_CL_QH_0116-2.jpg?h=4521fff0&itok=YAfY8c3X", photoCredit: "Princeton University", photoSource: "https://tigerlife.princeton.edu/transportation-campus"
   },
   {
-    name: "Dartmouth College",
-    short: "Dartmouth",
-    location: "Hanover, New Hampshire",
-    aid: "Need-blind · meets 100% of demonstrated need regardless of citizenship",
-    aidShort: "Need-blind + full need",
-    testing: "SAT/ACT, AP, IB, A-Levels or equivalent national exams may meet the requirement",
-    english: "Required when English is not your first language or language of instruction for two years",
-    fee: "Fee waiver may be requested for financial hardship",
-    deadline: "Check the current Early Decision / Regular Decision calendar",
-    source: "https://admissions.dartmouth.edu/glossary-question/i-attend-school-outside-us-do-i-have-submit-act-or-sat",
-    aidSource: "https://admissions.dartmouth.edu/affordability-dartmouth",
-    needBlind: true,
-    testFlexible: true,
-    englishStatus: "required",
-    feeWaiver: true
-    ,photo: "https://upload.wikimedia.org/wikipedia/commons/9/9d/Dartmouth_Hall_at_Dartmouth_College.jpg"
-    ,photoCredit: "Kenneth C. Zirkel · CC BY 4.0"
-    ,photoSource: "https://commons.wikimedia.org/wiki/File:Dartmouth_Hall_at_Dartmouth_College.jpg"
-  }
+    name: "Dartmouth College", short: "Dartmouth", location: "Hanover, New Hampshire",
+    description: "A small research university built around an undergraduate liberal-arts college in a rural New England setting.",
+    aid: "Need-blind · meets 100% of demonstrated need regardless of citizenship", aidShort: "Need-blind + full need", testing: "SAT/ACT, AP, IB, A-Levels or equivalent national exams may meet the requirement",
+    english: "Required when English is not your first language or language of instruction for two years", fee: "Fee waiver may be requested for financial hardship", deadline: "Check the current Early Decision / Regular Decision calendar",
+    source: "https://admissions.dartmouth.edu/apply/international-students", aidSource: "https://admissions.dartmouth.edu/affordability-dartmouth",
+    needBlind: true, testFlexible: true, englishStatus: "required", feeWaiver: true,
+    photo: "https://www.dartmouth.edu/gps/slides/home_3new.jpg", photoCredit: "Dartmouth College", photoSource: "https://www.dartmouth.edu/gps/"
+  },
+  directoryCollege({ name:"Stanford University", short:"Stanford", location:"Stanford, California", description:"A private research university in Silicon Valley with strengths across engineering, sciences, humanities and entrepreneurship.", source:"https://admission.stanford.edu/apply/international/", aidShort:"Need-aware", feeWaiver:true }),
+  directoryCollege({ name:"California Institute of Technology", short:"Caltech", location:"Pasadena, California", description:"A very small research university centered on science, engineering and intensive undergraduate research.", source:"https://www.admissions.caltech.edu/apply/first-year-applicants/international-citizens", aidShort:"Need-aware", feeWaiver:true }),
+  directoryCollege({ name:"University of Pennsylvania", short:"Penn", location:"Philadelphia, Pennsylvania", description:"An urban Ivy League research university combining liberal arts with professional schools such as Wharton and Engineering.", source:"https://admissions.upenn.edu/how-to-apply/international-applicants", aidShort:"Need-aware", feeWaiver:true }),
+  directoryCollege({ name:"Columbia University", short:"Columbia", location:"New York, New York", description:"An urban Ivy League university known for the Core Curriculum and access to New York City's academic and cultural resources.", source:"https://undergrad.admissions.columbia.edu/apply/international", aidShort:"Need-aware", feeWaiver:true }),
+  directoryCollege({ name:"Cornell University", short:"Cornell", location:"Ithaca, New York", description:"A large Ivy League university offering programs from liberal arts and engineering to agriculture, architecture and hotel administration.", source:"https://admissions.cornell.edu/how-to-apply/first-year-applicants/international-applicants", aidShort:"Need-aware", feeWaiver:true }),
+  directoryCollege({ name:"Brown University", short:"Brown", location:"Providence, Rhode Island", description:"An Ivy League research university distinguished by its flexible Open Curriculum and student-directed academic paths.", source:"https://admission.brown.edu/international/financial-aid", needBlind:true, aidShort:"Need-blind + full need", feeWaiver:true }),
+  directoryCollege({ name:"Duke University", short:"Duke", location:"Durham, North Carolina", description:"A research university with a residential undergraduate experience and notable strengths in public policy, engineering and health sciences.", source:"https://admissions.duke.edu/apply/", aidShort:"Need-aware", feeWaiver:true }),
+  directoryCollege({ name:"Northwestern University", short:"Northwestern", location:"Evanston, Illinois", description:"A research university near Chicago with prominent programs in journalism, engineering, communication and the performing arts.", source:"https://admissions.northwestern.edu/faqs/international-applicants.html", aidShort:"Need-aware", feeWaiver:true }),
+  directoryCollege({ name:"University of Chicago", short:"UChicago", location:"Chicago, Illinois", description:"A research-intensive university known for its Core Curriculum, theoretical inquiry and strong economics and social-science traditions.", source:"https://collegeadmissions.uchicago.edu/apply/international-applicants", aidShort:"Need-aware", feeWaiver:true }),
+  directoryCollege({ name:"Johns Hopkins University", short:"Johns Hopkins", location:"Baltimore, Maryland", description:"A research university particularly well known for medicine, public health, international studies, science and engineering.", source:"https://apply.jhu.edu/international-applicants/", aidShort:"Need-aware", feeWaiver:true }),
+  directoryCollege({ name:"Rice University", short:"Rice", location:"Houston, Texas", description:"A mid-sized research university with residential colleges, small classes and strengths in engineering, science and architecture.", source:"https://admission.rice.edu/apply/international-applicants", aidShort:"Need-aware", feeWaiver:true }),
+  directoryCollege({ name:"Vanderbilt University", short:"Vanderbilt", location:"Nashville, Tennessee", description:"A residential research university with broad liberal-arts offerings and strong programs in education, engineering and human development.", source:"https://admissions.vanderbilt.edu/apply/international.php", aidShort:"Need-aware", feeWaiver:true }),
+  directoryCollege({ name:"University of Notre Dame", short:"Notre Dame", location:"Notre Dame, Indiana", description:"A Catholic research university with a strong residential community and programs spanning liberal arts, business, science and engineering.", source:"https://admissions.nd.edu/apply/resources-for/international-applicants/", needBlind:true, aidShort:"Need-blind + full need", feeWaiver:true }),
+  directoryCollege({ name:"Georgetown University", short:"Georgetown", location:"Washington, District of Columbia", description:"A Jesuit university with a global outlook and notable programs in international affairs, government, business and the humanities.", source:"https://uadmissions.georgetown.edu/applying/international/", aidShort:"Limited aid", feeWaiver:true }),
+  directoryCollege({ name:"Carnegie Mellon University", short:"CMU", location:"Pittsburgh, Pennsylvania", description:"A technology- and arts-focused research university recognized for computer science, engineering, design, drama and interdisciplinary work.", source:"https://www.cmu.edu/admission/admission/international", aidShort:"Limited aid" }),
+  directoryCollege({ name:"Emory University", short:"Emory", location:"Atlanta, Georgia", description:"A research university with a liberal-arts core and major strengths in health sciences, business and public service.", source:"https://apply.emory.edu/apply/international-applicants.html", aidShort:"Need-aware", feeWaiver:true }),
+  directoryCollege({ name:"Washington University in St. Louis", short:"WashU", location:"St. Louis, Missouri", description:"A private research university known for flexible academics, interdisciplinary study and strengths in design, medicine and engineering.", source:"https://admissions.washu.edu/how-to-apply/international-applicants/", aidShort:"Need-aware", feeWaiver:true }),
+  directoryCollege({ name:"Tufts University", short:"Tufts", location:"Medford, Massachusetts", description:"A globally oriented research university near Boston with notable programs in international relations, civic engagement and life sciences.", source:"https://admissions.tufts.edu/apply/applying-as-an-international-student/", aidShort:"Need-aware", feeWaiver:true }),
+  directoryCollege({ name:"New York University", short:"NYU", location:"New York, New York", description:"A large global research university whose main campus is integrated into Manhattan's Greenwich Village.", source:"https://www.nyu.edu/admissions/undergraduate-admissions/how-to-apply/international-applicants.html", aidShort:"Varied aid", feeWaiver:true }),
+  directoryCollege({ name:"University of Southern California", short:"USC", location:"Los Angeles, California", description:"A large private research university with strong programs in film, communication, business, engineering and the arts.", source:"https://admission.usc.edu/prospective-students/international-students/", aidShort:"Merit focus", feeWaiver:true }),
+  directoryCollege({ name:"Boston University", short:"BU", location:"Boston, Massachusetts", description:"A large urban research university with extensive professional programs and a campus stretching along the Charles River.", source:"https://www.bu.edu/admissions/apply/international/", aidShort:"Merit focus" }),
+  directoryCollege({ name:"Northeastern University", short:"Northeastern", location:"Boston, Massachusetts", description:"An urban research university best known for cooperative education that integrates academic study with paid professional experience.", source:"https://admissions.northeastern.edu/application-information/international-applicants/", aidShort:"Merit focus", feeWaiver:true }),
+  directoryCollege({ name:"University of Rochester", short:"Rochester", location:"Rochester, New York", description:"A flexible research university with strengths in optics, music, engineering, economics and health sciences.", source:"https://admissions.rochester.edu/applying/international-students/", aidShort:"Need-aware", feeWaiver:true }),
+  directoryCollege({ name:"Case Western Reserve University", short:"CWRU", location:"Cleveland, Ohio", description:"A research university located beside major museums and hospitals, with strengths in engineering, medicine and applied sciences.", source:"https://case.edu/admission/apply/international-students", aidShort:"Aid available", feeWaiver:true }),
+  directoryCollege({ name:"Tulane University", short:"Tulane", location:"New Orleans, Louisiana", description:"A research university with a strong civic-engagement tradition and programs connected to the culture and public life of New Orleans.", source:"https://admission.tulane.edu/international", aidShort:"Merit focus", feeWaiver:true }),
+  directoryCollege({ name:"Brandeis University", short:"Brandeis", location:"Waltham, Massachusetts", description:"A small research university near Boston with a liberal-arts atmosphere and strengths in social policy, science and the humanities.", source:"https://www.brandeis.edu/admissions/apply/international.html", aidShort:"Need-aware", feeWaiver:true }),
+  directoryCollege({ name:"Lehigh University", short:"Lehigh", location:"Bethlehem, Pennsylvania", description:"A mid-sized research university with strong engineering, business and interdisciplinary programs on a hillside residential campus.", source:"https://www2.lehigh.edu/admissions/international-students", aidShort:"Need-aware", feeWaiver:true }),
+  directoryCollege({ name:"Villanova University", short:"Villanova", location:"Villanova, Pennsylvania", description:"An Augustinian Catholic university near Philadelphia with established programs in business, engineering, nursing and liberal arts.", source:"https://www.villanova.edu/university/undergraduate-admission/applying-to-villanova/international-applicants.html", aidShort:"Limited aid", feeWaiver:true }),
+  directoryCollege({ name:"Wake Forest University", short:"Wake Forest", location:"Winston-Salem, North Carolina", description:"A private university combining a liberal-arts college atmosphere with research and professional programs.", source:"https://admissions.wfu.edu/apply/international/", aidShort:"Need-aware", feeWaiver:true }),
+  directoryCollege({ name:"Amherst College", short:"Amherst", location:"Amherst, Massachusetts", description:"A highly selective liberal-arts college with an open curriculum and access to courses across the Five College Consortium.", source:"https://www.amherst.edu/admission/apply/international", needBlind:true, aidShort:"Need-blind + full need", feeWaiver:true }),
+  directoryCollege({ name:"Williams College", short:"Williams", location:"Williamstown, Massachusetts", description:"A residential liberal-arts college known for small classes, tutorials and close faculty mentorship in a rural setting.", source:"https://www.williams.edu/admission-aid/apply/international/", aidShort:"Need-aware", feeWaiver:true }),
+  directoryCollege({ name:"Swarthmore College", short:"Swarthmore", location:"Swarthmore, Pennsylvania", description:"A rigorous liberal-arts college near Philadelphia with an engineering program and access to a wider academic consortium.", source:"https://www.swarthmore.edu/admissions-aid/international-students", aidShort:"Need-aware", feeWaiver:true }),
+  directoryCollege({ name:"Pomona College", short:"Pomona", location:"Claremont, California", description:"A small liberal-arts college offering broad access to courses and facilities across the Claremont Colleges consortium.", source:"https://www.pomona.edu/admissions/apply/international-applicants", aidShort:"Need-aware", feeWaiver:true }),
+  directoryCollege({ name:"Bowdoin College", short:"Bowdoin", location:"Brunswick, Maine", description:"A residential liberal-arts college on the Maine coast with strong interdisciplinary study and an emphasis on the common good.", source:"https://www.bowdoin.edu/admissions/apply/international-students/", needBlind:true, aidShort:"Need-blind + full need", testFlexible:true, englishStatus:"notRequired", feeWaiver:true }),
+  directoryCollege({ name:"Middlebury College", short:"Middlebury", location:"Middlebury, Vermont", description:"A liberal-arts college known internationally for languages, environmental studies and immersive study-abroad programs.", source:"https://www.middlebury.edu/college/admissions/apply/international-students", aidShort:"Need-aware", feeWaiver:true }),
+  directoryCollege({ name:"Wellesley College", short:"Wellesley", location:"Wellesley, Massachusetts", description:"A women's liberal-arts college near Boston with a global alumnae network and cross-registration opportunities.", source:"https://www.wellesley.edu/admission-aid/apply/international-applicants", aidShort:"Need-aware", feeWaiver:true }),
+  directoryCollege({ name:"Wesleyan University", short:"Wesleyan", location:"Middletown, Connecticut", description:"A liberal-arts university known for curricular flexibility, creative work and a strong culture of independent study.", source:"https://www.wesleyan.edu/admission/international/", aidShort:"Need-aware", feeWaiver:true }),
+  directoryCollege({ name:"Colby College", short:"Colby", location:"Waterville, Maine", description:"A residential liberal-arts college with strengths in global study, environmental fields and interdisciplinary research.", source:"https://afa.colby.edu/apply/international-applicants/", aidShort:"Need-aware", feeWaiver:true }),
+  directoryCollege({ name:"Hamilton College", short:"Hamilton", location:"Clinton, New York", description:"A liberal-arts college with an open curriculum and a strong emphasis on writing, speaking and individualized academic planning.", source:"https://www.hamilton.edu/admission/apply/international", aidShort:"Need-aware", feeWaiver:true }),
+  directoryCollege({ name:"Grinnell College", short:"Grinnell", location:"Grinnell, Iowa", description:"A liberal-arts college with an individually advised curriculum, strong social-justice traditions and substantial undergraduate research.", source:"https://www.grinnell.edu/admission/apply/international", aidShort:"Need-aware", feeWaiver:true }),
+  directoryCollege({ name:"Macalester College", short:"Macalester", location:"Saint Paul, Minnesota", description:"An urban liberal-arts college recognized for internationalism, civic engagement and a globally diverse student body.", source:"https://www.macalester.edu/admissions/international/", aidShort:"Need-aware", feeWaiver:true }),
+  directoryCollege({ name:"Colgate University", short:"Colgate", location:"Hamilton, New York", description:"A residential liberal-arts university with a scenic rural campus and broad programs across humanities, sciences and social sciences.", source:"https://www.colgate.edu/admission-aid/apply/international-applicants", aidShort:"Need-aware", feeWaiver:true }),
+  directoryCollege({ name:"University of Richmond", short:"Richmond", location:"Richmond, Virginia", description:"A residential liberal-arts university combining undergraduate colleges in arts and sciences, business and leadership studies.", source:"https://admissions.richmond.edu/process/international/", aidShort:"Need-aware", feeWaiver:true }),
+  directoryCollege({ name:"Davidson College", short:"Davidson", location:"Davidson, North Carolina", description:"A close-knit liberal-arts college with a strong honor code, Division I athletics and emphasis on undergraduate teaching.", source:"https://www.davidson.edu/admission-and-financial-aid/apply/international-students", aidShort:"Need-aware", feeWaiver:true }),
+  directoryCollege({ name:"Washington and Lee University", short:"W&L", location:"Lexington, Virginia", description:"A small liberal-arts university with undergraduate programs in arts and sciences, commerce, journalism and politics.", source:"https://www.wlu.edu/admissions/apply/international-applicants", aidShort:"Need-aware", feeWaiver:true })
 ];

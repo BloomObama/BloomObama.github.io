@@ -6,8 +6,11 @@ const translations = {
 
 let language = "uk";
 let englishFilter = "all";
+let visibleCount = 10;
 const q = (id) => document.getElementById(id);
 const t = (key) => translations[language][key] || key;
+const showMoreLabels = { uk: "Показати ще", ru: "Показать ещё", en: "Show more" };
+const recordLabels = { uk: "університетів у базі", ru: "университетов в базе", en: "universities in the directory" };
 
 function updateLanguage() {
   document.documentElement.lang = language;
@@ -16,6 +19,7 @@ function updateLanguage() {
   document.querySelectorAll("[data-i18n-placeholder]").forEach(el => { el.placeholder = t(el.dataset.i18nPlaceholder); });
   document.querySelectorAll("[data-i18n-aria]").forEach(el => { el.setAttribute("aria-label", t(el.dataset.i18nAria)); });
   document.querySelectorAll("[data-lang]").forEach(btn => btn.classList.toggle("active", btn.dataset.lang === language));
+  if (q("record-label")) q("record-label").textContent = recordLabels[language];
   render();
 }
 
@@ -27,8 +31,9 @@ function render() {
   });
   q("results-count").textContent = t("results").replace("{count}", matches.length);
   q("college-count").textContent = colleges.length;
-  q("results").innerHTML = matches.length ? matches.map(c => `
-    <article class="card" style="--campus:url('${c.photo}')">
+  const visibleMatches = matches.slice(0, visibleCount);
+  q("results").innerHTML = matches.length ? visibleMatches.map(c => c.photo ? `
+    <article class="card card--photo" style="--campus:url('${c.photo}')">
       <div class="card-top"><div><h3>${c.name}</h3><p class="place">${c.location}</p></div><span class="badge">${c.aidShort}</span></div>
       <dl class="details">
         <div class="detail"><dt>${t("aid")}</dt><dd>${c.aid}</dd></div>
@@ -37,15 +42,32 @@ function render() {
         <div class="detail"><dt>${t("fee")}</dt><dd>${c.fee}</dd></div>
       </dl>
       <div class="card-footer"><a href="${c.source}" target="_blank" rel="noopener noreferrer">${t("official")}</a><a class="photo-credit" href="${c.photoSource}" target="_blank" rel="noopener noreferrer">${t("photo")}: ${c.photoCredit}</a></div>
+    </article>` : `
+    <article class="card card--directory">
+      <div class="directory-index">${String(colleges.indexOf(c) + 1).padStart(2, "0")}</div>
+      <div class="card-top"><div><h3>${c.name}</h3><p class="place">${c.location}</p></div><span class="badge">${c.aidShort}</span></div>
+      <p class="directory-description">${c.description}</p>
+      <dl class="directory-facts">
+        <div><dt>${t("aid")}</dt><dd>${c.aid}</dd></div>
+        <div><dt>${t("english")}</dt><dd>${c.english}</dd></div>
+      </dl>
+      <div class="card-footer"><a href="${c.source}" target="_blank" rel="noopener noreferrer">${t("official")}</a></div>
     </article>`).join("") : `<p class="empty">${t("noResults")}</p>`;
+  const showMore = q("show-more");
+  if (showMore) {
+    showMore.textContent = `${showMoreLabels[language]} · ${Math.max(0, Math.min(10, matches.length - visibleCount))}`;
+    showMore.hidden = matches.length <= visibleCount;
+  }
 }
 
 ["search", "need-blind", "test-flexible", "fee-waiver"].forEach(id => {
   const control = q(id);
-  if (control) control.addEventListener(id === "search" ? "input" : "change", render);
+  if (control) control.addEventListener(id === "search" ? "input" : "change", () => { visibleCount = 10; render(); });
 });
-document.querySelectorAll("[data-english-filter]").forEach(btn => btn.addEventListener("click", () => { englishFilter = btn.dataset.englishFilter; document.querySelectorAll("[data-english-filter]").forEach(option => option.classList.toggle("active", option === btn)); render(); }));
+document.querySelectorAll("[data-english-filter]").forEach(btn => btn.addEventListener("click", () => { englishFilter = btn.dataset.englishFilter; visibleCount = 10; document.querySelectorAll("[data-english-filter]").forEach(option => option.classList.toggle("active", option === btn)); render(); }));
 const resetButton = q("reset");
-if (resetButton) resetButton.addEventListener("click", () => { q("search").value = ""; q("need-blind").checked = false; q("test-flexible").checked = false; q("fee-waiver").checked = false; englishFilter = "all"; document.querySelectorAll("[data-english-filter]").forEach(option => option.classList.toggle("active", option.dataset.englishFilter === "all")); render(); });
+if (resetButton) resetButton.addEventListener("click", () => { q("search").value = ""; q("need-blind").checked = false; q("test-flexible").checked = false; q("fee-waiver").checked = false; englishFilter = "all"; visibleCount = 10; document.querySelectorAll("[data-english-filter]").forEach(option => option.classList.toggle("active", option.dataset.englishFilter === "all")); render(); });
+const showMoreButton = q("show-more");
+if (showMoreButton) showMoreButton.addEventListener("click", () => { visibleCount += 10; render(); });
 document.querySelectorAll("[data-lang]").forEach(btn => btn.addEventListener("click", () => { language = btn.dataset.lang; updateLanguage(); }));
 updateLanguage();
