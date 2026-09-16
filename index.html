@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2311263f'/%3E%3Cpath d='M14 22 32 13l18 9-18 9-18-9Zm5 8v13l13 7 13-7V30l-13 7-13-7Z' fill='%23f1c66a'/%3E%3C/svg%3E" />
-    <link rel="stylesheet" href="styles.css?v=9" />
+    <link rel="stylesheet" href="styles.css?v=10" />
   </head>
   <body>
     <header class="topbar">
@@ -93,6 +93,40 @@
               <fieldset class="english-filter"><legend data-i18n="englishLabel">Англійська</legend><div class="english-options"><button type="button" class="active" data-english-filter="all" data-i18n="englishAll">Усі варіанти</button><button type="button" data-english-filter="required" data-i18n="englishRequired">Потрібен за певних умов</button><button type="button" data-english-filter="notRequired" data-i18n="englishNotRequired">Зазвичай не потрібен</button></div></fieldset>
             </div>
           </div>
+        </div>
+
+        <div id="college-randomizer" class="college-randomizer">
+          <div id="random-teaser" class="random-teaser">
+            <span data-i18n="randomTeaserLabel">Не знаєте, з чого почати?</span>
+            <strong data-i18n="randomTeaserTitle">Довірте перший вибір випадку.</strong>
+            <p data-i18n="randomTeaserText">Потягніть важіль — ми покажемо один університет із повної бази.</p>
+          </div>
+          <section id="random-reveal" class="random-reveal" aria-live="polite" hidden>
+            <button id="random-reveal-close" class="random-reveal__close" type="button" data-i18n-aria="randomClose" aria-label="Закрити результат">×</button>
+            <div class="random-reveal__photo"><img id="random-reveal-image" src="" alt="" /></div>
+            <div class="random-reveal__copy">
+              <span data-i18n="randomResult">Ваш випадковий вибір</span>
+              <strong id="random-reveal-name">—</strong>
+              <p id="random-reveal-location"></p>
+              <a id="random-reveal-link" href="#" data-i18n="randomOpen">Відкрити профіль →</a>
+            </div>
+          </section>
+
+          <aside class="random-lever" aria-labelledby="random-lever-title">
+            <div class="random-lever__heading">
+              <span aria-hidden="true">RND</span>
+              <strong id="random-lever-title" data-i18n="randomTitle">Випадковий університет</strong>
+            </div>
+            <div class="random-lever__track">
+              <span class="random-lever__threshold"></span>
+              <button id="random-lever-handle" class="random-lever__handle" type="button" role="slider" aria-orientation="vertical" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-i18n-aria="randomAria" aria-label="Потягніть важіль вниз або натисніть, щоб обрати випадковий університет">
+                <span class="random-lever__knob"></span>
+                <span class="random-lever__stem"></span>
+              </button>
+            </div>
+            <p data-i18n="randomHint">Затисніть і потягніть вниз</p>
+            <span class="random-lever__count"><b id="random-college-count">75</b> <span data-i18n="randomCount">у базі</span></span>
+          </aside>
         </div>
 
         <div id="search-prompt" class="search-prompt"><span aria-hidden="true">01</span><div><strong data-i18n="searchPromptTitle">Почніть пошук</strong><p data-i18n="searchPromptText">Список університетів з’явиться після введення запиту або вибору хоча б одного фільтра.</p></div></div>
@@ -207,8 +241,8 @@
     </main>
 
     <footer><div><strong>FullRide UA</strong><span data-i18n="footerTagline">Перевіряйте. Порівнюйте. Подавайтеся усвідомлено.</span></div><div class="footer-meta"><span>© 2026</span><span data-i18n="footer">Пілотна версія · Дані потребують регулярної перевірки</span></div></footer>
-    <script src="data.js?v=9"></script>
-    <script src="app.js?v=9"></script>
+    <script src="data.js?v=10"></script>
+    <script src="app.js?v=10"></script>
     <script src="roi-data.js?v=9"></script>
     <script src="roi.js?v=9"></script>
   </body>

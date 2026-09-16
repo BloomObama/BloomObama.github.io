@@ -14,10 +14,21 @@ Object.assign(translations.en, {
   filterHint:"Enter a university, city, state or field — or open the advanced filters.", filterToggle:"All filters", filterClose:"Collapse filters", regionLabel:"Region", allRegions:"All regions", northeast:"Northeast", south:"South", midwest:"Midwest", west:"West", stateLabel:"State", allStates:"All states", typeLabel:"Institution type", allTypes:"All types", researchUniversity:"Research university", liberalArts:"Liberal arts", specialized:"Specialized", settingLabel:"Setting", allSettings:"Any setting", urban:"Major city", suburban:"Suburban", town:"College town", rural:"Rural campus", aidPolicyLabel:"Aid policy", allAid:"Any policy", meritFocus:"Merit scholarships", limitedAid:"Limited aid", focusLabel:"Academic focus", allFocus:"All fields", businessFocus:"Business & economics", artsFocus:"Arts & design", socialFocus:"Social sciences", healthFocus:"Health & medicine", searchPromptTitle:"Start your search", searchPromptText:"The university list appears after you enter a query or choose at least one filter.", hideResults:"Hide results", showResults:"Show results", auditTitle:"2026–27 data audit", auditText:"10 profiles are fully checked against official sources; the rest are clearly marked as pending review.", verificationLabel:"Data status", allVerification:"All statuses", verifiedOnly:"Verified for 2026–27", pendingOnly:"Review pending", verifiedBadge:"Verified · Sep 16, 2026", pendingBadge:"Review required", pendingCard:"This university's policies have not completed the full audit. Open the profile and official source before applying.", viewProfile:"Open profile", fieldSource:"Source ↗"
 });
 
+Object.assign(translations.uk, {
+  randomTitle:"Випадковий університет", randomHint:"Затисніть і потягніть вниз", randomCount:"у базі", randomAria:"Потягніть важіль вниз або натисніть, щоб обрати випадковий університет", randomResult:"Ваш випадковий вибір", randomOpen:"Відкрити профіль →", randomClose:"Закрити результат", randomImageAlt:"Кампус: {name}", randomTeaserLabel:"Не знаєте, з чого почати?", randomTeaserTitle:"Довірте перший вибір випадку.", randomTeaserText:"Потягніть важіль — ми покажемо один університет із повної бази."
+});
+Object.assign(translations.ru, {
+  randomTitle:"Случайный университет", randomHint:"Зажмите и потяните вниз", randomCount:"в базе", randomAria:"Потяните рычаг вниз или нажмите, чтобы выбрать случайный университет", randomResult:"Ваш случайный выбор", randomOpen:"Открыть профиль →", randomClose:"Закрыть результат", randomImageAlt:"Кампус: {name}", randomTeaserLabel:"Не знаете, с чего начать?", randomTeaserTitle:"Доверьте первый выбор случаю.", randomTeaserText:"Потяните рычаг — мы покажем один университет из всей базы."
+});
+Object.assign(translations.en, {
+  randomTitle:"Random university", randomHint:"Hold and pull down", randomCount:"in the directory", randomAria:"Pull the lever down or press it to choose a random university", randomResult:"Your random pick", randomOpen:"Open profile →", randomClose:"Close result", randomImageAlt:"Campus: {name}", randomTeaserLabel:"Not sure where to start?", randomTeaserTitle:"Leave the first choice to chance.", randomTeaserText:"Pull the lever and we will reveal one university from the full directory."
+});
+
 let language = "uk";
 let englishFilter = "all";
 let visibleCount = 10;
 let resultsExpanded = true;
+let selectedRandomCollege = null;
 const q = id => document.getElementById(id);
 const t = key => translations[language][key] || key;
 const showMoreLabels = { uk:"Показати ще", ru:"Показать ещё", en:"Show more" };
@@ -48,6 +59,8 @@ function updateLanguage() {
   document.querySelectorAll("[data-i18n-aria]").forEach(element => { element.setAttribute("aria-label", t(element.dataset.i18nAria)); });
   document.querySelectorAll("[data-lang]").forEach(button => button.classList.toggle("active", button.dataset.lang === language));
   if (q("record-label")) q("record-label").textContent = recordLabels[language];
+  if (q("random-college-count")) q("random-college-count").textContent = colleges.length;
+  if (selectedRandomCollege) updateRandomReveal(selectedRandomCollege);
   if (typeof window.updateRoiLanguage === "function") window.updateRoiLanguage(language);
   render();
 }
@@ -145,6 +158,136 @@ q("reset")?.addEventListener("click", () => {
 });
 q("show-more")?.addEventListener("click", () => { visibleCount += 10; render(); });
 document.querySelectorAll("[data-lang]").forEach(button => button.addEventListener("click", () => { language = button.dataset.lang; updateLanguage(); }));
+
+const randomHandle = q("random-lever-handle");
+const randomLever = document.querySelector(".random-lever");
+let leverProgress = 0;
+let leverStartY = 0;
+let leverDragging = false;
+let leverTriggered = false;
+let suppressLeverClick = false;
+
+function setLeverProgress(progress) {
+  leverProgress = Math.max(0, Math.min(1, progress));
+  randomLever?.style.setProperty("--pull", leverProgress.toFixed(3));
+  randomHandle?.setAttribute("aria-valuenow", String(Math.round(leverProgress * 100)));
+  randomLever?.classList.toggle("is-ready", leverProgress >= .72);
+}
+
+function randomIndex(max) {
+  if (window.crypto?.getRandomValues) {
+    const value = new Uint32Array(1);
+    window.crypto.getRandomValues(value);
+    return value[0] % max;
+  }
+  return Math.floor(Math.random() * max);
+}
+
+function pickRandomCollege() {
+  if (!colleges.length) return null;
+  let next = colleges[randomIndex(colleges.length)];
+  if (colleges.length > 1) {
+    while (next === selectedRandomCollege) next = colleges[randomIndex(colleges.length)];
+  }
+  return next;
+}
+
+function updateRandomReveal(college) {
+  const image = q("random-reveal-image");
+  if (!college || !image) return;
+  image.src = college.photo;
+  image.alt = t("randomImageAlt").replace("{name}", college.name);
+  q("random-reveal-name").textContent = college.name;
+  q("random-reveal-location").textContent = college.location;
+  q("random-reveal-link").href = `university.html?id=${encodeURIComponent(college.slug)}&lang=${language}`;
+}
+
+function showRandomCollege() {
+  if (randomLever?.classList.contains("is-spinning")) return;
+  const college = pickRandomCollege();
+  if (!college) return;
+  selectedRandomCollege = college;
+  randomLever?.classList.add("is-spinning");
+  q("random-teaser").hidden = true;
+  q("random-reveal").hidden = false;
+  q("random-reveal").classList.remove("is-visible");
+  updateRandomReveal(college);
+
+  window.setTimeout(() => {
+    selectFilters.forEach(id => { q(id).value = ""; });
+    checkboxFilters.forEach(id => { q(id).checked = false; });
+    englishFilter = "all";
+    document.querySelectorAll("[data-english-filter]").forEach(option => option.classList.toggle("active", option.dataset.englishFilter === "all"));
+    q("search").value = college.name;
+    visibleCount = 10;
+    resultsExpanded = true;
+    render();
+    q("random-reveal").classList.add("is-visible");
+    randomLever?.classList.remove("is-spinning", "is-ready");
+    setLeverProgress(0);
+    window.setTimeout(() => document.querySelector("#results .card")?.scrollIntoView({ behavior:"smooth", block:"center" }), 120);
+  }, 520);
+}
+
+randomHandle?.addEventListener("pointerdown", event => {
+  if (event.button !== undefined && event.button !== 0) return;
+  leverDragging = true;
+  leverTriggered = false;
+  suppressLeverClick = false;
+  leverStartY = event.clientY;
+  randomHandle.setPointerCapture(event.pointerId);
+  randomLever?.classList.add("is-dragging");
+  event.preventDefault();
+});
+
+randomHandle?.addEventListener("pointermove", event => {
+  if (!leverDragging) return;
+  const progress = Math.max(0, (event.clientY - leverStartY) / 112);
+  setLeverProgress(progress);
+  if (progress > .08) suppressLeverClick = true;
+  if (progress >= .96 && !leverTriggered) {
+    leverTriggered = true;
+    showRandomCollege();
+  }
+});
+
+function releaseLever(event) {
+  if (!leverDragging) return;
+  leverDragging = false;
+  randomLever?.classList.remove("is-dragging");
+  if (randomHandle?.hasPointerCapture(event.pointerId)) randomHandle.releasePointerCapture(event.pointerId);
+  if (!leverTriggered) setLeverProgress(0);
+}
+
+randomHandle?.addEventListener("pointerup", releaseLever);
+randomHandle?.addEventListener("pointercancel", releaseLever);
+randomHandle?.addEventListener("click", event => {
+  if (suppressLeverClick) {
+    suppressLeverClick = false;
+    event.preventDefault();
+    return;
+  }
+  setLeverProgress(1);
+  showRandomCollege();
+});
+randomHandle?.addEventListener("keydown", event => {
+  if (!["ArrowDown", "ArrowUp", "Home", "End"].includes(event.key)) return;
+  event.preventDefault();
+  if (event.key === "Home") setLeverProgress(0);
+  if (event.key === "ArrowUp") setLeverProgress(leverProgress - .2);
+  if (event.key === "ArrowDown") setLeverProgress(leverProgress + .2);
+  if (event.key === "End" || leverProgress >= .96) {
+    setLeverProgress(1);
+    showRandomCollege();
+  }
+});
+q("random-reveal-close")?.addEventListener("click", () => {
+  q("random-reveal").classList.remove("is-visible");
+  window.setTimeout(() => {
+    q("random-reveal").hidden = true;
+    q("random-teaser").hidden = false;
+  }, 180);
+});
 
 populateStates();
 updateLanguage();
