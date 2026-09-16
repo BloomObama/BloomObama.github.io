@@ -34,6 +34,16 @@ Object.assign(translations.en, {
   savedList:"My list", savedLocal:"Saved in this browser", saveCollege:"Save", savedCollege:"Saved", emptyShortlist:"Your list is empty. Add universities with the star on each card.", routesAria:"Quick discovery routes", routesLabel:"Or choose your signal", routeAid:"Maximum aid", routeTest:"Flexible testing", routeStem:"STEM", routeCity:"Major city", routeVerified:"Verified only", nextLabel:"Personal route", nextTitle:"Do not lose this option.", nextText:"One result is not the end of the search; it is a point to investigate. Save it, open the profile and confirm the rules on the official site.", nextSave:"Add to my list", nextSaved:"In my list", randomAgain:"Another random option"
 });
 
+Object.assign(translations.uk, {
+  savedListShort:"Обране", collectionLabel:"Особиста колекція", collectionTitle:"Мої університети", collectionClose:"Закрити колекцію", collectionSaved:"збережено", collectionShow:"Показати на сторінці", collectionContinue:"Продовжити пошук", collectionEmptyTitle:"Тут поки тихо.", collectionEmptyText:"Натискайте зірку на картках — університети з’являться тут і залишаться після перезавантаження.", collectionOpen:"Відкрити профіль", collectionRemove:"Прибрати", collectionVerified:"Перевірено", collectionPending:"Очікує перевірки"
+});
+Object.assign(translations.ru, {
+  savedListShort:"Избранное", collectionLabel:"Личная коллекция", collectionTitle:"Мои университеты", collectionClose:"Закрыть коллекцию", collectionSaved:"сохранено", collectionShow:"Показать на странице", collectionContinue:"Продолжить поиск", collectionEmptyTitle:"Здесь пока тихо.", collectionEmptyText:"Нажимайте звезду на карточках — университеты появятся здесь и останутся после перезагрузки.", collectionOpen:"Открыть профиль", collectionRemove:"Убрать", collectionVerified:"Проверено", collectionPending:"Ожидает проверки"
+});
+Object.assign(translations.en, {
+  savedListShort:"Saved", collectionLabel:"Personal collection", collectionTitle:"My universities", collectionClose:"Close collection", collectionSaved:"saved", collectionShow:"Show on page", collectionContinue:"Continue searching", collectionEmptyTitle:"Nothing here yet.", collectionEmptyText:"Tap the star on any card. Universities will appear here and stay after a reload.", collectionOpen:"Open profile", collectionRemove:"Remove", collectionVerified:"Verified", collectionPending:"Review pending"
+});
+
 let language = "uk";
 let englishFilter = "all";
 let visibleCount = 10;
@@ -68,6 +78,27 @@ function toggleShortlist(slug) {
   else shortlistedColleges.add(slug);
   saveShortlist();
   render();
+}
+
+function renderShortlistDrawer() {
+  const saved = [...shortlistedColleges].map(slug => colleges.find(college => college.slug === slug)).filter(Boolean);
+  q("shortlist-drawer-count").textContent = saved.length;
+  q("show-saved-results").disabled = !saved.length;
+  q("shortlist-drawer-list").innerHTML = saved.length ? saved.map((college, index) => `
+    <article class="saved-drawer-card">
+      <a class="saved-drawer-card__photo" href="university.html?id=${encodeURIComponent(college.slug)}&lang=${language}"><img src="${college.photo}" alt="${t("randomImageAlt").replace("{name}", college.name)}" /></a>
+      <div class="saved-drawer-card__copy">
+        <span>${String(index + 1).padStart(2, "0")} · ${t(college.verified ? "collectionVerified" : "collectionPending")}</span>
+        <h3>${college.name}</h3>
+        <p>${college.location}</p>
+        <div><a href="university.html?id=${encodeURIComponent(college.slug)}&lang=${language}">${t("collectionOpen")} →</a><button type="button" data-drawer-remove="${college.slug}">${t("collectionRemove")}</button></div>
+      </div>
+    </article>`).join("") : `
+    <div class="shortlist-empty">
+      <div aria-hidden="true"><span>★</span><i></i><i></i><i></i></div>
+      <strong>${t("collectionEmptyTitle")}</strong>
+      <p>${t("collectionEmptyText")}</p>
+    </div>`;
 }
 
 function populateStates() {
@@ -121,9 +152,9 @@ function updateLanguage() {
 function render() {
   q("college-count").textContent = colleges.length;
   updateDiscoveryUI();
-  q("shortlist-count").textContent = shortlistedColleges.size;
-  q("shortlist-toggle").classList.toggle("active", shortlistMode);
-  q("shortlist-toggle").setAttribute("aria-pressed", String(shortlistMode));
+  document.querySelectorAll("[data-shortlist-count]").forEach(element => { element.textContent = shortlistedColleges.size; });
+  q("shortlist-toggle").classList.toggle("active", shortlistMode || document.body.classList.contains("shortlist-open"));
+  renderShortlistDrawer();
   if (q("audit-count")) q("audit-count").textContent = `${colleges.filter(college => college.verified).length} / ${colleges.length}`;
   const hasInput = hasFinderInput();
   q("search-prompt").hidden = hasInput;
@@ -215,12 +246,55 @@ q("filter-toggle")?.addEventListener("click", () => {
   render();
 });
 q("results-toggle")?.addEventListener("click", () => { resultsExpanded = !resultsExpanded; render(); });
-q("shortlist-toggle")?.addEventListener("click", () => {
-  shortlistMode = !shortlistMode;
+let shortlistDrawerTrigger = null;
+function openShortlistDrawer(trigger) {
+  shortlistDrawerTrigger = trigger || document.activeElement;
+  renderShortlistDrawer();
+  document.body.classList.add("shortlist-open");
+  q("shortlist-drawer").setAttribute("aria-hidden", "false");
+  q("shortlist-backdrop").setAttribute("aria-hidden", "false");
+  document.querySelectorAll("[data-shortlist-open]").forEach(button => button.setAttribute("aria-expanded", "true"));
+  q("shortlist-toggle").classList.add("active");
+  window.setTimeout(() => q("shortlist-close").focus(), 80);
+}
+
+function closeShortlistDrawer(returnFocus = true) {
+  document.body.classList.remove("shortlist-open");
+  q("shortlist-drawer").setAttribute("aria-hidden", "true");
+  q("shortlist-backdrop").setAttribute("aria-hidden", "true");
+  document.querySelectorAll("[data-shortlist-open]").forEach(button => button.setAttribute("aria-expanded", "false"));
+  q("shortlist-toggle").classList.toggle("active", shortlistMode);
+  if (returnFocus && shortlistDrawerTrigger?.focus) shortlistDrawerTrigger.focus();
+}
+
+document.querySelectorAll("[data-shortlist-open]").forEach(button => button.addEventListener("click", () => openShortlistDrawer(button)));
+q("shortlist-close")?.addEventListener("click", () => closeShortlistDrawer());
+q("shortlist-backdrop")?.addEventListener("click", () => closeShortlistDrawer());
+q("shortlist-drawer-list")?.addEventListener("click", event => {
+  const removeButton = event.target.closest("[data-drawer-remove]");
+  if (removeButton) toggleShortlist(removeButton.dataset.drawerRemove);
+});
+q("show-saved-results")?.addEventListener("click", () => {
+  q("search").value = "";
+  selectFilters.forEach(id => { q(id).value = ""; });
+  checkboxFilters.forEach(id => { q(id).checked = false; });
+  englishFilter = "all";
+  shortlistMode = true;
   activeDiscoveryRoute = "";
   visibleCount = 10;
   resultsExpanded = true;
+  document.querySelectorAll("[data-english-filter]").forEach(option => option.classList.toggle("active", option.dataset.englishFilter === "all"));
+  closeShortlistDrawer(false);
   render();
+  window.setTimeout(() => q("results-shell")?.scrollIntoView({ behavior:"smooth", block:"start" }), 80);
+});
+q("continue-search")?.addEventListener("click", () => {
+  closeShortlistDrawer(false);
+  q("finder")?.scrollIntoView({ behavior:"smooth", block:"start" });
+  window.setTimeout(() => q("search")?.focus(), 350);
+});
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape" && document.body.classList.contains("shortlist-open")) closeShortlistDrawer();
 });
 q("reset")?.addEventListener("click", () => {
   q("search").value = "";
