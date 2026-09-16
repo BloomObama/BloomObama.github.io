@@ -8,8 +8,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230c2b24'/%3E%3Cpath d='M14 22 32 13l18 9-18 9-18-9Zm5 8v13l13 7 13-7V30l-13 7-13-7Z' fill='%23c6ed6d'/%3E%3C/svg%3E" />
-    <link rel="stylesheet" href="styles.css?v=8" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2311263f'/%3E%3Cpath d='M14 22 32 13l18 9-18 9-18-9Zm5 8v13l13 7 13-7V30l-13 7-13-7Z' fill='%23f1c66a'/%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="styles.css?v=9" />
   </head>
   <body>
     <header class="topbar">
@@ -60,6 +60,12 @@
           <p data-i18n="finderHint">Фільтри не замінюють перевірку вимог. Відкрийте офіційну сторінку перед подачею.</p>
         </div>
 
+        <div class="data-audit" role="status">
+          <span class="data-audit-mark" aria-hidden="true">✓</span>
+          <div><strong data-i18n="auditTitle">Аудит даних 2026–27</strong><p data-i18n="auditText">10 профілів повністю звірено з офіційними джерелами; решта позначені як такі, що очікують перевірки.</p></div>
+          <span id="audit-count" class="data-audit-count">10 / 75</span>
+        </div>
+
         <div class="filter-panel">
           <label class="search-field">
             <span class="sr-only" data-i18n="searchLabel">Назва університету</span>
@@ -78,6 +84,7 @@
               <label><span data-i18n="settingLabel">Середовище</span><select id="setting-filter"><option value="" data-i18n="allSettings">Будь-яке</option><option value="urban" data-i18n="urban">Велике місто</option><option value="suburban" data-i18n="suburban">Передмістя</option><option value="town" data-i18n="town">Невелике місто</option><option value="rural" data-i18n="rural">Кампус поза містом</option></select></label>
               <label><span data-i18n="aidPolicyLabel">Фінансова політика</span><select id="aid-filter"><option value="" data-i18n="allAid">Будь-яка</option><option value="need-blind">Need-blind</option><option value="need-aware">Need-aware / aid available</option><option value="merit" data-i18n="meritFocus">Merit scholarships</option><option value="limited" data-i18n="limitedAid">Обмежена допомога</option></select></label>
               <label><span data-i18n="focusLabel">Академічний напрям</span><select id="focus-filter"><option value="" data-i18n="allFocus">Усі напрями</option><option value="stem">STEM</option><option value="business" data-i18n="businessFocus">Бізнес та економіка</option><option value="arts" data-i18n="artsFocus">Мистецтво та дизайн</option><option value="social-sciences" data-i18n="socialFocus">Соціальні науки</option><option value="health" data-i18n="healthFocus">Медицина та здоров’я</option></select></label>
+              <label><span data-i18n="verificationLabel">Статус даних</span><select id="verification-filter"><option value="" data-i18n="allVerification">Усі статуси</option><option value="verified" data-i18n="verifiedOnly">Перевірено 2026–27</option><option value="pending" data-i18n="pendingOnly">Очікує перевірки</option></select></label>
             </div>
             <div class="filters" role="group" data-i18n-aria="filterGroup">
               <label class="filter-check"><input id="need-blind" type="checkbox" /><span data-i18n="needBlind">Need-blind для international</span></label>
@@ -200,9 +207,9 @@
     </main>
 
     <footer><div><strong>FullRide UA</strong><span data-i18n="footerTagline">Перевіряйте. Порівнюйте. Подавайтеся усвідомлено.</span></div><div class="footer-meta"><span>© 2026</span><span data-i18n="footer">Пілотна версія · Дані потребують регулярної перевірки</span></div></footer>
-    <script src="data.js?v=8"></script>
-    <script src="app.js?v=8"></script>
-    <script src="roi-data.js?v=8"></script>
-    <script src="roi.js?v=8"></script>
+    <script src="data.js?v=9"></script>
+    <script src="app.js?v=9"></script>
+    <script src="roi-data.js?v=9"></script>
+    <script src="roi.js?v=9"></script>
   </body>
 </html>

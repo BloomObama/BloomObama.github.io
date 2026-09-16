@@ -5,13 +5,13 @@ const translations = {
 };
 
 Object.assign(translations.uk, {
-  filterHint:"Введіть назву, місто, штат або напрям — чи відкрийте розширені фільтри.", filterToggle:"Усі фільтри", filterClose:"Згорнути фільтри", regionLabel:"Регіон", allRegions:"Усі регіони", northeast:"Північний схід", south:"Південь", midwest:"Середній захід", west:"Захід", stateLabel:"Штат", allStates:"Усі штати", typeLabel:"Тип закладу", allTypes:"Усі типи", researchUniversity:"Дослідницький університет", liberalArts:"Liberal arts", specialized:"Спеціалізований", settingLabel:"Середовище", allSettings:"Будь-яке", urban:"Велике місто", suburban:"Передмістя", town:"Невелике місто", rural:"Кампус поза містом", aidPolicyLabel:"Фінансова політика", allAid:"Будь-яка", meritFocus:"Merit scholarships", limitedAid:"Обмежена допомога", focusLabel:"Академічний напрям", allFocus:"Усі напрями", businessFocus:"Бізнес та економіка", artsFocus:"Мистецтво та дизайн", socialFocus:"Соціальні науки", healthFocus:"Медицина та здоров’я", searchPromptTitle:"Почніть пошук", searchPromptText:"Список університетів з’явиться після введення запиту або вибору хоча б одного фільтра.", hideResults:"Сховати список", showResults:"Показати список"
+  filterHint:"Введіть назву, місто, штат або напрям — чи відкрийте розширені фільтри.", filterToggle:"Усі фільтри", filterClose:"Згорнути фільтри", regionLabel:"Регіон", allRegions:"Усі регіони", northeast:"Північний схід", south:"Південь", midwest:"Середній захід", west:"Захід", stateLabel:"Штат", allStates:"Усі штати", typeLabel:"Тип закладу", allTypes:"Усі типи", researchUniversity:"Дослідницький університет", liberalArts:"Liberal arts", specialized:"Спеціалізований", settingLabel:"Середовище", allSettings:"Будь-яке", urban:"Велике місто", suburban:"Передмістя", town:"Невелике місто", rural:"Кампус поза містом", aidPolicyLabel:"Фінансова політика", allAid:"Будь-яка", meritFocus:"Merit scholarships", limitedAid:"Обмежена допомога", focusLabel:"Академічний напрям", allFocus:"Усі напрями", businessFocus:"Бізнес та економіка", artsFocus:"Мистецтво та дизайн", socialFocus:"Соціальні науки", healthFocus:"Медицина та здоров’я", searchPromptTitle:"Почніть пошук", searchPromptText:"Список університетів з’явиться після введення запиту або вибору хоча б одного фільтра.", hideResults:"Сховати список", showResults:"Показати список", auditTitle:"Аудит даних 2026–27", auditText:"10 профілів повністю звірено з офіційними джерелами; решта позначені як такі, що очікують перевірки.", verificationLabel:"Статус даних", allVerification:"Усі статуси", verifiedOnly:"Перевірено 2026–27", pendingOnly:"Очікує перевірки", verifiedBadge:"Перевірено · 16.09.2026", pendingBadge:"Потребує перевірки", pendingCard:"Політики цього університету ще не пройшли повний аудит. Відкрийте профіль та офіційне джерело перед подачею.", viewProfile:"Відкрити профіль", fieldSource:"Джерело ↗"
 });
 Object.assign(translations.ru, {
-  filterHint:"Введите название, город, штат или направление — либо откройте расширенные фильтры.", filterToggle:"Все фильтры", filterClose:"Свернуть фильтры", regionLabel:"Регион", allRegions:"Все регионы", northeast:"Северо-восток", south:"Юг", midwest:"Средний Запад", west:"Запад", stateLabel:"Штат", allStates:"Все штаты", typeLabel:"Тип учреждения", allTypes:"Все типы", researchUniversity:"Исследовательский университет", liberalArts:"Liberal arts", specialized:"Специализированный", settingLabel:"Окружение", allSettings:"Любое", urban:"Большой город", suburban:"Пригород", town:"Небольшой город", rural:"Кампус вне города", aidPolicyLabel:"Финансовая политика", allAid:"Любая", meritFocus:"Merit scholarships", limitedAid:"Ограниченная помощь", focusLabel:"Академическое направление", allFocus:"Все направления", businessFocus:"Бизнес и экономика", artsFocus:"Искусство и дизайн", socialFocus:"Социальные науки", healthFocus:"Медицина и здоровье", searchPromptTitle:"Начните поиск", searchPromptText:"Список университетов появится после ввода запроса или выбора хотя бы одного фильтра.", hideResults:"Скрыть список", showResults:"Показать список"
+  filterHint:"Введите название, город, штат или направление — либо откройте расширенные фильтры.", filterToggle:"Все фильтры", filterClose:"Свернуть фильтры", regionLabel:"Регион", allRegions:"Все регионы", northeast:"Северо-восток", south:"Юг", midwest:"Средний Запад", west:"Запад", stateLabel:"Штат", allStates:"Все штаты", typeLabel:"Тип учреждения", allTypes:"Все типы", researchUniversity:"Исследовательский университет", liberalArts:"Liberal arts", specialized:"Специализированный", settingLabel:"Окружение", allSettings:"Любое", urban:"Большой город", suburban:"Пригород", town:"Небольшой город", rural:"Кампус вне города", aidPolicyLabel:"Финансовая политика", allAid:"Любая", meritFocus:"Merit scholarships", limitedAid:"Ограниченная помощь", focusLabel:"Академическое направление", allFocus:"Все направления", businessFocus:"Бизнес и экономика", artsFocus:"Искусство и дизайн", socialFocus:"Социальные науки", healthFocus:"Медицина и здоровье", searchPromptTitle:"Начните поиск", searchPromptText:"Список университетов появится после ввода запроса или выбора хотя бы одного фильтра.", hideResults:"Скрыть список", showResults:"Показать список", auditTitle:"Аудит данных 2026–27", auditText:"10 профилей полностью сверены с официальными источниками; остальные честно отмечены как ожидающие проверки.", verificationLabel:"Статус данных", allVerification:"Все статусы", verifiedOnly:"Проверено 2026–27", pendingOnly:"Ожидает проверки", verifiedBadge:"Проверено · 16.09.2026", pendingBadge:"Требует проверки", pendingCard:"Политики этого университета ещё не прошли полный аудит. Откройте профиль и официальный источник перед подачей.", viewProfile:"Открыть профиль", fieldSource:"Источник ↗"
 });
 Object.assign(translations.en, {
-  filterHint:"Enter a university, city, state or field — or open the advanced filters.", filterToggle:"All filters", filterClose:"Collapse filters", regionLabel:"Region", allRegions:"All regions", northeast:"Northeast", south:"South", midwest:"Midwest", west:"West", stateLabel:"State", allStates:"All states", typeLabel:"Institution type", allTypes:"All types", researchUniversity:"Research university", liberalArts:"Liberal arts", specialized:"Specialized", settingLabel:"Setting", allSettings:"Any setting", urban:"Major city", suburban:"Suburban", town:"College town", rural:"Rural campus", aidPolicyLabel:"Aid policy", allAid:"Any policy", meritFocus:"Merit scholarships", limitedAid:"Limited aid", focusLabel:"Academic focus", allFocus:"All fields", businessFocus:"Business & economics", artsFocus:"Arts & design", socialFocus:"Social sciences", healthFocus:"Health & medicine", searchPromptTitle:"Start your search", searchPromptText:"The university list appears after you enter a query or choose at least one filter.", hideResults:"Hide results", showResults:"Show results"
+  filterHint:"Enter a university, city, state or field — or open the advanced filters.", filterToggle:"All filters", filterClose:"Collapse filters", regionLabel:"Region", allRegions:"All regions", northeast:"Northeast", south:"South", midwest:"Midwest", west:"West", stateLabel:"State", allStates:"All states", typeLabel:"Institution type", allTypes:"All types", researchUniversity:"Research university", liberalArts:"Liberal arts", specialized:"Specialized", settingLabel:"Setting", allSettings:"Any setting", urban:"Major city", suburban:"Suburban", town:"College town", rural:"Rural campus", aidPolicyLabel:"Aid policy", allAid:"Any policy", meritFocus:"Merit scholarships", limitedAid:"Limited aid", focusLabel:"Academic focus", allFocus:"All fields", businessFocus:"Business & economics", artsFocus:"Arts & design", socialFocus:"Social sciences", healthFocus:"Health & medicine", searchPromptTitle:"Start your search", searchPromptText:"The university list appears after you enter a query or choose at least one filter.", hideResults:"Hide results", showResults:"Show results", auditTitle:"2026–27 data audit", auditText:"10 profiles are fully checked against official sources; the rest are clearly marked as pending review.", verificationLabel:"Data status", allVerification:"All statuses", verifiedOnly:"Verified for 2026–27", pendingOnly:"Review pending", verifiedBadge:"Verified · Sep 16, 2026", pendingBadge:"Review required", pendingCard:"This university's policies have not completed the full audit. Open the profile and official source before applying.", viewProfile:"Open profile", fieldSource:"Source ↗"
 });
 
 let language = "uk";
@@ -22,7 +22,7 @@ const q = id => document.getElementById(id);
 const t = key => translations[language][key] || key;
 const showMoreLabels = { uk:"Показати ще", ru:"Показать ещё", en:"Show more" };
 const recordLabels = { uk:"університетів у базі", ru:"университетов в базе", en:"universities in the directory" };
-const selectFilters = ["region-filter", "state-filter", "type-filter", "setting-filter", "aid-filter", "focus-filter"];
+const selectFilters = ["region-filter", "state-filter", "type-filter", "setting-filter", "aid-filter", "focus-filter", "verification-filter"];
 const checkboxFilters = ["need-blind", "test-flexible", "fee-waiver"];
 
 function populateStates() {
@@ -54,6 +54,7 @@ function updateLanguage() {
 
 function render() {
   q("college-count").textContent = colleges.length;
+  if (q("audit-count")) q("audit-count").textContent = `${colleges.filter(college => college.verified).length} / ${colleges.length}`;
   const hasInput = hasFinderInput();
   q("search-prompt").hidden = hasInput;
   q("results-shell").hidden = !hasInput;
@@ -69,13 +70,17 @@ function render() {
   const text = q("search").value.trim().toLowerCase();
   const matches = colleges.filter(college => {
     const searchable = `${college.name} ${college.short} ${college.location} ${college.description} ${college.focus.join(" ")}`.toLowerCase();
-    return (!text || searchable.includes(text))
+    const shortQueryMatch = text.length <= 3
+      ? college.short.toLowerCase() === text || `${college.name} ${college.location}`.toLowerCase().split(/\s+/).some(word => word.startsWith(text))
+      : searchable.includes(text);
+    return (!text || shortQueryMatch)
       && (!q("region-filter").value || college.region === q("region-filter").value)
       && (!q("state-filter").value || college.state === q("state-filter").value)
       && (!q("type-filter").value || college.institutionType === q("type-filter").value)
       && (!q("setting-filter").value || college.setting === q("setting-filter").value)
       && (!q("aid-filter").value || college.aidCategory === q("aid-filter").value)
       && (!q("focus-filter").value || college.focus.includes(q("focus-filter").value))
+      && (!q("verification-filter").value || (q("verification-filter").value === "verified" ? college.verified : !college.verified))
       && (!q("need-blind").checked || college.needBlind)
       && (!q("test-flexible").checked || college.testFlexible)
       && (!q("fee-waiver").checked || college.feeWaiver)
@@ -89,17 +94,19 @@ function render() {
   q("results-toggle").querySelector("span").textContent = t(resultsExpanded ? "hideResults" : "showResults");
   const visibleMatches = matches.slice(0, visibleCount);
   q("results").innerHTML = matches.length ? visibleMatches.map(college => `
-    <article class="card card--photo" style="--campus:url('${college.photo}')">
+    <article class="card card--photo ${college.verified ? "card--verified" : "card--pending"}" style="--campus:url('${college.photo}')">
+      <a class="card-hit-area" href="university.html?id=${encodeURIComponent(college.slug)}&lang=${language}" aria-label="${t("viewProfile")}: ${college.name}"></a>
+      <div class="card-audit-status ${college.verified ? "is-verified" : "is-pending"}">${t(college.verified ? "verifiedBadge" : "pendingBadge")}</div>
       <div class="card-top"><div><h3>${college.name}</h3><p class="place">${college.location}</p></div><span class="badge">${college.aidShort}</span></div>
       <p class="card-description">${college.description}</p>
-      <dl class="details">
-        <div class="detail"><dt>${t("aid")}</dt><dd>${college.aid}</dd></div>
-        <div class="detail"><dt>${t("tests")}</dt><dd>${college.testing}</dd></div>
-        <div class="detail"><dt>${t("english")}</dt><dd>${college.english}</dd></div>
-        <div class="detail"><dt>${t("fee")}</dt><dd>${college.fee}</dd></div>
-        <div class="detail"><dt>${t("deadline")}</dt><dd>${college.deadline}</dd></div>
-      </dl>
-      <div class="card-footer"><a href="${college.source}" target="_blank" rel="noopener noreferrer">${t("official")}</a><a class="photo-credit" href="${college.photoSource}" target="_blank" rel="noopener noreferrer">${college.photoIsIllustrative ? t("illustrativePhoto") : `${t("photo")}: ${college.photoCredit}`}</a></div>
+      ${college.verified ? `<dl class="details">
+        <div class="detail"><dt>${t("aid")}</dt><dd>${college.aid}<a class="detail-source" href="${college.aidSource}" target="_blank" rel="noopener noreferrer">${t("fieldSource")}</a></dd></div>
+        <div class="detail"><dt>${t("tests")}</dt><dd>${college.testing}<a class="detail-source" href="${college.testingSource}" target="_blank" rel="noopener noreferrer">${t("fieldSource")}</a></dd></div>
+        <div class="detail"><dt>${t("english")}</dt><dd>${college.english}<a class="detail-source" href="${college.englishSource}" target="_blank" rel="noopener noreferrer">${t("fieldSource")}</a></dd></div>
+        <div class="detail"><dt>${t("fee")}</dt><dd>${college.fee}<a class="detail-source" href="${college.feeSource}" target="_blank" rel="noopener noreferrer">${t("fieldSource")}</a></dd></div>
+        <div class="detail"><dt>${t("deadline")}</dt><dd>${college.deadline}<a class="detail-source" href="${college.deadlineSource}" target="_blank" rel="noopener noreferrer">${t("fieldSource")}</a></dd></div>
+      </dl>` : `<div class="pending-card-note"><span>!</span><p>${t("pendingCard")}</p></div>`}
+      <div class="card-footer"><a class="profile-link" href="university.html?id=${encodeURIComponent(college.slug)}&lang=${language}">${t("viewProfile")} →</a><a href="${college.source}" target="_blank" rel="noopener noreferrer">${t("official")}</a></div>
     </article>`).join("") : `<p class="empty">${t("noResults")}</p>`;
   q("show-more").textContent = `${showMoreLabels[language]} · ${Math.max(0, Math.min(10, matches.length - visibleCount))}`;
   q("show-more").hidden = matches.length <= visibleCount || !resultsExpanded;

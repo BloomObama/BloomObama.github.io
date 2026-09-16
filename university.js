@@ -1,0 +1,100 @@
+const profileTranslations = {
+  uk: {
+    back:"До пошуку", verified:"Перевірено 16.09.2026", pending:"Очікує повної перевірки", cycle:"Дані набору", applications:"Заявок", admitted:"Зараховано", enrolled:"Вступили", international:"International", aidStat:"Фінансова допомога", statsSource:"Джерело статистики ↗", policies:"Умови подачі", aid:"Фінансова допомога", testing:"Тести", english:"Англійська", fee:"Application fee", deadline:"Дедлайни", source:"Джерело ↗", checklist:"Що перевірити перед подачею", checklistIntro:"Короткий робочий список. Точний перелік документів завжди звіряйте з офіційним checklist.", checkApplication:"Application та university supplement", checkTranscript:"Transcript, school report і завірений переклад", checkRecommendations:"Рекомендації вчителів і counselor", checkTests:"SAT/ACT або дозволена альтернатива", checkEnglish:"Підтвердження англійської, якщо потрібне", checkAid:"CSS Profile / ISFAA та фінансові документи", checkFee:"Application fee або підтверджений waiver", checkDeadlines:"Окремі дедлайни admission і financial aid", gallery:"Кампус", illustrativeGallery:"Візуальна довідка", illustrative:"Ілюстративне фото університетського середовища", galleryNote:"Фотографії ведуть на сторінки правовласників або ліцензійні джерела.", sources:"Офіційні джерела", officialApply:"Відкрити admissions", unavailable:"Університет не знайдено", unavailableText:"Поверніться до пошуку та відкрийте картку ще раз.", fullRideNote:"Важливо: «повна стипендія» не є єдиним стандартним показником. Need-based пакет розраховується індивідуально, тому ми показуємо тільки ту статистику допомоги, яку університет опублікував сам.", pendingNotice:"Політики цього профілю ще не пройшли повний аудит на цикл 2026–27. Посилання офіційне, але цифри та умови не видаються за перевірені.", footerTagline:"Дані з першоджерел, а не з рейтингів.", footer:"Перевіряйте умови перед подачею"
+  },
+  ru: {
+    back:"К поиску", verified:"Проверено 16.09.2026", pending:"Ожидает полной проверки", cycle:"Данные набора", applications:"Заявок", admitted:"Зачислено", enrolled:"Поступили", international:"International", aidStat:"Финансовая помощь", statsSource:"Источник статистики ↗", policies:"Условия подачи", aid:"Финансовая помощь", testing:"Тесты", english:"Английский", fee:"Application fee", deadline:"Дедлайны", source:"Источник ↗", checklist:"Что проверить перед подачей", checklistIntro:"Короткий рабочий список. Точный перечень документов всегда сверяйте с официальным checklist.", checkApplication:"Application и university supplement", checkTranscript:"Transcript, school report и заверенный перевод", checkRecommendations:"Рекомендации учителей и counselor", checkTests:"SAT/ACT или разрешённая альтернатива", checkEnglish:"Подтверждение английского, если требуется", checkAid:"CSS Profile / ISFAA и финансовые документы", checkFee:"Application fee или подтверждённый waiver", checkDeadlines:"Отдельные дедлайны admission и financial aid", gallery:"Кампус", illustrativeGallery:"Визуальная справка", illustrative:"Иллюстративное фото университетской среды", galleryNote:"Фотографии ведут на страницы правообладателей или лицензионные источники.", sources:"Официальные источники", officialApply:"Открыть admissions", unavailable:"Университет не найден", unavailableText:"Вернитесь к поиску и откройте карточку ещё раз.", fullRideNote:"Важно: «полная стипендия» — не единый стандартный показатель. Need-based пакет рассчитывается индивидуально, поэтому мы показываем только ту статистику помощи, которую опубликовал сам университет.", pendingNotice:"Политики этого профиля ещё не прошли полный аудит на цикл 2026–27. Ссылка официальная, но цифры и условия не выдаются за проверенные.", footerTagline:"Данные из первоисточников, а не из рейтингов.", footer:"Проверяйте условия перед подачей"
+  },
+  en: {
+    back:"Back to finder", verified:"Verified Sep 16, 2026", pending:"Full audit pending", cycle:"Admission data", applications:"Applications", admitted:"Admitted", enrolled:"Enrolled", international:"International", aidStat:"Financial aid", statsSource:"Statistics source ↗", policies:"Application policies", aid:"Financial aid", testing:"Testing", english:"English", fee:"Application fee", deadline:"Deadlines", source:"Source ↗", checklist:"What to verify before applying", checklistIntro:"A practical starting list. Always compare it with the university's official checklist.", checkApplication:"Application and university supplement", checkTranscript:"Transcript, school report and certified translation", checkRecommendations:"Teacher and counselor recommendations", checkTests:"SAT/ACT or an allowed alternative", checkEnglish:"English proficiency evidence, if required", checkAid:"CSS Profile / ISFAA and financial documents", checkFee:"Application fee or confirmed waiver", checkDeadlines:"Separate admission and financial-aid deadlines", gallery:"Campus", illustrativeGallery:"Visual reference", illustrative:"Illustrative university environment", galleryNote:"Each image links to its owner or licensing source.", sources:"Official sources", officialApply:"Open admissions", unavailable:"University not found", unavailableText:"Return to the finder and open the card again.", fullRideNote:"Important: a ‘full scholarship’ is not a single standardized metric. Need-based awards are calculated individually, so we show only aid figures the institution publishes itself.", pendingNotice:"This profile has not completed the 2026–27 policy audit. The link is official, but figures and requirements are not presented as verified.", footerTagline:"Primary sources, not rankings.", footer:"Verify requirements before applying"
+  }
+};
+
+const params = new URLSearchParams(location.search);
+let profileLanguage = ["uk","ru","en"].includes(params.get("lang")) ? params.get("lang") : "uk";
+const profileT = key => profileTranslations[profileLanguage][key] || key;
+const college = colleges.find(item => item.slug === params.get("id"));
+const profile = college ? collegeProfiles[college.slug] : null;
+
+function sourceLinks(item) {
+  const candidates = [
+    [profileT("aid"), item.aidSource], [profileT("testing"), item.testingSource], [profileT("english"), item.englishSource],
+    [profileT("fee"), item.feeSource], [profileT("deadline"), item.deadlineSource], ["Admissions", item.source]
+  ];
+  const seen = new Set();
+  return candidates.filter(([,url]) => url && !seen.has(url) && seen.add(url)).map(([label,url]) => `<a href="${url}" target="_blank" rel="noopener noreferrer"><span>${label}</span><b>↗</b></a>`).join("");
+}
+
+function policyRow(label, value, url) {
+  return `<article><span>${label}</span><p>${value}</p><a href="${url}" target="_blank" rel="noopener noreferrer">${profileT("source")}</a></article>`;
+}
+
+function renderProfile() {
+  document.documentElement.lang = profileLanguage;
+  document.querySelectorAll("[data-profile-i18n]").forEach(element => { element.textContent = profileT(element.dataset.profileI18n); });
+  document.querySelectorAll("[data-profile-lang]").forEach(button => button.classList.toggle("active", button.dataset.profileLang === profileLanguage));
+  if (!college) {
+    document.title = `${profileT("unavailable")} — FullRide UA`;
+    document.getElementById("profile-root").innerHTML = `<section class="profile-missing"><span>404</span><h1>${profileT("unavailable")}</h1><p>${profileT("unavailableText")}</p><a href="index.html#finder">${profileT("back")}</a></section>`;
+    return;
+  }
+
+  document.title = `${college.name} — FullRide UA`;
+  const stats = profile || { cycle:"2026–27 audit pending", applications:"—", admitted:"—", enrolled:"—", international:"—", aidSnapshot:profileT("pendingNotice"), statsSource:college.source, gallery:[] };
+  const gallery = [{ url:college.photo, source:college.photoSource, credit:college.photoIsIllustrative ? profileT("illustrative") : college.photoCredit }, ...(stats.gallery || [])]
+    .filter((image, index, array) => image.url && array.findIndex(candidate => candidate.url === image.url) === index);
+  const checklist = ["checkApplication","checkTranscript","checkRecommendations","checkTests","checkEnglish","checkAid","checkFee","checkDeadlines"];
+
+  document.getElementById("profile-root").innerHTML = `
+    <section class="profile-hero" style="--profile-photo:url('${college.photo}')">
+      <div class="profile-hero-shade"></div>
+      <div class="profile-hero-content">
+        <span class="profile-status ${college.verified ? "is-verified" : "is-pending"}">${profileT(college.verified ? "verified" : "pending")}</span>
+        <p>${college.location}</p><h1>${college.name}</h1><p class="profile-lede">${college.description}</p>
+        <a class="profile-primary" href="${college.source}" target="_blank" rel="noopener noreferrer">${profileT("officialApply")} <span>↗</span></a>
+      </div>
+    </section>
+
+    ${college.verified ? "" : `<div class="profile-notice">${profileT("pendingNotice")}</div>`}
+
+    <section class="profile-section profile-stats" aria-labelledby="stats-title">
+      <div class="profile-section-heading"><div><p>01 / ${profileT("cycle")}</p><h2 id="stats-title">${stats.cycle}</h2></div><a href="${stats.statsSource}" target="_blank" rel="noopener noreferrer">${profileT("statsSource")}</a></div>
+      <div class="profile-stat-grid">
+        <article><strong>${stats.applications}</strong><span>${profileT("applications")}</span></article>
+        <article><strong>${stats.admitted}</strong><span>${profileT("admitted")}</span></article>
+        <article><strong>${stats.enrolled}</strong><span>${profileT("enrolled")}</span></article>
+        <article><strong>${stats.international}</strong><span>${profileT("international")}</span></article>
+      </div>
+      <div class="profile-aid-note"><span>${profileT("aidStat")}</span><p>${stats.aidSnapshot}</p></div>
+      <p class="profile-fineprint">${profileT("fullRideNote")}</p>
+    </section>
+
+    <section class="profile-section" aria-labelledby="policies-title">
+      <div class="profile-section-heading"><div><p>02 / ${profileT("policies")}</p><h2 id="policies-title">${profileT("policies")}</h2></div></div>
+      <div class="profile-policy-grid">
+        ${policyRow(profileT("aid"), college.verified ? college.aid : profileT("pendingNotice"), college.aidSource)}
+        ${policyRow(profileT("testing"), college.verified ? college.testing : profileT("pendingNotice"), college.testingSource)}
+        ${policyRow(profileT("english"), college.verified ? college.english : profileT("pendingNotice"), college.englishSource)}
+        ${policyRow(profileT("fee"), college.verified ? college.fee : profileT("pendingNotice"), college.feeSource)}
+        ${policyRow(profileT("deadline"), college.verified ? college.deadline : profileT("pendingNotice"), college.deadlineSource)}
+      </div>
+    </section>
+
+    <section class="profile-section profile-checklist" aria-labelledby="checklist-title">
+      <div class="profile-section-heading"><div><p>03 / Checklist</p><h2 id="checklist-title">${profileT("checklist")}</h2></div><p>${profileT("checklistIntro")}</p></div>
+      <ol>${checklist.map((key,index) => `<li><span>${String(index + 1).padStart(2,"0")}</span><p>${profileT(key)}</p></li>`).join("")}</ol>
+    </section>
+
+    <section class="profile-section" aria-labelledby="gallery-title">
+      <div class="profile-section-heading"><div><p>04 / Visual</p><h2 id="gallery-title">${profileT(college.photoIsIllustrative ? "illustrativeGallery" : "gallery")}</h2></div><p>${profileT("galleryNote")}</p></div>
+      <div class="profile-gallery ${gallery.length === 1 ? "is-single" : ""}">${gallery.map((image,index) => `<a href="${image.source}" target="_blank" rel="noopener noreferrer" class="gallery-image gallery-image--${index + 1}" style="--gallery:url('${image.url}')"><span>${image.credit} ↗</span></a>`).join("")}</div>
+    </section>
+
+    <section class="profile-section profile-sources" aria-labelledby="sources-title">
+      <div class="profile-section-heading"><div><p>05 / Sources</p><h2 id="sources-title">${profileT("sources")}</h2></div></div>
+      <div class="profile-source-list">${sourceLinks(college)}${profile ? `<a href="${profile.statsSource}" target="_blank" rel="noopener noreferrer"><span>${profileT("statsSource").replace(" ↗","")}</span><b>↗</b></a>` : ""}</div>
+    </section>`;
+}
+
+document.querySelectorAll("[data-profile-lang]").forEach(button => button.addEventListener("click", () => { profileLanguage = button.dataset.profileLang; renderProfile(); }));
+renderProfile();
