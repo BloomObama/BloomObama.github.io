@@ -44,7 +44,17 @@ Object.assign(translations.en, {
   savedListShort:"Saved", collectionLabel:"Personal collection", collectionTitle:"My universities", collectionClose:"Close collection", collectionSaved:"saved", collectionShow:"Show on page", collectionContinue:"Continue searching", collectionEmptyTitle:"Nothing here yet.", collectionEmptyText:"Tap the star on any card. Universities will appear here and stay after a reload.", collectionOpen:"Open profile", collectionRemove:"Remove", collectionVerified:"Verified", collectionPending:"Review pending"
 });
 
-let language = "uk";
+Object.assign(translations.uk, {
+  compareShort:"Порівняння", compareCollege:"Порівняти", comparing:"У порівнянні", compareTrayLabel:"До порівняння", compareOpen:"Порівняти", compareRemove:"Прибрати з порівняння", compareTrayClose:"Сховати панель порівняння", compareLimit:"Можна порівнювати не більше 4 університетів.", compareAdded:"{name} додано до порівняння.", compareRemoved:"{name} прибрано з порівняння."
+});
+Object.assign(translations.ru, {
+  compareShort:"Сравнение", compareCollege:"Сравнить", comparing:"В сравнении", compareTrayLabel:"К сравнению", compareOpen:"Сравнить", compareRemove:"Убрать из сравнения", compareTrayClose:"Скрыть панель сравнения", compareLimit:"Можно сравнивать не более 4 университетов.", compareAdded:"{name} добавлен в сравнение.", compareRemoved:"{name} убран из сравнения."
+});
+Object.assign(translations.en, {
+  compareShort:"Compare", compareCollege:"Compare", comparing:"Comparing", compareTrayLabel:"Comparison", compareOpen:"Compare", compareRemove:"Remove from comparison", compareTrayClose:"Hide comparison tray", compareLimit:"You can compare up to 4 universities.", compareAdded:"{name} was added to comparison.", compareRemoved:"{name} was removed from comparison."
+});
+
+let language = ["uk", "ru", "en"].includes(new URLSearchParams(window.location.search).get("lang")) ? new URLSearchParams(window.location.search).get("lang") : "uk";
 let englishFilter = "all";
 let visibleCount = 10;
 let resultsExpanded = true;
@@ -59,6 +69,9 @@ const selectFilters = ["region-filter", "state-filter", "type-filter", "setting-
 const checkboxFilters = ["need-blind", "test-flexible", "fee-waiver"];
 const shortlistStorageKey = "fullride-shortlist-v1";
 let shortlistedColleges = loadShortlist();
+let comparedColleges = new Set(window.FullRideCompare.load());
+let compareTrayDismissed = false;
+let compareToastTimer = null;
 
 function loadShortlist() {
   try {
@@ -99,6 +112,40 @@ function renderShortlistDrawer() {
       <strong>${t("collectionEmptyTitle")}</strong>
       <p>${t("collectionEmptyText")}</p>
     </div>`;
+}
+
+function showCompareToast(message) {
+  const toast = q("compare-toast");
+  toast.textContent = message;
+  toast.classList.add("is-visible");
+  window.clearTimeout(compareToastTimer);
+  compareToastTimer = window.setTimeout(() => toast.classList.remove("is-visible"), 2600);
+}
+
+function renderComparisonUI() {
+  const selected = window.FullRideCompare.load().map(slug => colleges.find(college => college.slug === slug)).filter(Boolean);
+  comparedColleges = new Set(selected.map(college => college.slug));
+  document.querySelectorAll("[data-compare-count]").forEach(element => { element.textContent = selected.length; });
+  const destination = `compare.html?lang=${language}`;
+  q("header-compare").href = destination;
+  q("open-comparison").href = destination;
+  q("comparison-tray").hidden = !selected.length || compareTrayDismissed;
+  q("comparison-chips").innerHTML = selected.map(college => `
+    <span class="comparison-chip"><img src="${college.photo}" alt="" /><b>${college.short}</b><button type="button" data-compare-remove="${college.slug}" aria-label="${t("compareRemove")}: ${college.name}">×</button></span>`).join("");
+}
+
+function toggleComparison(slug) {
+  const college = colleges.find(item => item.slug === slug);
+  if (!college) return;
+  const result = window.FullRideCompare.toggle(slug);
+  if (result.status === "limit") {
+    showCompareToast(t("compareLimit"));
+    return;
+  }
+  comparedColleges = new Set(result.items);
+  compareTrayDismissed = false;
+  render();
+  showCompareToast(t(result.status === "added" ? "compareAdded" : "compareRemoved").replace("{name}", college.name));
 }
 
 function populateStates() {
@@ -155,6 +202,7 @@ function render() {
   document.querySelectorAll("[data-shortlist-count]").forEach(element => { element.textContent = shortlistedColleges.size; });
   q("shortlist-toggle").classList.toggle("active", shortlistMode || document.body.classList.contains("shortlist-open"));
   renderShortlistDrawer();
+  renderComparisonUI();
   if (q("audit-count")) q("audit-count").textContent = `${colleges.filter(college => college.verified).length} / ${colleges.length}`;
   const hasInput = hasFinderInput();
   q("search-prompt").hidden = hasInput;
@@ -208,7 +256,7 @@ function render() {
         <div class="detail"><dt>${t("fee")}</dt><dd>${college.fee}<a class="detail-source" href="${college.feeSource}" target="_blank" rel="noopener noreferrer">${t("fieldSource")}</a></dd></div>
         <div class="detail"><dt>${t("deadline")}</dt><dd>${college.deadline}<a class="detail-source" href="${college.deadlineSource}" target="_blank" rel="noopener noreferrer">${t("fieldSource")}</a></dd></div>
       </dl>` : `<div class="pending-card-note"><span>!</span><p>${t("pendingCard")}</p></div>`}
-      <div class="card-footer"><button class="save-college ${shortlistedColleges.has(college.slug) ? "is-saved" : ""}" type="button" data-save-college="${college.slug}" aria-pressed="${shortlistedColleges.has(college.slug)}"><span aria-hidden="true">★</span>${t(shortlistedColleges.has(college.slug) ? "savedCollege" : "saveCollege")}</button><a class="profile-link" href="university.html?id=${encodeURIComponent(college.slug)}&lang=${language}">${t("viewProfile")} →</a><a href="${college.source}" target="_blank" rel="noopener noreferrer">${t("official")}</a></div>
+      <div class="card-footer"><button class="save-college ${shortlistedColleges.has(college.slug) ? "is-saved" : ""}" type="button" data-save-college="${college.slug}" aria-pressed="${shortlistedColleges.has(college.slug)}"><span aria-hidden="true">★</span>${t(shortlistedColleges.has(college.slug) ? "savedCollege" : "saveCollege")}</button><button class="compare-college ${comparedColleges.has(college.slug) ? "is-compared" : ""}" type="button" data-compare-college="${college.slug}" aria-pressed="${comparedColleges.has(college.slug)}"><span aria-hidden="true">⇄</span>${t(comparedColleges.has(college.slug) ? "comparing" : "compareCollege")}</button><a class="profile-link" href="university.html?id=${encodeURIComponent(college.slug)}&lang=${language}">${t("viewProfile")} →</a><a href="${college.source}" target="_blank" rel="noopener noreferrer">${t("official")}</a></div>
     </article>`).join("") : `<p class="empty">${t(shortlistMode && !shortlistedColleges.size ? "emptyShortlist" : "noResults")}</p>`;
   const singleMatchPanel = matches.length === 1 ? `
     <aside class="next-step-card">
@@ -316,7 +364,21 @@ q("results")?.addEventListener("click", event => {
     toggleShortlist(saveButton.dataset.saveCollege);
     return;
   }
+  const compareButton = event.target.closest("[data-compare-college]");
+  if (compareButton) {
+    event.preventDefault();
+    toggleComparison(compareButton.dataset.compareCollege);
+    return;
+  }
   if (event.target.closest("[data-random-again]")) showRandomCollege();
+});
+q("comparison-chips")?.addEventListener("click", event => {
+  const removeButton = event.target.closest("[data-compare-remove]");
+  if (removeButton) toggleComparison(removeButton.dataset.compareRemove);
+});
+q("comparison-tray-close")?.addEventListener("click", () => {
+  compareTrayDismissed = true;
+  q("comparison-tray").hidden = true;
 });
 document.querySelectorAll("[data-discovery-route]").forEach(button => button.addEventListener("click", () => {
   const route = button.dataset.discoveryRoute;

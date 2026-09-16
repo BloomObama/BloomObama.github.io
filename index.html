@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2311263f'/%3E%3Cpath d='M14 22 32 13l18 9-18 9-18-9Zm5 8v13l13 7 13-7V30l-13 7-13-7Z' fill='%23f1c66a'/%3E%3C/svg%3E" />
-    <link rel="stylesheet" href="styles.css?v=12" />
+    <link rel="stylesheet" href="styles.css?v=13" />
   </head>
   <body>
     <header class="topbar">
@@ -23,6 +23,7 @@
         <a href="#about" data-i18n="navAbout">Про проєкт</a>
       </nav>
       <div class="topbar-actions">
+        <a id="header-compare" class="header-shortlist header-compare" href="compare.html?lang=uk"><span aria-hidden="true">⇄</span><span data-i18n="compareShort">Порівняння</span><b data-compare-count>0</b></a>
         <button class="header-shortlist" type="button" data-shortlist-open aria-expanded="false" aria-controls="shortlist-drawer"><span aria-hidden="true">★</span><span data-i18n="savedListShort">Обране</span><b data-shortlist-count>0</b></button>
         <div class="language-switch" aria-label="Language">
           <button class="active" data-lang="uk">UA</button>
@@ -273,9 +274,18 @@
       </div>
     </aside>
 
+    <section id="comparison-tray" class="comparison-tray" aria-live="polite" hidden>
+      <div class="comparison-tray__heading"><span data-i18n="compareTrayLabel">До порівняння</span><strong><b data-compare-count>0</b> / 4</strong></div>
+      <div id="comparison-chips" class="comparison-chips"></div>
+      <a id="open-comparison" href="compare.html?lang=uk"><span data-i18n="compareOpen">Порівняти</span><span aria-hidden="true">→</span></a>
+      <button id="comparison-tray-close" type="button" data-i18n-aria="compareTrayClose" aria-label="Сховати панель порівняння">×</button>
+    </section>
+    <div id="compare-toast" class="compare-toast" role="status" aria-live="polite"></div>
+
     <footer><div><strong>FullRide UA</strong><span data-i18n="footerTagline">Перевіряйте. Порівнюйте. Подавайтеся усвідомлено.</span></div><div class="footer-meta"><span>© 2026</span><span data-i18n="footer">Пілотна версія · Дані потребують регулярної перевірки</span></div></footer>
     <script src="data.js?v=10"></script>
-    <script src="app.js?v=12"></script>
+    <script src="compare-store.js?v=1"></script>
+    <script src="app.js?v=13"></script>
     <script src="roi-data.js?v=9"></script>
     <script src="roi.js?v=9"></script>
   </body>

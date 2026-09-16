@@ -8,7 +8,7 @@ a { color:inherit; }
 nav { display:flex; gap:clamp(1rem,2vw,2rem); } nav a { color:var(--muted); font-size:.78rem; font-weight:700; text-decoration:none; } nav a:hover { color:var(--forest); }
 .language-switch { display:flex; gap:2px; padding:3px; border:1px solid var(--line); border-radius:7px; }.language-switch button { border:0; background:transparent; cursor:pointer; padding:.3rem .43rem; border-radius:4px; font:500 .65rem var(--mono); color:var(--muted); }.language-switch button.active { color:var(--forest); background:var(--acid); }
 .topbar-actions { display:flex; align-items:center; gap:.65rem; }
-.header-shortlist { min-height:36px; padding:.35rem .58rem; display:flex; align-items:center; gap:.38rem; border:1px solid var(--line); border-radius:7px; background:rgba(255,255,255,.62); color:var(--forest); cursor:pointer; font:700 .65rem var(--sans); }
+.header-shortlist { min-height:36px; padding:.35rem .58rem; display:flex; align-items:center; gap:.38rem; border:1px solid var(--line); border-radius:7px; background:rgba(255,255,255,.62); color:var(--forest); cursor:pointer; font:700 .65rem var(--sans); text-decoration:none; }
 .header-shortlist>span:first-child { color:#a37624; }
 .header-shortlist b { min-width:18px; height:18px; padding:0 .25rem; display:grid; place-items:center; border-radius:9px; background:var(--forest); color:var(--acid); font:500 .48rem var(--mono); }
 .header-shortlist:hover,.header-shortlist[aria-expanded="true"] { border-color:#b9872d; background:var(--acid); }
@@ -169,6 +169,10 @@ footer { max-width:1340px; margin:auto; padding:2rem 5vw; color:#728077; display
 .card-footer .save-college span { color:var(--acid); }
 .card-footer .save-college:hover,.card-footer .save-college.is-saved { border-color:var(--acid); background:var(--acid); color:var(--forest); }
 .card-footer .save-college.is-saved span { color:var(--forest); }
+.card-footer .compare-college { min-height:29px; padding:.32rem .5rem; display:flex; align-items:center; gap:.35rem; border:1px solid rgba(255,255,255,.42); background:rgba(17,38,63,.7); color:#fff; cursor:pointer; font:700 .58rem var(--sans); }
+.card-footer .compare-college span { color:#b8d6ef; }
+.card-footer .compare-college:hover,.card-footer .compare-college.is-compared { border-color:#9ec7e7; background:#e8f3fb; color:var(--forest); }
+.card-footer .compare-college.is-compared span { color:#315d7d; }
 .card button:not(.card-hit-area) { pointer-events:auto; }
 .data-audit { margin:0 0 1.2rem; padding:1rem 1.1rem; display:grid; grid-template-columns:34px 1fr auto; align-items:center; gap:.85rem; border:1px solid #b9c6d4; background:#fff; box-shadow:4px 4px 0 #dbe3ed; }
 .data-audit-mark { width:30px; height:30px; display:grid; place-items:center; border-radius:50%; background:var(--forest); color:var(--acid); font-weight:800; }
@@ -273,6 +277,33 @@ footer { color:#6d7a8c; }
 @media (prefers-reduced-motion:reduce) {
   .random-lever__handle,.random-reveal { transition:none; }
   .random-lever.is-spinning .random-lever__knob { animation:none; }
+}
+
+/* Persistent comparison tray */
+.comparison-tray[hidden] { display:none; }
+.comparison-tray { width:min(920px,calc(100vw - 2rem)); min-height:76px; padding:.7rem .75rem; position:fixed; z-index:70; left:50%; bottom:1rem; transform:translateX(-50%); display:grid; grid-template-columns:auto minmax(0,1fr) auto 30px; align-items:center; gap:.75rem; border:1px solid #8ba2b8; background:rgba(17,38,63,.97); color:#fff; box-shadow:0 15px 45px rgba(5,19,34,.28); backdrop-filter:blur(12px); }
+.comparison-tray__heading { padding:0 .55rem; border-right:1px solid #4a6179; }
+.comparison-tray__heading>span { display:block; color:#9eb1c3; font:500 .51rem var(--mono); text-transform:uppercase; letter-spacing:.06em; }
+.comparison-tray__heading strong { display:block; margin-top:.2rem; color:var(--acid); font:500 .7rem var(--mono); }
+.comparison-chips { min-width:0; display:flex; align-items:center; gap:.45rem; overflow-x:auto; scrollbar-width:thin; }
+.comparison-chip { min-width:112px; height:45px; padding:.25rem .3rem; display:grid; grid-template-columns:34px minmax(0,1fr) 19px; align-items:center; gap:.35rem; border:1px solid #506982; background:#193754; }
+.comparison-chip img { width:34px; height:35px; object-fit:cover; }
+.comparison-chip b { overflow:hidden; color:#f5f8fb; font-size:.59rem; text-overflow:ellipsis; white-space:nowrap; }
+.comparison-chip button { width:19px; height:19px; display:grid; place-items:center; border:0; background:transparent; color:#9fb2c5; cursor:pointer; font:500 .75rem/1 var(--mono); }
+.comparison-chip button:hover { color:var(--acid); }
+.comparison-tray>a { min-height:43px; padding:.6rem .85rem; display:flex; align-items:center; justify-content:space-between; gap:.8rem; background:var(--acid); color:var(--forest); text-decoration:none; font-size:.67rem; font-weight:800; }
+.comparison-tray>a:hover { background:#ffdb87; }
+.comparison-tray>button { width:28px; height:28px; display:grid; place-items:center; border:1px solid #536a82; background:transparent; color:#bdcad6; cursor:pointer; font:500 .85rem/1 var(--mono); }
+.compare-toast { max-width:min(420px,calc(100vw - 2rem)); padding:.75rem 1rem; position:fixed; z-index:120; right:1rem; bottom:1rem; visibility:hidden; opacity:0; transform:translateY(12px); border-left:3px solid var(--acid); background:var(--forest); color:#fff; box-shadow:0 10px 30px rgba(5,19,34,.28); font-size:.7rem; transition:.2s; }
+.compare-toast.is-visible { visibility:visible; opacity:1; transform:translateY(0); }
+
+@media (max-width:700px) {
+  .comparison-tray { width:calc(100vw - 1rem); min-height:0; padding:.55rem; bottom:.5rem; grid-template-columns:minmax(0,1fr) auto 27px; gap:.45rem; }
+  .comparison-tray__heading { display:none; }
+  .comparison-chip { min-width:94px; grid-template-columns:30px minmax(0,1fr) 17px; }
+  .comparison-chip img { width:30px; height:35px; }
+  .comparison-tray>a { min-height:45px; padding:.55rem .7rem; }
+  .compare-toast { right:.5rem; bottom:5.5rem; }
 }
 
 /* Saved-university collection drawer */

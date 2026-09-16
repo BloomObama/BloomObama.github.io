@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Порівняння обраних університетів за вступними вимогами, фінансовою допомогою та умовами навчання." />
+    <title>University comparison — FullRide UA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2311263f'/%3E%3Cpath d='M14 22 32 13l18 9-18 9-18-9Zm5 8v13l13 7 13-7V30l-13 7-13-7Z' fill='%23f1c66a'/%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="styles.css?v=13" />
+    <link rel="stylesheet" href="compare.css?v=1" />
+  </head>
+  <body class="compare-page">
+    <header class="topbar compare-topbar">
+      <a class="brand" href="index.html#finder" aria-label="FullRide UA"><span class="brand-mark">FR</span><span>FullRide <i>UA</i></span></a>
+      <a id="compare-back" class="compare-back" href="index.html#finder"><span aria-hidden="true">←</span><span data-compare-i18n="back">До каталогу</span></a>
+      <div class="language-switch" aria-label="Language">
+        <button class="active" data-compare-lang="uk">UA</button><button data-compare-lang="ru">RU</button><button data-compare-lang="en">EN</button>
+      </div>
+    </header>
+
+    <main class="compare-main">
+      <section class="compare-hero" aria-labelledby="compare-title">
+        <div>
+          <p class="eyebrow-label" data-compare-i18n="label">Розумне порівняння</p>
+          <h1 id="compare-title" data-compare-i18n="title">Дивіться на умови,<br />а не на гучність імені.</h1>
+        </div>
+        <div class="compare-hero__aside">
+          <strong><span id="compare-total">0</span> / 4</strong>
+          <p data-compare-i18n="intro">Зіставте вступні вимоги, фінансову політику та середовище навчання в одному полі.</p>
+        </div>
+      </section>
+
+      <section id="compare-workspace" class="compare-workspace" aria-live="polite">
+        <div class="compare-toolbar">
+          <label class="difference-switch">
+            <input id="differences-only" type="checkbox" />
+            <span aria-hidden="true"></span>
+            <b data-compare-i18n="differencesOnly">Показувати лише відмінності</b>
+          </label>
+          <p id="difference-summary"></p>
+          <div>
+            <a id="compare-add-more" href="index.html#finder" data-compare-i18n="addMore">+ Додати університет</a>
+            <button id="compare-clear" type="button" data-compare-i18n="clear">Очистити</button>
+          </div>
+        </div>
+
+        <div id="comparison-root"></div>
+      </section>
+
+      <p class="compare-note"><span aria-hidden="true">i</span><span data-compare-i18n="note">Порівняння використовує лише наявні поля бази. Неперевірені значення позначені й не підміняються припущеннями.</span></p>
+    </main>
+
+    <div id="compare-page-toast" class="compare-page-toast" role="status" aria-live="polite"></div>
+    <footer><div><strong>FullRide UA</strong><span data-compare-i18n="footerTagline">Порівнюйте контекст, а не лише назви.</span></div><div class="footer-meta"><span>© 2026</span><span data-compare-i18n="footer">Перевіряйте умови на офіційних сторінках</span></div></footer>
+
+    <script src="data.js?v=10"></script>
+    <script src="compare-store.js?v=1"></script>
+    <script src="compare.js?v=1"></script>
+  </body>
+</html>
