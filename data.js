@@ -5,9 +5,10 @@ const directoryImages = [
   { photo:"https://images.unsplash.com/photo-1607237138185-eedd9c632b0b?auto=format&fit=crop&w=1600&q=82", photoSource:"https://unsplash.com/photos/1607237138185-eedd9c632b0b" },
   { photo:"https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?auto=format&fit=crop&w=1600&q=82", photoSource:"https://unsplash.com/photos/1498243691581-b145c3f54a5a" }
 ];
+
 let directoryImageIndex = 0;
 
-const directoryCollege = ({ name, short, location, description, source, needBlind = false, aidShort = "Check aid", testFlexible = false, feeWaiver = false, englishStatus = "required", photo, photoSource }) => {
+const directoryCollege = ({ name, short, location, description, source, needBlind = false, aidShort = "Check aid", testFlexible = false, feeWaiver = false, englishStatus = "required", photo, photoSource, photoCredit }) => {
   const fallback = directoryImages[directoryImageIndex++ % directoryImages.length];
   return ({
   name, short, location, description,
@@ -20,7 +21,7 @@ const directoryCollege = ({ name, short, location, description, source, needBlin
   source, aidSource: source, needBlind, testFlexible, englishStatus, feeWaiver,
   photo: photo || fallback.photo,
   photoSource: photoSource || fallback.photoSource,
-  photoCredit: photo ? "Campus image" : "Illustrative campus image · Unsplash",
+  photoCredit: photo ? (photoCredit || "Campus image") : "Illustrative campus image · Unsplash",
   photoIsIllustrative: !photo
   });
 };
@@ -72,7 +73,7 @@ const colleges = [
     photo: "https://www.dartmouth.edu/gps/slides/home_3new.jpg", photoCredit: "Dartmouth College", photoSource: "https://www.dartmouth.edu/gps/"
   },
   directoryCollege({ name:"Stanford University", short:"Stanford", location:"Stanford, California", description:"A private research university in Silicon Valley with strengths across engineering, sciences, humanities and entrepreneurship.", source:"https://admission.stanford.edu/apply/international/", aidShort:"Need-aware", feeWaiver:true }),
-  directoryCollege({ name:"California Institute of Technology", short:"Caltech", location:"Pasadena, California", description:"A very small research university centered on science, engineering and intensive undergraduate research.", source:"https://www.admissions.caltech.edu/apply/first-year-applicants/international-citizens", aidShort:"Need-aware", feeWaiver:true }),
+  directoryCollege({ name:"California Institute of Technology", short:"Caltech", location:"Pasadena, California", description:"A very small research university centered on science, engineering and intensive undergraduate research.", source:"https://www.admissions.caltech.edu/apply/first-year-applicants/international-citizens", aidShort:"Need-aware", feeWaiver:true, photo:"https://thumb.wikimedia.org/wikipedia/commons/thumb/5/58/Beckman_Auditorium_%2817521897582%29.jpg/1920px-Beckman_Auditorium_%2817521897582%29.jpg", photoSource:"https://commons.wikimedia.org/wiki/File:Beckman_Auditorium_(17521897582).jpg", photoCredit:"Yisong Yue · CC BY-SA 2.0" }),
   directoryCollege({ name:"University of Pennsylvania", short:"Penn", location:"Philadelphia, Pennsylvania", description:"An urban Ivy League research university combining liberal arts with professional schools such as Wharton and Engineering.", source:"https://admissions.upenn.edu/how-to-apply/international-applicants", aidShort:"Need-aware", feeWaiver:true }),
   directoryCollege({ name:"Columbia University", short:"Columbia", location:"New York, New York", description:"An urban Ivy League university known for the Core Curriculum and access to New York City's academic and cultural resources.", source:"https://undergrad.admissions.columbia.edu/apply/international", aidShort:"Need-aware", feeWaiver:true }),
   directoryCollege({ name:"Cornell University", short:"Cornell", location:"Ithaca, New York", description:"A large Ivy League university offering programs from liberal arts and engineering to agriculture, architecture and hotel administration.", source:"https://admissions.cornell.edu/how-to-apply/first-year-applicants/international-applicants", aidShort:"Need-aware", feeWaiver:true }),
@@ -142,3 +143,27 @@ const colleges = [
   directoryCollege({ name:"Syracuse University", short:"Syracuse", location:"Syracuse, New York", description:"A large private university known for communication, public affairs, architecture, design and a broad professional curriculum.", source:"https://www.syracuse.edu/admissions-aid/application-process/international/", aidShort:"Merit focus", feeWaiver:true }),
   directoryCollege({ name:"George Washington University", short:"GW", location:"Washington, District of Columbia", description:"An urban research university whose location supports study and internships in policy, international affairs and public service.", source:"https://undergraduate.admissions.gwu.edu/international-applicants", aidShort:"Merit focus", feeWaiver:true })
 ];
+
+const northeastStates = new Set(["Connecticut", "Maine", "Massachusetts", "New Hampshire", "New Jersey", "New York", "Pennsylvania", "Rhode Island", "Vermont"]);
+const midwestStates = new Set(["Illinois", "Indiana", "Iowa", "Minnesota", "Missouri", "Ohio"]);
+const westStates = new Set(["California", "Oregon"]);
+const urbanCities = new Set(["Atlanta", "Baltimore", "Boston", "Cambridge", "Chicago", "Cleveland", "Houston", "Los Angeles", "Memphis", "Nashville", "New Orleans", "New York", "Philadelphia", "Pittsburgh", "Portland", "Providence", "Rochester", "Saint Paul", "St. Louis", "Syracuse", "Washington"]);
+const suburbanCities = new Set(["Claremont", "Coral Gables", "Evanston", "Haverford", "Medford", "Pasadena", "Stanford", "Swarthmore", "Villanova", "Waltham", "Wellesley"]);
+const specializedSchools = new Set(["Babson College", "California Institute of Technology", "Carnegie Mellon University", "Massachusetts Institute of Technology"]);
+
+colleges.forEach(college => {
+  const [city, state] = college.location.split(", ");
+  const text = `${college.name} ${college.description}`.toLowerCase();
+  college.state = state;
+  college.region = northeastStates.has(state) ? "northeast" : midwestStates.has(state) ? "midwest" : westStates.has(state) ? "west" : "south";
+  college.institutionType = specializedSchools.has(college.name) ? "specialized" : text.includes("liberal-arts") ? "liberal-arts" : "research";
+  college.setting = text.includes("rural") || text.includes("mountain") ? "rural" : urbanCities.has(city) || text.includes("urban") ? "urban" : suburbanCities.has(city) ? "suburban" : "town";
+  college.aidCategory = college.needBlind ? "need-blind" : college.aidShort.toLowerCase().includes("merit") ? "merit" : college.aidShort.toLowerCase().includes("limited") ? "limited" : "need-aware";
+  college.focus = [];
+  if (/engineering|science|technology|computer|mathematics|research/.test(text)) college.focus.push("stem");
+  if (/business|management|entrepreneur|economics|commerce|finance/.test(text)) college.focus.push("business");
+  if (/arts|design|film|music|drama|creative|architecture/.test(text)) college.focus.push("arts");
+  if (/policy|government|international|social|humanities|journalism|communication/.test(text)) college.focus.push("social-sciences");
+  if (/health|medicine|nursing|public health|life sciences/.test(text)) college.focus.push("health");
+  if (!college.focus.length) college.focus.push("general");
+});

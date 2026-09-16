@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230c2b24'/%3E%3Cpath d='M14 22 32 13l18 9-18 9-18-9Zm5 8v13l13 7 13-7V30l-13 7-13-7Z' fill='%23c6ed6d'/%3E%3C/svg%3E" />
-    <link rel="stylesheet" href="styles.css?v=7" />
+    <link rel="stylesheet" href="styles.css?v=8" />
   </head>
   <body>
     <header class="topbar">
@@ -66,17 +66,36 @@
             <input id="search" type="search" data-i18n-placeholder="searchPlaceholder" placeholder="Пошук за назвою університету" />
             <span aria-hidden="true">⌕</span>
           </label>
-          <div class="filters" role="group" data-i18n-aria="filterGroup">
-            <label class="filter-check"><input id="need-blind" type="checkbox" /><span data-i18n="needBlind">Need-blind для international</span></label>
-            <label class="filter-check"><input id="test-flexible" type="checkbox" /><span data-i18n="testFlexible">Є альтернатива SAT/ACT</span></label>
-            <label class="filter-check"><input id="fee-waiver" type="checkbox" /><span data-i18n="feeWaiver">Можливий fee waiver</span></label>
-            <fieldset class="english-filter"><legend data-i18n="englishLabel">Англійська</legend><div class="english-options"><button type="button" class="active" data-english-filter="all" data-i18n="englishAll">Усі варіанти</button><button type="button" data-english-filter="required" data-i18n="englishRequired">Потрібен за певних умов</button><button type="button" data-english-filter="notRequired" data-i18n="englishNotRequired">Зазвичай не потрібен</button></div></fieldset>
+          <div class="filter-toolbar">
+            <p data-i18n="filterHint">Введіть назву, місто, штат або напрям — чи відкрийте розширені фільтри.</p>
+            <button id="filter-toggle" class="filter-toggle" type="button" aria-expanded="false" aria-controls="advanced-filters"><span data-i18n="filterToggle">Усі фільтри</span><b aria-hidden="true">+</b></button>
+          </div>
+          <div id="advanced-filters" class="advanced-filters" hidden>
+            <div class="filter-select-grid">
+              <label><span data-i18n="regionLabel">Регіон</span><select id="region-filter"><option value="" data-i18n="allRegions">Усі регіони</option><option value="northeast" data-i18n="northeast">Північний схід</option><option value="south" data-i18n="south">Південь</option><option value="midwest" data-i18n="midwest">Середній захід</option><option value="west" data-i18n="west">Захід</option></select></label>
+              <label><span data-i18n="stateLabel">Штат</span><select id="state-filter"><option value="" data-i18n="allStates">Усі штати</option></select></label>
+              <label><span data-i18n="typeLabel">Тип закладу</span><select id="type-filter"><option value="" data-i18n="allTypes">Усі типи</option><option value="research" data-i18n="researchUniversity">Дослідницький університет</option><option value="liberal-arts" data-i18n="liberalArts">Liberal arts</option><option value="specialized" data-i18n="specialized">Спеціалізований</option></select></label>
+              <label><span data-i18n="settingLabel">Середовище</span><select id="setting-filter"><option value="" data-i18n="allSettings">Будь-яке</option><option value="urban" data-i18n="urban">Велике місто</option><option value="suburban" data-i18n="suburban">Передмістя</option><option value="town" data-i18n="town">Невелике місто</option><option value="rural" data-i18n="rural">Кампус поза містом</option></select></label>
+              <label><span data-i18n="aidPolicyLabel">Фінансова політика</span><select id="aid-filter"><option value="" data-i18n="allAid">Будь-яка</option><option value="need-blind">Need-blind</option><option value="need-aware">Need-aware / aid available</option><option value="merit" data-i18n="meritFocus">Merit scholarships</option><option value="limited" data-i18n="limitedAid">Обмежена допомога</option></select></label>
+              <label><span data-i18n="focusLabel">Академічний напрям</span><select id="focus-filter"><option value="" data-i18n="allFocus">Усі напрями</option><option value="stem">STEM</option><option value="business" data-i18n="businessFocus">Бізнес та економіка</option><option value="arts" data-i18n="artsFocus">Мистецтво та дизайн</option><option value="social-sciences" data-i18n="socialFocus">Соціальні науки</option><option value="health" data-i18n="healthFocus">Медицина та здоров’я</option></select></label>
+            </div>
+            <div class="filters" role="group" data-i18n-aria="filterGroup">
+              <label class="filter-check"><input id="need-blind" type="checkbox" /><span data-i18n="needBlind">Need-blind для international</span></label>
+              <label class="filter-check"><input id="test-flexible" type="checkbox" /><span data-i18n="testFlexible">Є альтернатива SAT/ACT</span></label>
+              <label class="filter-check"><input id="fee-waiver" type="checkbox" /><span data-i18n="feeWaiver">Можливий fee waiver</span></label>
+              <fieldset class="english-filter"><legend data-i18n="englishLabel">Англійська</legend><div class="english-options"><button type="button" class="active" data-english-filter="all" data-i18n="englishAll">Усі варіанти</button><button type="button" data-english-filter="required" data-i18n="englishRequired">Потрібен за певних умов</button><button type="button" data-english-filter="notRequired" data-i18n="englishNotRequired">Зазвичай не потрібен</button></div></fieldset>
+            </div>
           </div>
         </div>
 
-        <div class="results-line"><span id="results-count"></span><button id="reset" data-i18n="reset">Скинути фільтри</button></div>
-        <div id="results" class="results" aria-live="polite"></div>
-        <button id="show-more" class="show-more" type="button" hidden>Показати ще</button>
+        <div id="search-prompt" class="search-prompt"><span aria-hidden="true">01</span><div><strong data-i18n="searchPromptTitle">Почніть пошук</strong><p data-i18n="searchPromptText">Список університетів з’явиться після введення запиту або вибору хоча б одного фільтра.</p></div></div>
+        <div id="results-shell" class="results-shell" hidden>
+          <div class="results-line"><span id="results-count"></span><div class="results-actions"><button id="reset" data-i18n="reset">Скинути фільтри</button><button id="results-toggle" class="results-toggle open" type="button" aria-expanded="true" aria-controls="results-panel"><span class="sr-only" data-i18n="hideResults">Сховати список</span><b aria-hidden="true">+</b></button></div></div>
+          <div id="results-panel">
+            <div id="results" class="results" aria-live="polite"></div>
+            <button id="show-more" class="show-more" type="button" hidden>Показати ще</button>
+          </div>
+        </div>
       </section>
 
       <section id="roi" class="roi-section" aria-labelledby="roi-title">
@@ -181,9 +200,9 @@
     </main>
 
     <footer><div><strong>FullRide UA</strong><span data-i18n="footerTagline">Перевіряйте. Порівнюйте. Подавайтеся усвідомлено.</span></div><div class="footer-meta"><span>© 2026</span><span data-i18n="footer">Пілотна версія · Дані потребують регулярної перевірки</span></div></footer>
-    <script src="data.js?v=7"></script>
-    <script src="app.js?v=7"></script>
-    <script src="roi-data.js?v=7"></script>
-    <script src="roi.js?v=7"></script>
+    <script src="data.js?v=8"></script>
+    <script src="app.js?v=8"></script>
+    <script src="roi-data.js?v=8"></script>
+    <script src="roi.js?v=8"></script>
   </body>
 </html>

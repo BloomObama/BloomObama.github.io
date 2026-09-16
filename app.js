@@ -4,73 +4,140 @@ const translations = {
   en: { navFinder:"College Finder", navMethod:"How to use it", navAbout:"About", eyebrow:"An independent resource for applicants from Ukraine", title:"Find universities,<br /><em>not random advice.</em>", intro:"FullRide UA helps you narrow a U.S. college search around strong need-based financial aid for international students. Every entry links to an official source.", verifiedRecords:"verified records", updated:"Updated September 16, 2026", mosaicCaption:"Find your route", directory:"University directory", finderTitle:"Start with realistic options", finderHint:"Filters do not replace checking requirements. Open the official page before applying.", searchLabel:"University name", searchPlaceholder:"Search by university name", filterGroup:"Filters", needBlind:"Need-blind for international applicants", testFlexible:"SAT/ACT alternative available", feeWaiver:"Fee waiver available", englishLabel:"English proficiency", englishAll:"All options", englishRequired:"Required in some cases", englishNotRequired:"Not usually required", reset:"Reset filters", results:"Found: {count}", noResults:"There are no matches for these filters yet.", aid:"Financial aid", tests:"Testing", english:"English", fee:"Application fee", deadline:"Deadline", official:"Official source ↗", photo:"Photo", illustrativePhoto:"Illustrative campus image", guideLabel:"Quick glossary", guideTitle:"What funding terms<br />actually mean", guideIntro:"These terms sound similar but affect an application differently. Check both the admission policy and how aid is calculated.", needBlindExplain:"Financial need is not considered when the admission decision is made.", fullNeedExplain:"The university covers the need it calculates after admission, which may differ from your expectation.", needBasedExplain:"Aid depends on family finances, rather than grades or achievements alone.", feeWaiverExplain:"A waiver of the application fee; eligibility and verification differ by university.", methodLabel:"Method", methodTitle:"How to read this directory", step1Title:"Filter a starting list", step1Text:"Start with aid policy and testing routes that are accessible to you.", step2Title:"Open the primary source", step2Text:"Always confirm requirements, deadlines and documents on the university's own admissions page.", step3Title:"Build a balanced list", step3Text:"Even full-need universities are highly selective. Include realistic options too.", aboutLabel:"About the project", aboutTitle:"Clear information —<br />a better beginning.", aboutText:"FullRide UA is not an agency and does not guarantee admission. It is an open project intended to help Ukrainian students find verified information on U.S. financial aid.", feedback:"Report an inaccuracy", footerTagline:"Verify. Compare. Apply with context.", footer:"Pilot version · Data should be checked regularly" }
 };
 
+Object.assign(translations.uk, {
+  filterHint:"Введіть назву, місто, штат або напрям — чи відкрийте розширені фільтри.", filterToggle:"Усі фільтри", filterClose:"Згорнути фільтри", regionLabel:"Регіон", allRegions:"Усі регіони", northeast:"Північний схід", south:"Південь", midwest:"Середній захід", west:"Захід", stateLabel:"Штат", allStates:"Усі штати", typeLabel:"Тип закладу", allTypes:"Усі типи", researchUniversity:"Дослідницький університет", liberalArts:"Liberal arts", specialized:"Спеціалізований", settingLabel:"Середовище", allSettings:"Будь-яке", urban:"Велике місто", suburban:"Передмістя", town:"Невелике місто", rural:"Кампус поза містом", aidPolicyLabel:"Фінансова політика", allAid:"Будь-яка", meritFocus:"Merit scholarships", limitedAid:"Обмежена допомога", focusLabel:"Академічний напрям", allFocus:"Усі напрями", businessFocus:"Бізнес та економіка", artsFocus:"Мистецтво та дизайн", socialFocus:"Соціальні науки", healthFocus:"Медицина та здоров’я", searchPromptTitle:"Почніть пошук", searchPromptText:"Список університетів з’явиться після введення запиту або вибору хоча б одного фільтра.", hideResults:"Сховати список", showResults:"Показати список"
+});
+Object.assign(translations.ru, {
+  filterHint:"Введите название, город, штат или направление — либо откройте расширенные фильтры.", filterToggle:"Все фильтры", filterClose:"Свернуть фильтры", regionLabel:"Регион", allRegions:"Все регионы", northeast:"Северо-восток", south:"Юг", midwest:"Средний Запад", west:"Запад", stateLabel:"Штат", allStates:"Все штаты", typeLabel:"Тип учреждения", allTypes:"Все типы", researchUniversity:"Исследовательский университет", liberalArts:"Liberal arts", specialized:"Специализированный", settingLabel:"Окружение", allSettings:"Любое", urban:"Большой город", suburban:"Пригород", town:"Небольшой город", rural:"Кампус вне города", aidPolicyLabel:"Финансовая политика", allAid:"Любая", meritFocus:"Merit scholarships", limitedAid:"Ограниченная помощь", focusLabel:"Академическое направление", allFocus:"Все направления", businessFocus:"Бизнес и экономика", artsFocus:"Искусство и дизайн", socialFocus:"Социальные науки", healthFocus:"Медицина и здоровье", searchPromptTitle:"Начните поиск", searchPromptText:"Список университетов появится после ввода запроса или выбора хотя бы одного фильтра.", hideResults:"Скрыть список", showResults:"Показать список"
+});
+Object.assign(translations.en, {
+  filterHint:"Enter a university, city, state or field — or open the advanced filters.", filterToggle:"All filters", filterClose:"Collapse filters", regionLabel:"Region", allRegions:"All regions", northeast:"Northeast", south:"South", midwest:"Midwest", west:"West", stateLabel:"State", allStates:"All states", typeLabel:"Institution type", allTypes:"All types", researchUniversity:"Research university", liberalArts:"Liberal arts", specialized:"Specialized", settingLabel:"Setting", allSettings:"Any setting", urban:"Major city", suburban:"Suburban", town:"College town", rural:"Rural campus", aidPolicyLabel:"Aid policy", allAid:"Any policy", meritFocus:"Merit scholarships", limitedAid:"Limited aid", focusLabel:"Academic focus", allFocus:"All fields", businessFocus:"Business & economics", artsFocus:"Arts & design", socialFocus:"Social sciences", healthFocus:"Health & medicine", searchPromptTitle:"Start your search", searchPromptText:"The university list appears after you enter a query or choose at least one filter.", hideResults:"Hide results", showResults:"Show results"
+});
+
 let language = "uk";
 let englishFilter = "all";
 let visibleCount = 10;
-const q = (id) => document.getElementById(id);
-const t = (key) => translations[language][key] || key;
-const showMoreLabels = { uk: "Показати ще", ru: "Показать ещё", en: "Show more" };
-const recordLabels = { uk: "університетів у базі", ru: "университетов в базе", en: "universities in the directory" };
+let resultsExpanded = true;
+const q = id => document.getElementById(id);
+const t = key => translations[language][key] || key;
+const showMoreLabels = { uk:"Показати ще", ru:"Показать ещё", en:"Show more" };
+const recordLabels = { uk:"університетів у базі", ru:"университетов в базе", en:"universities in the directory" };
+const selectFilters = ["region-filter", "state-filter", "type-filter", "setting-filter", "aid-filter", "focus-filter"];
+const checkboxFilters = ["need-blind", "test-flexible", "fee-waiver"];
+
+function populateStates() {
+  const select = q("state-filter");
+  if (!select) return;
+  const states = [...new Set(colleges.map(college => college.state))].sort();
+  select.innerHTML = `<option value="" data-i18n="allStates">${t("allStates")}</option>${states.map(state => `<option value="${state}">${state}</option>`).join("")}`;
+}
+
+function activeFilterCount() {
+  return (q("search").value.trim() ? 1 : 0) + selectFilters.filter(id => q(id).value).length + checkboxFilters.filter(id => q(id).checked).length + (englishFilter === "all" ? 0 : 1);
+}
+
+function hasFinderInput() {
+  return activeFilterCount() > 0;
+}
 
 function updateLanguage() {
   document.documentElement.lang = language;
-  document.querySelectorAll("[data-i18n]").forEach(el => { el.textContent = t(el.dataset.i18n); });
-  document.querySelectorAll("[data-i18n-html]").forEach(el => { el.innerHTML = t(el.dataset.i18nHtml); });
-  document.querySelectorAll("[data-i18n-placeholder]").forEach(el => { el.placeholder = t(el.dataset.i18nPlaceholder); });
-  document.querySelectorAll("[data-i18n-aria]").forEach(el => { el.setAttribute("aria-label", t(el.dataset.i18nAria)); });
-  document.querySelectorAll("[data-lang]").forEach(btn => btn.classList.toggle("active", btn.dataset.lang === language));
+  document.querySelectorAll("[data-i18n]").forEach(element => { element.textContent = t(element.dataset.i18n); });
+  document.querySelectorAll("[data-i18n-html]").forEach(element => { element.innerHTML = t(element.dataset.i18nHtml); });
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(element => { element.placeholder = t(element.dataset.i18nPlaceholder); });
+  document.querySelectorAll("[data-i18n-aria]").forEach(element => { element.setAttribute("aria-label", t(element.dataset.i18nAria)); });
+  document.querySelectorAll("[data-lang]").forEach(button => button.classList.toggle("active", button.dataset.lang === language));
   if (q("record-label")) q("record-label").textContent = recordLabels[language];
   if (typeof window.updateRoiLanguage === "function") window.updateRoiLanguage(language);
   render();
 }
 
 function render() {
-  const text = q("search").value.trim().toLowerCase();
-  const matches = colleges.filter(c => {
-    const searchable = `${c.name} ${c.short} ${c.location}`.toLowerCase();
-    return (!text || searchable.includes(text)) && (!q("need-blind").checked || c.needBlind) && (!q("test-flexible").checked || c.testFlexible) && (!q("fee-waiver").checked || c.feeWaiver) && (englishFilter === "all" || c.englishStatus === englishFilter);
-  });
-  q("results-count").textContent = t("results").replace("{count}", matches.length);
   q("college-count").textContent = colleges.length;
-  const visibleMatches = matches.slice(0, visibleCount);
-  q("results").innerHTML = matches.length ? visibleMatches.map(c => c.photo ? `
-    <article class="card card--photo" style="--campus:url('${c.photo}')">
-      <div class="card-top"><div><h3>${c.name}</h3><p class="place">${c.location}</p></div><span class="badge">${c.aidShort}</span></div>
-      <p class="card-description">${c.description}</p>
-      <dl class="details">
-        <div class="detail"><dt>${t("aid")}</dt><dd>${c.aid}</dd></div>
-        <div class="detail"><dt>${t("tests")}</dt><dd>${c.testing}</dd></div>
-        <div class="detail"><dt>${t("english")}</dt><dd>${c.english}</dd></div>
-        <div class="detail"><dt>${t("fee")}</dt><dd>${c.fee}</dd></div>
-        <div class="detail"><dt>${t("deadline")}</dt><dd>${c.deadline}</dd></div>
-      </dl>
-      <div class="card-footer"><a href="${c.source}" target="_blank" rel="noopener noreferrer">${t("official")}</a><a class="photo-credit" href="${c.photoSource}" target="_blank" rel="noopener noreferrer">${c.photoIsIllustrative ? t("illustrativePhoto") : `${t("photo")}: ${c.photoCredit}`}</a></div>
-    </article>` : `
-    <article class="card card--directory">
-      <div class="directory-index">${String(colleges.indexOf(c) + 1).padStart(2, "0")}</div>
-      <div class="card-top"><div><h3>${c.name}</h3><p class="place">${c.location}</p></div><span class="badge">${c.aidShort}</span></div>
-      <p class="directory-description">${c.description}</p>
-      <dl class="directory-facts">
-        <div><dt>${t("aid")}</dt><dd>${c.aid}</dd></div>
-        <div><dt>${t("english")}</dt><dd>${c.english}</dd></div>
-      </dl>
-      <div class="card-footer"><a href="${c.source}" target="_blank" rel="noopener noreferrer">${t("official")}</a></div>
-    </article>`).join("") : `<p class="empty">${t("noResults")}</p>`;
-  const showMore = q("show-more");
-  if (showMore) {
-    showMore.textContent = `${showMoreLabels[language]} · ${Math.max(0, Math.min(10, matches.length - visibleCount))}`;
-    showMore.hidden = matches.length <= visibleCount;
+  const hasInput = hasFinderInput();
+  q("search-prompt").hidden = hasInput;
+  q("results-shell").hidden = !hasInput;
+  const filtersOpen = !q("advanced-filters").hidden;
+  const filterCount = activeFilterCount();
+  q("filter-toggle").querySelector("span").textContent = `${t(filtersOpen ? "filterClose" : "filterToggle")}${filterCount ? ` · ${filterCount}` : ""}`;
+  if (!hasInput) {
+    q("results").innerHTML = "";
+    q("show-more").hidden = true;
+    return;
   }
+
+  const text = q("search").value.trim().toLowerCase();
+  const matches = colleges.filter(college => {
+    const searchable = `${college.name} ${college.short} ${college.location} ${college.description} ${college.focus.join(" ")}`.toLowerCase();
+    return (!text || searchable.includes(text))
+      && (!q("region-filter").value || college.region === q("region-filter").value)
+      && (!q("state-filter").value || college.state === q("state-filter").value)
+      && (!q("type-filter").value || college.institutionType === q("type-filter").value)
+      && (!q("setting-filter").value || college.setting === q("setting-filter").value)
+      && (!q("aid-filter").value || college.aidCategory === q("aid-filter").value)
+      && (!q("focus-filter").value || college.focus.includes(q("focus-filter").value))
+      && (!q("need-blind").checked || college.needBlind)
+      && (!q("test-flexible").checked || college.testFlexible)
+      && (!q("fee-waiver").checked || college.feeWaiver)
+      && (englishFilter === "all" || college.englishStatus === englishFilter);
+  });
+
+  q("results-count").textContent = t("results").replace("{count}", matches.length);
+  q("results-panel").hidden = !resultsExpanded;
+  q("results-toggle").classList.toggle("open", resultsExpanded);
+  q("results-toggle").setAttribute("aria-expanded", String(resultsExpanded));
+  q("results-toggle").querySelector("span").textContent = t(resultsExpanded ? "hideResults" : "showResults");
+  const visibleMatches = matches.slice(0, visibleCount);
+  q("results").innerHTML = matches.length ? visibleMatches.map(college => `
+    <article class="card card--photo" style="--campus:url('${college.photo}')">
+      <div class="card-top"><div><h3>${college.name}</h3><p class="place">${college.location}</p></div><span class="badge">${college.aidShort}</span></div>
+      <p class="card-description">${college.description}</p>
+      <dl class="details">
+        <div class="detail"><dt>${t("aid")}</dt><dd>${college.aid}</dd></div>
+        <div class="detail"><dt>${t("tests")}</dt><dd>${college.testing}</dd></div>
+        <div class="detail"><dt>${t("english")}</dt><dd>${college.english}</dd></div>
+        <div class="detail"><dt>${t("fee")}</dt><dd>${college.fee}</dd></div>
+        <div class="detail"><dt>${t("deadline")}</dt><dd>${college.deadline}</dd></div>
+      </dl>
+      <div class="card-footer"><a href="${college.source}" target="_blank" rel="noopener noreferrer">${t("official")}</a><a class="photo-credit" href="${college.photoSource}" target="_blank" rel="noopener noreferrer">${college.photoIsIllustrative ? t("illustrativePhoto") : `${t("photo")}: ${college.photoCredit}`}</a></div>
+    </article>`).join("") : `<p class="empty">${t("noResults")}</p>`;
+  q("show-more").textContent = `${showMoreLabels[language]} · ${Math.max(0, Math.min(10, matches.length - visibleCount))}`;
+  q("show-more").hidden = matches.length <= visibleCount || !resultsExpanded;
 }
 
-["search", "need-blind", "test-flexible", "fee-waiver"].forEach(id => {
-  const control = q(id);
-  if (control) control.addEventListener(id === "search" ? "input" : "change", () => { visibleCount = 10; render(); });
+function refreshResults() {
+  visibleCount = 10;
+  resultsExpanded = true;
+  render();
+}
+
+q("search")?.addEventListener("input", refreshResults);
+[...selectFilters, ...checkboxFilters].forEach(id => q(id)?.addEventListener("change", refreshResults));
+document.querySelectorAll("[data-english-filter]").forEach(button => button.addEventListener("click", () => {
+  englishFilter = button.dataset.englishFilter;
+  document.querySelectorAll("[data-english-filter]").forEach(option => option.classList.toggle("active", option === button));
+  refreshResults();
+}));
+q("filter-toggle")?.addEventListener("click", () => {
+  const panel = q("advanced-filters");
+  panel.hidden = !panel.hidden;
+  q("filter-toggle").classList.toggle("open", !panel.hidden);
+  q("filter-toggle").setAttribute("aria-expanded", String(!panel.hidden));
+  render();
 });
-document.querySelectorAll("[data-english-filter]").forEach(btn => btn.addEventListener("click", () => { englishFilter = btn.dataset.englishFilter; visibleCount = 10; document.querySelectorAll("[data-english-filter]").forEach(option => option.classList.toggle("active", option === btn)); render(); }));
-const resetButton = q("reset");
-if (resetButton) resetButton.addEventListener("click", () => { q("search").value = ""; q("need-blind").checked = false; q("test-flexible").checked = false; q("fee-waiver").checked = false; englishFilter = "all"; visibleCount = 10; document.querySelectorAll("[data-english-filter]").forEach(option => option.classList.toggle("active", option.dataset.englishFilter === "all")); render(); });
-const showMoreButton = q("show-more");
-if (showMoreButton) showMoreButton.addEventListener("click", () => { visibleCount += 10; render(); });
-document.querySelectorAll("[data-lang]").forEach(btn => btn.addEventListener("click", () => { language = btn.dataset.lang; updateLanguage(); }));
+q("results-toggle")?.addEventListener("click", () => { resultsExpanded = !resultsExpanded; render(); });
+q("reset")?.addEventListener("click", () => {
+  q("search").value = "";
+  selectFilters.forEach(id => { q(id).value = ""; });
+  checkboxFilters.forEach(id => { q(id).checked = false; });
+  englishFilter = "all";
+  visibleCount = 10;
+  resultsExpanded = true;
+  document.querySelectorAll("[data-english-filter]").forEach(option => option.classList.toggle("active", option.dataset.englishFilter === "all"));
+  render();
+});
+q("show-more")?.addEventListener("click", () => { visibleCount += 10; render(); });
+document.querySelectorAll("[data-lang]").forEach(button => button.addEventListener("click", () => { language = button.dataset.lang; updateLanguage(); }));
+
+populateStates();
 updateLanguage();
