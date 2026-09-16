@@ -227,20 +227,20 @@ catalogRows.forEach(([catalogId, name, city, stateCode, source, description, fac
 });
 
 const existingCatalogIds = new Set(colleges.map(college => String(college.catalogId || "")));
-(globalThis.FullRideExtraColleges || []).forEach(([catalogId, name, city, stateCode, source, predominantDegree, highestDegree]) => {
+(globalThis.FullRideExtraColleges || []).forEach(([catalogId, name, city, stateCode, source, description, facts]) => {
   if (existingCatalogIds.has(String(catalogId))) return;
   colleges.push(directoryCollege({
     catalogId,
     catalogOnly:true,
-    basicOnly:true,
-    descriptionPending:true,
-    predominantDegree,
-    highestDegree,
-    facts:null,
+    basicOnly:false,
+    descriptionPending:false,
+    predominantDegree:facts?.predominantDegree ?? null,
+    highestDegree:facts?.highestDegree ?? null,
+    facts,
     name,
     short:catalogShortName(name),
     location:`${city}, ${stateNames[stateCode] || stateCode}`,
-    description:"",
+    description,
     source
   }));
   existingCatalogIds.add(String(catalogId));
@@ -265,19 +265,20 @@ const specializedSchools = new Set(["Babson College", "California Institute of T
 
 colleges.forEach(college => {
   const [city, state] = college.location.split(", ");
-  const text = `${college.name} ${college.description}`.toLowerCase();
+  const facts = college.facts || {};
+  const text = `${college.name} ${college.description} ${(facts.topFields || []).join(" ")}`.toLowerCase();
   const slugBase = college.name.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
   college.slug = college.catalogOnly && college.catalogId ? `${slugBase}-${college.catalogId}` : college.short.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
   college.state = state;
   college.region = northeastStates.has(state) ? "northeast" : midwestStates.has(state) ? "midwest" : westStates.has(state) ? "west" : southStates.has(state) ? "south" : "other";
-  college.institutionType = college.catalogOnly ? "unverified" : specializedSchools.has(college.name) ? "specialized" : text.includes("liberal-arts") ? "liberal-arts" : "research";
-  college.setting = college.catalogOnly ? "unverified" : text.includes("rural") || text.includes("mountain") ? "rural" : urbanCities.has(city) || text.includes("urban") ? "urban" : suburbanCities.has(city) ? "suburban" : "town";
+  college.institutionType = specializedSchools.has(college.name) || (college.catalogOnly && Number.isFinite(facts.predominantDegree) && facts.predominantDegree <= 2) ? "specialized" : text.includes("liberal arts") ? "liberal-arts" : "research";
+  college.setting = [11,12,13].includes(facts.locale) ? "urban" : [21,22,23].includes(facts.locale) ? "suburban" : [31,32,33].includes(facts.locale) ? "town" : [41,42,43].includes(facts.locale) ? "rural" : text.includes("rural") || text.includes("mountain") ? "rural" : urbanCities.has(city) || text.includes("urban") ? "urban" : suburbanCities.has(city) ? "suburban" : "town";
   college.aidCategory = !college.verified ? "unverified" : college.needBlind ? "need-blind" : college.aidShort.toLowerCase().includes("merit") ? "merit" : college.aidShort.toLowerCase().includes("limited") ? "limited" : "need-aware";
-  college.focus = college.catalogOnly ? ["general"] : [];
-  if (!college.catalogOnly && /engineering|science|technology|computer|mathematics|research/.test(text)) college.focus.push("stem");
-  if (!college.catalogOnly && /business|management|entrepreneur|economics|commerce|finance/.test(text)) college.focus.push("business");
-  if (!college.catalogOnly && /arts|design|film|music|drama|creative|architecture/.test(text)) college.focus.push("arts");
-  if (!college.catalogOnly && /policy|government|international|social|humanities|journalism|communication/.test(text)) college.focus.push("social-sciences");
-  if (!college.catalogOnly && /health|medicine|nursing|public health|life sciences/.test(text)) college.focus.push("health");
+  college.focus = [];
+  if (/engineering|science|technology|computer|mathematics|research/.test(text)) college.focus.push("stem");
+  if (/business|management|entrepreneur|economics|commerce|finance/.test(text)) college.focus.push("business");
+  if (/arts|design|film|music|drama|creative|architecture/.test(text)) college.focus.push("arts");
+  if (/policy|government|international|social|humanities|journalism|communication/.test(text)) college.focus.push("social-sciences");
+  if (/health|medicine|nursing|public health|life sciences/.test(text)) college.focus.push("health");
   if (!college.focus.length) college.focus.push("general");
 });

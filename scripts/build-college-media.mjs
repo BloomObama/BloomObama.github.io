@@ -2,12 +2,14 @@ import fs from "node:fs/promises";
 import vm from "node:vm";
 
 const catalogPath = process.argv[2] || new URL("../college-catalog.js", import.meta.url);
-const outputPath = process.argv[3] || new URL("../college-media.js", import.meta.url);
-const source = await fs.readFile(catalogPath, "utf8");
+const directoryPath = process.argv[3] || new URL("../college-directory.js", import.meta.url);
+const outputPath = process.argv[4] || new URL("../college-media.js", import.meta.url);
 const sandbox = { globalThis: {} };
-vm.runInNewContext(source, sandbox, { filename: String(catalogPath) });
-const records = sandbox.globalThis.FullRideBasicColleges || [];
-const ids = records.map(record => String(record[0]));
+for (const inputPath of [catalogPath, directoryPath]) {
+  vm.runInNewContext(await fs.readFile(inputPath, "utf8"), sandbox, { filename: String(inputPath) });
+}
+const records = [...(sandbox.globalThis.FullRideBasicColleges || []), ...(sandbox.globalThis.FullRideExtraColleges || [])];
+const ids = [...new Set(records.map(record => String(record[0])))];
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 const batches = (values, size) => Array.from({ length: Math.ceil(values.length / size) }, (_, index) => values.slice(index * size, (index + 1) * size));

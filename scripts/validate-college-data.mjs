@@ -26,16 +26,30 @@ assert(new Set(colleges.map(college => college.slug)).size === colleges.length, 
 const catalogIds = new Set([...catalog, ...extraDirectory].map(row => String(row[0])));
 for (const college of colleges) {
   assert(catalogIds.has(String(college.catalogId)), `${college.name}: missing or unknown IPEDS ID`);
-  assert(college.basicOnly || (typeof college.description === "string" && college.description.trim().length >= 40), `${college.name}: incomplete description`);
+  assert(typeof college.description === "string" && college.description.trim().length >= 40, `${college.name}: incomplete description`);
   assert(/^https?:\/\//.test(college.source || ""), `${college.name}: invalid official/source URL`);
-  assert(college.basicOnly || (college.facts && typeof college.facts === "object"), `${college.name}: missing College Scorecard facts object`);
+  assert(college.facts && typeof college.facts === "object", `${college.name}: missing College Scorecard facts object`);
   const facts = college.facts || {};
   assert(inRange(facts.admissionRate, 0, 1), `${college.name}: invalid admission rate`);
   assert(inRange(facts.nonresidentShare, 0, 1), `${college.name}: invalid nonresident share`);
   assert(inRange(facts.retentionRate, 0, 1), `${college.name}: invalid retention rate`);
   assert(inRange(facts.completionRate, 0, 1), `${college.name}: invalid completion rate`);
+  assert(inRange(facts.pellShare, 0, 1), `${college.name}: invalid Pell Grant share`);
+  assert(inRange(facts.federalLoanShare, 0, 1), `${college.name}: invalid federal-loan share`);
   assert(inRange(facts.satAverage, 400, 1600), `${college.name}: invalid SAT average`);
+  assert(inRange(facts.actMidpoint, 1, 36), `${college.name}: invalid ACT midpoint`);
   assert(inRange(facts.enrollment, 0, 1_000_000), `${college.name}: invalid enrollment`);
+  assert(inRange(facts.studentFacultyRatio, 0, 1_000), `${college.name}: invalid student/faculty ratio`);
+  assert(inRange(facts.latitude, -90, 90), `${college.name}: invalid latitude`);
+  assert(inRange(facts.longitude, -180, 180), `${college.name}: invalid longitude`);
+  for (const field of ["tuitionIn", "tuitionOut", "programTuition", "annualCost", "medianDebt", "medianEarnings10"]) {
+    assert(inRange(facts[field], 0, 10_000_000), `${college.name}: invalid ${field}`);
+  }
+  for (const field of ["netPricePublic", "netPricePrivate"]) {
+    assert(inRange(facts[field], -100_000, 10_000_000), `${college.name}: invalid ${field}`);
+  }
+  assert(facts.priceCalculator == null || typeof facts.priceCalculator === "string", `${college.name}: invalid net-price calculator URL`);
+  assert(Array.isArray(facts.topFields), `${college.name}: missing top-fields list`);
 }
 
 for (const [id, image] of Object.entries(media)) {
@@ -58,5 +72,6 @@ console.log(JSON.stringify({
   profilesWithRealPhotos: colleges.filter(college => !college.photoIsIllustrative).length,
   fullyReviewedAdmissionsPolicies: colleges.filter(college => college.verified).length,
   descriptionsPending: colleges.filter(college => college.descriptionPending).length,
-  duplicateSlugs: colleges.length - new Set(colleges.map(college => college.slug)).size
+  duplicateSlugs: colleges.length - new Set(colleges.map(college => college.slug)).size,
+  fieldCoverage: Object.fromEntries(["enrollment", "admissionRate", "openAdmissions", "satAverage", "actMidpoint", "tuitionIn", "tuitionOut", "programTuition", "annualCost", "retentionRate", "completionRate", "pellShare", "federalLoanShare", "studentFacultyRatio", "medianDebt", "medianEarnings10", "priceCalculator", "topFields"].map(field => [field, colleges.filter(college => field === "topFields" ? college.facts?.topFields?.length : college.facts?.[field] != null).length]))
 }, null, 2));

@@ -25,7 +25,7 @@ $localeLabels = @{
 function Format-ApproximateEnrollment([string]$rawValue) {
   [double]$value = 0
   if (-not [double]::TryParse($rawValue, [System.Globalization.NumberStyles]::Float, [System.Globalization.CultureInfo]::InvariantCulture, [ref]$value) -or $value -le 0) { return $null }
-  $step = if ($value -ge 10000) { 500 } elseif ($value -ge 2000) { 100 } else { 50 }
+  $step = if ($value -ge 10000) { 500 } elseif ($value -ge 2000) { 100 } elseif ($value -ge 100) { 50 } elseif ($value -ge 10) { 10 } else { 1 }
   $rounded = [Math]::Round($value / $step, [MidpointRounding]::AwayFromZero) * $step
   return $rounded.ToString("N0", [System.Globalization.CultureInfo]::GetCultureInfo("en-US"))
 }
@@ -110,15 +110,32 @@ $schools = Import-Csv -LiteralPath $InputCsv |
     $facts = [ordered]@{
       control = Convert-NullableNumber $_.CONTROL "integer"
       locale = Convert-NullableNumber $_.LOCALE "integer"
+      predominantDegree = Convert-NullableNumber $_.PREDDEG "integer"
+      highestDegree = Convert-NullableNumber $_.HIGHDEG "integer"
+      distanceOnly = Convert-NullableNumber $_.DISTANCEONLY "integer"
+      openAdmissions = Convert-NullableNumber $_.OPENADMP "integer"
+      latitude = Convert-NullableNumber $_.LATITUDE
+      longitude = Convert-NullableNumber $_.LONGITUDE
       enrollment = Convert-NullableNumber $_.UGDS "integer"
       nonresidentShare = Convert-NullableNumber $_.UGDS_NRA
       admissionRate = Convert-NullableNumber $_.ADM_RATE
       satAverage = Convert-NullableNumber $_.SAT_AVG "integer"
+      actMidpoint = Convert-NullableNumber $_.ACTCMMID "integer"
       tuitionIn = Convert-NullableNumber $_.TUITIONFEE_IN "integer"
       tuitionOut = Convert-NullableNumber $_.TUITIONFEE_OUT "integer"
+      programTuition = Convert-NullableNumber $_.TUITIONFEE_PROG "integer"
       annualCost = Convert-NullableNumber $_.COSTT4_A "integer"
+      netPricePublic = Convert-NullableNumber $_.NPT4_PUB "integer"
+      netPricePrivate = Convert-NullableNumber $_.NPT4_PRIV "integer"
       retentionRate = Convert-NullableNumber $_.RET_FT4
       completionRate = Convert-NullableNumber $(if ($_.C150_4_POOLED -and $_.C150_4_POOLED -ne "NULL") { $_.C150_4_POOLED } else { $_.C150_4 })
+      pellShare = Convert-NullableNumber $_.PCTPELL
+      federalLoanShare = Convert-NullableNumber $_.PCTFLOAN
+      studentFacultyRatio = Convert-NullableNumber $_.STUFACR
+      medianDebt = Convert-NullableNumber $(if ($_.GRAD_DEBT_MDN -and $_.GRAD_DEBT_MDN -ne "NULL") { $_.GRAD_DEBT_MDN } else { $_.DEBT_MDN }) "integer"
+      medianEarnings10 = Convert-NullableNumber $_.MD_EARN_WNE_P10 "integer"
+      priceCalculator = if ($_.NPCURL -and $_.NPCURL -ne "NULL") { $_.NPCURL.Trim() } else { $null }
+      topFields = @(Get-TopFields $_)
     }
 
     ,([object[]]@($unitId, $name, $city, $state, $website, $description, $facts))

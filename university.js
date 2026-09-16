@@ -19,6 +19,9 @@ Object.assign(profileTranslations.en, { federalCycle:"Latest available federal d
 Object.assign(profileTranslations.uk, { basicRecordNote:"У базі підтверджені лише офіційна назва, місце розташування, IPEDS ID та сайт закладу. Решту інформації буде додано пізніше.", officialSite:"Офіційний сайт" });
 Object.assign(profileTranslations.ru, { basicRecordNote:"В базе подтверждены только официальное название, местоположение, IPEDS ID и сайт учебного заведения. Остальная информация будет добавлена позже.", officialSite:"Официальный сайт" });
 Object.assign(profileTranslations.en, { basicRecordNote:"Only the official name, location, IPEDS ID and institution website are confirmed in this basic record. More information will be added later.", officialSite:"Official website" });
+Object.assign(profileTranslations.uk, { federalPassport:"Федеральний паспорт закладу", ownership:"Тип власності", publicInstitution:"Державний", nonprofitInstitution:"Приватний неприбутковий", forProfitInstitution:"Приватний комерційний", awardLevel:"Основний рівень програм", certificateLevel:"Сертифікатні програми", associateLevel:"Associate degree", bachelorLevel:"Bachelor's degree", graduateLevel:"Graduate degree", campusSetting:"Середовище", distanceOnly:"Тільки дистанційне навчання", openAdmission:"Відкритий прийом", actMidpoint:"ACT · середній діапазон", pellShare:"Отримують Pell Grant", federalLoanShare:"Беруть федеральні позики", studentFacultyRatio:"Студентів на викладача", medianEarnings10:"Медіанний дохід через 10 років", medianDebt:"Медіанний федеральний борг", netPrice:"Середня net price", topPrograms:"Найбільші напрями", priceCalculator:"Калькулятор net price", notReported:"Не опубліковано" });
+Object.assign(profileTranslations.ru, { federalPassport:"Федеральный паспорт учреждения", ownership:"Форма собственности", publicInstitution:"Государственное", nonprofitInstitution:"Частное некоммерческое", forProfitInstitution:"Частное коммерческое", awardLevel:"Основной уровень программ", certificateLevel:"Сертификатные программы", associateLevel:"Associate degree", bachelorLevel:"Bachelor's degree", graduateLevel:"Graduate degree", campusSetting:"Среда", distanceOnly:"Только дистанционное обучение", openAdmission:"Открытый приём", actMidpoint:"ACT · середина диапазона", pellShare:"Получают Pell Grant", federalLoanShare:"Берут федеральные займы", studentFacultyRatio:"Студентов на преподавателя", medianEarnings10:"Медианный доход через 10 лет", medianDebt:"Медианный федеральный долг", netPrice:"Средняя net price", topPrograms:"Крупнейшие направления", priceCalculator:"Калькулятор net price", notReported:"Не опубликовано" });
+Object.assign(profileTranslations.en, { federalPassport:"Federal institution snapshot", ownership:"Ownership", publicInstitution:"Public", nonprofitInstitution:"Private nonprofit", forProfitInstitution:"Private for-profit", awardLevel:"Predominant award level", certificateLevel:"Certificate programs", associateLevel:"Associate degree", bachelorLevel:"Bachelor's degree", graduateLevel:"Graduate degree", campusSetting:"Setting", distanceOnly:"Distance education only", openAdmission:"Open admission", actMidpoint:"ACT midpoint", pellShare:"Receive Pell Grants", federalLoanShare:"Take federal loans", studentFacultyRatio:"Students per faculty member", medianEarnings10:"Median earnings after 10 years", medianDebt:"Median federal debt", netPrice:"Average net price", topPrograms:"Largest program areas", priceCalculator:"Net price calculator", notReported:"Not reported" });
 
 const params = new URLSearchParams(location.search);
 let profileLanguage = ["uk","ru","en"].includes(params.get("lang")) ? params.get("lang") : "uk";
@@ -31,22 +34,53 @@ const scorecardUrl = item => item?.catalogId ? `https://collegescorecard.ed.gov/
 const formatNumber = value => hasValue(value) ? new Intl.NumberFormat(profileLanguage === "en" ? "en-US" : profileLanguage === "uk" ? "uk-UA" : "ru-RU").format(value) : "—";
 const formatPercent = value => hasValue(value) ? new Intl.NumberFormat(profileLanguage === "en" ? "en-US" : profileLanguage === "uk" ? "uk-UA" : "ru-RU", { style:"percent", maximumFractionDigits:1 }).format(value) : "—";
 const formatCurrency = value => hasValue(value) ? new Intl.NumberFormat(profileLanguage === "en" ? "en-US" : profileLanguage === "uk" ? "uk-UA" : "ru-RU", { style:"currency", currency:"USD", maximumFractionDigits:0 }).format(value) : "—";
+const safeExternalUrl = value => !value ? "" : /^https?:\/\//i.test(value) ? value : `https://${value}`;
+const ownershipLabel = value => profileT(value === 1 ? "publicInstitution" : value === 2 ? "nonprofitInstitution" : value === 3 ? "forProfitInstitution" : "notReported");
+const degreeLabel = value => profileT(value === 1 ? "certificateLevel" : value === 2 ? "associateLevel" : value === 3 ? "bachelorLevel" : value === 4 ? "graduateLevel" : "notReported");
+const localeLabels = {
+  uk:{11:"Велике місто",12:"Середнє місто",13:"Мале місто",21:"Велике передмістя",22:"Середнє передмістя",23:"Мале передмістя",31:"Містечко біля міста",32:"Віддалене містечко",33:"Віддалене мале місто",41:"Сільська місцевість біля міста",42:"Віддалена сільська місцевість",43:"Дуже віддалена сільська місцевість"},
+  ru:{11:"Большой город",12:"Средний город",13:"Малый город",21:"Большой пригород",22:"Средний пригород",23:"Малый пригород",31:"Городок рядом с городом",32:"Удалённый городок",33:"Удалённый малый город",41:"Сельская местность рядом с городом",42:"Удалённая сельская местность",43:"Очень удалённая сельская местность"},
+  en:{11:"Large city",12:"Midsize city",13:"Small city",21:"Large suburb",22:"Midsize suburb",23:"Small suburb",31:"Town near an urban area",32:"Distant town",33:"Remote town",41:"Rural area near a town",42:"Distant rural area",43:"Remote rural area"}
+};
+const settingLabel = facts => facts.distanceOnly === 1 ? profileT("distanceOnly") : localeLabels[profileLanguage][facts.locale] || profileT("notReported");
 
 function federalSummary(facts = {}) {
   const parts = [];
   if (hasValue(facts.tuitionOut)) parts.push(`${profileT("tuitionOut")}: ${formatCurrency(facts.tuitionOut)}`);
   else if (hasValue(facts.tuitionIn)) parts.push(`${profileT("tuitionIn")}: ${formatCurrency(facts.tuitionIn)}`);
+  else if (hasValue(facts.programTuition)) parts.push(`${profileT("tuitionIn")}: ${formatCurrency(facts.programTuition)}`);
   if (hasValue(facts.annualCost)) parts.push(`${profileT("annualCost")}: ${formatCurrency(facts.annualCost)}`);
+  const netPrice = facts.control === 1 ? facts.netPricePublic : facts.netPricePrivate;
+  if (hasValue(netPrice)) parts.push(`${profileT("netPrice")}: ${formatCurrency(netPrice)}`);
   if (hasValue(facts.retentionRate)) parts.push(`${profileT("retentionRate")}: ${formatPercent(facts.retentionRate)}`);
   if (hasValue(facts.completionRate)) parts.push(`${profileT("completionRate")}: ${formatPercent(facts.completionRate)}`);
   return parts.length ? `${parts.join(" · ")}.` : profileT("federalNoData");
+}
+
+function federalDetailCells(facts = {}) {
+  const netPrice = facts.control === 1 ? facts.netPricePublic : facts.netPricePrivate;
+  const cells = [
+    [profileT("ownership"), ownershipLabel(facts.control), hasValue(facts.control)],
+    [profileT("awardLevel"), degreeLabel(facts.predominantDegree), hasValue(facts.predominantDegree)],
+    [profileT("campusSetting"), settingLabel(facts), hasValue(facts.locale) || facts.distanceOnly === 1],
+    [profileT("actMidpoint"), formatNumber(facts.actMidpoint), hasValue(facts.actMidpoint)],
+    [profileT("pellShare"), formatPercent(facts.pellShare), hasValue(facts.pellShare)],
+    [profileT("federalLoanShare"), formatPercent(facts.federalLoanShare), hasValue(facts.federalLoanShare)],
+    [profileT("studentFacultyRatio"), hasValue(facts.studentFacultyRatio) ? `${formatNumber(facts.studentFacultyRatio)}:1` : "—", hasValue(facts.studentFacultyRatio)],
+    [profileT("medianEarnings10"), formatCurrency(facts.medianEarnings10), hasValue(facts.medianEarnings10)],
+    [profileT("medianDebt"), formatCurrency(facts.medianDebt), hasValue(facts.medianDebt)],
+    [profileT("netPrice"), formatCurrency(netPrice), hasValue(netPrice)],
+    [profileT("topPrograms"), Array.isArray(facts.topFields) ? facts.topFields.join(" · ") : "—", Array.isArray(facts.topFields) && facts.topFields.length]
+  ];
+  return cells.filter(([, , available]) => available);
 }
 
 function sourceLinks(item) {
   if (item.basicOnly) return `<a href="${item.source}" target="_blank" rel="noopener noreferrer"><span>${profileT("officialSite")}</span><b>↗</b></a>`;
   const candidates = [
     [profileT("aid"), item.aidSource], [profileT("testing"), item.testingSource], [profileT("english"), item.englishSource],
-    [profileT("fee"), item.feeSource], [profileT("deadline"), item.deadlineSource], ["Admissions", item.source]
+    [profileT("fee"), item.feeSource], [profileT("deadline"), item.deadlineSource], ["Admissions", item.source],
+    [profileT("priceCalculator"), safeExternalUrl(item.facts?.priceCalculator)]
   ];
   const seen = new Set();
   return candidates.filter(([,url]) => url && !seen.has(url) && seen.add(url)).map(([label,url]) => `<a href="${url}" target="_blank" rel="noopener noreferrer"><span>${label}</span><b>↗</b></a>`).join("");
@@ -73,8 +107,12 @@ function renderProfile() {
   const statCells = profile ? [
     [stats.applications, profileT("applications")], [stats.admitted, profileT("admitted")], [stats.enrolled, profileT("enrolled")], [stats.international, profileT("international")]
   ] : [
-    [formatNumber(facts.enrollment), profileT("undergraduateEnrollment")], [formatPercent(facts.admissionRate), profileT("admissionRate")], [formatPercent(facts.nonresidentShare), profileT("nonresidentShare")], [formatNumber(facts.satAverage), profileT("averageSat")]
+    [formatNumber(facts.enrollment), profileT("undergraduateEnrollment")],
+    [hasValue(facts.admissionRate) ? formatPercent(facts.admissionRate) : facts.openAdmissions === 1 ? profileT("openAdmission") : "—", profileT("admissionRate")],
+    [formatPercent(facts.nonresidentShare), profileT("nonresidentShare")],
+    [formatNumber(facts.satAverage), profileT("averageSat")]
   ];
+  const detailCells = federalDetailCells(facts);
   const gallery = [{ url:college.photo, source:college.photoSource, credit:college.photoIsIllustrative ? profileT("illustrative") : college.photoCredit }, ...(stats.gallery || [])]
     .filter((image, index, array) => image.url && array.findIndex(candidate => candidate.url === image.url) === index);
   const checklist = ["checkApplication","checkTranscript","checkRecommendations","checkTests","checkEnglish","checkAid","checkFee","checkDeadlines"];
@@ -97,6 +135,8 @@ function renderProfile() {
         ${statCells.map(([value,label]) => `<article><strong>${value}</strong><span>${label}</span></article>`).join("")}
       </div>
       <div class="profile-aid-note"><span>${profileT(profile ? "aidStat" : college.basicOnly ? "cycle" : "federalContext")}</span><p>${stats.aidSnapshot}</p></div>
+      ${detailCells.length ? `<div class="profile-fact-wrap"><h3>${profileT("federalPassport")}</h3><div class="profile-fact-grid">${detailCells.map(([label,value]) => `<article><span>${label}</span><strong>${value}</strong></article>`).join("")}</div></div>` : ""}
+      ${profile && detailCells.length ? `<p class="profile-fineprint">${profileT("scorecardCaveat")}</p>` : ""}
       <p class="profile-fineprint">${profileT(profile ? "fullRideNote" : college.basicOnly ? "basicRecordNote" : "scorecardCaveat")}</p>
     </section>
 
@@ -123,7 +163,7 @@ function renderProfile() {
 
     <section class="profile-section profile-sources" aria-labelledby="sources-title">
       <div class="profile-section-heading"><div><p>05 / Sources</p><h2 id="sources-title">${profileT("sources")}</h2></div></div>
-      <div class="profile-source-list">${sourceLinks(college)}${profile ? `<a href="${profile.statsSource}" target="_blank" rel="noopener noreferrer"><span>${profileT("statsSource").replace(" ↗","")}</span><b>↗</b></a>` : hasFederalFacts ? `<a href="${scorecardUrl(college)}" target="_blank" rel="noopener noreferrer"><span>${profileT("scorecardSource").replace(" ↗","")}</span><b>↗</b></a>` : ""}</div>
+      <div class="profile-source-list">${sourceLinks(college)}${profile ? `<a href="${profile.statsSource}" target="_blank" rel="noopener noreferrer"><span>${profileT("statsSource").replace(" ↗","")}</span><b>↗</b></a>` : ""}${hasFederalFacts ? `<a href="${scorecardUrl(college)}" target="_blank" rel="noopener noreferrer"><span>${profileT("scorecardSource").replace(" ↗","")}</span><b>↗</b></a>` : ""}</div>
     </section>`;
 }
 
