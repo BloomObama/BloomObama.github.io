@@ -253,7 +253,7 @@ function render() {
       <a class="card-hit-area" href="university.html?id=${encodeURIComponent(college.slug)}&lang=${language}" aria-label="${t("viewProfile")}: ${college.name}"></a>
       <div class="card-audit-status ${college.verified ? "is-verified" : "is-pending"}">${t(college.verified ? "verifiedBadge" : "pendingBadge")}</div>
       <div class="card-top"><div><h3>${college.name}</h3><p class="place">${college.location}</p></div><span class="badge">${college.verified ? college.aidShort : t("notAvailableYet")}</span></div>
-      <p class="card-description">${college.descriptionPending ? t("notAvailableYet") : college.description}</p>
+      ${college.basicOnly ? "" : `<p class="card-description">${college.descriptionPending ? t("notAvailableYet") : college.description}</p>`}
       ${college.verified ? `<dl class="details">
         <div class="detail"><dt>${t("aid")}</dt><dd>${college.aid}<a class="detail-source" href="${college.aidSource}" target="_blank" rel="noopener noreferrer">${t("fieldSource")}</a></dd></div>
         <div class="detail"><dt>${t("tests")}</dt><dd>${college.testing}<a class="detail-source" href="${college.testingSource}" target="_blank" rel="noopener noreferrer">${t("fieldSource")}</a></dd></div>

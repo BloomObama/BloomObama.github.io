@@ -16,6 +16,9 @@ Object.assign(profileTranslations.en, { notAvailableYet:"Information is not avai
 Object.assign(profileTranslations.uk, { federalCycle:"Останні доступні федеральні дані", undergraduateEnrollment:"Студентів бакалаврату", admissionRate:"Частка зарахованих", nonresidentShare:"Студенти-нерезиденти", averageSat:"Середній SAT", federalContext:"Вартість та результати", tuitionOut:"Навчання для студентів не зі штату", tuitionIn:"Навчання для резидентів штату", annualCost:"Орієнтовна річна вартість", retentionRate:"Утримання після першого року", completionRate:"Завершення програми", federalNoData:"У вибраних федеральних полях дані не опубліковані.", scorecardCaveat:"College Scorecard об’єднує показники з різних звітних років. Це довідкові дані закладу, а не умови вступної кампанії 2026–27. Нерезиденти США — найближчий доступний федеральний показник для international-контексту, але не статистика іноземних абітурієнтів.", scorecardSource:"College Scorecard ↗" });
 Object.assign(profileTranslations.ru, { federalCycle:"Последние доступные федеральные данные", undergraduateEnrollment:"Студентов бакалавриата", admissionRate:"Доля зачисленных", nonresidentShare:"Студенты-нерезиденты", averageSat:"Средний SAT", federalContext:"Стоимость и результаты", tuitionOut:"Обучение для студентов не из штата", tuitionIn:"Обучение для резидентов штата", annualCost:"Ориентировочная годовая стоимость", retentionRate:"Удержание после первого года", completionRate:"Завершение программы", federalNoData:"В выбранных федеральных полях данные не опубликованы.", scorecardCaveat:"College Scorecard объединяет показатели из разных отчётных лет. Это справочные данные учебного заведения, а не условия приёмной кампании 2026–27. Нерезиденты США — ближайший доступный федеральный показатель для international-контекста, но не статистика иностранных абитуриентов.", scorecardSource:"College Scorecard ↗" });
 Object.assign(profileTranslations.en, { federalCycle:"Latest available federal data", undergraduateEnrollment:"Undergraduate enrollment", admissionRate:"Admission rate", nonresidentShare:"Nonresident students", averageSat:"Average SAT", federalContext:"Cost and outcomes", tuitionOut:"Out-of-state tuition", tuitionIn:"In-state tuition", annualCost:"Estimated annual cost", retentionRate:"First-year retention", completionRate:"Completion rate", federalNoData:"The selected federal fields were not reported.", scorecardCaveat:"College Scorecard combines measures from different reporting years. These are institutional reference data, not 2026–27 admissions-cycle rules. Nonresident students are the closest available federal measure for international context, but they are not international-applicant statistics.", scorecardSource:"College Scorecard ↗" });
+Object.assign(profileTranslations.uk, { basicRecordNote:"У базі підтверджені лише офіційна назва, місце розташування, IPEDS ID та сайт закладу. Решту інформації буде додано пізніше.", officialSite:"Офіційний сайт" });
+Object.assign(profileTranslations.ru, { basicRecordNote:"В базе подтверждены только официальное название, местоположение, IPEDS ID и сайт учебного заведения. Остальная информация будет добавлена позже.", officialSite:"Официальный сайт" });
+Object.assign(profileTranslations.en, { basicRecordNote:"Only the official name, location, IPEDS ID and institution website are confirmed in this basic record. More information will be added later.", officialSite:"Official website" });
 
 const params = new URLSearchParams(location.search);
 let profileLanguage = ["uk","ru","en"].includes(params.get("lang")) ? params.get("lang") : "uk";
@@ -40,6 +43,7 @@ function federalSummary(facts = {}) {
 }
 
 function sourceLinks(item) {
+  if (item.basicOnly) return `<a href="${item.source}" target="_blank" rel="noopener noreferrer"><span>${profileT("officialSite")}</span><b>↗</b></a>`;
   const candidates = [
     [profileT("aid"), item.aidSource], [profileT("testing"), item.testingSource], [profileT("english"), item.englishSource],
     [profileT("fee"), item.feeSource], [profileT("deadline"), item.deadlineSource], ["Admissions", item.source]
@@ -81,19 +85,19 @@ function renderProfile() {
       <div class="profile-hero-content">
         <span class="profile-status ${college.verified ? "is-verified" : "is-pending"}">${profileT(college.verified ? "verified" : "pending")}</span>
         <p>${college.location}</p><h1>${college.name}</h1><p class="profile-lede">${college.descriptionPending ? profileT("notAvailableYet") : college.description}</p>
-        <a class="profile-primary" href="${college.source}" target="_blank" rel="noopener noreferrer">${profileT("officialApply")} <span>↗</span></a>
+        <a class="profile-primary" href="${college.source}" target="_blank" rel="noopener noreferrer">${profileT(college.basicOnly ? "officialSite" : "officialApply")} <span>↗</span></a>
       </div>
     </section>
 
     ${college.verified ? "" : `<div class="profile-notice">${profileT("pendingNotice")}</div>`}
 
     <section class="profile-section profile-stats" aria-labelledby="stats-title">
-      <div class="profile-section-heading"><div><p>01 / ${profileT("cycle")}</p><h2 id="stats-title">${stats.cycle}</h2></div><a href="${stats.statsSource}" target="_blank" rel="noopener noreferrer">${profileT("statsSource")}</a></div>
+      <div class="profile-section-heading"><div><p>01 / ${profileT("cycle")}</p><h2 id="stats-title">${stats.cycle}</h2></div>${college.basicOnly ? "" : `<a href="${stats.statsSource}" target="_blank" rel="noopener noreferrer">${profileT("statsSource")}</a>`}</div>
       <div class="profile-stat-grid">
         ${statCells.map(([value,label]) => `<article><strong>${value}</strong><span>${label}</span></article>`).join("")}
       </div>
-      <div class="profile-aid-note"><span>${profileT(profile ? "aidStat" : "federalContext")}</span><p>${stats.aidSnapshot}</p></div>
-      <p class="profile-fineprint">${profileT(profile ? "fullRideNote" : "scorecardCaveat")}</p>
+      <div class="profile-aid-note"><span>${profileT(profile ? "aidStat" : college.basicOnly ? "cycle" : "federalContext")}</span><p>${stats.aidSnapshot}</p></div>
+      <p class="profile-fineprint">${profileT(profile ? "fullRideNote" : college.basicOnly ? "basicRecordNote" : "scorecardCaveat")}</p>
     </section>
 
     <section class="profile-section" aria-labelledby="policies-title">

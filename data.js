@@ -10,7 +10,8 @@ let directoryImageIndex = 0;
 
 const directoryCollege = ({
   name, short, location, description, source,
-  catalogId = null, catalogOnly = false, descriptionPending = false, facts = null,
+  catalogId = null, catalogOnly = false, basicOnly = false, descriptionPending = false, facts = null,
+  predominantDegree = null, highestDegree = null,
   verified = false, checkedAt = null,
   aid, aidShort = "Needs review", aidSource,
   testing, testingSource, testFlexible = false,
@@ -22,7 +23,7 @@ const directoryCollege = ({
   const fallback = directoryImages[directoryImageIndex++ % directoryImages.length];
   const pending = catalogOnly ? "Пока нет информации." : "Not yet audited for the 2026–27 cycle. Verify this item on the official admissions page.";
   return ({
-  name, short, location, description, catalogId, catalogOnly, descriptionPending, facts,
+  name, short, location, description, catalogId, catalogOnly, basicOnly, descriptionPending, facts, predominantDegree, highestDegree,
   aid: verified ? aid : pending,
   aidShort: verified ? aidShort : catalogOnly ? "Пока нет информации." : "Needs review",
   testing: verified ? testing : pending,
@@ -223,6 +224,26 @@ catalogRows.forEach(([catalogId, name, city, stateCode, source, description, fac
     description,
     source
   }));
+});
+
+const existingCatalogIds = new Set(colleges.map(college => String(college.catalogId || "")));
+(globalThis.FullRideExtraColleges || []).forEach(([catalogId, name, city, stateCode, source, predominantDegree, highestDegree]) => {
+  if (existingCatalogIds.has(String(catalogId))) return;
+  colleges.push(directoryCollege({
+    catalogId,
+    catalogOnly:true,
+    basicOnly:true,
+    descriptionPending:true,
+    predominantDegree,
+    highestDegree,
+    facts:null,
+    name,
+    short:catalogShortName(name),
+    location:`${city}, ${stateNames[stateCode] || stateCode}`,
+    description:"",
+    source
+  }));
+  existingCatalogIds.add(String(catalogId));
 });
 
 colleges.forEach(college => {

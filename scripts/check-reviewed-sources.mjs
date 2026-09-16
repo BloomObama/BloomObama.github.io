@@ -4,7 +4,7 @@ import vm from "node:vm";
 const root = new URL("../", import.meta.url);
 const sandbox = { globalThis: {} };
 vm.createContext(sandbox);
-for (const file of ["college-catalog.js", "college-media.js"]) vm.runInContext(fs.readFileSync(new URL(file, root), "utf8"), sandbox);
+for (const file of ["college-catalog.js", "college-directory.js", "college-media.js"]) vm.runInContext(fs.readFileSync(new URL(file, root), "utf8"), sandbox);
 vm.runInContext(`${fs.readFileSync(new URL("data.js", root), "utf8")}\nglobalThis.__colleges = colleges;`, sandbox);
 vm.runInContext(`${fs.readFileSync(new URL("profiles.js", root), "utf8")}\nglobalThis.__profiles = collegeProfiles;`, sandbox);
 
