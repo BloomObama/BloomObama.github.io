@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230c2b24'/%3E%3Cpath d='M14 22 32 13l18 9-18 9-18-9Zm5 8v13l13 7 13-7V30l-13 7-13-7Z' fill='%23c6ed6d'/%3E%3C/svg%3E" />
-    <link rel="stylesheet" href="styles.css?v=6" />
+    <link rel="stylesheet" href="styles.css?v=7" />
   </head>
   <body>
     <header class="topbar">
@@ -80,50 +80,75 @@
       </section>
 
       <section id="roi" class="roi-section" aria-labelledby="roi-title">
-        <div class="roi-heading">
-          <p class="eyebrow-label" data-roi-i18n="label">Фінансовий сценарій</p>
-          <h2 id="roi-title" data-roi-i18n="title">Оцініть окупність освіти у США</h2>
-          <p data-roi-i18n="intro">Змініть вартість, допомогу та витрати — результат оновиться одразу.</p>
-        </div>
-
-        <div class="roi-calculator">
-          <form class="roi-inputs" onsubmit="return false">
-            <label class="roi-field">
-              <span data-roi-i18n="major">Спеціальність / Major</span>
-              <select id="roi-major"></select>
-            </label>
-
-            <label class="roi-field">
-              <span data-roi-i18n="tuition">Вартість навчання на рік</span>
-              <span class="money-input"><span aria-hidden="true">$</span><input id="roi-tuition" type="number" min="0" max="200000" step="500" value="60000" inputmode="numeric" /></span>
-            </label>
-
-            <label class="roi-field roi-range-field">
-              <span><span data-roi-i18n="aid">Фінансова допомога</span><output id="roi-aid-value" for="roi-aid">60%</output></span>
-              <input id="roi-aid" type="range" min="0" max="100" step="1" value="60" />
-              <span class="range-scale" aria-hidden="true"><span>0%</span><span>100%</span></span>
-            </label>
-
-            <label class="roi-field">
-              <span data-roi-i18n="living">Витрати на проживання на рік</span>
-              <span class="money-input"><span aria-hidden="true">$</span><input id="roi-living" type="number" min="0" max="100000" step="500" value="18000" inputmode="numeric" /></span>
-            </label>
-          </form>
-
-          <div class="roi-results" aria-live="polite">
-            <p class="roi-results-label" data-roi-i18n="results">Результат сценарію</p>
-            <div class="roi-primary-result">
-              <span data-roi-i18n="breakEven">Орієнтовна окупність</span>
-              <strong id="roi-break-even">6.6 років</strong>
-            </div>
-            <div class="roi-result-grid">
-              <article><span data-roi-i18n="total">Загальна вартість за 4 роки</span><strong id="roi-total">$168,000</strong></article>
-              <article><span data-roi-i18n="salary">Очікувана стартова зарплата</span><strong id="roi-salary">$85,000</strong></article>
-            </div>
-            <p class="roi-method" data-roi-i18n="method">Розрахунок передбачає, що 30% стартової зарплати спрямовується на повернення вартості освіти.</p>
+        <div class="roi-banner">
+          <div class="roi-banner-copy">
+            <p class="eyebrow-label" data-roi-i18n="label">Фінансовий план</p>
+            <h2 id="roi-title" data-roi-i18n="title">Оцініть повну вартість навчання у США</h2>
+            <p data-roi-i18n="intro">Порахуйте окупність освіти або окремо складіть бюджет на документи, візу, переліт і перші витрати.</p>
+          </div>
+          <div class="roi-banner-action">
+            <p data-roi-i18n="bannerMeta">30 спеціальностей · 2 фінансові сценарії · миттєвий розрахунок</p>
+            <button id="roi-toggle" class="roi-toggle" type="button" aria-expanded="false" aria-controls="roi-panel"><span data-roi-i18n="openButton">Відкрити калькулятор</span><b aria-hidden="true">↘</b></button>
           </div>
         </div>
-        <p class="roi-disclaimer" data-roi-i18n="disclaimer">Орієнтовна модель · Зарплати є демонстраційними даними, а не фінансовою порадою.</p>
+
+        <div id="roi-panel" class="roi-panel" hidden>
+          <div class="roi-mode-switch" role="tablist" aria-label="Calculator mode">
+            <button type="button" class="active" role="tab" data-roi-mode="education" data-roi-i18n="educationTab">Освіта та окупність</button>
+            <button type="button" role="tab" data-roi-mode="arrival" data-roi-i18n="arrivalTab">Вступ і переїзд</button>
+          </div>
+
+          <div class="roi-calculator" data-roi-view="education">
+            <form class="roi-inputs" onsubmit="return false">
+              <label class="roi-field"><span data-roi-i18n="major">Спеціальність / Major</span><select id="roi-major"></select></label>
+              <label class="roi-field"><span data-roi-i18n="tuition">Вартість навчання на рік</span><span class="money-input"><span aria-hidden="true">$</span><input id="roi-tuition" type="number" min="0" max="200000" step="500" value="60000" inputmode="numeric" /></span></label>
+              <label class="roi-field roi-range-field"><span><span data-roi-i18n="aid">Фінансова допомога</span><output id="roi-aid-value" for="roi-aid">60%</output></span><input id="roi-aid" type="range" min="0" max="100" step="1" value="60" /><span class="range-scale" aria-hidden="true"><span>0%</span><span>100%</span></span></label>
+              <label class="roi-field"><span data-roi-i18n="living">Проживання на рік</span><span class="money-input"><span aria-hidden="true">$</span><input id="roi-living" type="number" min="0" max="100000" step="500" value="18000" inputmode="numeric" /></span></label>
+              <label class="roi-field"><span data-roi-i18n="duration">Тривалість програми</span><select id="roi-duration"><option value="2">2 years</option><option value="3">3 years</option><option value="4" selected>4 years</option><option value="5">5 years</option><option value="6">6 years</option></select></label>
+              <label class="roi-field roi-range-field"><span><span data-roi-i18n="repayment">Частка зарплати на повернення витрат</span><output id="roi-repayment-value" for="roi-repayment">30%</output></span><input id="roi-repayment" type="range" min="10" max="50" step="5" value="30" /><span class="range-scale" aria-hidden="true"><span>10%</span><span>50%</span></span></label>
+            </form>
+
+            <div class="roi-results" aria-live="polite">
+              <p class="roi-results-label" data-roi-i18n="results">Результат сценарію</p>
+              <div class="roi-primary-result"><span data-roi-i18n="breakEven">Орієнтовна окупність</span><strong id="roi-break-even">6.6 років</strong></div>
+              <div class="roi-result-grid roi-result-grid--three">
+                <article><span data-roi-i18n="total">Повна вартість програми</span><strong id="roi-total">$168,000</strong></article>
+                <article><span data-roi-i18n="annual">Вартість одного року після допомоги</span><strong id="roi-annual">$42,000</strong></article>
+                <article><span data-roi-i18n="salary">Очікувана стартова зарплата</span><strong id="roi-salary">$85,000</strong></article>
+              </div>
+              <p class="roi-method" data-roi-i18n="method">Окупність = повна вартість ÷ обрана частка стартової зарплати.</p>
+            </div>
+          </div>
+
+          <div class="roi-calculator" data-roi-view="arrival" hidden>
+            <form class="roi-inputs roi-inputs--move" onsubmit="return false">
+              <label class="roi-field"><span data-roi-i18n="residence">Країна вильоту</span><select id="roi-residence"></select></label>
+              <label class="roi-field"><span data-roi-i18n="citizenship">Країна громадянства</span><select id="roi-citizenship"></select></label>
+              <label class="roi-field roi-field--wide"><span data-roi-i18n="visaStatus">Візова ситуація</span><select id="roi-visa"></select></label>
+              <label class="roi-field"><span data-roi-i18n="applications">Кількість заявок</span><span class="money-input money-input--plain"><input id="roi-applications" type="number" min="1" max="30" step="1" value="10" inputmode="numeric" /></span></label>
+              <label class="roi-field"><span data-roi-i18n="applicationFee">Середній application fee</span><span class="money-input"><span aria-hidden="true">$</span><input id="roi-application-fee" type="number" min="0" max="200" step="5" value="75" inputmode="numeric" /></span></label>
+              <label class="roi-field"><span data-roi-i18n="documents">Переклади та документи</span><span class="money-input"><span aria-hidden="true">$</span><input id="roi-documents" type="number" min="0" max="5000" step="10" value="420" inputmode="numeric" /></span></label>
+              <label class="roi-field"><span data-roi-i18n="flight">Переліт і багаж</span><span class="money-input"><span aria-hidden="true">$</span><input id="roi-flight" type="number" min="0" max="10000" step="25" value="850" inputmode="numeric" /></span></label>
+              <label class="roi-field"><span data-roi-i18n="insurance">Страхування на дорогу</span><span class="money-input"><span aria-hidden="true">$</span><input id="roi-insurance" type="number" min="0" max="5000" step="25" value="250" inputmode="numeric" /></span></label>
+              <label class="roi-field"><span data-roi-i18n="setup">Перші витрати після приїзду</span><span class="money-input"><span aria-hidden="true">$</span><input id="roi-setup" type="number" min="0" max="10000" step="50" value="650" inputmode="numeric" /></span></label>
+            </form>
+
+            <div class="roi-results" aria-live="polite">
+              <p class="roi-results-label" data-roi-i18n="moveResult">Бюджет до початку навчання</p>
+              <div class="roi-primary-result"><span data-roi-i18n="moveTotal">Разом до прибуття</span><strong id="roi-move-total">$3,455</strong></div>
+              <div class="roi-breakdown">
+                <div><span data-roi-i18n="applicationsTotal">Подача заявок</span><strong id="roi-applications-total">$750</strong></div>
+                <div><span data-roi-i18n="documentsTotal">Документи</span><strong id="roi-documents-total">$420</strong></div>
+                <div><span data-roi-i18n="visaTotal">Віза та SEVIS</span><strong id="roi-visa-total">$535</strong></div>
+                <div><span data-roi-i18n="travelTotal">Дорога й облаштування</span><strong id="roi-travel-total">$1,750</strong></div>
+              </div>
+              <p class="roi-method" data-roi-i18n="moveMethod">Оцінки документів і перельоту залежать від країни та доступних маршрутів.</p>
+            </div>
+          </div>
+
+          <p class="roi-fee-sources"><span data-roi-i18n="officialFees">Офіційні збори F-1: visa application — $185, I-901 SEVIS — $350. Перевірити джерела</span>: <a href="https://travel.state.gov/content/travel/en/us-visas/study/student-visa.html" target="_blank" rel="noopener noreferrer">State.gov</a> · <a href="https://www.ice.gov/sevis/i901" target="_blank" rel="noopener noreferrer">ICE.gov</a></p>
+          <p class="roi-disclaimer" data-roi-i18n="disclaimer">Орієнтовна модель · Зарплати, переліт і супутні витрати є демонстраційними оцінками.</p>
+        </div>
       </section>
 
       <section class="aid-guide" aria-labelledby="aid-guide-title">
@@ -156,9 +181,9 @@
     </main>
 
     <footer><div><strong>FullRide UA</strong><span data-i18n="footerTagline">Перевіряйте. Порівнюйте. Подавайтеся усвідомлено.</span></div><div class="footer-meta"><span>© 2026</span><span data-i18n="footer">Пілотна версія · Дані потребують регулярної перевірки</span></div></footer>
-    <script src="data.js?v=6"></script>
-    <script src="app.js?v=6"></script>
-    <script src="roi-data.js?v=6"></script>
-    <script src="roi.js?v=6"></script>
+    <script src="data.js?v=7"></script>
+    <script src="app.js?v=7"></script>
+    <script src="roi-data.js?v=7"></script>
+    <script src="roi.js?v=7"></script>
   </body>
 </html>
