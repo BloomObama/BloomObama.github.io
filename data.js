@@ -10,7 +10,7 @@ let directoryImageIndex = 0;
 
 const directoryCollege = ({
   name, short, location, description, source,
-  catalogId = null, catalogOnly = false, descriptionPending = false,
+  catalogId = null, catalogOnly = false, descriptionPending = false, facts = null,
   verified = false, checkedAt = null,
   aid, aidShort = "Needs review", aidSource,
   testing, testingSource, testFlexible = false,
@@ -22,7 +22,7 @@ const directoryCollege = ({
   const fallback = directoryImages[directoryImageIndex++ % directoryImages.length];
   const pending = catalogOnly ? "Пока нет информации." : "Not yet audited for the 2026–27 cycle. Verify this item on the official admissions page.";
   return ({
-  name, short, location, description, catalogId, catalogOnly, descriptionPending,
+  name, short, location, description, catalogId, catalogOnly, descriptionPending, facts,
   aid: verified ? aid : pending,
   aidShort: verified ? aidShort : catalogOnly ? "Пока нет информации." : "Needs review",
   testing: verified ? testing : pending,
@@ -97,7 +97,7 @@ const colleges = [
     description: "A small research university built around an undergraduate liberal-arts college in a rural New England setting.",
     aid: "Need-blind · meets 100% of demonstrated need regardless of citizenship", aidShort: "Need-blind + full need", testing: "SAT/ACT, AP, IB, A-Levels or equivalent national exams may meet the requirement",
     english: "Required when English is not your first language or language of instruction for two years", fee: "Fee waiver may be requested for financial hardship", deadline: "Early Decision: November 1 · Regular Decision: January 1",
-    source: "https://admissions.dartmouth.edu/apply/international-students", aidSource: "https://admissions.dartmouth.edu/affordability-dartmouth",
+    source: "https://admissions.dartmouth.edu/glossary-term/international-students", aidSource: "https://admissions.dartmouth.edu/affordability-dartmouth",
     testingSource: "https://admissions.dartmouth.edu/apply/testing-policy", englishSource: "https://admissions.dartmouth.edu/apply/testing-policy", feeSource: "https://admissions.dartmouth.edu/apply-dartmouth", deadlineSource: "https://admissions.dartmouth.edu/apply-dartmouth",
     verified: true, checkedAt: "2026-09-16",
     needBlind: true, testFlexible: true, englishStatus: "required", feeWaiver: true,
@@ -187,20 +187,51 @@ const catalogShortName = name => {
   return acronym.length >= 2 && acronym.length <= 10 ? acronym : `${name.slice(0, 27)}…`;
 };
 const existingCollegeNames = new Set(colleges.map(college => catalogNameKey(college.name)));
+const catalogRows = globalThis.FullRideBasicColleges || [];
+const catalogByName = new Map(catalogRows.map(row => [catalogNameKey(row[1]), row]));
+const collegeMedia = globalThis.FullRideCollegeMedia || {};
+const catalogNameAliases = new Map([
+  [catalogNameKey("Columbia University"), catalogNameKey("Columbia University in the City of New York")],
+  [catalogNameKey("Tulane University"), catalogNameKey("Tulane University of Louisiana")],
+  [catalogNameKey("College of Wooster"), catalogNameKey("The College of Wooster")],
+  [catalogNameKey("Sewanee: The University of the South"), catalogNameKey("The University of the South")]
+]);
+const claimedCatalogNames = new Set([...existingCollegeNames, ...catalogNameAliases.values()]);
 
-(globalThis.FullRideBasicColleges || []).forEach(([catalogId, name, city, stateCode, source, description]) => {
+// Hand-written records keep their reviewed admissions copy, while receiving the
+// same exact-ID federal facts and licensed imagery as the generated directory.
+colleges.forEach(college => {
+  const nameKey = catalogNameKey(college.name);
+  const catalogRow = catalogByName.get(catalogNameAliases.get(nameKey) || nameKey);
+  if (catalogRow) {
+    college.catalogId = college.catalogId || catalogRow[0];
+    college.facts = college.facts || catalogRow[6] || null;
+  }
+});
+
+catalogRows.forEach(([catalogId, name, city, stateCode, source, description, facts]) => {
   const nameKey = catalogNameKey(name);
-  if (existingCollegeNames.has(nameKey)) return;
+  if (claimedCatalogNames.has(nameKey)) return;
   colleges.push(directoryCollege({
     catalogId,
     catalogOnly:true,
     descriptionPending:false,
+    facts,
     name,
     short:catalogShortName(name),
     location:`${city}, ${stateNames[stateCode] || stateCode}`,
     description,
     source
   }));
+});
+
+colleges.forEach(college => {
+  const media = college.catalogId ? collegeMedia[String(college.catalogId)] : null;
+  if (!media || college.photoIsIllustrative !== true) return;
+  college.photo = media.photo;
+  college.photoSource = media.photoSource;
+  college.photoCredit = media.photoCredit;
+  college.photoIsIllustrative = false;
 });
 
 const northeastStates = new Set(["Connecticut", "Maine", "Massachusetts", "New Hampshire", "New Jersey", "New York", "Pennsylvania", "Rhode Island", "Vermont"]);
@@ -215,7 +246,7 @@ colleges.forEach(college => {
   const [city, state] = college.location.split(", ");
   const text = `${college.name} ${college.description}`.toLowerCase();
   const slugBase = college.name.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
-  college.slug = college.catalogId ? `${slugBase}-${college.catalogId}` : college.short.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+  college.slug = college.catalogOnly && college.catalogId ? `${slugBase}-${college.catalogId}` : college.short.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
   college.state = state;
   college.region = northeastStates.has(state) ? "northeast" : midwestStates.has(state) ? "midwest" : westStates.has(state) ? "west" : southStates.has(state) ? "south" : "other";
   college.institutionType = college.catalogOnly ? "unverified" : specializedSchools.has(college.name) ? "specialized" : text.includes("liberal-arts") ? "liberal-arts" : "research";

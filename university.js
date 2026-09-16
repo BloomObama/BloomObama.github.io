@@ -13,12 +13,31 @@ const profileTranslations = {
 Object.assign(profileTranslations.uk, { notAvailableYet:"Поки немає інформації." });
 Object.assign(profileTranslations.ru, { notAvailableYet:"Пока нет информации." });
 Object.assign(profileTranslations.en, { notAvailableYet:"Information is not available yet." });
+Object.assign(profileTranslations.uk, { federalCycle:"Останні доступні федеральні дані", undergraduateEnrollment:"Студентів бакалаврату", admissionRate:"Частка зарахованих", nonresidentShare:"Студенти-нерезиденти", averageSat:"Середній SAT", federalContext:"Вартість та результати", tuitionOut:"Навчання для студентів не зі штату", tuitionIn:"Навчання для резидентів штату", annualCost:"Орієнтовна річна вартість", retentionRate:"Утримання після першого року", completionRate:"Завершення програми", federalNoData:"У вибраних федеральних полях дані не опубліковані.", scorecardCaveat:"College Scorecard об’єднує показники з різних звітних років. Це довідкові дані закладу, а не умови вступної кампанії 2026–27. Нерезиденти США — найближчий доступний федеральний показник для international-контексту, але не статистика іноземних абітурієнтів.", scorecardSource:"College Scorecard ↗" });
+Object.assign(profileTranslations.ru, { federalCycle:"Последние доступные федеральные данные", undergraduateEnrollment:"Студентов бакалавриата", admissionRate:"Доля зачисленных", nonresidentShare:"Студенты-нерезиденты", averageSat:"Средний SAT", federalContext:"Стоимость и результаты", tuitionOut:"Обучение для студентов не из штата", tuitionIn:"Обучение для резидентов штата", annualCost:"Ориентировочная годовая стоимость", retentionRate:"Удержание после первого года", completionRate:"Завершение программы", federalNoData:"В выбранных федеральных полях данные не опубликованы.", scorecardCaveat:"College Scorecard объединяет показатели из разных отчётных лет. Это справочные данные учебного заведения, а не условия приёмной кампании 2026–27. Нерезиденты США — ближайший доступный федеральный показатель для international-контекста, но не статистика иностранных абитуриентов.", scorecardSource:"College Scorecard ↗" });
+Object.assign(profileTranslations.en, { federalCycle:"Latest available federal data", undergraduateEnrollment:"Undergraduate enrollment", admissionRate:"Admission rate", nonresidentShare:"Nonresident students", averageSat:"Average SAT", federalContext:"Cost and outcomes", tuitionOut:"Out-of-state tuition", tuitionIn:"In-state tuition", annualCost:"Estimated annual cost", retentionRate:"First-year retention", completionRate:"Completion rate", federalNoData:"The selected federal fields were not reported.", scorecardCaveat:"College Scorecard combines measures from different reporting years. These are institutional reference data, not 2026–27 admissions-cycle rules. Nonresident students are the closest available federal measure for international context, but they are not international-applicant statistics.", scorecardSource:"College Scorecard ↗" });
 
 const params = new URLSearchParams(location.search);
 let profileLanguage = ["uk","ru","en"].includes(params.get("lang")) ? params.get("lang") : "uk";
 const profileT = key => profileTranslations[profileLanguage][key] || key;
 const college = colleges.find(item => item.slug === params.get("id"));
 const profile = college ? collegeProfiles[college.slug] : null;
+
+const hasValue = value => value !== null && value !== undefined && value !== "";
+const scorecardUrl = item => item?.catalogId ? `https://collegescorecard.ed.gov/school/?${item.catalogId}` : item?.source;
+const formatNumber = value => hasValue(value) ? new Intl.NumberFormat(profileLanguage === "en" ? "en-US" : profileLanguage === "uk" ? "uk-UA" : "ru-RU").format(value) : "—";
+const formatPercent = value => hasValue(value) ? new Intl.NumberFormat(profileLanguage === "en" ? "en-US" : profileLanguage === "uk" ? "uk-UA" : "ru-RU", { style:"percent", maximumFractionDigits:1 }).format(value) : "—";
+const formatCurrency = value => hasValue(value) ? new Intl.NumberFormat(profileLanguage === "en" ? "en-US" : profileLanguage === "uk" ? "uk-UA" : "ru-RU", { style:"currency", currency:"USD", maximumFractionDigits:0 }).format(value) : "—";
+
+function federalSummary(facts = {}) {
+  const parts = [];
+  if (hasValue(facts.tuitionOut)) parts.push(`${profileT("tuitionOut")}: ${formatCurrency(facts.tuitionOut)}`);
+  else if (hasValue(facts.tuitionIn)) parts.push(`${profileT("tuitionIn")}: ${formatCurrency(facts.tuitionIn)}`);
+  if (hasValue(facts.annualCost)) parts.push(`${profileT("annualCost")}: ${formatCurrency(facts.annualCost)}`);
+  if (hasValue(facts.retentionRate)) parts.push(`${profileT("retentionRate")}: ${formatPercent(facts.retentionRate)}`);
+  if (hasValue(facts.completionRate)) parts.push(`${profileT("completionRate")}: ${formatPercent(facts.completionRate)}`);
+  return parts.length ? `${parts.join(" · ")}.` : profileT("federalNoData");
+}
 
 function sourceLinks(item) {
   const candidates = [
@@ -44,7 +63,14 @@ function renderProfile() {
   }
 
   document.title = `${college.name} — FullRide UA`;
-  const stats = profile || { cycle:profileT("notAvailableYet"), applications:"—", admitted:"—", enrolled:"—", international:"—", aidSnapshot:profileT("notAvailableYet"), statsSource:college.source, gallery:[] };
+  const facts = college.facts || {};
+  const hasFederalFacts = Object.values(facts).some(hasValue);
+  const stats = profile || { cycle:hasFederalFacts ? profileT("federalCycle") : profileT("notAvailableYet"), aidSnapshot:hasFederalFacts ? federalSummary(facts) : profileT("notAvailableYet"), statsSource:hasFederalFacts ? scorecardUrl(college) : college.source, gallery:[] };
+  const statCells = profile ? [
+    [stats.applications, profileT("applications")], [stats.admitted, profileT("admitted")], [stats.enrolled, profileT("enrolled")], [stats.international, profileT("international")]
+  ] : [
+    [formatNumber(facts.enrollment), profileT("undergraduateEnrollment")], [formatPercent(facts.admissionRate), profileT("admissionRate")], [formatPercent(facts.nonresidentShare), profileT("nonresidentShare")], [formatNumber(facts.satAverage), profileT("averageSat")]
+  ];
   const gallery = [{ url:college.photo, source:college.photoSource, credit:college.photoIsIllustrative ? profileT("illustrative") : college.photoCredit }, ...(stats.gallery || [])]
     .filter((image, index, array) => image.url && array.findIndex(candidate => candidate.url === image.url) === index);
   const checklist = ["checkApplication","checkTranscript","checkRecommendations","checkTests","checkEnglish","checkAid","checkFee","checkDeadlines"];
@@ -64,13 +90,10 @@ function renderProfile() {
     <section class="profile-section profile-stats" aria-labelledby="stats-title">
       <div class="profile-section-heading"><div><p>01 / ${profileT("cycle")}</p><h2 id="stats-title">${stats.cycle}</h2></div><a href="${stats.statsSource}" target="_blank" rel="noopener noreferrer">${profileT("statsSource")}</a></div>
       <div class="profile-stat-grid">
-        <article><strong>${stats.applications}</strong><span>${profileT("applications")}</span></article>
-        <article><strong>${stats.admitted}</strong><span>${profileT("admitted")}</span></article>
-        <article><strong>${stats.enrolled}</strong><span>${profileT("enrolled")}</span></article>
-        <article><strong>${stats.international}</strong><span>${profileT("international")}</span></article>
+        ${statCells.map(([value,label]) => `<article><strong>${value}</strong><span>${label}</span></article>`).join("")}
       </div>
-      <div class="profile-aid-note"><span>${profileT("aidStat")}</span><p>${stats.aidSnapshot}</p></div>
-      <p class="profile-fineprint">${profileT("fullRideNote")}</p>
+      <div class="profile-aid-note"><span>${profileT(profile ? "aidStat" : "federalContext")}</span><p>${stats.aidSnapshot}</p></div>
+      <p class="profile-fineprint">${profileT(profile ? "fullRideNote" : "scorecardCaveat")}</p>
     </section>
 
     <section class="profile-section" aria-labelledby="policies-title">
@@ -96,7 +119,7 @@ function renderProfile() {
 
     <section class="profile-section profile-sources" aria-labelledby="sources-title">
       <div class="profile-section-heading"><div><p>05 / Sources</p><h2 id="sources-title">${profileT("sources")}</h2></div></div>
-      <div class="profile-source-list">${sourceLinks(college)}${profile ? `<a href="${profile.statsSource}" target="_blank" rel="noopener noreferrer"><span>${profileT("statsSource").replace(" ↗","")}</span><b>↗</b></a>` : ""}</div>
+      <div class="profile-source-list">${sourceLinks(college)}${profile ? `<a href="${profile.statsSource}" target="_blank" rel="noopener noreferrer"><span>${profileT("statsSource").replace(" ↗","")}</span><b>↗</b></a>` : hasFederalFacts ? `<a href="${scorecardUrl(college)}" target="_blank" rel="noopener noreferrer"><span>${profileT("scorecardSource").replace(" ↗","")}</span><b>↗</b></a>` : ""}</div>
     </section>`;
 }
 

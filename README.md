@@ -2,9 +2,13 @@
 
 ## College directory data
 
-The extended basic directory is generated from the [U.S. Department of Education College Scorecard](https://catalog.data.gov/dataset/college-scorecard) institution-level release dated May 19, 2025. It includes operating main campuses whose predominant award is a bachelor's degree. Names, locations, institutional websites and factual descriptions come from that release. Descriptions summarize ownership, undergraduate enrollment, award level, campus setting, leading broad fields by degree share and applicable federal designations. Detailed admissions and financial-aid fields stay explicitly unverified until a separate editorial audit is completed.
+The extended basic directory is generated from the [U.S. Department of Education College Scorecard](https://catalog.data.gov/dataset/college-scorecard) institution-level release dated May 19, 2025. It includes operating main campuses whose predominant award is a bachelor's degree. Names, locations, institutional websites, descriptions and structured facts come from that release. Descriptions summarize ownership, undergraduate enrollment, award level, campus setting, leading broad fields by degree share and applicable federal designations. Profile facts include the latest available federal enrollment, admission-rate, nonresident-share, tuition, cost, retention, completion and SAT fields when reported. These fields can represent different reporting years and are never presented as current admissions-cycle rules.
 
-Regenerate `college-catalog.js` from the downloaded CSV with `scripts/build-college-catalog.ps1`.
+Campus images in `college-media.js` are matched by exact IPEDS ID through [Wikidata property P1771](https://www.wikidata.org/wiki/Property:P1771), then checked through Wikimedia Commons metadata. Logos, seals, small files and unsuitable aspect ratios are excluded. Institutions without a reliable exact-ID image retain a clearly labelled illustrative photo.
+
+Regenerate `college-catalog.js` from the downloaded CSV with `scripts/build-college-catalog.ps1`, then regenerate exact-ID media with `node scripts/build-college-media.mjs`. Run `node scripts/validate-college-data.mjs` before publishing. `node scripts/check-reviewed-sources.mjs` performs a network reachability check for every source used by the editorially reviewed profiles.
+
+Admissions policies, deadlines, test rules and international financial-aid claims are a separate editorial layer. Only records marked as verified have completed that official-site review; all others explicitly say that the information is not yet available.
 
 An independent pilot resource for Ukrainian students researching need-based financial aid at U.S. universities.
 

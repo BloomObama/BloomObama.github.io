@@ -30,6 +30,14 @@ function Format-ApproximateEnrollment([string]$rawValue) {
   return $rounded.ToString("N0", [System.Globalization.CultureInfo]::GetCultureInfo("en-US"))
 }
 
+function Convert-NullableNumber([string]$rawValue, [string]$kind = "double") {
+  if ([string]::IsNullOrWhiteSpace($rawValue) -or $rawValue -eq "NULL" -or $rawValue -eq "PrivacySuppressed") { return $null }
+  [double]$value = 0
+  if (-not [double]::TryParse($rawValue, [System.Globalization.NumberStyles]::Float, [System.Globalization.CultureInfo]::InvariantCulture, [ref]$value)) { return $null }
+  if ($kind -eq "integer") { return [int][Math]::Round($value) }
+  return [Math]::Round($value, 6)
+}
+
 function Get-TopFields($row) {
   $fields = foreach ($entry in $fieldLabels.GetEnumerator()) {
     [double]$share = 0
@@ -99,7 +107,21 @@ $schools = Import-Csv -LiteralPath $InputCsv |
       $website = "https://$website"
     }
 
-    ,([object[]]@($unitId, $name, $city, $state, $website, $description))
+    $facts = [ordered]@{
+      control = Convert-NullableNumber $_.CONTROL "integer"
+      locale = Convert-NullableNumber $_.LOCALE "integer"
+      enrollment = Convert-NullableNumber $_.UGDS "integer"
+      nonresidentShare = Convert-NullableNumber $_.UGDS_NRA
+      admissionRate = Convert-NullableNumber $_.ADM_RATE
+      satAverage = Convert-NullableNumber $_.SAT_AVG "integer"
+      tuitionIn = Convert-NullableNumber $_.TUITIONFEE_IN "integer"
+      tuitionOut = Convert-NullableNumber $_.TUITIONFEE_OUT "integer"
+      annualCost = Convert-NullableNumber $_.COSTT4_A "integer"
+      retentionRate = Convert-NullableNumber $_.RET_FT4
+      completionRate = Convert-NullableNumber $(if ($_.C150_4_POOLED -and $_.C150_4_POOLED -ne "NULL") { $_.C150_4_POOLED } else { $_.C150_4 })
+    }
+
+    ,([object[]]@($unitId, $name, $city, $state, $website, $description, $facts))
   }
 
 $json = ConvertTo-Json -InputObject @($schools) -Compress -Depth 3
@@ -109,7 +131,9 @@ $header = @"
  * College Scorecard institution-level release dated May 19, 2025.
  * Source: https://catalog.data.gov/dataset/college-scorecard
  * Scope: operating main campuses whose predominant award is a bachelor's degree.
- * Descriptions summarize institutional characteristics reported in the dataset.
+ * Descriptions and factual fields summarize institutional characteristics reported in the dataset.
+ * Values can refer to different reporting years; the profile UI labels them as the latest
+ * available federal data and never treats them as current admissions-cycle policy.
  * Detailed admissions and aid fields intentionally remain unverified.
  */
 globalThis.FullRideBasicColleges =
