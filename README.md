@@ -2,7 +2,7 @@
 
 ## College directory data
 
-The extended basic directory is generated from the [U.S. Department of Education College Scorecard](https://catalog.data.gov/dataset/college-scorecard) institution-level release dated May 19, 2025. It includes operating main campuses whose predominant award is a bachelor's degree. Names, locations and institutional websites come from that release; detailed admissions and financial-aid fields stay explicitly unverified until a separate editorial audit is completed.
+The extended basic directory is generated from the [U.S. Department of Education College Scorecard](https://catalog.data.gov/dataset/college-scorecard) institution-level release dated May 19, 2025. It includes operating main campuses whose predominant award is a bachelor's degree. Names, locations, institutional websites and factual descriptions come from that release. Descriptions summarize ownership, undergraduate enrollment, award level, campus setting, leading broad fields by degree share and applicable federal designations. Detailed admissions and financial-aid fields stay explicitly unverified until a separate editorial audit is completed.
 
 Regenerate `college-catalog.js` from the downloaded CSV with `scripts/build-college-catalog.ps1`.
 

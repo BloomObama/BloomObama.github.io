@@ -188,17 +188,17 @@ const catalogShortName = name => {
 };
 const existingCollegeNames = new Set(colleges.map(college => catalogNameKey(college.name)));
 
-(globalThis.FullRideBasicColleges || []).forEach(([catalogId, name, city, stateCode, source]) => {
+(globalThis.FullRideBasicColleges || []).forEach(([catalogId, name, city, stateCode, source, description]) => {
   const nameKey = catalogNameKey(name);
   if (existingCollegeNames.has(nameKey)) return;
   colleges.push(directoryCollege({
     catalogId,
     catalogOnly:true,
-    descriptionPending:true,
+    descriptionPending:false,
     name,
     short:catalogShortName(name),
     location:`${city}, ${stateNames[stateCode] || stateCode}`,
-    description:"Пока нет информации.",
+    description,
     source
   }));
 });
