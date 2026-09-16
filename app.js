@@ -20,6 +20,7 @@ function updateLanguage() {
   document.querySelectorAll("[data-i18n-aria]").forEach(el => { el.setAttribute("aria-label", t(el.dataset.i18nAria)); });
   document.querySelectorAll("[data-lang]").forEach(btn => btn.classList.toggle("active", btn.dataset.lang === language));
   if (q("record-label")) q("record-label").textContent = recordLabels[language];
+  if (typeof window.updateRoiLanguage === "function") window.updateRoiLanguage(language);
   render();
 }
 
