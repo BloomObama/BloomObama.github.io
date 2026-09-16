@@ -24,17 +24,51 @@ Object.assign(translations.en, {
   randomTitle:"Random university", randomHint:"Hold and pull down", randomCount:"in the directory", randomAria:"Pull the lever down or press it to choose a random university", randomResult:"Your random pick", randomOpen:"Open profile →", randomClose:"Close result", randomImageAlt:"Campus: {name}", randomTeaserLabel:"Not sure where to start?", randomTeaserTitle:"Leave the first choice to chance.", randomTeaserText:"Pull the lever and we will reveal one university from the full directory."
 });
 
+Object.assign(translations.uk, {
+  savedList:"Мій список", savedLocal:"Зберігається у цьому браузері", saveCollege:"Зберегти", savedCollege:"Збережено", emptyShortlist:"Ваш список поки порожній. Додавайте університети за допомогою зірки на картці.", routesAria:"Швидкі сценарії пошуку", routesLabel:"Або оберіть свій сигнал", routeAid:"Максимум допомоги", routeTest:"Гнучкі тести", routeStem:"STEM", routeCity:"Велике місто", routeVerified:"Лише перевірені", nextLabel:"Персональний маршрут", nextTitle:"Не втрачайте цей варіант.", nextText:"Один результат — це не кінець пошуку, а точка для перевірки. Збережіть його, відкрийте профіль і звірте правила на офіційному сайті.", nextSave:"Додати до мого списку", nextSaved:"У моєму списку", randomAgain:"Інший випадковий варіант"
+});
+Object.assign(translations.ru, {
+  savedList:"Мой список", savedLocal:"Сохраняется в этом браузере", saveCollege:"Сохранить", savedCollege:"Сохранено", emptyShortlist:"Ваш список пока пуст. Добавляйте университеты с помощью звезды на карточке.", routesAria:"Быстрые сценарии поиска", routesLabel:"Или выберите свой сигнал", routeAid:"Максимум помощи", routeTest:"Гибкие тесты", routeStem:"STEM", routeCity:"Большой город", routeVerified:"Только проверенные", nextLabel:"Персональный маршрут", nextTitle:"Не потеряйте этот вариант.", nextText:"Один результат — не конец поиска, а точка для проверки. Сохраните его, откройте профиль и сверьте правила на официальном сайте.", nextSave:"Добавить в мой список", nextSaved:"В моём списке", randomAgain:"Другой случайный вариант"
+});
+Object.assign(translations.en, {
+  savedList:"My list", savedLocal:"Saved in this browser", saveCollege:"Save", savedCollege:"Saved", emptyShortlist:"Your list is empty. Add universities with the star on each card.", routesAria:"Quick discovery routes", routesLabel:"Or choose your signal", routeAid:"Maximum aid", routeTest:"Flexible testing", routeStem:"STEM", routeCity:"Major city", routeVerified:"Verified only", nextLabel:"Personal route", nextTitle:"Do not lose this option.", nextText:"One result is not the end of the search; it is a point to investigate. Save it, open the profile and confirm the rules on the official site.", nextSave:"Add to my list", nextSaved:"In my list", randomAgain:"Another random option"
+});
+
 let language = "uk";
 let englishFilter = "all";
 let visibleCount = 10;
 let resultsExpanded = true;
 let selectedRandomCollege = null;
+let shortlistMode = false;
+let activeDiscoveryRoute = "";
 const q = id => document.getElementById(id);
 const t = key => translations[language][key] || key;
 const showMoreLabels = { uk:"Показати ще", ru:"Показать ещё", en:"Show more" };
 const recordLabels = { uk:"університетів у базі", ru:"университетов в базе", en:"universities in the directory" };
 const selectFilters = ["region-filter", "state-filter", "type-filter", "setting-filter", "aid-filter", "focus-filter", "verification-filter"];
 const checkboxFilters = ["need-blind", "test-flexible", "fee-waiver"];
+const shortlistStorageKey = "fullride-shortlist-v1";
+let shortlistedColleges = loadShortlist();
+
+function loadShortlist() {
+  try {
+    const values = JSON.parse(window.localStorage.getItem(shortlistStorageKey) || "[]");
+    return new Set(Array.isArray(values) ? values : []);
+  } catch {
+    return new Set();
+  }
+}
+
+function saveShortlist() {
+  try { window.localStorage.setItem(shortlistStorageKey, JSON.stringify([...shortlistedColleges])); } catch {}
+}
+
+function toggleShortlist(slug) {
+  if (shortlistedColleges.has(slug)) shortlistedColleges.delete(slug);
+  else shortlistedColleges.add(slug);
+  saveShortlist();
+  render();
+}
 
 function populateStates() {
   const select = q("state-filter");
@@ -48,7 +82,25 @@ function activeFilterCount() {
 }
 
 function hasFinderInput() {
-  return activeFilterCount() > 0;
+  return activeFilterCount() > 0 || shortlistMode;
+}
+
+const discoveryRoutes = {
+  aid: college => college.needBlind,
+  test: college => college.testFlexible,
+  stem: college => college.focus.includes("stem"),
+  city: college => college.setting === "urban",
+  verified: college => college.verified
+};
+
+function updateDiscoveryUI() {
+  document.querySelectorAll("[data-route-count]").forEach(element => {
+    const predicate = discoveryRoutes[element.dataset.routeCount];
+    element.textContent = predicate ? colleges.filter(predicate).length : 0;
+  });
+  document.querySelectorAll("[data-discovery-route]").forEach(button => {
+    button.classList.toggle("active", button.dataset.discoveryRoute === activeDiscoveryRoute);
+  });
 }
 
 function updateLanguage() {
@@ -60,6 +112,7 @@ function updateLanguage() {
   document.querySelectorAll("[data-lang]").forEach(button => button.classList.toggle("active", button.dataset.lang === language));
   if (q("record-label")) q("record-label").textContent = recordLabels[language];
   if (q("random-college-count")) q("random-college-count").textContent = colleges.length;
+  updateDiscoveryUI();
   if (selectedRandomCollege) updateRandomReveal(selectedRandomCollege);
   if (typeof window.updateRoiLanguage === "function") window.updateRoiLanguage(language);
   render();
@@ -67,6 +120,10 @@ function updateLanguage() {
 
 function render() {
   q("college-count").textContent = colleges.length;
+  updateDiscoveryUI();
+  q("shortlist-count").textContent = shortlistedColleges.size;
+  q("shortlist-toggle").classList.toggle("active", shortlistMode);
+  q("shortlist-toggle").setAttribute("aria-pressed", String(shortlistMode));
   if (q("audit-count")) q("audit-count").textContent = `${colleges.filter(college => college.verified).length} / ${colleges.length}`;
   const hasInput = hasFinderInput();
   q("search-prompt").hidden = hasInput;
@@ -86,7 +143,8 @@ function render() {
     const shortQueryMatch = text.length <= 3
       ? college.short.toLowerCase() === text || `${college.name} ${college.location}`.toLowerCase().split(/\s+/).some(word => word.startsWith(text))
       : searchable.includes(text);
-    return (!text || shortQueryMatch)
+    return (!shortlistMode || shortlistedColleges.has(college.slug))
+      && (!text || shortQueryMatch)
       && (!q("region-filter").value || college.region === q("region-filter").value)
       && (!q("state-filter").value || college.state === q("state-filter").value)
       && (!q("type-filter").value || college.institutionType === q("type-filter").value)
@@ -106,7 +164,7 @@ function render() {
   q("results-toggle").setAttribute("aria-expanded", String(resultsExpanded));
   q("results-toggle").querySelector("span").textContent = t(resultsExpanded ? "hideResults" : "showResults");
   const visibleMatches = matches.slice(0, visibleCount);
-  q("results").innerHTML = matches.length ? visibleMatches.map(college => `
+  const cards = matches.length ? visibleMatches.map(college => `
     <article class="card card--photo ${college.verified ? "card--verified" : "card--pending"}" style="--campus:url('${college.photo}')">
       <a class="card-hit-area" href="university.html?id=${encodeURIComponent(college.slug)}&lang=${language}" aria-label="${t("viewProfile")}: ${college.name}"></a>
       <div class="card-audit-status ${college.verified ? "is-verified" : "is-pending"}">${t(college.verified ? "verifiedBadge" : "pendingBadge")}</div>
@@ -119,13 +177,24 @@ function render() {
         <div class="detail"><dt>${t("fee")}</dt><dd>${college.fee}<a class="detail-source" href="${college.feeSource}" target="_blank" rel="noopener noreferrer">${t("fieldSource")}</a></dd></div>
         <div class="detail"><dt>${t("deadline")}</dt><dd>${college.deadline}<a class="detail-source" href="${college.deadlineSource}" target="_blank" rel="noopener noreferrer">${t("fieldSource")}</a></dd></div>
       </dl>` : `<div class="pending-card-note"><span>!</span><p>${t("pendingCard")}</p></div>`}
-      <div class="card-footer"><a class="profile-link" href="university.html?id=${encodeURIComponent(college.slug)}&lang=${language}">${t("viewProfile")} →</a><a href="${college.source}" target="_blank" rel="noopener noreferrer">${t("official")}</a></div>
-    </article>`).join("") : `<p class="empty">${t("noResults")}</p>`;
+      <div class="card-footer"><button class="save-college ${shortlistedColleges.has(college.slug) ? "is-saved" : ""}" type="button" data-save-college="${college.slug}" aria-pressed="${shortlistedColleges.has(college.slug)}"><span aria-hidden="true">★</span>${t(shortlistedColleges.has(college.slug) ? "savedCollege" : "saveCollege")}</button><a class="profile-link" href="university.html?id=${encodeURIComponent(college.slug)}&lang=${language}">${t("viewProfile")} →</a><a href="${college.source}" target="_blank" rel="noopener noreferrer">${t("official")}</a></div>
+    </article>`).join("") : `<p class="empty">${t(shortlistMode && !shortlistedColleges.size ? "emptyShortlist" : "noResults")}</p>`;
+  const singleMatchPanel = matches.length === 1 ? `
+    <aside class="next-step-card">
+      <span>${t("nextLabel")}</span>
+      <h3>${t("nextTitle")}</h3>
+      <p>${t("nextText")}</p>
+      <ol><li><b>01</b>${t(shortlistedColleges.has(matches[0].slug) ? "nextSaved" : "nextSave")}</li><li><b>02</b>${t("viewProfile")}</li><li><b>03</b>${t("official")}</li></ol>
+      <div><button type="button" data-save-college="${matches[0].slug}" class="next-step-save ${shortlistedColleges.has(matches[0].slug) ? "is-saved" : ""}">${t(shortlistedColleges.has(matches[0].slug) ? "nextSaved" : "nextSave")}</button><button type="button" data-random-again>${t("randomAgain")}</button></div>
+      <small>${t("savedLocal")}</small>
+    </aside>` : "";
+  q("results").innerHTML = cards + singleMatchPanel;
   q("show-more").textContent = `${showMoreLabels[language]} · ${Math.max(0, Math.min(10, matches.length - visibleCount))}`;
   q("show-more").hidden = matches.length <= visibleCount || !resultsExpanded;
 }
 
 function refreshResults() {
+  activeDiscoveryRoute = "";
   visibleCount = 10;
   resultsExpanded = true;
   render();
@@ -146,6 +215,13 @@ q("filter-toggle")?.addEventListener("click", () => {
   render();
 });
 q("results-toggle")?.addEventListener("click", () => { resultsExpanded = !resultsExpanded; render(); });
+q("shortlist-toggle")?.addEventListener("click", () => {
+  shortlistMode = !shortlistMode;
+  activeDiscoveryRoute = "";
+  visibleCount = 10;
+  resultsExpanded = true;
+  render();
+});
 q("reset")?.addEventListener("click", () => {
   q("search").value = "";
   selectFilters.forEach(id => { q(id).value = ""; });
@@ -153,10 +229,40 @@ q("reset")?.addEventListener("click", () => {
   englishFilter = "all";
   visibleCount = 10;
   resultsExpanded = true;
+  shortlistMode = false;
+  activeDiscoveryRoute = "";
   document.querySelectorAll("[data-english-filter]").forEach(option => option.classList.toggle("active", option.dataset.englishFilter === "all"));
   render();
 });
 q("show-more")?.addEventListener("click", () => { visibleCount += 10; render(); });
+q("results")?.addEventListener("click", event => {
+  const saveButton = event.target.closest("[data-save-college]");
+  if (saveButton) {
+    event.preventDefault();
+    toggleShortlist(saveButton.dataset.saveCollege);
+    return;
+  }
+  if (event.target.closest("[data-random-again]")) showRandomCollege();
+});
+document.querySelectorAll("[data-discovery-route]").forEach(button => button.addEventListener("click", () => {
+  const route = button.dataset.discoveryRoute;
+  q("search").value = "";
+  selectFilters.forEach(id => { q(id).value = ""; });
+  checkboxFilters.forEach(id => { q(id).checked = false; });
+  englishFilter = "all";
+  shortlistMode = false;
+  activeDiscoveryRoute = route;
+  if (route === "aid") q("need-blind").checked = true;
+  if (route === "test") q("test-flexible").checked = true;
+  if (route === "stem") q("focus-filter").value = "stem";
+  if (route === "city") q("setting-filter").value = "urban";
+  if (route === "verified") q("verification-filter").value = "verified";
+  document.querySelectorAll("[data-english-filter]").forEach(option => option.classList.toggle("active", option.dataset.englishFilter === "all"));
+  visibleCount = 10;
+  resultsExpanded = true;
+  render();
+  window.setTimeout(() => q("results-shell")?.scrollIntoView({ behavior:"smooth", block:"start" }), 80);
+}));
 document.querySelectorAll("[data-lang]").forEach(button => button.addEventListener("click", () => { language = button.dataset.lang; updateLanguage(); }));
 
 const randomHandle = q("random-lever-handle");
@@ -217,6 +323,8 @@ function showRandomCollege() {
     selectFilters.forEach(id => { q(id).value = ""; });
     checkboxFilters.forEach(id => { q(id).checked = false; });
     englishFilter = "all";
+    shortlistMode = false;
+    activeDiscoveryRoute = "";
     document.querySelectorAll("[data-english-filter]").forEach(option => option.classList.toggle("active", option.dataset.englishFilter === "all"));
     q("search").value = college.name;
     visibleCount = 10;

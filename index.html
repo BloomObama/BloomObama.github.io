@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2311263f'/%3E%3Cpath d='M14 22 32 13l18 9-18 9-18-9Zm5 8v13l13 7 13-7V30l-13 7-13-7Z' fill='%23f1c66a'/%3E%3C/svg%3E" />
-    <link rel="stylesheet" href="styles.css?v=10" />
+    <link rel="stylesheet" href="styles.css?v=11" />
   </head>
   <body>
     <header class="topbar">
@@ -74,7 +74,10 @@
           </label>
           <div class="filter-toolbar">
             <p data-i18n="filterHint">Введіть назву, місто, штат або напрям — чи відкрийте розширені фільтри.</p>
-            <button id="filter-toggle" class="filter-toggle" type="button" aria-expanded="false" aria-controls="advanced-filters"><span data-i18n="filterToggle">Усі фільтри</span><b aria-hidden="true">+</b></button>
+            <div class="filter-toolbar__actions">
+              <button id="shortlist-toggle" class="shortlist-toggle" type="button" aria-pressed="false"><span aria-hidden="true">★</span><span data-i18n="savedList">Мій список</span><b id="shortlist-count">0</b></button>
+              <button id="filter-toggle" class="filter-toggle" type="button" aria-expanded="false" aria-controls="advanced-filters"><span data-i18n="filterToggle">Усі фільтри</span><b aria-hidden="true">+</b></button>
+            </div>
           </div>
           <div id="advanced-filters" class="advanced-filters" hidden>
             <div class="filter-select-grid">
@@ -100,6 +103,16 @@
             <span data-i18n="randomTeaserLabel">Не знаєте, з чого почати?</span>
             <strong data-i18n="randomTeaserTitle">Довірте перший вибір випадку.</strong>
             <p data-i18n="randomTeaserText">Потягніть важіль — ми покажемо один університет із повної бази.</p>
+            <div class="discovery-routes" aria-label="Швидкі сценарії пошуку" data-i18n-aria="routesAria">
+              <span data-i18n="routesLabel">Або оберіть свій сигнал</span>
+              <div>
+                <button type="button" data-discovery-route="aid"><span data-i18n="routeAid">Максимум допомоги</span><b data-route-count="aid">0</b></button>
+                <button type="button" data-discovery-route="test"><span data-i18n="routeTest">Гнучкі тести</span><b data-route-count="test">0</b></button>
+                <button type="button" data-discovery-route="stem"><span data-i18n="routeStem">STEM</span><b data-route-count="stem">0</b></button>
+                <button type="button" data-discovery-route="city"><span data-i18n="routeCity">Велике місто</span><b data-route-count="city">0</b></button>
+                <button type="button" data-discovery-route="verified"><span data-i18n="routeVerified">Лише перевірені</span><b data-route-count="verified">0</b></button>
+              </div>
+            </div>
           </div>
           <section id="random-reveal" class="random-reveal" aria-live="polite" hidden>
             <button id="random-reveal-close" class="random-reveal__close" type="button" data-i18n-aria="randomClose" aria-label="Закрити результат">×</button>
@@ -242,7 +255,7 @@
 
     <footer><div><strong>FullRide UA</strong><span data-i18n="footerTagline">Перевіряйте. Порівнюйте. Подавайтеся усвідомлено.</span></div><div class="footer-meta"><span>© 2026</span><span data-i18n="footer">Пілотна версія · Дані потребують регулярної перевірки</span></div></footer>
     <script src="data.js?v=10"></script>
-    <script src="app.js?v=10"></script>
+    <script src="app.js?v=11"></script>
     <script src="roi-data.js?v=9"></script>
     <script src="roi.js?v=9"></script>
   </body>
