@@ -10,6 +10,7 @@ let directoryImageIndex = 0;
 
 const directoryCollege = ({
   name, short, location, description, source,
+  catalogId = null, catalogOnly = false, descriptionPending = false,
   verified = false, checkedAt = null,
   aid, aidShort = "Needs review", aidSource,
   testing, testingSource, testFlexible = false,
@@ -19,11 +20,11 @@ const directoryCollege = ({
   needBlind = false, photo, photoSource, photoCredit
 }) => {
   const fallback = directoryImages[directoryImageIndex++ % directoryImages.length];
-  const pending = "Not yet audited for the 2026–27 cycle. Verify this item on the official admissions page.";
+  const pending = catalogOnly ? "Пока нет информации." : "Not yet audited for the 2026–27 cycle. Verify this item on the official admissions page.";
   return ({
-  name, short, location, description,
+  name, short, location, description, catalogId, catalogOnly, descriptionPending,
   aid: verified ? aid : pending,
-  aidShort: verified ? aidShort : "Needs review",
+  aidShort: verified ? aidShort : catalogOnly ? "Пока нет информации." : "Needs review",
   testing: verified ? testing : pending,
   english: verified ? english : pending,
   fee: verified ? fee : pending,
@@ -174,9 +175,38 @@ const colleges = [
   directoryCollege({ name:"George Washington University", short:"GW", location:"Washington, District of Columbia", description:"An urban research university whose location supports study and internships in policy, international affairs and public service.", source:"https://undergraduate.admissions.gwu.edu/international-applicants", aidShort:"Merit focus", feeWaiver:true })
 ];
 
+const stateNames = {
+  AL:"Alabama", AK:"Alaska", AZ:"Arizona", AR:"Arkansas", CA:"California", CO:"Colorado", CT:"Connecticut", DE:"Delaware", DC:"District of Columbia", FL:"Florida", GA:"Georgia", HI:"Hawaii", ID:"Idaho", IL:"Illinois", IN:"Indiana", IA:"Iowa", KS:"Kansas", KY:"Kentucky", LA:"Louisiana", ME:"Maine", MD:"Maryland", MA:"Massachusetts", MI:"Michigan", MN:"Minnesota", MS:"Mississippi", MO:"Missouri", MT:"Montana", NE:"Nebraska", NV:"Nevada", NH:"New Hampshire", NJ:"New Jersey", NM:"New Mexico", NY:"New York", NC:"North Carolina", ND:"North Dakota", OH:"Ohio", OK:"Oklahoma", OR:"Oregon", PA:"Pennsylvania", RI:"Rhode Island", SC:"South Carolina", SD:"South Dakota", TN:"Tennessee", TX:"Texas", UT:"Utah", VT:"Vermont", VA:"Virginia", WA:"Washington", WV:"West Virginia", WI:"Wisconsin", WY:"Wyoming",
+  AS:"American Samoa", FM:"Federated States of Micronesia", GU:"Guam", MH:"Marshall Islands", MP:"Northern Mariana Islands", PR:"Puerto Rico", PW:"Palau", VI:"U.S. Virgin Islands"
+};
+
+const catalogNameKey = name => name.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, " ").trim();
+const catalogShortName = name => {
+  if (name.length <= 28) return name;
+  const acronym = name.split(/\s+/).filter(word => !["of", "the", "at", "in", "and", "&"].includes(word.toLowerCase())).map(word => word[0]).join("").replace(/[^a-z0-9]/gi, "").toUpperCase();
+  return acronym.length >= 2 && acronym.length <= 10 ? acronym : `${name.slice(0, 27)}…`;
+};
+const existingCollegeNames = new Set(colleges.map(college => catalogNameKey(college.name)));
+
+(globalThis.FullRideBasicColleges || []).forEach(([catalogId, name, city, stateCode, source]) => {
+  const nameKey = catalogNameKey(name);
+  if (existingCollegeNames.has(nameKey)) return;
+  colleges.push(directoryCollege({
+    catalogId,
+    catalogOnly:true,
+    descriptionPending:true,
+    name,
+    short:catalogShortName(name),
+    location:`${city}, ${stateNames[stateCode] || stateCode}`,
+    description:"Пока нет информации.",
+    source
+  }));
+});
+
 const northeastStates = new Set(["Connecticut", "Maine", "Massachusetts", "New Hampshire", "New Jersey", "New York", "Pennsylvania", "Rhode Island", "Vermont"]);
-const midwestStates = new Set(["Illinois", "Indiana", "Iowa", "Minnesota", "Missouri", "Ohio"]);
-const westStates = new Set(["California", "Oregon"]);
+const midwestStates = new Set(["Illinois", "Indiana", "Iowa", "Kansas", "Michigan", "Minnesota", "Missouri", "Nebraska", "North Dakota", "Ohio", "South Dakota", "Wisconsin"]);
+const westStates = new Set(["Alaska", "Arizona", "California", "Colorado", "Hawaii", "Idaho", "Montana", "Nevada", "New Mexico", "Oregon", "Utah", "Washington", "Wyoming"]);
+const southStates = new Set(["Alabama", "Arkansas", "Delaware", "District of Columbia", "Florida", "Georgia", "Kentucky", "Louisiana", "Maryland", "Mississippi", "North Carolina", "Oklahoma", "South Carolina", "Tennessee", "Texas", "Virginia", "West Virginia"]);
 const urbanCities = new Set(["Atlanta", "Baltimore", "Boston", "Cambridge", "Chicago", "Cleveland", "Houston", "Los Angeles", "Memphis", "Nashville", "New Orleans", "New York", "Philadelphia", "Pittsburgh", "Portland", "Providence", "Rochester", "Saint Paul", "St. Louis", "Syracuse", "Washington"]);
 const suburbanCities = new Set(["Claremont", "Coral Gables", "Evanston", "Haverford", "Medford", "Pasadena", "Stanford", "Swarthmore", "Villanova", "Waltham", "Wellesley"]);
 const specializedSchools = new Set(["Babson College", "California Institute of Technology", "Carnegie Mellon University", "Massachusetts Institute of Technology"]);
@@ -184,17 +214,18 @@ const specializedSchools = new Set(["Babson College", "California Institute of T
 colleges.forEach(college => {
   const [city, state] = college.location.split(", ");
   const text = `${college.name} ${college.description}`.toLowerCase();
-  college.slug = college.short.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+  const slugBase = college.name.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+  college.slug = college.catalogId ? `${slugBase}-${college.catalogId}` : college.short.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
   college.state = state;
-  college.region = northeastStates.has(state) ? "northeast" : midwestStates.has(state) ? "midwest" : westStates.has(state) ? "west" : "south";
-  college.institutionType = specializedSchools.has(college.name) ? "specialized" : text.includes("liberal-arts") ? "liberal-arts" : "research";
-  college.setting = text.includes("rural") || text.includes("mountain") ? "rural" : urbanCities.has(city) || text.includes("urban") ? "urban" : suburbanCities.has(city) ? "suburban" : "town";
+  college.region = northeastStates.has(state) ? "northeast" : midwestStates.has(state) ? "midwest" : westStates.has(state) ? "west" : southStates.has(state) ? "south" : "other";
+  college.institutionType = college.catalogOnly ? "unverified" : specializedSchools.has(college.name) ? "specialized" : text.includes("liberal-arts") ? "liberal-arts" : "research";
+  college.setting = college.catalogOnly ? "unverified" : text.includes("rural") || text.includes("mountain") ? "rural" : urbanCities.has(city) || text.includes("urban") ? "urban" : suburbanCities.has(city) ? "suburban" : "town";
   college.aidCategory = !college.verified ? "unverified" : college.needBlind ? "need-blind" : college.aidShort.toLowerCase().includes("merit") ? "merit" : college.aidShort.toLowerCase().includes("limited") ? "limited" : "need-aware";
-  college.focus = [];
-  if (/engineering|science|technology|computer|mathematics|research/.test(text)) college.focus.push("stem");
-  if (/business|management|entrepreneur|economics|commerce|finance/.test(text)) college.focus.push("business");
-  if (/arts|design|film|music|drama|creative|architecture/.test(text)) college.focus.push("arts");
-  if (/policy|government|international|social|humanities|journalism|communication/.test(text)) college.focus.push("social-sciences");
-  if (/health|medicine|nursing|public health|life sciences/.test(text)) college.focus.push("health");
+  college.focus = college.catalogOnly ? ["general"] : [];
+  if (!college.catalogOnly && /engineering|science|technology|computer|mathematics|research/.test(text)) college.focus.push("stem");
+  if (!college.catalogOnly && /business|management|entrepreneur|economics|commerce|finance/.test(text)) college.focus.push("business");
+  if (!college.catalogOnly && /arts|design|film|music|drama|creative|architecture/.test(text)) college.focus.push("arts");
+  if (!college.catalogOnly && /policy|government|international|social|humanities|journalism|communication/.test(text)) college.focus.push("social-sciences");
+  if (!college.catalogOnly && /health|medicine|nursing|public health|life sciences/.test(text)) college.focus.push("health");
   if (!college.focus.length) college.focus.push("general");
 });

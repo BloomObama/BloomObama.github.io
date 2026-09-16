@@ -14,6 +14,10 @@ Object.assign(translations.en, {
   filterHint:"Enter a university, city, state or field — or open the advanced filters.", filterToggle:"All filters", filterClose:"Collapse filters", regionLabel:"Region", allRegions:"All regions", northeast:"Northeast", south:"South", midwest:"Midwest", west:"West", stateLabel:"State", allStates:"All states", typeLabel:"Institution type", allTypes:"All types", researchUniversity:"Research university", liberalArts:"Liberal arts", specialized:"Specialized", settingLabel:"Setting", allSettings:"Any setting", urban:"Major city", suburban:"Suburban", town:"College town", rural:"Rural campus", aidPolicyLabel:"Aid policy", allAid:"Any policy", meritFocus:"Merit scholarships", limitedAid:"Limited aid", focusLabel:"Academic focus", allFocus:"All fields", businessFocus:"Business & economics", artsFocus:"Arts & design", socialFocus:"Social sciences", healthFocus:"Health & medicine", searchPromptTitle:"Start your search", searchPromptText:"The university list appears after you enter a query or choose at least one filter.", hideResults:"Hide results", showResults:"Show results", auditTitle:"2026–27 data audit", auditText:"20 profiles are fully checked against official sources; the rest are clearly marked as pending review.", verificationLabel:"Data status", allVerification:"All statuses", verifiedOnly:"Verified for 2026–27", pendingOnly:"Review pending", verifiedBadge:"Verified · Sep 16, 2026", pendingBadge:"Review required", pendingCard:"This university's policies have not completed the full audit. Open the profile and official source before applying.", viewProfile:"Open profile", fieldSource:"Source ↗"
 });
 
+Object.assign(translations.uk, { notAvailableYet:"Поки немає інформації.", otherRegion:"Інші території" });
+Object.assign(translations.ru, { notAvailableYet:"Пока нет информации.", otherRegion:"Другие территории" });
+Object.assign(translations.en, { notAvailableYet:"Information is not available yet.", otherRegion:"Other territories" });
+
 Object.assign(translations.uk, {
   randomTitle:"Випадковий університет", randomHint:"Затисніть і потягніть вниз", randomCount:"у базі", randomAria:"Потягніть важіль вниз або натисніть, щоб обрати випадковий університет", randomResult:"Ваш випадковий вибір", randomOpen:"Відкрити профіль →", randomClose:"Закрити результат", randomImageAlt:"Кампус: {name}", randomTeaserLabel:"Не знаєте, з чого почати?", randomTeaserTitle:"Довірте перший вибір випадку.", randomTeaserText:"Потягніть важіль — ми покажемо один університет із повної бази."
 });
@@ -63,6 +67,7 @@ let shortlistMode = false;
 let activeDiscoveryRoute = "";
 const q = id => document.getElementById(id);
 const t = key => translations[language][key] || key;
+const formatCount = value => value.toLocaleString(language === "en" ? "en-US" : language === "ru" ? "ru-RU" : "uk-UA");
 const showMoreLabels = { uk:"Показати ще", ru:"Показать ещё", en:"Show more" };
 const recordLabels = { uk:"університетів у базі", ru:"университетов в базе", en:"universities in the directory" };
 const selectFilters = ["region-filter", "state-filter", "type-filter", "setting-filter", "aid-filter", "focus-filter", "verification-filter"];
@@ -189,7 +194,7 @@ function updateLanguage() {
   document.querySelectorAll("[data-i18n-aria]").forEach(element => { element.setAttribute("aria-label", t(element.dataset.i18nAria)); });
   document.querySelectorAll("[data-lang]").forEach(button => button.classList.toggle("active", button.dataset.lang === language));
   if (q("record-label")) q("record-label").textContent = recordLabels[language];
-  if (q("random-college-count")) q("random-college-count").textContent = colleges.length;
+  if (q("random-college-count")) q("random-college-count").textContent = formatCount(colleges.length);
   updateDiscoveryUI();
   if (selectedRandomCollege) updateRandomReveal(selectedRandomCollege);
   if (typeof window.updateRoiLanguage === "function") window.updateRoiLanguage(language);
@@ -197,13 +202,13 @@ function updateLanguage() {
 }
 
 function render() {
-  q("college-count").textContent = colleges.length;
+  q("college-count").textContent = formatCount(colleges.length);
   updateDiscoveryUI();
   document.querySelectorAll("[data-shortlist-count]").forEach(element => { element.textContent = shortlistedColleges.size; });
   q("shortlist-toggle").classList.toggle("active", shortlistMode || document.body.classList.contains("shortlist-open"));
   renderShortlistDrawer();
   renderComparisonUI();
-  if (q("audit-count")) q("audit-count").textContent = `${colleges.filter(college => college.verified).length} / ${colleges.length}`;
+  if (q("audit-count")) q("audit-count").textContent = `${formatCount(colleges.filter(college => college.verified).length)} / ${formatCount(colleges.length)}`;
   const hasInput = hasFinderInput();
   q("search-prompt").hidden = hasInput;
   q("results-shell").hidden = !hasInput;
@@ -247,8 +252,8 @@ function render() {
     <article class="card card--photo ${college.verified ? "card--verified" : "card--pending"}" style="--campus:url('${college.photo}')">
       <a class="card-hit-area" href="university.html?id=${encodeURIComponent(college.slug)}&lang=${language}" aria-label="${t("viewProfile")}: ${college.name}"></a>
       <div class="card-audit-status ${college.verified ? "is-verified" : "is-pending"}">${t(college.verified ? "verifiedBadge" : "pendingBadge")}</div>
-      <div class="card-top"><div><h3>${college.name}</h3><p class="place">${college.location}</p></div><span class="badge">${college.aidShort}</span></div>
-      <p class="card-description">${college.description}</p>
+      <div class="card-top"><div><h3>${college.name}</h3><p class="place">${college.location}</p></div><span class="badge">${college.verified ? college.aidShort : t("notAvailableYet")}</span></div>
+      <p class="card-description">${college.descriptionPending ? t("notAvailableYet") : college.description}</p>
       ${college.verified ? `<dl class="details">
         <div class="detail"><dt>${t("aid")}</dt><dd>${college.aid}<a class="detail-source" href="${college.aidSource}" target="_blank" rel="noopener noreferrer">${t("fieldSource")}</a></dd></div>
         <div class="detail"><dt>${t("tests")}</dt><dd>${college.testing}<a class="detail-source" href="${college.testingSource}" target="_blank" rel="noopener noreferrer">${t("fieldSource")}</a></dd></div>

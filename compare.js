@@ -13,15 +13,19 @@ const compareTranslations = {
   }
 };
 
+Object.assign(compareTranslations.uk, { otherRegion:"Інші території" });
+Object.assign(compareTranslations.ru, { otherRegion:"Другие территории" });
+Object.assign(compareTranslations.en, { otherRegion:"Other territories" });
+
 const compareParams = new URLSearchParams(window.location.search);
 let compareLanguage = ["uk", "ru", "en"].includes(compareParams.get("lang")) ? compareParams.get("lang") : "uk";
 const cq = id => document.getElementById(id);
 const ct = key => compareTranslations[compareLanguage][key] || key;
 let compareToastTimer;
 
-const typeLabels = { research:"research", "liberal-arts":"liberalArts", specialized:"specialized" };
-const settingLabels = { urban:"urban", suburban:"suburban", town:"town", rural:"rural" };
-const regionLabels = { northeast:"northeast", south:"south", midwest:"midwest", west:"west" };
+const typeLabels = { research:"research", "liberal-arts":"liberalArts", specialized:"specialized", unverified:"unknown" };
+const settingLabels = { urban:"urban", suburban:"suburban", town:"town", rural:"rural", unverified:"unknown" };
+const regionLabels = { northeast:"northeast", south:"south", midwest:"midwest", west:"west", other:"otherRegion" };
 const focusLabels = { stem:"stem", business:"business", arts:"arts", "social-sciences":"socialSciences", health:"health", general:"general" };
 
 function verifiedValue(college, value, formatter = item => item) {

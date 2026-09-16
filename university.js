@@ -10,6 +10,10 @@ const profileTranslations = {
   }
 };
 
+Object.assign(profileTranslations.uk, { notAvailableYet:"Поки немає інформації." });
+Object.assign(profileTranslations.ru, { notAvailableYet:"Пока нет информации." });
+Object.assign(profileTranslations.en, { notAvailableYet:"Information is not available yet." });
+
 const params = new URLSearchParams(location.search);
 let profileLanguage = ["uk","ru","en"].includes(params.get("lang")) ? params.get("lang") : "uk";
 const profileT = key => profileTranslations[profileLanguage][key] || key;
@@ -40,7 +44,7 @@ function renderProfile() {
   }
 
   document.title = `${college.name} — FullRide UA`;
-  const stats = profile || { cycle:"2026–27 audit pending", applications:"—", admitted:"—", enrolled:"—", international:"—", aidSnapshot:profileT("pendingNotice"), statsSource:college.source, gallery:[] };
+  const stats = profile || { cycle:profileT("notAvailableYet"), applications:"—", admitted:"—", enrolled:"—", international:"—", aidSnapshot:profileT("notAvailableYet"), statsSource:college.source, gallery:[] };
   const gallery = [{ url:college.photo, source:college.photoSource, credit:college.photoIsIllustrative ? profileT("illustrative") : college.photoCredit }, ...(stats.gallery || [])]
     .filter((image, index, array) => image.url && array.findIndex(candidate => candidate.url === image.url) === index);
   const checklist = ["checkApplication","checkTranscript","checkRecommendations","checkTests","checkEnglish","checkAid","checkFee","checkDeadlines"];
@@ -50,7 +54,7 @@ function renderProfile() {
       <div class="profile-hero-shade"></div>
       <div class="profile-hero-content">
         <span class="profile-status ${college.verified ? "is-verified" : "is-pending"}">${profileT(college.verified ? "verified" : "pending")}</span>
-        <p>${college.location}</p><h1>${college.name}</h1><p class="profile-lede">${college.description}</p>
+        <p>${college.location}</p><h1>${college.name}</h1><p class="profile-lede">${college.descriptionPending ? profileT("notAvailableYet") : college.description}</p>
         <a class="profile-primary" href="${college.source}" target="_blank" rel="noopener noreferrer">${profileT("officialApply")} <span>↗</span></a>
       </div>
     </section>
@@ -72,11 +76,11 @@ function renderProfile() {
     <section class="profile-section" aria-labelledby="policies-title">
       <div class="profile-section-heading"><div><p>02 / ${profileT("policies")}</p><h2 id="policies-title">${profileT("policies")}</h2></div></div>
       <div class="profile-policy-grid">
-        ${policyRow(profileT("aid"), college.verified ? college.aid : profileT("pendingNotice"), college.aidSource)}
-        ${policyRow(profileT("testing"), college.verified ? college.testing : profileT("pendingNotice"), college.testingSource)}
-        ${policyRow(profileT("english"), college.verified ? college.english : profileT("pendingNotice"), college.englishSource)}
-        ${policyRow(profileT("fee"), college.verified ? college.fee : profileT("pendingNotice"), college.feeSource)}
-        ${policyRow(profileT("deadline"), college.verified ? college.deadline : profileT("pendingNotice"), college.deadlineSource)}
+        ${policyRow(profileT("aid"), college.verified ? college.aid : profileT("notAvailableYet"), college.aidSource)}
+        ${policyRow(profileT("testing"), college.verified ? college.testing : profileT("notAvailableYet"), college.testingSource)}
+        ${policyRow(profileT("english"), college.verified ? college.english : profileT("notAvailableYet"), college.englishSource)}
+        ${policyRow(profileT("fee"), college.verified ? college.fee : profileT("notAvailableYet"), college.feeSource)}
+        ${policyRow(profileT("deadline"), college.verified ? college.deadline : profileT("notAvailableYet"), college.deadlineSource)}
       </div>
     </section>
 
