@@ -14,6 +14,7 @@
   function save(items) {
     const normalized = [...new Set(items)].slice(0, maxItems);
     try { window.localStorage.setItem(storageKey, JSON.stringify(normalized)); } catch {}
+    window.dispatchEvent(new CustomEvent("fullride:local-data-changed", { detail:{ kind:"comparison" } }));
     return normalized;
   }
 

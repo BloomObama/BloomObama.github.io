@@ -172,5 +172,6 @@ document.querySelectorAll("[data-compare-lang]").forEach(button => button.addEve
   window.history.replaceState({}, "", `compare.html?lang=${compareLanguage}`);
   updateCompareLanguage();
 }));
+window.addEventListener("fullride:cloud-data", renderComparison);
 
 updateCompareLanguage();

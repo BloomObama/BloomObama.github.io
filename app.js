@@ -104,6 +104,7 @@ function loadShortlist() {
 
 function saveShortlist() {
   try { window.localStorage.setItem(shortlistStorageKey, JSON.stringify([...shortlistedColleges])); } catch {}
+  window.dispatchEvent(new CustomEvent("fullride:local-data-changed", { detail:{ kind:"shortlist" } }));
 }
 
 function toggleShortlist(slug) {
@@ -575,6 +576,12 @@ q("contact-form")?.addEventListener("submit", event => {
   const body = `${t("contactName")}: ${name || "—"}\n${t("contactReply")}: ${reply}\n${t("contactTopic")}: ${topic}\n\n${message}`;
   q("contact-status").textContent = t("contactOpened");
   window.location.href = `mailto:${contactEmail}?subject=${encodeURIComponent(`FullRide UA — ${topic}`)}&body=${encodeURIComponent(body)}`;
+});
+
+window.addEventListener("fullride:cloud-data", () => {
+  shortlistedColleges = loadShortlist();
+  comparedColleges = new Set(window.FullRideCompare.load());
+  render();
 });
 
 populateStates();

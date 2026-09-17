@@ -17,3 +17,7 @@ An independent pilot resource for Ukrainian students researching need-based fina
 The first release includes a multilingual College Finder with verified links to official university admissions and financial-aid pages. Requirements and deadlines change regularly, so applicants should always confirm details with the university before applying.
 
 Live site: https://bloomobama.github.io/
+
+## Account system
+
+The account interface is integrated on the finder, comparison, and university-profile pages. It supports Google sign-in, email/password accounts, email verification, password reset, profile names, and cloud sync for saved universities and comparisons. It is intentionally disabled until the site owner's Firebase project is connected; follow [`AUTH_SETUP.md`](AUTH_SETUP.md) to add the public web configuration and publish the Firestore rules. Never commit service-account credentials or mailbox passwords.
