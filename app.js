@@ -18,6 +18,16 @@ Object.assign(translations.uk, { updated:"Оновлено 17 вересня 202
 Object.assign(translations.ru, { updated:"Обновлено 17 сентября 2026", auditText:"Счётчик показывает профили, где каждое правило подачи сверено с официальным источником; остальные честно отмечены как ожидающие проверки.", verifiedBadge:"Проверено" });
 Object.assign(translations.en, { updated:"Updated September 17, 2026", auditText:"The counter shows profiles where every application policy has been checked against an official source; all others are clearly marked as pending review.", verifiedBadge:"Verified" });
 
+Object.assign(translations.uk, {
+  navContact:"Контакти", contactLabel:"Зв'язок із проєктом", contactTitle:"Є питання,<br />уточнення чи ідея?", contactText:"Напишіть команді FullRide UA. Ми читаємо повідомлення про неточності, пропозиції та питання щодо роботи каталогу.", contactEmailLabel:"Офіційна пошта", contactCopy:"Скопіювати адресу", contactCopied:"Адресу скопійовано", contactCopyFailed:"Не вдалося скопіювати — виділіть адресу вручну", contactFormTitle:"Підготуйте повідомлення", contactName:"Ваше ім'я", contactNamePlaceholder:"Як до вас звертатися", contactReply:"Email для відповіді", contactReplyPlaceholder:"name@example.com", contactTopic:"Тема", contactTopicQuestion:"Питання про сайт", contactTopicCorrection:"Повідомити про неточність", contactTopicIdea:"Запропонувати ідею", contactTopicOther:"Інше", contactMessage:"Повідомлення", contactMessagePlaceholder:"Опишіть питання або додайте посилання на сторінку", contactSend:"Відкрити лист", contactPrivacy:"Форма нічого не зберігає: вона підготує лист у вашому поштовому застосунку.", contactOpened:"Лист підготовлено у вашому поштовому застосунку."
+});
+Object.assign(translations.ru, {
+  navContact:"Контакты", contactLabel:"Связь с проектом", contactTitle:"Есть вопрос,<br />уточнение или идея?", contactText:"Напишите команде FullRide UA. Мы читаем сообщения о неточностях, предложения и вопросы о работе каталога.", contactEmailLabel:"Официальная почта", contactCopy:"Скопировать адрес", contactCopied:"Адрес скопирован", contactCopyFailed:"Не удалось скопировать — выделите адрес вручную", contactFormTitle:"Подготовьте сообщение", contactName:"Ваше имя", contactNamePlaceholder:"Как к вам обращаться", contactReply:"Email для ответа", contactReplyPlaceholder:"name@example.com", contactTopic:"Тема", contactTopicQuestion:"Вопрос о сайте", contactTopicCorrection:"Сообщить о неточности", contactTopicIdea:"Предложить идею", contactTopicOther:"Другое", contactMessage:"Сообщение", contactMessagePlaceholder:"Опишите вопрос или добавьте ссылку на страницу", contactSend:"Открыть письмо", contactPrivacy:"Форма ничего не сохраняет: она подготовит письмо в вашем почтовом приложении.", contactOpened:"Письмо подготовлено в вашем почтовом приложении."
+});
+Object.assign(translations.en, {
+  navContact:"Contact", contactLabel:"Contact the project", contactTitle:"A question,<br />correction or idea?", contactText:"Write to the FullRide UA team. We read corrections, suggestions and questions about how the directory works.", contactEmailLabel:"Official email", contactCopy:"Copy address", contactCopied:"Address copied", contactCopyFailed:"Could not copy — select the address manually", contactFormTitle:"Prepare a message", contactName:"Your name", contactNamePlaceholder:"How should we address you?", contactReply:"Reply email", contactReplyPlaceholder:"name@example.com", contactTopic:"Subject", contactTopicQuestion:"Question about the site", contactTopicCorrection:"Report an inaccuracy", contactTopicIdea:"Suggest an idea", contactTopicOther:"Other", contactMessage:"Message", contactMessagePlaceholder:"Describe the question or include a link to the page", contactSend:"Open email", contactPrivacy:"This form stores nothing. It prepares a message in your email application.", contactOpened:"The message is ready in your email application."
+});
+
 Object.assign(translations.uk, { notAvailableYet:"Поки немає інформації.", otherRegion:"Інші території" });
 Object.assign(translations.ru, { notAvailableYet:"Пока нет информации.", otherRegion:"Другие территории" });
 Object.assign(translations.en, { notAvailableYet:"Information is not available yet.", otherRegion:"Other territories" });
@@ -541,6 +551,30 @@ q("random-reveal-close")?.addEventListener("click", () => {
     q("random-reveal").hidden = true;
     q("random-teaser").hidden = false;
   }, 180);
+});
+
+const contactEmail = "bloomobama@tutamail.com";
+q("copy-contact-email")?.addEventListener("click", async () => {
+  const status = q("contact-status");
+  try {
+    await navigator.clipboard.writeText(contactEmail);
+    status.textContent = t("contactCopied");
+  } catch {
+    status.textContent = t("contactCopyFailed");
+  }
+});
+q("contact-form")?.addEventListener("submit", event => {
+  event.preventDefault();
+  const form = event.currentTarget;
+  if (!form.reportValidity()) return;
+  const values = new FormData(form);
+  const name = String(values.get("name") || "").trim();
+  const reply = String(values.get("reply") || "").trim();
+  const topic = String(values.get("topic") || "").trim();
+  const message = String(values.get("message") || "").trim();
+  const body = `${t("contactName")}: ${name || "—"}\n${t("contactReply")}: ${reply}\n${t("contactTopic")}: ${topic}\n\n${message}`;
+  q("contact-status").textContent = t("contactOpened");
+  window.location.href = `mailto:${contactEmail}?subject=${encodeURIComponent(`FullRide UA — ${topic}`)}&body=${encodeURIComponent(body)}`;
 });
 
 populateStates();

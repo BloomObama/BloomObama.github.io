@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2311263f'/%3E%3Cpath d='M14 22 32 13l18 9-18 9-18-9Zm5 8v13l13 7 13-7V30l-13 7-13-7Z' fill='%23f1c66a'/%3E%3C/svg%3E" />
-    <link rel="stylesheet" href="styles.css?v=13" />
+    <link rel="stylesheet" href="styles.css?v=14" />
   </head>
   <body>
     <header class="topbar">
@@ -21,6 +21,7 @@
         <a href="#roi" data-roi-i18n="nav">Калькулятор ROI</a>
         <a href="#method" data-i18n="navMethod">Як користуватися</a>
         <a href="#about" data-i18n="navAbout">Про проєкт</a>
+        <a href="#contact" data-i18n="navContact">Контакти</a>
       </nav>
       <div class="topbar-actions">
         <a id="header-compare" class="header-shortlist header-compare" href="compare.html?lang=uk"><span aria-hidden="true">⇄</span><span data-i18n="compareShort">Порівняння</span><b data-compare-count>0</b></a>
@@ -253,7 +254,34 @@
 
       <section id="about" class="about">
         <div><p class="eyebrow-label" data-i18n="aboutLabel">Про проєкт</p><h2 data-i18n-html="aboutTitle">Чесна інформація —<br />кращий початок.</h2></div>
-        <div><p data-i18n="aboutText">FullRide UA — не агентство і не гарантія вступу. Це відкритий проєкт, створений, щоб українським учням було простіше знаходити перевірену інформацію про фінансову допомогу в США.</p><a class="feedback" href="mailto:fullrideua.project@gmail.com?subject=FullRide%20UA%20feedback"><span data-i18n="feedback">Повідомити про неточність</span><span aria-hidden="true">↗</span></a></div>
+        <div><p data-i18n="aboutText">FullRide UA — не агентство і не гарантія вступу. Це відкритий проєкт, створений, щоб українським учням було простіше знаходити перевірену інформацію про фінансову допомогу в США.</p><a class="feedback" href="mailto:bloomobama@tutamail.com?subject=FullRide%20UA%20feedback"><span data-i18n="feedback">Повідомити про неточність</span><span aria-hidden="true">↗</span></a></div>
+      </section>
+
+      <section id="contact" class="contact" aria-labelledby="contact-title">
+        <div class="contact-intro">
+          <p class="eyebrow-label" data-i18n="contactLabel">Зв'язок із проєктом</p>
+          <h2 id="contact-title" data-i18n-html="contactTitle">Є питання,<br />уточнення чи ідея?</h2>
+          <p data-i18n="contactText">Напишіть команді FullRide UA. Ми читаємо повідомлення про неточності, пропозиції та питання щодо роботи каталогу.</p>
+          <div class="contact-address">
+            <span data-i18n="contactEmailLabel">Офіційна пошта</span>
+            <a href="mailto:bloomobama@tutamail.com">bloomobama@tutamail.com</a>
+            <button id="copy-contact-email" type="button" data-i18n="contactCopy">Скопіювати адресу</button>
+          </div>
+        </div>
+        <form id="contact-form" class="contact-form">
+          <div class="contact-form__heading"><span>FR / MAIL</span><strong data-i18n="contactFormTitle">Підготуйте повідомлення</strong></div>
+          <div class="contact-form__grid">
+            <label><span data-i18n="contactName">Ваше ім'я</span><input name="name" type="text" autocomplete="name" maxlength="80" data-i18n-placeholder="contactNamePlaceholder" placeholder="Як до вас звертатися" /></label>
+            <label><span data-i18n="contactReply">Email для відповіді</span><input name="reply" type="email" autocomplete="email" maxlength="160" required data-i18n-placeholder="contactReplyPlaceholder" placeholder="name@example.com" /></label>
+            <label class="contact-form__wide"><span data-i18n="contactTopic">Тема</span><select name="topic"><option data-i18n="contactTopicQuestion">Питання про сайт</option><option data-i18n="contactTopicCorrection">Повідомити про неточність</option><option data-i18n="contactTopicIdea">Запропонувати ідею</option><option data-i18n="contactTopicOther">Інше</option></select></label>
+            <label class="contact-form__wide"><span data-i18n="contactMessage">Повідомлення</span><textarea name="message" rows="6" maxlength="1800" required data-i18n-placeholder="contactMessagePlaceholder" placeholder="Опишіть питання або додайте посилання на сторінку"></textarea></label>
+          </div>
+          <div class="contact-form__actions">
+            <button type="submit"><span data-i18n="contactSend">Відкрити лист</span><span aria-hidden="true">↗</span></button>
+            <p data-i18n="contactPrivacy">Форма нічого не зберігає: вона підготує лист у вашому поштовому застосунку.</p>
+          </div>
+          <p id="contact-status" class="contact-status" role="status" aria-live="polite"></p>
+        </form>
       </section>
     </main>
 
@@ -282,14 +310,14 @@
     </section>
     <div id="compare-toast" class="compare-toast" role="status" aria-live="polite"></div>
 
-    <footer><div><strong>FullRide UA</strong><span data-i18n="footerTagline">Перевіряйте. Порівнюйте. Подавайтеся усвідомлено.</span></div><div class="footer-meta"><span>© 2026</span><span data-i18n="footer">Пілотна версія · Дані потребують регулярної перевірки</span></div></footer>
+    <footer><div><strong>FullRide UA</strong><span data-i18n="footerTagline">Перевіряйте. Порівнюйте. Подавайтеся усвідомлено.</span></div><div class="footer-meta"><a class="footer-contact" href="mailto:bloomobama@tutamail.com">bloomobama@tutamail.com</a><span>© 2026</span><span data-i18n="footer">Пілотна версія · Дані потребують регулярної перевірки</span></div></footer>
     <script src="college-catalog.js?v=4"></script>
     <script src="college-directory.js?v=2"></script>
     <script src="college-media.js?v=2"></script>
     <script src="college-policies.js?v=1"></script>
     <script src="data.js?v=16"></script>
     <script src="compare-store.js?v=1"></script>
-    <script src="app.js?v=17"></script>
+    <script src="app.js?v=18"></script>
     <script src="roi-data.js?v=9"></script>
     <script src="roi.js?v=9"></script>
   </body>
