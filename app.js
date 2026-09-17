@@ -14,6 +14,10 @@ Object.assign(translations.en, {
   filterHint:"Enter a university, city, state or field — or open the advanced filters.", filterToggle:"All filters", filterClose:"Collapse filters", regionLabel:"Region", allRegions:"All regions", northeast:"Northeast", south:"South", midwest:"Midwest", west:"West", stateLabel:"State", allStates:"All states", typeLabel:"Institution type", allTypes:"All types", researchUniversity:"Research university", liberalArts:"Liberal arts", specialized:"Specialized", settingLabel:"Setting", allSettings:"Any setting", urban:"Major city", suburban:"Suburban", town:"College town", rural:"Rural campus", aidPolicyLabel:"Aid policy", allAid:"Any policy", meritFocus:"Merit scholarships", limitedAid:"Limited aid", focusLabel:"Academic focus", allFocus:"All fields", businessFocus:"Business & economics", artsFocus:"Arts & design", socialFocus:"Social sciences", healthFocus:"Health & medicine", searchPromptTitle:"Start your search", searchPromptText:"The university list appears after you enter a query or choose at least one filter.", hideResults:"Hide results", showResults:"Show results", auditTitle:"2026–27 data audit", auditText:"20 profiles are fully checked against official sources; the rest are clearly marked as pending review.", verificationLabel:"Data status", allVerification:"All statuses", verifiedOnly:"Verified for 2026–27", pendingOnly:"Review pending", verifiedBadge:"Verified · Sep 16, 2026", pendingBadge:"Review required", pendingCard:"This university's policies have not completed the full audit. Open the profile and official source before applying.", viewProfile:"Open profile", fieldSource:"Source ↗"
 });
 
+Object.assign(translations.uk, { updated:"Оновлено 17 вересня 2026", auditText:"Лічильник показує профілі, де кожне правило подачі звірене з офіційним джерелом; решта чесно позначені як такі, що очікують перевірки.", verifiedBadge:"Перевірено" });
+Object.assign(translations.ru, { updated:"Обновлено 17 сентября 2026", auditText:"Счётчик показывает профили, где каждое правило подачи сверено с официальным источником; остальные честно отмечены как ожидающие проверки.", verifiedBadge:"Проверено" });
+Object.assign(translations.en, { updated:"Updated September 17, 2026", auditText:"The counter shows profiles where every application policy has been checked against an official source; all others are clearly marked as pending review.", verifiedBadge:"Verified" });
+
 Object.assign(translations.uk, { notAvailableYet:"Поки немає інформації.", otherRegion:"Інші території" });
 Object.assign(translations.ru, { notAvailableYet:"Пока нет информации.", otherRegion:"Другие территории" });
 Object.assign(translations.en, { notAvailableYet:"Information is not available yet.", otherRegion:"Other territories" });
@@ -68,6 +72,7 @@ let activeDiscoveryRoute = "";
 const q = id => document.getElementById(id);
 const t = key => translations[language][key] || key;
 const formatCount = value => value.toLocaleString(language === "en" ? "en-US" : language === "ru" ? "ru-RU" : "uk-UA");
+const formatAuditDate = value => value ? new Intl.DateTimeFormat(language === "en" ? "en-US" : language === "ru" ? "ru-RU" : "uk-UA", { year:"numeric", month:"short", day:"numeric" }).format(new Date(`${value}T12:00:00`)) : "";
 const showMoreLabels = { uk:"Показати ще", ru:"Показать ещё", en:"Show more" };
 const recordLabels = { uk:"університетів у базі", ru:"университетов в базе", en:"universities in the directory" };
 const selectFilters = ["region-filter", "state-filter", "type-filter", "setting-filter", "aid-filter", "focus-filter", "verification-filter"];
@@ -251,7 +256,7 @@ function render() {
   const cards = matches.length ? visibleMatches.map(college => `
     <article class="card card--photo ${college.verified ? "card--verified" : "card--pending"}" style="--campus:url('${college.photo}')">
       <a class="card-hit-area" href="university.html?id=${encodeURIComponent(college.slug)}&lang=${language}" aria-label="${t("viewProfile")}: ${college.name}"></a>
-      <div class="card-audit-status ${college.verified ? "is-verified" : "is-pending"}">${t(college.verified ? "verifiedBadge" : "pendingBadge")}</div>
+      <div class="card-audit-status ${college.verified ? "is-verified" : "is-pending"}">${college.verified ? `${t("verifiedBadge")} · ${formatAuditDate(college.checkedAt)}` : t("pendingBadge")}</div>
       <div class="card-top"><div><h3>${college.name}</h3><p class="place">${college.location}</p></div><span class="badge">${college.verified ? college.aidShort : t("notAvailableYet")}</span></div>
       ${college.basicOnly ? "" : `<p class="card-description">${college.descriptionPending ? t("notAvailableYet") : college.description}</p>`}
       ${college.verified ? `<dl class="details">

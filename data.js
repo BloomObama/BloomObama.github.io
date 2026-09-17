@@ -255,6 +255,12 @@ colleges.forEach(college => {
   college.photoIsIllustrative = false;
 });
 
+const policyAudits = globalThis.FullRidePolicyAudits || {};
+colleges.forEach(college => {
+  const audit = college.catalogId ? policyAudits[String(college.catalogId)] : null;
+  if (audit) Object.assign(college, audit);
+});
+
 const northeastStates = new Set(["Connecticut", "Maine", "Massachusetts", "New Hampshire", "New Jersey", "New York", "Pennsylvania", "Rhode Island", "Vermont"]);
 const midwestStates = new Set(["Illinois", "Indiana", "Iowa", "Kansas", "Michigan", "Minnesota", "Missouri", "Nebraska", "North Dakota", "Ohio", "South Dakota", "Wisconsin"]);
 const westStates = new Set(["Alaska", "Arizona", "California", "Colorado", "Hawaii", "Idaho", "Montana", "Nevada", "New Mexico", "Oregon", "Utah", "Washington", "Wyoming"]);

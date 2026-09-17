@@ -4,7 +4,7 @@ import vm from "node:vm";
 const root = new URL("../", import.meta.url);
 const sandbox = { globalThis: {} };
 vm.createContext(sandbox);
-for (const file of ["college-catalog.js", "college-directory.js", "college-media.js"]) {
+for (const file of ["college-catalog.js", "college-directory.js", "college-media.js", "college-policies.js"]) {
   vm.runInContext(fs.readFileSync(new URL(file, root), "utf8"), sandbox, { filename: file });
 }
 vm.runInContext(`${fs.readFileSync(new URL("data.js", root), "utf8")}\nglobalThis.__colleges = colleges;`, sandbox, { filename: "data.js" });
@@ -12,6 +12,7 @@ vm.runInContext(`${fs.readFileSync(new URL("data.js", root), "utf8")}\nglobalThi
 const catalog = sandbox.globalThis.FullRideBasicColleges || [];
 const extraDirectory = sandbox.globalThis.FullRideExtraColleges || [];
 const media = sandbox.globalThis.FullRideCollegeMedia || {};
+const policyAudits = sandbox.globalThis.FullRidePolicyAudits || {};
 const colleges = sandbox.globalThis.__colleges || [];
 const errors = [];
 const assert = (condition, message) => { if (!condition) errors.push(message); };
@@ -24,6 +25,18 @@ assert(new Set(catalog.map(row => row[0])).size === catalog.length, "Duplicate I
 assert(new Set(colleges.map(college => college.slug)).size === colleges.length, "Duplicate public profile slugs");
 
 const catalogIds = new Set([...catalog, ...extraDirectory].map(row => String(row[0])));
+for (const [id, audit] of Object.entries(policyAudits)) {
+  assert(catalogIds.has(id), `Policy audit references unknown IPEDS ID ${id}`);
+  assert(/^2026-\d{2}-\d{2}$/.test(audit.checkedAt || ""), `Policy audit ${id}: invalid checkedAt`);
+  assert(audit.auditCycle === "2026–27", `Policy audit ${id}: wrong audit cycle`);
+  for (const field of ["source", "aidSource", "testingSource", "englishSource", "feeSource", "deadlineSource"]) {
+    assert(/^https:\/\//.test(audit[field] || ""), `Policy audit ${id}: invalid ${field}`);
+  }
+  for (const field of ["aid", "testing", "english", "fee", "deadline"]) {
+    assert(typeof audit[field] === "string" && audit[field].trim().length >= 12, `Policy audit ${id}: incomplete ${field}`);
+  }
+  assert(typeof audit.aidShort === "string" && audit.aidShort.trim().length >= 6, `Policy audit ${id}: incomplete aidShort`);
+}
 for (const college of colleges) {
   assert(catalogIds.has(String(college.catalogId)), `${college.name}: missing or unknown IPEDS ID`);
   assert(typeof college.description === "string" && college.description.trim().length >= 40, `${college.name}: incomplete description`);

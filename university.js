@@ -34,6 +34,7 @@ const scorecardUrl = item => item?.catalogId ? `https://collegescorecard.ed.gov/
 const formatNumber = value => hasValue(value) ? new Intl.NumberFormat(profileLanguage === "en" ? "en-US" : profileLanguage === "uk" ? "uk-UA" : "ru-RU").format(value) : "—";
 const formatPercent = value => hasValue(value) ? new Intl.NumberFormat(profileLanguage === "en" ? "en-US" : profileLanguage === "uk" ? "uk-UA" : "ru-RU", { style:"percent", maximumFractionDigits:1 }).format(value) : "—";
 const formatCurrency = value => hasValue(value) ? new Intl.NumberFormat(profileLanguage === "en" ? "en-US" : profileLanguage === "uk" ? "uk-UA" : "ru-RU", { style:"currency", currency:"USD", maximumFractionDigits:0 }).format(value) : "—";
+const formatAuditDate = value => value ? new Intl.DateTimeFormat(profileLanguage === "en" ? "en-US" : profileLanguage === "uk" ? "uk-UA" : "ru-RU", { year:"numeric", month:"short", day:"numeric" }).format(new Date(`${value}T12:00:00`)) : "";
 const safeExternalUrl = value => !value ? "" : /^https?:\/\//i.test(value) ? value : `https://${value}`;
 const ownershipLabel = value => profileT(value === 1 ? "publicInstitution" : value === 2 ? "nonprofitInstitution" : value === 3 ? "forProfitInstitution" : "notReported");
 const degreeLabel = value => profileT(value === 1 ? "certificateLevel" : value === 2 ? "associateLevel" : value === 3 ? "bachelorLevel" : value === 4 ? "graduateLevel" : "notReported");
@@ -121,7 +122,7 @@ function renderProfile() {
     <section class="profile-hero" style="--profile-photo:url('${college.photo}')">
       <div class="profile-hero-shade"></div>
       <div class="profile-hero-content">
-        <span class="profile-status ${college.verified ? "is-verified" : "is-pending"}">${profileT(college.verified ? "verified" : "pending")}</span>
+        <span class="profile-status ${college.verified ? "is-verified" : "is-pending"}">${college.verified ? `${profileT("verified").replace(/\s+\d.*$/, "")} · ${formatAuditDate(college.checkedAt)}` : profileT("pending")}</span>
         <p>${college.location}</p><h1>${college.name}</h1><p class="profile-lede">${college.descriptionPending ? profileT("notAvailableYet") : college.description}</p>
         <a class="profile-primary" href="${college.source}" target="_blank" rel="noopener noreferrer">${profileT(college.basicOnly ? "officialSite" : "officialApply")} <span>↗</span></a>
       </div>
