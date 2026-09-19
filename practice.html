@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Практика англійських слів для абітурієнтів FullRide UA." />
+    <title>Практика — FullRide UA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css?v=14" />
+    <link rel="stylesheet" href="practice.css?v=1" />
+    <link rel="stylesheet" href="auth.css?v=1" />
+  </head>
+  <body class="practice-page">
+    <header class="topbar practice-topbar">
+      <a class="brand" href="index.html#top" aria-label="FullRide UA"><span class="brand-mark">FR</span><span>FullRide <i>UA</i></span></a>
+      <nav aria-label="Main navigation">
+        <a href="index.html#finder" data-practice-key="navFinder">Пошук університетів</a>
+        <a class="is-current" href="practice.html?lang=uk" data-practice-key="navPractice">Практика</a>
+        <a href="index.html#roi" data-practice-key="navRoi">Калькулятор ROI</a>
+      </nav>
+      <div class="topbar-actions">
+        <a class="practice-back" href="index.html#finder" data-practice-key="back">До каталогу</a>
+        <div class="language-switch" aria-label="Language">
+          <button class="active" data-practice-lang="uk">UA</button><button data-practice-lang="ru">RU</button><button data-practice-lang="en">EN</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="practice-main">
+      <section class="practice-hero" aria-labelledby="practice-title">
+        <div>
+          <p class="eyebrow-label" data-practice-key="eyebrow">FULLRIDE / PRACTICE</p>
+          <h1 id="practice-title" data-practice-key="title">Учите слова<br /><em>в своём темпе.</em></h1>
+          <p class="practice-hero__intro" data-practice-key="intro">Добавляйте незнакомые английские слова, сохраняйте их и возвращайтесь к ним в коротких случайных сессиях.</p>
+        </div>
+        <div class="practice-stats"><span class="practice-stats__number" id="practice-total">0</span><span data-practice-key="saved">карточек сохранено</span><small><b id="practice-learned">0</b> <span data-practice-key="learned">выучено</span></small></div>
+      </section>
+
+      <section class="practice-add panel-shadow" aria-labelledby="add-title">
+        <div class="practice-section-label"><span>01</span><span data-practice-key="addLabel">НОВАЯ КАРТОЧКА</span></div>
+        <h2 id="add-title" data-practice-key="addTitle">Добавьте слово для практики</h2>
+        <form id="card-form" class="card-form">
+          <label><span data-practice-key="wordLabel">Английское слово</span><input id="word-input" name="word" type="text" autocomplete="off" required maxlength="120" placeholder="например, scholarship" /></label>
+          <label><span data-practice-key="translationLabel">Перевод <em data-practice-key="optional">(можно изменить)</em></span><input id="translation-input" name="translation" type="text" autocomplete="off" maxlength="240" placeholder="Определится автоматически" /></label>
+          <button class="practice-primary" type="submit" data-practice-key="addButton">Добавить карточку</button>
+        </form>
+        <p id="card-status" class="practice-status" role="status" aria-live="polite"></p>
+        <p class="practice-note" data-practice-key="translationNote">Перевод запрашивается автоматически. Перед сохранением его можно отредактировать.</p>
+      </section>
+
+      <section class="practice-library" aria-labelledby="library-title">
+        <div class="practice-library__heading"><div><p class="practice-section-label"><span>02</span><span data-practice-key="libraryLabel">МОИ КАРТОЧКИ</span></p><h2 id="library-title" data-practice-key="libraryTitle">Повторяйте то, что важно</h2></div><button id="start-practice" class="practice-primary practice-primary--compact" type="button" data-practice-key="startButton">Начать практику</button></div>
+        <div class="practice-tools"><label class="practice-search"><span aria-hidden="true">⌕</span><input id="card-search" type="search" data-practice-placeholder="searchPlaceholder" placeholder="Поиск по словам и переводам" /></label><select id="card-filter" aria-label="Filter cards"><option value="all" data-practice-key="filterAll">Все карточки</option><option value="learning" data-practice-key="filterLearning">В процессе</option><option value="learned" data-practice-key="filterLearned">Выученные</option></select><span id="card-result-count" class="practice-result-count"></span></div>
+        <div id="card-list" class="card-list"></div>
+      </section>
+    </main>
+
+    <div id="practice-modal" class="practice-modal" aria-hidden="true">
+      <div class="practice-modal__backdrop" data-practice-close></div>
+      <section class="practice-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="session-title">
+        <button class="practice-modal__close" type="button" data-practice-close aria-label="Close">×</button>
+        <p class="practice-section-label"><span>03</span><span data-practice-key="sessionLabel">СЕССИЯ</span></p>
+        <div class="session-progress"><span id="session-progress"></span><b id="session-counter"></b></div>
+        <h2 id="session-title" data-practice-key="sessionTitle">Вспомните перевод</h2>
+        <div class="session-card"><span id="session-word"></span><button id="session-reveal" type="button" data-practice-key="revealButton">Показать перевод</button><strong id="session-translation" hidden></strong></div>
+        <div class="session-actions"><button id="session-repeat" type="button" data-practice-key="repeatButton">Повторить</button><button id="session-know" class="practice-primary" type="button" data-practice-key="knowButton">Знаю</button></div>
+      </section>
+    </div>
+
+    <footer><div><strong>FullRide UA</strong><span data-practice-key="footerTagline">Практика маленькими шагами.</span></div><div class="footer-meta"><a class="footer-contact" href="mailto:bloomobama@tutamail.com">bloomobama@tutamail.com</a><span>© 2026</span></div></footer>
+    <script src="practice.js?v=1"></script>
+    <script src="firebase-config.js?v=1"></script>
+    <script type="module" src="auth.js?v=1"></script>
+  </body>
+</html>

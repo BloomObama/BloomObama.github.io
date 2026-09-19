@@ -174,6 +174,18 @@ function localArray(key, max = 5002) {
   }
 }
 
+function localFlashcards() {
+  try {
+    const value = JSON.parse(localStorage.getItem("fullride-flashcards-v1") || "[]");
+    if (!Array.isArray(value)) return [];
+    return value.filter(card => card && typeof card === "object" && typeof card.id === "string" && typeof card.word === "string" && typeof card.translation === "string")
+      .map(card => ({ id:card.id.slice(0, 80), word:card.word.trim().slice(0, 120), translation:card.translation.trim().slice(0, 240), learned:Boolean(card.learned), createdAt:typeof card.createdAt === "number" ? card.createdAt : Date.now() }))
+      .filter(card => card.word && card.translation).slice(0, 500);
+  } catch {
+    return [];
+  }
+}
+
 async function syncUserData(user, mergeRemote = false) {
   if (!user || !user.emailVerified || !db || syncing) return;
   syncing = true;
@@ -184,18 +196,24 @@ async function syncUserData(user, mergeRemote = false) {
     const remote = snapshot.exists() ? snapshot.data() : {};
     const localShortlist = localArray("fullride-shortlist-v1");
     const localComparison = localArray("fullride-compare-v1", 4);
+    const localCards = localFlashcards();
     const shortlist = mergeRemote ? [...new Set([...(remote.shortlist || []), ...localShortlist])] : localShortlist;
     const comparison = mergeRemote ? [...new Set([...(remote.comparison || []), ...localComparison])].slice(0, 4) : localComparison;
+    const remoteCards = Array.isArray(remote.flashcards) ? remote.flashcards : [];
+    const cardsById = new Map((mergeRemote ? [...remoteCards, ...localCards] : localCards).map(card => [card.id, card]));
+    const flashcards = [...cardsById.values()].filter(card => card && typeof card.id === "string" && typeof card.word === "string" && typeof card.translation === "string").slice(0, 500);
 
     if (mergeRemote) {
       localStorage.setItem("fullride-shortlist-v1", JSON.stringify(shortlist));
       localStorage.setItem("fullride-compare-v1", JSON.stringify(comparison));
+      localStorage.setItem("fullride-flashcards-v1", JSON.stringify(flashcards));
     }
 
     await setDoc(reference, {
       displayName: String(user.displayName || remote.displayName || "").slice(0, 80),
       shortlist,
       comparison,
+      flashcards,
       createdAt: remote.createdAt || serverTimestamp(),
       updatedAt: serverTimestamp()
     }, { merge:true });
@@ -393,6 +411,7 @@ aq("auth-signout")?.addEventListener("click", async () => {
     if (auth.currentUser) await syncUserData(auth.currentUser);
     localStorage.removeItem("fullride-shortlist-v1");
     localStorage.removeItem("fullride-compare-v1");
+    localStorage.removeItem("fullride-flashcards-v1");
     window.dispatchEvent(new CustomEvent("fullride:cloud-data"));
     await authApi.signOut(auth);
     closeDialog();
