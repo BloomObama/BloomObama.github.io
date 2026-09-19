@@ -179,7 +179,18 @@ function localFlashcards() {
     const value = JSON.parse(localStorage.getItem("fullride-flashcards-v1") || "[]");
     if (!Array.isArray(value)) return [];
     return value.filter(card => card && typeof card === "object" && typeof card.id === "string" && typeof card.word === "string" && typeof card.translation === "string")
-      .map(card => ({ id:card.id.slice(0, 80), word:card.word.trim().slice(0, 120), translation:card.translation.trim().slice(0, 240), learned:Boolean(card.learned), createdAt:typeof card.createdAt === "number" ? card.createdAt : Date.now() }))
+      .map(card => ({
+        id:card.id.slice(0, 80),
+        word:card.word.trim().slice(0, 120),
+        translation:card.translation.trim().slice(0, 240),
+        learned:Boolean(card.learned),
+        createdAt:typeof card.createdAt === "number" ? card.createdAt : Date.now(),
+        sentence:typeof card.sentence === "string" ? card.sentence.slice(0, 500) : "",
+        sentenceStatus:["idle", "correct", "needs-review"].includes(card.sentenceStatus) ? card.sentenceStatus : "idle",
+        sentenceCorrected:typeof card.sentenceCorrected === "string" ? card.sentenceCorrected.slice(0, 500) : "",
+        sentenceTranslation:typeof card.sentenceTranslation === "string" ? card.sentenceTranslation.slice(0, 700) : "",
+        sentenceTranslationLanguage:["uk", "ru", "en"].includes(card.sentenceTranslationLanguage) ? card.sentenceTranslationLanguage : ""
+      }))
       .filter(card => card.word && card.translation).slice(0, 500);
   } catch {
     return [];

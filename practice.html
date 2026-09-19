@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css?v=14" />
-    <link rel="stylesheet" href="practice.css?v=1" />
+    <link rel="stylesheet" href="practice.css?v=2" />
     <link rel="stylesheet" href="auth.css?v=1" />
   </head>
   <body class="practice-page">
@@ -65,12 +65,23 @@
         <div class="session-progress"><span id="session-progress"></span><b id="session-counter"></b></div>
         <h2 id="session-title" data-practice-key="sessionTitle">Вспомните перевод</h2>
         <div class="session-card"><span id="session-word"></span><button id="session-reveal" type="button" data-practice-key="revealButton">Показать перевод</button><strong id="session-translation" hidden></strong></div>
+        <form id="sentence-form" class="sentence-form">
+          <label>
+            <span data-practice-key="sentenceLabel">Ваше предложение</span>
+            <textarea id="session-sentence" rows="3" maxlength="500" data-practice-placeholder="sentencePlaceholder" placeholder="Составьте английское предложение с этим словом"></textarea>
+          </label>
+          <p class="sentence-hint" data-practice-key="sentenceHint">Напишите полное предложение на английском, чтобы перейти дальше.</p>
+          <button id="session-check" class="practice-primary practice-primary--compact" type="submit" data-practice-key="checkSentence">Проверить предложение</button>
+          <p id="sentence-feedback" class="sentence-feedback" role="status" aria-live="polite"></p>
+          <div id="sentence-corrected" class="sentence-corrected" hidden></div>
+          <div id="sentence-translation" class="sentence-translation" hidden></div>
+        </form>
         <div class="session-actions"><button id="session-repeat" type="button" data-practice-key="repeatButton">Повторить</button><button id="session-know" class="practice-primary" type="button" data-practice-key="knowButton">Знаю</button></div>
       </section>
     </div>
 
     <footer><div><strong>FullRide UA</strong><span data-practice-key="footerTagline">Практика маленькими шагами.</span></div><div class="footer-meta"><a class="footer-contact" href="mailto:bloomobama@tutamail.com">bloomobama@tutamail.com</a><span>© 2026</span></div></footer>
-    <script src="practice.js?v=1"></script>
+    <script src="practice.js?v=2"></script>
     <script src="firebase-config.js?v=1"></script>
     <script type="module" src="auth.js?v=1"></script>
   </body>
