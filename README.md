@@ -21,3 +21,7 @@ Live site: https://bloomobama.github.io/
 ## Account system
 
 The account interface is integrated on the finder, comparison, university-profile, and practice pages. It supports Google sign-in, email/password accounts, email verification, password reset, profile names, and cloud sync for saved universities, comparisons, and English flashcards. It is intentionally disabled until the site owner's Firebase project is connected; follow [`AUTH_SETUP.md`](AUTH_SETUP.md) to add the public web configuration and publish the Firestore rules. Never commit service-account credentials or mailbox passwords.
+
+## English practice decks
+
+The practice page offers six 500-word base decks (A1, A2, B1, B2, C1 and Native/C2) and three 500-word bridge decks. Sessions draw 20 random words from the chosen deck, favoring words not yet marked as learned. Learned progress is stored locally and synchronized with the user's Firebase profile when signed in. See [`VOCABULARY_SOURCES.md`](VOCABULARY_SOURCES.md) for source attribution, licensing, and regeneration instructions.

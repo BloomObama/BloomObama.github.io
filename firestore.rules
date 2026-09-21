@@ -11,7 +11,7 @@ service cloud.firestore {
 
       function validProfile() {
         return request.resource.data.keys().hasOnly([
-          'displayName', 'shortlist', 'comparison', 'flashcards', 'createdAt', 'updatedAt'
+          'displayName', 'shortlist', 'comparison', 'flashcards', 'packLearned', 'createdAt', 'updatedAt'
         ])
         && request.resource.data.displayName is string
         && request.resource.data.displayName.size() <= 80
@@ -20,7 +20,9 @@ service cloud.firestore {
         && request.resource.data.comparison is list
         && request.resource.data.comparison.size() <= 4
         && request.resource.data.flashcards is list
-        && request.resource.data.flashcards.size() <= 500;
+        && request.resource.data.flashcards.size() <= 500
+        && request.resource.data.packLearned is list
+        && request.resource.data.packLearned.size() <= 3000;
       }
 
       allow read, delete: if isOwner();

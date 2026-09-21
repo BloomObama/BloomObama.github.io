@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css?v=14" />
-    <link rel="stylesheet" href="practice.css?v=2" />
+    <link rel="stylesheet" href="practice.css?v=3" />
     <link rel="stylesheet" href="auth.css?v=1" />
   </head>
   <body class="practice-page">
@@ -38,8 +38,15 @@
         <div class="practice-stats"><span class="practice-stats__number" id="practice-total">0</span><span data-practice-key="saved">карточек сохранено</span><small><b id="practice-learned">0</b> <span data-practice-key="learned">выучено</span></small></div>
       </section>
 
+      <section class="practice-decks" aria-labelledby="decks-title">
+        <div class="practice-section-label"><span>01</span><span data-practice-key="decksLabel">ГОТОВЫЕ НАБОРЫ</span></div>
+        <div class="practice-decks__heading"><h2 id="decks-title" data-practice-key="decksTitle">Выберите свой уровень</h2><p data-practice-key="decksIntro">В каждом наборе 500 слов. За одну тренировку вы получите 20 случайных карточек из выбранного уровня.</p></div>
+        <div id="practice-deck-list" class="practice-deck-list"></div>
+        <p id="practice-deck-status" class="practice-status" role="status" aria-live="polite"></p>
+      </section>
+
       <section class="practice-add panel-shadow" aria-labelledby="add-title">
-        <div class="practice-section-label"><span>01</span><span data-practice-key="addLabel">НОВАЯ КАРТОЧКА</span></div>
+        <div class="practice-section-label"><span>02</span><span data-practice-key="addLabel">НОВАЯ КАРТОЧКА</span></div>
         <h2 id="add-title" data-practice-key="addTitle">Добавьте слово для практики</h2>
         <form id="card-form" class="card-form">
           <label><span data-practice-key="wordLabel">Английское слово</span><input id="word-input" name="word" type="text" autocomplete="off" required maxlength="120" placeholder="например, scholarship" /></label>
@@ -51,7 +58,7 @@
       </section>
 
       <section class="practice-library" aria-labelledby="library-title">
-        <div class="practice-library__heading"><div><p class="practice-section-label"><span>02</span><span data-practice-key="libraryLabel">МОИ КАРТОЧКИ</span></p><h2 id="library-title" data-practice-key="libraryTitle">Повторяйте то, что важно</h2></div><button id="start-practice" class="practice-primary practice-primary--compact" type="button" data-practice-key="startButton">Начать практику</button></div>
+        <div class="practice-library__heading"><div><p class="practice-section-label"><span>03</span><span data-practice-key="libraryLabel">МОИ КАРТОЧКИ</span></p><h2 id="library-title" data-practice-key="libraryTitle">Повторяйте то, что важно</h2></div><button id="start-practice" class="practice-primary practice-primary--compact" type="button" data-practice-key="startButton">Начать практику</button></div>
         <div class="practice-tools"><label class="practice-search"><span aria-hidden="true">⌕</span><input id="card-search" type="search" data-practice-placeholder="searchPlaceholder" placeholder="Поиск по словам и переводам" /></label><select id="card-filter" aria-label="Filter cards"><option value="all" data-practice-key="filterAll">Все карточки</option><option value="learning" data-practice-key="filterLearning">В процессе</option><option value="learned" data-practice-key="filterLearned">Выученные</option></select><span id="card-result-count" class="practice-result-count"></span></div>
         <div id="card-list" class="card-list"></div>
       </section>
@@ -61,7 +68,7 @@
       <div class="practice-modal__backdrop" data-practice-close></div>
       <section class="practice-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="session-title">
         <button class="practice-modal__close" type="button" data-practice-close aria-label="Close">×</button>
-        <p class="practice-section-label"><span>03</span><span data-practice-key="sessionLabel">СЕССИЯ</span></p>
+        <p class="practice-section-label"><span>04</span><span data-practice-key="sessionLabel">СЕССИЯ</span></p>
         <div class="session-progress"><span id="session-progress"></span><b id="session-counter"></b></div>
         <h2 id="session-title" data-practice-key="sessionTitle">Вспомните перевод</h2>
         <div class="session-card"><span id="session-word"></span><button id="session-reveal" type="button" data-practice-key="revealButton">Показать перевод</button><strong id="session-translation" hidden></strong></div>
@@ -81,8 +88,9 @@
     </div>
 
     <footer><div><strong>FullRide UA</strong><span data-practice-key="footerTagline">Практика маленькими шагами.</span></div><div class="footer-meta"><a class="footer-contact" href="mailto:bloomobama@tutamail.com">bloomobama@tutamail.com</a><span>© 2026</span></div></footer>
-    <script src="practice.js?v=2"></script>
+    <script src="practice-packs.js?v=1"></script>
+    <script src="practice.js?v=3"></script>
     <script src="firebase-config.js?v=1"></script>
-    <script type="module" src="auth.js?v=1"></script>
+    <script type="module" src="auth.js?v=2"></script>
   </body>
 </html>

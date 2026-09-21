@@ -208,16 +208,19 @@ async function syncUserData(user, mergeRemote = false) {
     const localShortlist = localArray("fullride-shortlist-v1");
     const localComparison = localArray("fullride-compare-v1", 4);
     const localCards = localFlashcards();
+    const localPackLearned = localArray("fullride-pack-learned-v1", 3000);
     const shortlist = mergeRemote ? [...new Set([...(remote.shortlist || []), ...localShortlist])] : localShortlist;
     const comparison = mergeRemote ? [...new Set([...(remote.comparison || []), ...localComparison])].slice(0, 4) : localComparison;
     const remoteCards = Array.isArray(remote.flashcards) ? remote.flashcards : [];
     const cardsById = new Map((mergeRemote ? [...remoteCards, ...localCards] : localCards).map(card => [card.id, card]));
     const flashcards = [...cardsById.values()].filter(card => card && typeof card.id === "string" && typeof card.word === "string" && typeof card.translation === "string").slice(0, 500);
+    const packLearned = mergeRemote ? [...new Set([...(Array.isArray(remote.packLearned) ? remote.packLearned : []), ...localPackLearned])].slice(0, 3000) : localPackLearned;
 
     if (mergeRemote) {
       localStorage.setItem("fullride-shortlist-v1", JSON.stringify(shortlist));
       localStorage.setItem("fullride-compare-v1", JSON.stringify(comparison));
       localStorage.setItem("fullride-flashcards-v1", JSON.stringify(flashcards));
+      localStorage.setItem("fullride-pack-learned-v1", JSON.stringify(packLearned));
     }
 
     await setDoc(reference, {
@@ -225,6 +228,7 @@ async function syncUserData(user, mergeRemote = false) {
       shortlist,
       comparison,
       flashcards,
+      packLearned,
       createdAt: remote.createdAt || serverTimestamp(),
       updatedAt: serverTimestamp()
     }, { merge:true });
@@ -423,6 +427,7 @@ aq("auth-signout")?.addEventListener("click", async () => {
     localStorage.removeItem("fullride-shortlist-v1");
     localStorage.removeItem("fullride-compare-v1");
     localStorage.removeItem("fullride-flashcards-v1");
+    localStorage.removeItem("fullride-pack-learned-v1");
     window.dispatchEvent(new CustomEvent("fullride:cloud-data"));
     await authApi.signOut(auth);
     closeDialog();
@@ -432,7 +437,7 @@ aq("auth-signout")?.addEventListener("click", async () => {
 
 window.addEventListener("fullride:local-data-changed", scheduleSync);
 window.addEventListener("storage", event => {
-  if (["fullride-shortlist-v1", "fullride-compare-v1"].includes(event.key)) scheduleSync();
+  if (["fullride-shortlist-v1", "fullride-compare-v1", "fullride-pack-learned-v1"].includes(event.key)) scheduleSync();
 });
 
 globalThis.FullRideAuth = { configured, open:openDialog };
