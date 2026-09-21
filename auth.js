@@ -24,9 +24,10 @@ let db = null;
 let authApi = null;
 let firestoreApi = null;
 let currentUser = null;
-let syncing = false;
+let syncQueue = Promise.resolve(true);
 let syncTimer = null;
 let lastFocusedElement = null;
+const accountDataKeys = ["fullride-shortlist-v1", "fullride-compare-v1", "fullride-flashcards-v1", "fullride-pack-learned-v1"];
 
 function getLanguage() {
   const params = new URLSearchParams(location.search);
@@ -197,49 +198,84 @@ function localFlashcards() {
   }
 }
 
-async function syncUserData(user, mergeRemote = false) {
-  if (!user || !user.emailVerified || !db || syncing) return;
-  syncing = true;
-  try {
-    const { doc, getDoc, setDoc, serverTimestamp } = firestoreApi;
-    const reference = doc(db, "users", user.uid);
-    const snapshot = await getDoc(reference);
-    const remote = snapshot.exists() ? snapshot.data() : {};
-    const localShortlist = localArray("fullride-shortlist-v1");
-    const localComparison = localArray("fullride-compare-v1", 4);
-    const localCards = localFlashcards();
-    const localPackLearned = localArray("fullride-pack-learned-v1", 3000);
-    const shortlist = mergeRemote ? [...new Set([...(remote.shortlist || []), ...localShortlist])] : localShortlist;
-    const comparison = mergeRemote ? [...new Set([...(remote.comparison || []), ...localComparison])].slice(0, 4) : localComparison;
-    const remoteCards = Array.isArray(remote.flashcards) ? remote.flashcards : [];
-    const cardsById = new Map((mergeRemote ? [...remoteCards, ...localCards] : localCards).map(card => [card.id, card]));
-    const flashcards = [...cardsById.values()].filter(card => card && typeof card.id === "string" && typeof card.word === "string" && typeof card.translation === "string").slice(0, 500);
-    const packLearned = mergeRemote ? [...new Set([...(Array.isArray(remote.packLearned) ? remote.packLearned : []), ...localPackLearned])].slice(0, 3000) : localPackLearned;
+function accountBackupKey(uid) { return `fullride-account-backup-v1:${uid}`; }
 
-    if (mergeRemote) {
-      localStorage.setItem("fullride-shortlist-v1", JSON.stringify(shortlist));
-      localStorage.setItem("fullride-compare-v1", JSON.stringify(comparison));
-      localStorage.setItem("fullride-flashcards-v1", JSON.stringify(flashcards));
-      localStorage.setItem("fullride-pack-learned-v1", JSON.stringify(packLearned));
+function backupLocalData(uid) {
+  const data = Object.fromEntries(accountDataKeys.map(key => [key, localStorage.getItem(key) || "[]"]));
+  localStorage.setItem(accountBackupKey(uid), JSON.stringify(data));
+}
+
+function restoreAccountBackup(uid) {
+  let data;
+  try { data = JSON.parse(localStorage.getItem(accountBackupKey(uid)) || "null"); }
+  catch { return; }
+  if (!data || typeof data !== "object") return;
+  for (const key of accountDataKeys) {
+    let saved;
+    let current;
+    try {
+      saved = JSON.parse(data[key] || "[]");
+      current = JSON.parse(localStorage.getItem(key) || "[]");
+    } catch { continue; }
+    if (!Array.isArray(saved) || !Array.isArray(current)) continue;
+    if (key === "fullride-flashcards-v1") {
+      const cards = new Map([...saved, ...current].filter(card => card && typeof card.id === "string").map(card => [card.id, card]));
+      localStorage.setItem(key, JSON.stringify([...cards.values()].slice(0, 500)));
+    } else {
+      const limit = key === "fullride-compare-v1" ? 4 : key === "fullride-pack-learned-v1" ? 3000 : 5002;
+      localStorage.setItem(key, JSON.stringify([...new Set([...saved, ...current].filter(item => typeof item === "string"))].slice(0, limit)));
     }
-
-    await setDoc(reference, {
-      displayName: String(user.displayName || remote.displayName || "").slice(0, 80),
-      shortlist,
-      comparison,
-      flashcards,
-      packLearned,
-      createdAt: remote.createdAt || serverTimestamp(),
-      updatedAt: serverTimestamp()
-    }, { merge:true });
-
-    if (mergeRemote) window.dispatchEvent(new CustomEvent("fullride:cloud-data"));
-  } catch (error) {
-    console.error("FullRide cloud sync failed", error);
-    showStatus(at("syncError"), true);
-  } finally {
-    syncing = false;
   }
+  window.dispatchEvent(new CustomEvent("fullride:cloud-data"));
+}
+
+function syncUserData(user, mergeRemote = false) {
+  if (!user || !user.emailVerified || !db) return Promise.resolve(false);
+  const operation = syncQueue.catch(() => false).then(async () => {
+    try {
+      const { doc, getDoc, setDoc, serverTimestamp } = firestoreApi;
+      const reference = doc(db, "users", user.uid);
+      const snapshot = await getDoc(reference);
+      const remote = snapshot.exists() ? snapshot.data() : {};
+      const localShortlist = localArray("fullride-shortlist-v1");
+      const localComparison = localArray("fullride-compare-v1", 4);
+      const localCards = localFlashcards();
+      const localPackLearned = localArray("fullride-pack-learned-v1", 3000);
+      const shortlist = mergeRemote ? [...new Set([...(remote.shortlist || []), ...localShortlist])] : localShortlist;
+      const comparison = mergeRemote ? [...new Set([...(remote.comparison || []), ...localComparison])].slice(0, 4) : localComparison;
+      const remoteCards = Array.isArray(remote.flashcards) ? remote.flashcards : [];
+      const cardsById = new Map((mergeRemote ? [...remoteCards, ...localCards] : localCards).map(card => [card.id, card]));
+      const flashcards = [...cardsById.values()].filter(card => card && typeof card.id === "string" && typeof card.word === "string" && typeof card.translation === "string").slice(0, 500);
+      const packLearned = mergeRemote ? [...new Set([...(Array.isArray(remote.packLearned) ? remote.packLearned : []), ...localPackLearned])].slice(0, 3000) : localPackLearned;
+
+      if (mergeRemote) {
+        localStorage.setItem("fullride-shortlist-v1", JSON.stringify(shortlist));
+        localStorage.setItem("fullride-compare-v1", JSON.stringify(comparison));
+        localStorage.setItem("fullride-flashcards-v1", JSON.stringify(flashcards));
+        localStorage.setItem("fullride-pack-learned-v1", JSON.stringify(packLearned));
+      }
+
+      await setDoc(reference, {
+        displayName: String(user.displayName || remote.displayName || "").slice(0, 80),
+        shortlist,
+        comparison,
+        flashcards,
+        packLearned,
+        createdAt: remote.createdAt || serverTimestamp(),
+        updatedAt: serverTimestamp()
+      }, { merge:true });
+
+      localStorage.removeItem(accountBackupKey(user.uid));
+      if (mergeRemote) window.dispatchEvent(new CustomEvent("fullride:cloud-data"));
+      return true;
+    } catch (error) {
+      console.error("FullRide cloud sync failed", error);
+      showStatus(at("syncError"), true);
+      return false;
+    }
+  });
+  syncQueue = operation;
+  return operation;
 }
 
 function scheduleSync() {
@@ -305,6 +341,7 @@ async function initializeFirebase() {
     authModule.onAuthStateChanged(auth, async user => {
       if (user) {
         try { await user.reload(); user = auth.currentUser; } catch {}
+        if (user) restoreAccountBackup(user.uid);
       }
       renderUser(user);
       showStatus("");
@@ -323,7 +360,18 @@ applyLanguage();
 aq("account-trigger")?.addEventListener("click", openDialog);
 aq("auth-close")?.addEventListener("click", closeDialog);
 aq("auth-backdrop")?.addEventListener("click", closeDialog);
-document.addEventListener("keydown", event => { if (event.key === "Escape" && document.body.classList.contains("auth-open")) closeDialog(); });
+document.addEventListener("keydown", event => {
+  if (!document.body.classList.contains("auth-open")) return;
+  if (event.key === "Escape") { closeDialog(); return; }
+  if (event.key !== "Tab") return;
+  const focusable = [...aq("auth-dialog").querySelectorAll("button:not([disabled]), input:not([disabled]), a[href]")]
+    .filter(element => !element.hidden && element.getClientRects().length);
+  if (!focusable.length) return;
+  const first = focusable[0];
+  const last = focusable[focusable.length - 1];
+  if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+  else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+});
 document.addEventListener("click", event => {
   const languageButton = event.target.closest("[data-lang],[data-profile-lang],[data-compare-lang]");
   if (languageButton) window.setTimeout(applyLanguage, 0);
@@ -422,17 +470,25 @@ aq("auth-password-email")?.addEventListener("click", async () => {
 });
 
 aq("auth-signout")?.addEventListener("click", async () => {
+  const button = aq("auth-signout");
+  button.disabled = true;
   try {
-    if (auth.currentUser) await syncUserData(auth.currentUser);
-    localStorage.removeItem("fullride-shortlist-v1");
-    localStorage.removeItem("fullride-compare-v1");
-    localStorage.removeItem("fullride-flashcards-v1");
-    localStorage.removeItem("fullride-pack-learned-v1");
-    window.dispatchEvent(new CustomEvent("fullride:cloud-data"));
+    const user = auth.currentUser;
+    if (user) {
+      let backedUp = false;
+      try { backupLocalData(user.uid); backedUp = true; }
+      catch (error) { console.error("FullRide local backup failed", error); }
+      window.clearTimeout(syncTimer);
+      const synced = await syncUserData(user);
+      if (!synced && !backedUp) { showStatus(at("syncError"), true); return; }
+    }
     await authApi.signOut(auth);
+    accountDataKeys.forEach(key => localStorage.removeItem(key));
+    window.dispatchEvent(new CustomEvent("fullride:cloud-data"));
     closeDialog();
   }
   catch (error) { showStatus(errorMessage(error), true); }
+  finally { button.disabled = false; }
 });
 
 window.addEventListener("fullride:local-data-changed", scheduleSync);

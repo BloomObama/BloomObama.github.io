@@ -20,7 +20,7 @@ Live site: https://bloomobama.github.io/
 
 ## Account system
 
-The account interface is integrated on the finder, comparison, university-profile, and practice pages. It supports Google sign-in, email/password accounts, email verification, password reset, profile names, and cloud sync for saved universities, comparisons, and English flashcards. It is intentionally disabled until the site owner's Firebase project is connected; follow [`AUTH_SETUP.md`](AUTH_SETUP.md) to add the public web configuration and publish the Firestore rules. Never commit service-account credentials or mailbox passwords.
+The account interface is integrated on the finder, comparison, university-profile, and practice pages. It supports Google sign-in, email/password accounts, email verification, password reset, profile names, and cloud sync for saved universities, comparisons, personal English flashcards, and deck progress. The public Firebase web configuration is present; the site owner must also enable the providers, authorize the site domain, and publish the current Firestore rules as described in [`AUTH_SETUP.md`](AUTH_SETUP.md). Never commit service-account credentials or mailbox passwords.
 
 ## English practice decks
 
