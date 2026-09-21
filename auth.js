@@ -378,13 +378,16 @@ document.addEventListener("click", event => {
   const viewButton = event.target.closest("[data-auth-view]");
   if (viewButton && viewButton.closest("#auth-dialog")) showAuthView(viewButton.dataset.authView);
 });
+aq("auth-dialog")?.addEventListener("input", event => {
+  if (event.target.closest(".auth-form")) showStatus("");
+});
 
 aq("auth-signin-form")?.addEventListener("submit", async event => {
   event.preventDefault();
   const form = event.currentTarget;
+  const values = new FormData(form);
   setBusy(form, true); showStatus("");
   try {
-    const values = new FormData(form);
     await authApi.signInWithEmailAndPassword(auth, String(values.get("email")).trim(), String(values.get("password")));
     form.reset();
   } catch (error) { showStatus(errorMessage(error), true); }
@@ -394,9 +397,9 @@ aq("auth-signin-form")?.addEventListener("submit", async event => {
 aq("auth-signup-form")?.addEventListener("submit", async event => {
   event.preventDefault();
   const form = event.currentTarget;
+  const values = new FormData(form);
   setBusy(form, true); showStatus("");
   try {
-    const values = new FormData(form);
     const password = String(values.get("password"));
     if (password.length < 8) throw { code:"auth/weak-password" };
     const credential = await authApi.createUserWithEmailAndPassword(auth, String(values.get("email")).trim(), password);
@@ -414,9 +417,9 @@ aq("auth-signup-form")?.addEventListener("submit", async event => {
 aq("auth-reset-form")?.addEventListener("submit", async event => {
   event.preventDefault();
   const form = event.currentTarget;
+  const email = String(new FormData(form).get("email")).trim();
   setBusy(form, true); showStatus("");
   try {
-    const email = String(new FormData(form).get("email")).trim();
     await authApi.sendPasswordResetEmail(auth, email, { url:emailActionUrl() });
     showStatus(at("resetSent"));
   } catch (error) {
@@ -451,9 +454,9 @@ aq("auth-refresh-user")?.addEventListener("click", async () => {
 aq("auth-profile-form")?.addEventListener("submit", async event => {
   event.preventDefault();
   const form = event.currentTarget;
+  const displayName = String(new FormData(form).get("name") || "").trim().slice(0, 80);
   setBusy(form, true); showStatus("");
   try {
-    const displayName = String(new FormData(form).get("name") || "").trim().slice(0, 80);
     await authApi.updateProfile(auth.currentUser, { displayName });
     renderUser(auth.currentUser);
     await syncUserData(auth.currentUser);
