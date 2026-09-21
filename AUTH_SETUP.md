@@ -9,7 +9,7 @@ The website code contains the account interface and Firebase integration. The pu
 3. In Authentication → Settings → Authorized domains, confirm `bloomobama.github.io` is present.
 4. Confirm that the Cloud Firestore database exists in production mode.
 5. Publish the current contents of `firestore.rules` in Firestore → Rules, or deploy them with Firebase CLI. The rules allow up to 500 personal flashcards and progress for 3,000 deck words per verified user.
-6. In Authentication → Templates, customize verification and password-reset emails. Set the project name to FullRide UA and use `bloomobama@tutamail.com` as the reply-to address where the console allows it.
+6. In Authentication → Templates, customize verification and password-reset emails. Set the project name to FullRide UA and use `fullrideua@gmail.com` as the reply-to or support address where the console allows it. This does not make Gmail the sender of Firebase's authentication emails.
 7. Test registration, email verification, password reset, Google sign-in, sign-out, and cross-device shortlist, comparison, flashcard, and deck-progress synchronization before publishing.
 8. After monitoring normal traffic, consider Firebase App Check for additional abuse protection.
 

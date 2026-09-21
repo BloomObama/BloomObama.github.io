@@ -559,7 +559,7 @@ q("random-reveal-close")?.addEventListener("click", () => {
   }, 180);
 });
 
-const contactEmail = "bloomobama@tutamail.com";
+const contactEmail = "fullrideua@gmail.com";
 q("copy-contact-email")?.addEventListener("click", async () => {
   const status = q("contact-status");
   try {
