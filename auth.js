@@ -184,6 +184,23 @@ function localFlashcards() {
         id:card.id.slice(0, 80),
         word:card.word.trim().slice(0, 120),
         translation:card.translation.trim().slice(0, 240),
+        translations:Object.fromEntries(["uk","ru","en"].filter(lang => typeof card.translations?.[lang] === "string").map(lang => [lang,card.translations[lang].slice(0,240)])),
+        language:"en",
+        definition:typeof card.definition === "string" ? card.definition.slice(0,300) : "",
+        examples:Array.isArray(card.examples) ? card.examples.filter(item => typeof item === "string").slice(0,3).map(item => item.slice(0,240)) : [],
+        synonyms:Array.isArray(card.synonyms) ? card.synonyms.filter(item => typeof item === "string").slice(0,8).map(item => item.slice(0,60)) : [],
+        source:typeof card.source === "string" ? card.source.slice(0,80) : "",
+        cefr:typeof card.cefr === "string" ? card.cefr.slice(0,8) : "",
+        metadataStatus:typeof card.metadataStatus === "string" ? card.metadataStatus.slice(0,24) : "pending",
+        srs:{
+          status:["new","learning","review","mastered"].includes(card.srs?.status) ? card.srs.status : card.learned ? "mastered" : "new",
+          step:Number.isInteger(card.srs?.step) ? Math.max(0,Math.min(12,card.srs.step)) : 0,
+          intervalDays:Number.isFinite(card.srs?.intervalDays) ? Math.max(0,Math.min(3650,card.srs.intervalDays)) : 0,
+          dueAt:Number.isFinite(card.srs?.dueAt) ? card.srs.dueAt : Date.now(),
+          firstReviewedAt:Number.isFinite(card.srs?.firstReviewedAt) ? card.srs.firstReviewedAt : null,
+          lastReviewedAt:Number.isFinite(card.srs?.lastReviewedAt) ? card.srs.lastReviewedAt : null,
+          history:Array.isArray(card.srs?.history) ? card.srs.history.slice(-12).filter(entry => entry && Number.isFinite(entry.at) && ["again","hard","good","easy"].includes(entry.rating)).map(entry => ({at:entry.at,rating:entry.rating,intervalDays:Number(entry.intervalDays) || 0})) : []
+        },
         learned:Boolean(card.learned),
         createdAt:typeof card.createdAt === "number" ? card.createdAt : Date.now(),
         sentence:typeof card.sentence === "string" ? card.sentence.slice(0, 500) : "",
@@ -192,7 +209,7 @@ function localFlashcards() {
         sentenceTranslation:typeof card.sentenceTranslation === "string" ? card.sentenceTranslation.slice(0, 700) : "",
         sentenceTranslationLanguage:["uk", "ru", "en"].includes(card.sentenceTranslationLanguage) ? card.sentenceTranslationLanguage : ""
       }))
-      .filter(card => card.word && card.translation).slice(0, 500);
+      .filter(card => card.word).slice(0, 500);
   } catch {
     return [];
   }

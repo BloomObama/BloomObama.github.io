@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css?v=14" />
-    <link rel="stylesheet" href="practice.css?v=3" />
+    <link rel="stylesheet" href="practice.css?v=5" />
     <link rel="stylesheet" href="auth.css?v=1" />
   </head>
   <body class="practice-page">
@@ -37,6 +37,14 @@
         </div>
         <div class="practice-stats"><span class="practice-stats__number" id="practice-total">0</span><span data-practice-key="saved">карточек сохранено</span><small><b id="practice-learned">0</b> <span data-practice-key="learned">выучено</span></small></div>
       </section>
+      <section class="practice-dashboard" aria-label="Vocabulary progress">
+        <div><strong id="stat-new">0</strong><span data-practice-key="statNew">Нові</span></div>
+        <div><strong id="stat-learning">0</strong><span data-practice-key="statLearning">У процесі</span></div>
+        <div><strong id="stat-due">0</strong><span data-practice-key="statDue">На повтор сьогодні</span></div>
+        <div><strong id="stat-mastered">0</strong><span data-practice-key="statMastered">Закріплено</span></div>
+        <div><strong id="stat-reviews">0</strong><span data-practice-key="statReviews">Повторень сьогодні</span></div>
+        <div><strong id="stat-streak">0</strong><span data-practice-key="statStreak">Днів поспіль</span></div>
+      </section>
 
       <section class="practice-decks" aria-labelledby="decks-title">
         <div class="practice-section-label"><span>01</span><span data-practice-key="decksLabel">ГОТОВЫЕ НАБОРЫ</span></div>
@@ -53,13 +61,22 @@
           <label><span data-practice-key="translationLabel">Перевод <em data-practice-key="optional">(можно изменить)</em></span><input id="translation-input" name="translation" type="text" autocomplete="off" maxlength="240" placeholder="Определится автоматически" /></label>
           <button class="practice-primary" type="submit" data-practice-key="addButton">Добавить карточку</button>
         </form>
+        <form id="bulk-form" class="bulk-form">
+          <label for="bulk-input" data-practice-key="bulkLabel">Або вставте список слів / виразів</label>
+          <textarea id="bulk-input" rows="4" maxlength="15000" placeholder="foster, undertake, implications, surpass"></textarea>
+          <div class="bulk-form__bottom">
+            <label><span data-practice-key="sourceLabel">Джерело (необов'язково)</span><input id="bulk-source" maxlength="80" placeholder="IELTS Reading" /></label>
+            <button class="practice-primary" type="submit" data-practice-key="bulkButton">Додати список</button>
+          </div>
+          <small data-practice-key="bulkNote">Дублікати пропускаються. Картки зберігаються одразу; переклад і словникові дані завантажуються у фоні.</small>
+        </form>
         <p id="card-status" class="practice-status" role="status" aria-live="polite"></p>
         <p class="practice-note" data-practice-key="translationNote">Перевод запрашивается автоматически. Перед сохранением его можно отредактировать.</p>
       </section>
 
       <section class="practice-library" aria-labelledby="library-title">
-        <div class="practice-library__heading"><div><p class="practice-section-label"><span>03</span><span data-practice-key="libraryLabel">МОИ КАРТОЧКИ</span></p><h2 id="library-title" data-practice-key="libraryTitle">Повторяйте то, что важно</h2></div><button id="start-practice" class="practice-primary practice-primary--compact" type="button" data-practice-key="startButton">Начать практику</button></div>
-        <div class="practice-tools"><label class="practice-search"><span aria-hidden="true">⌕</span><input id="card-search" type="search" data-practice-placeholder="searchPlaceholder" placeholder="Поиск по словам и переводам" /></label><select id="card-filter" aria-label="Filter cards"><option value="all" data-practice-key="filterAll">Все карточки</option><option value="learning" data-practice-key="filterLearning">В процессе</option><option value="learned" data-practice-key="filterLearned">Выученные</option></select><span id="card-result-count" class="practice-result-count"></span></div>
+        <div class="practice-library__heading"><div><p class="practice-section-label"><span>03</span><span data-practice-key="libraryLabel">МОИ КАРТОЧКИ</span></p><h2 id="library-title" data-practice-key="libraryTitle">Повторяйте то, что важно</h2></div><div class="practice-review-actions"><button id="review-five" type="button" data-practice-key="reviewFive">5-Day Review</button><button id="review-month" type="button" data-practice-key="reviewMonth">Monthly Review</button><button id="start-practice" class="practice-primary practice-primary--compact" type="button" data-practice-key="startButton">Начать практику</button></div></div>
+        <div class="practice-tools"><label class="practice-search"><span aria-hidden="true">⌕</span><input id="card-search" type="search" data-practice-placeholder="searchPlaceholder" placeholder="Поиск по словам и переводам" /></label><select id="card-filter" aria-label="Filter cards"><option value="all" data-practice-key="filterAll">Все карточки</option><option value="new" data-practice-key="filterNew">Нові</option><option value="learning" data-practice-key="filterLearning">В процессе</option><option value="due" data-practice-key="filterDue">На повтор сьогодні</option><option value="mastered" data-practice-key="filterMastered">Закріплено</option></select><span id="card-result-count" class="practice-result-count"></span></div>
         <div id="card-list" class="card-list"></div>
       </section>
     </main>
@@ -71,26 +88,27 @@
         <p class="practice-section-label"><span>04</span><span data-practice-key="sessionLabel">СЕССИЯ</span></p>
         <div class="session-progress"><span id="session-progress"></span><b id="session-counter"></b></div>
         <h2 id="session-title" data-practice-key="sessionTitle">Вспомните перевод</h2>
-        <div class="session-card"><span id="session-word"></span><button id="session-reveal" type="button" data-practice-key="revealButton">Показать перевод</button><strong id="session-translation" hidden></strong></div>
+        <div class="session-card"><span id="session-word"></span><button id="session-reveal" type="button" data-practice-key="revealButton">Показать перевод</button><div id="session-meaning" class="session-meaning" hidden><strong id="session-translation"></strong><p id="session-definition" hidden></p><ul id="session-examples" hidden></ul><p id="session-synonyms" hidden></p><small id="session-source" hidden></small></div></div>
         <form id="sentence-form" class="sentence-form">
           <label>
             <span data-practice-key="sentenceLabel">Ваше предложение</span>
             <textarea id="session-sentence" rows="3" maxlength="500" data-practice-placeholder="sentencePlaceholder" placeholder="Составьте английское предложение с этим словом"></textarea>
           </label>
-          <p class="sentence-hint" data-practice-key="sentenceHint">Напишите полное предложение на английском, чтобы перейти дальше.</p>
+          <p class="sentence-hint" data-practice-key="sentenceHint">Речення допоможе закріпити слово, але його можна пропустити.</p>
           <button id="session-check" class="practice-primary practice-primary--compact" type="submit" data-practice-key="checkSentence">Проверить предложение</button>
           <p id="sentence-feedback" class="sentence-feedback" role="status" aria-live="polite"></p>
           <div id="sentence-corrected" class="sentence-corrected" hidden></div>
           <div id="sentence-translation" class="sentence-translation" hidden></div>
         </form>
-        <div class="session-actions"><button id="session-repeat" type="button" data-practice-key="repeatButton">Повторить</button><button id="session-know" class="practice-primary" type="button" data-practice-key="knowButton">Знаю</button></div>
+        <div id="session-actions" class="session-actions" hidden><p data-practice-key="rateHint">Як добре ви згадали значення?</p><button type="button" data-rate="again" data-practice-key="rateAgain">Again</button><button type="button" data-rate="hard" data-practice-key="rateHard">Hard</button><button type="button" data-rate="good" data-practice-key="rateGood">Good</button><button type="button" data-rate="easy" data-practice-key="rateEasy">Easy</button></div>
       </section>
     </div>
 
     <footer><div><strong>FullRide UA</strong><span data-practice-key="footerTagline">Практика маленькими шагами.</span></div><div class="footer-meta"><a class="footer-contact" href="mailto:fullrideua@gmail.com">fullrideua@gmail.com</a><span>© 2026</span></div></footer>
     <script src="practice-packs.js?v=1"></script>
-    <script src="practice.js?v=3"></script>
+    <script src="practice-core.js?v=1"></script>
+    <script src="practice.js?v=5"></script>
     <script src="firebase-config.js?v=1"></script>
-    <script type="module" src="auth.js?v=3"></script>
+    <script type="module" src="auth.js?v=4"></script>
   </body>
 </html>
