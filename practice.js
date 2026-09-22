@@ -81,6 +81,9 @@ function renderDecks() {
 Object.assign(practiceCopy.uk, { translationNote:"Слова з локального словника перекладаються одразу. Решта — через мережу; неточний переклад можна виправити в картці.", editTranslation:"Редагувати переклад", saveTranslation:"Зберегти переклад" });
 Object.assign(practiceCopy.ru, { translationNote:"Слова из локального словаря переводятся сразу. Остальные — через сеть; неточный перевод можно исправить в карточке.", editTranslation:"Изменить перевод", saveTranslation:"Сохранить перевод" });
 Object.assign(practiceCopy.en, { translationNote:"Local dictionary words appear instantly. Other words need a network request; you can edit an inaccurate translation.", editTranslation:"Edit translation", saveTranslation:"Save translation" });
+Object.assign(practiceCopy.uk, { previewReady:"Переклад готовий одразу · можна змінити", previewLooking:"Шукаємо переклад для нового слова…", previewOnline:"Переклад готовий · можна змінити", previewMissing:"Автопереклад недоступний · впишіть вручну", previewManual:"Ваш переклад буде збережено", previewEnglish:"Для англійського інтерфейсу переклад не потрібен" });
+Object.assign(practiceCopy.ru, { previewReady:"Перевод готов сразу · можно изменить", previewLooking:"Ищем перевод нового слова…", previewOnline:"Перевод готов · можно изменить", previewMissing:"Автоперевод недоступен · впишите вручную", previewManual:"Ваш перевод будет сохранён", previewEnglish:"Для английского интерфейса перевод не нужен" });
+Object.assign(practiceCopy.en, { previewReady:"Instant translation · editable", previewLooking:"Looking up this new word…", previewOnline:"Translation ready · editable", previewMissing:"Automatic translation unavailable · enter it manually", previewManual:"Your translation will be saved", previewEnglish:"No translation needed in the English interface" });
 
 const flashcardKey = "fullride-flashcards-v1";
 let practiceLanguage = ["uk", "ru", "en"].includes(new URLSearchParams(location.search).get("lang")) ? new URLSearchParams(location.search).get("lang") : "uk";
@@ -141,6 +144,33 @@ function visibleCards() { const now = Date.now(); return flashcards.filter(card 
 function decodeHtml(value) { const area = document.createElement("textarea"); area.innerHTML = value; return area.value; }
 function setStatus(message, error = false) { pq("card-status").textContent = message; pq("card-status").classList.toggle("is-error", error); }
 const translationRequests = new Map();
+const browserTranslators = new Map();
+async function browserTranslation(text, target) {
+  if (!globalThis.Translator) return "";
+  if (!browserTranslators.has(target)) {
+    browserTranslators.set(target, (async () => {
+      try {
+        const options = { sourceLanguage:"en", targetLanguage:target };
+        // Never trigger an unannounced language-pack download on a metered connection.
+        if (await globalThis.Translator.availability(options) !== "available") return null;
+        return await globalThis.Translator.create(options);
+      } catch { return null; }
+    })());
+  }
+  try { return String((await (await browserTranslators.get(target))?.translate(text)) || "").trim(); }
+  catch { return ""; }
+}
+async function onlineTranslation(text, target) {
+  const controller = new AbortController();
+  const timeout = window.setTimeout(() => controller.abort(), 4500);
+  try {
+    const response = await fetch("https://api.mymemory.translated.net/get?q=" + encodeURIComponent(text) + "&langpair=en|" + target, { signal:controller.signal });
+    if (!response.ok) return "";
+    const data = await response.json();
+    return data?.responseStatus === 200 ? decodeHtml(data?.responseData?.translatedText || "").trim() : "";
+  } catch { return ""; }
+  finally { window.clearTimeout(timeout); }
+}
 async function translateText(text, target = practiceLanguage) {
   if (target === "en") return text;
   const builtIn = text.length <= 120 ? cachedTranslation(text, target) : "";
@@ -148,21 +178,24 @@ async function translateText(text, target = practiceLanguage) {
   const cacheKey = target + ":" + normalize(text);
   if (translationRequests.has(cacheKey)) return translationRequests.get(cacheKey);
   const request = (async () => {
-    const controller = new AbortController();
-    const timeout = window.setTimeout(() => controller.abort(), 4500);
     try {
-      const response = await fetch("https://api.mymemory.translated.net/get?q=" + encodeURIComponent(text) + "&langpair=en|" + target, { signal:controller.signal });
-      if (!response.ok) return "";
-      const data = await response.json();
-      const result = decodeHtml(data?.responseData?.translatedText || "").trim();
-      if (!result || data?.responseStatus !== 200 || normalize(result) === normalize(text)) return "";
+      let browserFinished = false;
+      const local = browserTranslation(text, target).then(value => {
+        if (value && normalize(value) !== normalize(text)) browserFinished = true;
+        return value;
+      });
+      const online = new Promise(resolve => window.setTimeout(resolve, 220)).then(() => browserFinished ? "" : onlineTranslation(text, target));
+      const result = await Promise.any([local, online].map(promise => promise.then(value => {
+        if (!value || normalize(value) === normalize(text)) throw new Error("no-translation");
+        return value;
+      }))).catch(() => "");
+      if (!result) return "";
       if (text.length <= 120) {
         deckTranslations[cacheKey] = result.slice(0,240);
         try { localStorage.setItem(deckTranslationKey, JSON.stringify(deckTranslations)); } catch {}
       }
       return result;
-    } catch { return ""; }
-    finally { window.clearTimeout(timeout); translationRequests.delete(cacheKey); }
+    } finally { translationRequests.delete(cacheKey); }
   })();
   translationRequests.set(cacheKey, request);
   return request;
@@ -257,7 +290,7 @@ function renderMeaning(card) {
   pq("session-source").textContent = [card.cefr,card.source,card.metadataStatus === "ready" ? "Dictionary API" : localDefinition ? "Openjam" : ""].filter(Boolean).join(" · ");
   pq("session-source").hidden = !card.cefr && !card.source && card.metadataStatus !== "ready" && !localDefinition;
 }
-function renderLanguage() { document.documentElement.lang = practiceLanguage; document.querySelectorAll("[data-practice-key]").forEach(element => { element.innerHTML = pc(element.dataset.practiceKey); }); document.querySelectorAll("[data-practice-placeholder]").forEach(element => { element.placeholder = pc(element.dataset.practicePlaceholder); }); document.querySelectorAll("[data-practice-lang]").forEach(button => button.classList.toggle("active", button.dataset.practiceLang === practiceLanguage)); pq("session-next").setAttribute("aria-label",pc("nextAria")); pq("word-input").placeholder = practiceLanguage === "en" ? "for example, scholarship" : "например, scholarship"; renderDecks(); render(); queueEnrichment(flashcards.slice(0,120)); }
+function renderLanguage() { document.documentElement.lang = practiceLanguage; document.querySelectorAll("[data-practice-key]").forEach(element => { element.innerHTML = pc(element.dataset.practiceKey); }); document.querySelectorAll("[data-practice-placeholder]").forEach(element => { element.placeholder = pc(element.dataset.practicePlaceholder); }); document.querySelectorAll("[data-practice-lang]").forEach(button => button.classList.toggle("active", button.dataset.practiceLang === practiceLanguage)); pq("session-next").setAttribute("aria-label",pc("nextAria")); pq("word-input").placeholder = practiceLanguage === "en" ? "for example, scholarship" : "например, scholarship"; updateTranslationPreview(); renderDecks(); render(); queueEnrichment(flashcards.slice(0,120)); }
 function sentenceBadge(card) { if (card.sentenceStatus === "correct") return `<span class="sentence-badge is-correct">✓ ${escapeHtml(pc("sentenceCorrect"))}</span>`; if (card.sentenceStatus === "needs-review") return `<span class="sentence-badge is-review">! ${escapeHtml(pc("sentenceError"))}</span>`; return ""; }
 function render() {
   const now = Date.now();
@@ -387,6 +420,50 @@ function makeCard(word, translation = "", source = "") {
     sentence:"", sentenceStatus:"idle", sentenceCorrected:"", sentenceTranslation:"", sentenceTranslationLanguage:""
   };
 }
+let previewWord = "";
+let previewLanguage = "";
+let previewSequence = 0;
+let previewTimer = null;
+let previewManuallyEdited = false;
+function setPreviewStatus(key, state = "") {
+  const status = pq("translation-preview-status");
+  status.textContent = key ? pc(key) : "";
+  status.className = "translation-preview-status" + (state ? " is-" + state : "");
+}
+function updateTranslationPreview() {
+  const word = pq("word-input").value.trim().replace(/\s+/g, " ");
+  const key = normalize(word);
+  if (key !== previewWord || practiceLanguage !== previewLanguage) {
+    previewWord = key;
+    previewLanguage = practiceLanguage;
+    previewSequence += 1;
+    previewManuallyEdited = false;
+    pq("translation-input").value = "";
+    window.clearTimeout(previewTimer);
+  }
+  const sequence = previewSequence;
+  if (!key) return setPreviewStatus("");
+  if (practiceLanguage === "en") return setPreviewStatus("previewEnglish");
+  if (previewManuallyEdited) return setPreviewStatus("previewManual", "ready");
+  const instant = cachedTranslation(word);
+  if (instant) {
+    pq("translation-input").value = instant.slice(0,240);
+    return setPreviewStatus("previewReady", "ready");
+  }
+  pq("translation-input").value = "";
+  if (key.length < 3) return setPreviewStatus("");
+  setPreviewStatus("previewLooking");
+  window.clearTimeout(previewTimer);
+  previewTimer = window.setTimeout(async () => {
+    const result = await translateText(word, previewLanguage);
+    if (sequence !== previewSequence || previewManuallyEdited || normalize(pq("word-input").value) !== key) return;
+    if (!result) return setPreviewStatus("previewMissing", "error");
+    pq("translation-input").value = result.slice(0,240);
+    setPreviewStatus("previewOnline", "ready");
+  }, 350);
+}
+pq("word-input").addEventListener("input", updateTranslationPreview);
+pq("translation-input").addEventListener("input", () => { previewManuallyEdited = true; setPreviewStatus("previewManual", "ready"); });
 pq("card-form").addEventListener("submit", event => {
   event.preventDefault();
   const word = pq("word-input").value.trim().replace(/\s+/g," ");
@@ -396,7 +473,7 @@ pq("card-form").addEventListener("submit", event => {
   if (flashcards.length >= 500) return setStatus(pc("bulkLimit"), true);
   const card = makeCard(word, translation);
   flashcards.unshift(card);
-  saveCards(); event.currentTarget.reset(); setStatus(pc("added")); render();
+  saveCards(); event.currentTarget.reset(); updateTranslationPreview(); setStatus(pc("added")); render();
   queueEnrichment([card], true);
 });
 pq("bulk-form").addEventListener("submit", event => {

@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css?v=14" />
-    <link rel="stylesheet" href="practice.css?v=6" />
+    <link rel="stylesheet" href="practice.css?v=7" />
     <link rel="stylesheet" href="auth.css?v=1" />
     <link rel="stylesheet" href="site-refresh.css?v=1" />
     <link rel="stylesheet" href="theme-accent.css?v=4" />
@@ -67,7 +67,7 @@
         <h2 id="add-title" data-practice-key="addTitle">Добавьте слово для практики</h2>
         <form id="card-form" class="card-form">
           <label><span data-practice-key="wordLabel">Английское слово</span><input id="word-input" name="word" type="text" autocomplete="off" required maxlength="120" placeholder="например, scholarship" /></label>
-          <label><span data-practice-key="translationLabel">Перевод <em data-practice-key="optional">(можно изменить)</em></span><input id="translation-input" name="translation" type="text" autocomplete="off" maxlength="240" placeholder="Определится автоматически" /></label>
+          <label><span data-practice-key="translationLabel">Перевод <em data-practice-key="optional">(можно изменить)</em></span><input id="translation-input" name="translation" type="text" autocomplete="off" maxlength="240" placeholder="Определится автоматически" /><small id="translation-preview-status" class="translation-preview-status" role="status" aria-live="polite"></small></label>
           <button class="practice-primary" type="submit" data-practice-key="addButton">Добавить карточку</button>
         </form>
         <form id="bulk-form" class="bulk-form">
@@ -118,7 +118,7 @@
     <script src="practice-packs.js?v=1"></script>
     <script src="practice-translations.js?v=1"></script>
     <script src="practice-core.js?v=1"></script>
-    <script src="practice.js?v=8"></script>
+    <script src="practice.js?v=9"></script>
     <script src="firebase-config.js?v=1"></script>
     <script type="module" src="auth.js?v=4"></script>
     <script src="site-nav.js?v=1"></script>

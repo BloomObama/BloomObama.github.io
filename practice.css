@@ -45,6 +45,9 @@
 .card-form { display:grid; grid-template-columns:1fr 1fr auto; align-items:end; gap:.8rem; }
 .card-form label { display:flex; flex-direction:column; gap:.4rem; color:#53677b; font-size:.64rem; font-weight:800; }
 .card-form label em { color:#8a98a7; font-style:normal; font-weight:500; }
+.translation-preview-status { min-height:1.2em; color:#8a5c36; font:600 .58rem/1.35 var(--sans); }
+.translation-preview-status.is-ready { color:#326a50; }
+.translation-preview-status.is-error { color:#a52d42; }
 .card-form input,.practice-search input,.practice-tools select { min-height:49px; border:1px solid #abbccc; border-radius:0; padding:0 .8rem; background:#fff; color:var(--forest); outline:0; font:600 .72rem var(--sans); }
 .card-form input:focus,.practice-search input:focus,.practice-tools select:focus { border-color:#a2772a; box-shadow:0 0 0 2px rgba(241,198,106,.3); }
 .bulk-form { margin-top:1.3rem; padding-top:1.3rem; border-top:1px solid #d5dee7; }
