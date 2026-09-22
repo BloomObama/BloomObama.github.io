@@ -13,6 +13,9 @@ const practiceCopy = {
 Object.assign(practiceCopy.uk, { decksLabel:"ГОТОВІ НАБОРИ", decksTitle:"Оберіть свій рівень", decksIntro:"У кожному наборі 500 слів. За одне тренування ви отримаєте 20 випадкових карток обраного рівня.", packWords:"слів", packLearned:"вивчено", packStart:"Почати", packReview:"Повторити", packDone:"Ви вивчили всі слова цього набору. Можна повторити їх ще раз.", packSessionDone:"Тренування завершено. Поверніться до набору, щоб отримати нові слова.", packTranslateError:"Не вдалося отримати переклад. Спробуйте ще раз.", packTranslating:"Перекладаємо…", packA1:"Базові слова для щоденних ситуацій.", packA2:"Більше тем для розмови й простих текстів.", packB1:"Самостійне спілкування та знайомі теми.", packB2:"Складніші тексти, навчання й аргументація.", packC1:"Точна мова для навчання і професійних тем.", packNative:"Складна лексика рівня C2 для впевненого володіння мовою.", packA1A2:"250 слів A1 і 250 слів A2 для плавного переходу.", packA2B1:"250 слів A2 і 250 слів B1 для наступного кроку.", packB1B2:"250 слів B1 і 250 слів B2 для переходу до складніших тем." });
 Object.assign(practiceCopy.ru, { decksLabel:"ГОТОВЫЕ НАБОРЫ", decksTitle:"Выберите свой уровень", decksIntro:"В каждом наборе 500 слов. За одну тренировку вы получите 20 случайных карточек выбранного уровня.", packWords:"слов", packLearned:"выучено", packStart:"Начать", packReview:"Повторить", packDone:"Вы выучили все слова этого набора. Можно повторить их ещё раз.", packSessionDone:"Тренировка завершена. Вернитесь к набору за новыми словами.", packTranslateError:"Не удалось получить перевод. Попробуйте ещё раз.", packTranslating:"Переводим…", packA1:"Базовые слова для повседневных ситуаций.", packA2:"Больше тем для разговора и простых текстов.", packB1:"Самостоятельное общение и знакомые темы.", packB2:"Более сложные тексты, учёба и аргументация.", packC1:"Точная речь для учёбы и профессиональных тем.", packNative:"Сложная лексика уровня C2 для уверенного владения языком.", packA1A2:"250 слов A1 и 250 слов A2 для плавного перехода.", packA2B1:"250 слов A2 и 250 слов B1 для следующего шага.", packB1B2:"250 слов B1 и 250 слов B2 для перехода к сложным темам." });
 Object.assign(practiceCopy.en, { decksLabel:"READY-MADE DECKS", decksTitle:"Choose your level", decksIntro:"Each deck has 500 words. Each session draws 20 random cards from the selected level.", packWords:"words", packLearned:"learned", packStart:"Start", packReview:"Review", packDone:"You have learned every word in this deck. You can review them again.", packSessionDone:"Session complete. Return to the deck for more words.", packTranslateError:"Translation is unavailable. Please try again.", packTranslating:"Translating…", packA1:"Everyday words for familiar situations.", packA2:"More topics for conversations and simple texts.", packB1:"Independent communication on familiar topics.", packB2:"More complex texts, study and discussion.", packC1:"Precise language for academic and professional contexts.", packNative:"Challenging C2 vocabulary for proficient speakers.", packA1A2:"250 A1 words and 250 A2 words for a smooth transition.", packA2B1:"250 A2 words and 250 B1 words for the next step.", packB1B2:"250 B1 words and 250 B2 words for more complex topics." });
+Object.assign(practiceCopy.uk, { bridgesLabel:"ПЕРЕХІДНІ НАБОРИ", bridgesTitle:"Між рівнями", bridgesIntro:"По 250 слів із кожного сусіднього рівня для плавного переходу.", nextHint:"Речення необов'язкове. Переходьте далі коли завгодно.", nextAria:"Наступна картка" });
+Object.assign(practiceCopy.ru, { bridgesLabel:"ПЕРЕХОДНЫЕ НАБОРЫ", bridgesTitle:"Между уровнями", bridgesIntro:"По 250 слов из двух соседних уровней для плавного перехода.", nextHint:"Предложение необязательно. Переходите дальше в любой момент.", nextAria:"Следующая карточка" });
+Object.assign(practiceCopy.en, { bridgesLabel:"BRIDGE DECKS", bridgesTitle:"Between levels", bridgesIntro:"250 words from each adjacent level for a smoother transition.", nextHint:"The sentence is optional. Move on whenever you like.", nextAria:"Next card" });
 
 Object.assign(practiceCopy.uk, {
   bulkLabel:"Або вставте список слів / виразів", bulkButton:"Додати список", bulkNote:"Дублікати пропускаються. Картки зберігаються одразу; переклад і словникові дані завантажуються у фоні.", sourceLabel:"Джерело (необов'язково)", bulkAdded:"Додано {count} карток. Дані завантажуються у фоні.", bulkEmpty:"Вставте англійські слова, розділені комами або рядками.", bulkLimit:"У бібліотеці може бути до 500 особистих карток.",
@@ -66,16 +69,18 @@ function saveDeckProgress() { localStorage.setItem(deckProgressKey, JSON.stringi
 function srsForDeck(id) { return core.hydrateSrs(deckSrs[id], learnedDeckWords.has(id), Date.now()); }
 function saveDeckSrs() { localStorage.setItem(deckSrsKey, JSON.stringify(deckSrs)); }
 function renderDecks() {
-  pq("practice-deck-list").innerHTML = deckDefinitions.map(deck => {
+  const renderGroup = bridge => deckDefinitions.filter(deck => Boolean(deck.bridge) === bridge).map(deck => {
     const words = deckEntries(deck.id);
     const learned = words.filter(word => srsForDeck(word.id).status !== "new").length;
     return `<article class="practice-deck ${deck.bridge ? `practice-deck--bridge practice-deck--bridge-${deck.id.toLowerCase()}` : `practice-deck--${deck.id.toLowerCase()}`}"><div class="practice-deck__top"><span class="practice-deck__level">${deck.bridge ? "BRIDGE" : "CEFR"}</span><span class="practice-deck__count">${words.length} ${pc("packWords")}</span></div><h3>${deck.title}</h3><p>${pc(deck.copy)}</p><div class="practice-deck__progress" role="progressbar" aria-valuenow="${learned}" aria-valuemin="0" aria-valuemax="500" aria-label="${deck.title}"><span style="width:${learned / 5}%"></span></div><div class="practice-deck__bottom"><small>${learned} / 500 ${pc("packLearned")}</small><button type="button" data-start-deck="${deck.id}" ${words.length !== 500 ? "disabled" : ""}>${pc(learned === 500 ? "packReview" : "packStart")} →</button></div></article>`;
   }).join("");
+  pq("practice-deck-list").innerHTML = renderGroup(false);
+  pq("practice-bridge-list").innerHTML = renderGroup(true);
 }
 
-Object.assign(practiceCopy.uk, { translationNote:"Переклад завантажується у фоні. Якщо сервіс недоступний, додайте його вручну через кнопку редагування картки.", editTranslation:"Редагувати переклад", saveTranslation:"Зберегти переклад" });
-Object.assign(practiceCopy.ru, { translationNote:"Перевод загружается в фоне. Если сервис недоступен, добавьте его вручную через кнопку редактирования карточки.", editTranslation:"Изменить перевод", saveTranslation:"Сохранить перевод" });
-Object.assign(practiceCopy.en, { translationNote:"Translation loads in the background. If the service is unavailable, edit the saved card manually.", editTranslation:"Edit translation", saveTranslation:"Save translation" });
+Object.assign(practiceCopy.uk, { translationNote:"Слова з локального словника перекладаються одразу. Решта — через мережу; неточний переклад можна виправити в картці.", editTranslation:"Редагувати переклад", saveTranslation:"Зберегти переклад" });
+Object.assign(practiceCopy.ru, { translationNote:"Слова из локального словаря переводятся сразу. Остальные — через сеть; неточный перевод можно исправить в карточке.", editTranslation:"Изменить перевод", saveTranslation:"Сохранить перевод" });
+Object.assign(practiceCopy.en, { translationNote:"Local dictionary words appear instantly. Other words need a network request; you can edit an inaccurate translation.", editTranslation:"Edit translation", saveTranslation:"Save translation" });
 
 const flashcardKey = "fullride-flashcards-v1";
 let practiceLanguage = ["uk", "ru", "en"].includes(new URLSearchParams(location.search).get("lang")) ? new URLSearchParams(location.search).get("lang") : "uk";
@@ -125,7 +130,9 @@ function saveEnrichedCards() {
   window.clearTimeout(enrichSyncTimer);
   enrichSyncTimer = window.setTimeout(() => window.dispatchEvent(new CustomEvent("fullride:local-data-changed", { detail:{ kind:"flashcards" } })), 3000);
 }
-function cardTranslation(card) { return practiceLanguage === "en" ? "" : String(card.translations?.[practiceLanguage] || "").slice(0,240); }
+function cardTranslation(card) { return practiceLanguage === "en" ? "" : String(card.translations?.[practiceLanguage] || cachedTranslation(card.word)).slice(0,240); }
+function localTranslation(word, language = practiceLanguage) { return String(globalThis.FullRidePracticeTranslations?.[language]?.[normalize(word)] || ""); }
+function cachedTranslation(word, language = practiceLanguage) { const key = normalize(word); return deckTranslations[language + ":" + key] || deckTranslations[language + ":" + (cefrByWord.get(key) || "") + ":" + key] || localTranslation(word, language); }
 function visibleCards() { const now = Date.now(); return flashcards.filter(card => {
   const matchesSearch = !searchTerm || normalize([card.word,card.translation,card.definition,card.sentence,...card.synonyms].join(" ")).includes(normalize(searchTerm));
   const matchesFilter = filterMode === "all" || (filterMode === "due" ? card.srs.status !== "new" && card.srs.dueAt <= now : card.srs.status === filterMode);
@@ -136,9 +143,9 @@ function setStatus(message, error = false) { pq("card-status").textContent = mes
 const translationRequests = new Map();
 async function translateText(text, target = practiceLanguage) {
   if (target === "en") return text;
+  const builtIn = text.length <= 120 ? cachedTranslation(text, target) : "";
+  if (builtIn) return builtIn;
   const cacheKey = target + ":" + normalize(text);
-  const oldDeckKey = target + ":" + (cefrByWord.get(normalize(text)) || "") + ":" + normalize(text);
-  if (text.length <= 120 && (deckTranslations[cacheKey] || deckTranslations[oldDeckKey])) return deckTranslations[cacheKey] || deckTranslations[oldDeckKey];
   if (translationRequests.has(cacheKey)) return translationRequests.get(cacheKey);
   const request = (async () => {
     const controller = new AbortController();
@@ -213,14 +220,16 @@ function queueEnrichment(cards, priority = false) {
 }
 async function enrichCard(card, target = practiceLanguage) {
   const needsDictionary = card.metadataStatus !== "ready" && card.metadataStatus !== "unavailable";
-  const [translation, details] = await Promise.all([
-    target === "en" || card.translations?.[target] ? Promise.resolve("") : translateText(card.word, target),
-    needsDictionary ? dictionaryDetails(card.word) : Promise.resolve(null)
-  ]);
-  if (translation && !card.translations?.[target]) {
-    card.translations = { ...card.translations, [target]:translation.slice(0,240) };
-    card.translation = translation.slice(0,240);
-  }
+  const translationPromise = target === "en" || card.translations?.[target] ? Promise.resolve("") : translateText(card.word, target).then(translation => {
+    if (translation && !card.translations?.[target]) {
+      card.translations = { ...card.translations, [target]:translation.slice(0,240) };
+      card.translation = translation.slice(0,240);
+      if (flashcards.includes(card)) saveEnrichedCards();
+      if (currentSessionCard() === card && meaningRevealed) renderMeaning(card);
+      if (!document.activeElement.closest(".flashcard-row__edit")) render();
+    }
+  });
+  const details = needsDictionary ? await dictionaryDetails(card.word) : null;
   if (needsDictionary) {
     card.definition = details?.definition || "";
     card.examples = details?.examples || [];
@@ -230,21 +239,25 @@ async function enrichCard(card, target = practiceLanguage) {
   if (flashcards.includes(card)) saveEnrichedCards();
   if (currentSessionCard() === card && meaningRevealed) renderMeaning(card);
   if (!document.activeElement.closest(".flashcard-row__edit")) render();
+  await translationPromise;
 }
 function renderMeaning(card) {
   const translation = cardTranslation(card);
-  pq("session-translation").textContent = practiceLanguage === "en" ? "" : translation || pc(card.metadataStatus === "pending" ? "translationPending" : "translationUnavailable");
+  const translationPending = queuedEnrichment.has(card.id) || translationRequests.has(practiceLanguage + ":" + normalize(card.word));
+  pq("session-translation").textContent = practiceLanguage === "en" ? "" : translation || pc(translationPending ? "translationPending" : "translationUnavailable");
   pq("session-translation").hidden = practiceLanguage === "en";
-  pq("session-definition").textContent = card.definition ? pc("definitionLabel") + ": " + card.definition : "";
-  pq("session-definition").hidden = !card.definition;
+  const localDefinition = globalThis.FullRidePracticeTranslations?.en?.[normalize(card.word)] || "";
+  const definition = card.definition || localDefinition;
+  pq("session-definition").textContent = definition ? pc("definitionLabel") + ": " + definition : "";
+  pq("session-definition").hidden = !definition;
   pq("session-examples").innerHTML = card.examples.map(example => "<li>" + escapeHtml(example) + "</li>").join("");
   pq("session-examples").hidden = !card.examples.length;
   pq("session-synonyms").textContent = card.synonyms.length ? pc("synonymsLabel") + ": " + card.synonyms.join(" · ") : "";
   pq("session-synonyms").hidden = !card.synonyms.length;
-  pq("session-source").textContent = [card.cefr,card.source,card.metadataStatus === "ready" ? "Dictionary API" : ""].filter(Boolean).join(" · ");
-  pq("session-source").hidden = !card.cefr && !card.source && card.metadataStatus !== "ready";
+  pq("session-source").textContent = [card.cefr,card.source,card.metadataStatus === "ready" ? "Dictionary API" : localDefinition ? "Openjam" : ""].filter(Boolean).join(" · ");
+  pq("session-source").hidden = !card.cefr && !card.source && card.metadataStatus !== "ready" && !localDefinition;
 }
-function renderLanguage() { document.documentElement.lang = practiceLanguage; document.querySelectorAll("[data-practice-key]").forEach(element => { element.innerHTML = pc(element.dataset.practiceKey); }); document.querySelectorAll("[data-practice-placeholder]").forEach(element => { element.placeholder = pc(element.dataset.practicePlaceholder); }); document.querySelectorAll("[data-practice-lang]").forEach(button => button.classList.toggle("active", button.dataset.practiceLang === practiceLanguage)); pq("word-input").placeholder = practiceLanguage === "en" ? "for example, scholarship" : "например, scholarship"; renderDecks(); render(); queueEnrichment(flashcards.slice(0,120)); }
+function renderLanguage() { document.documentElement.lang = practiceLanguage; document.querySelectorAll("[data-practice-key]").forEach(element => { element.innerHTML = pc(element.dataset.practiceKey); }); document.querySelectorAll("[data-practice-placeholder]").forEach(element => { element.placeholder = pc(element.dataset.practicePlaceholder); }); document.querySelectorAll("[data-practice-lang]").forEach(button => button.classList.toggle("active", button.dataset.practiceLang === practiceLanguage)); pq("session-next").setAttribute("aria-label",pc("nextAria")); pq("word-input").placeholder = practiceLanguage === "en" ? "for example, scholarship" : "например, scholarship"; renderDecks(); render(); queueEnrichment(flashcards.slice(0,120)); }
 function sentenceBadge(card) { if (card.sentenceStatus === "correct") return `<span class="sentence-badge is-correct">✓ ${escapeHtml(pc("sentenceCorrect"))}</span>`; if (card.sentenceStatus === "needs-review") return `<span class="sentence-badge is-review">! ${escapeHtml(pc("sentenceError"))}</span>`; return ""; }
 function render() {
   const now = Date.now();
@@ -307,6 +320,8 @@ function updateSession() {
   if (!card) { const wasDeck = Boolean(activeDeckId); closePractice(); if (wasDeck) pq("practice-deck-status").textContent = pc("packSessionDone"); else setStatus(pc("sessionDone")); return; }
   pq("session-title").textContent = activeDeckId ? deckDefinitions.find(deck => deck.id === activeDeckId)?.title || activeDeckId : pc("sessionTitle");
   pq("session-word").textContent = card.word;
+  const instant = cachedTranslation(card.word);
+  if (instant && !card.translations?.[practiceLanguage]) card.translations = { ...card.translations, [practiceLanguage]:instant };
   meaningRevealed = false;
   pq("session-meaning").hidden = true;
   pq("session-actions").hidden = true;
@@ -339,7 +354,7 @@ function startDeck(id) {
   if (!chosen.length) { pq("practice-deck-status").textContent = pc("packDone"); return; }
   activeDeckId = id;
   sessionMode = "due";
-  practiceQueue = chosen.map(entry => ({ ...entry, translation:"", translations:{}, definition:"", examples:[], synonyms:[], metadataStatus:"pending", cefr:entry.id.split(":")[0], source:"", sentence:"", sentenceStatus:"idle", sentenceCorrected:"", sentenceTranslation:"", sentenceTranslationLanguage:"" }));
+  practiceQueue = chosen.map(entry => ({ ...entry, translation:"", translations:cachedTranslation(entry.word) ? {[practiceLanguage]:cachedTranslation(entry.word)} : {}, definition:"", examples:[], synonyms:[], metadataStatus:"pending", cefr:entry.id.split(":")[0], source:"", sentence:"", sentenceStatus:"idle", sentenceCorrected:"", sentenceTranslation:"", sentenceTranslationLanguage:"" }));
   pq("practice-deck-status").textContent = "";
   openSession();
 }
@@ -359,12 +374,13 @@ function nextSession(rating) {
   practiceIndex += 1;
   updateSession();
 }
+function skipSession() { if (!currentSessionCard()) return; practiceIndex += 1; updateSession(); }
 
 function makeCard(word, translation = "", source = "") {
   const createdAt = Date.now();
   return {
     id:"card-" + createdAt + "-" + Math.random().toString(36).slice(2,10), word, translation,
-    translations:translation && practiceLanguage !== "en" ? {[practiceLanguage]:translation} : {},
+    translations:(translation || cachedTranslation(word)) && practiceLanguage !== "en" ? {[practiceLanguage]:translation || cachedTranslation(word)} : {},
     language:"en", definition:"", examples:[], synonyms:[], source:source.slice(0,80),
     cefr:cefrByWord.get(normalize(word)) || "", metadataStatus:"pending",
     learned:false, createdAt, srs:core.initialSrs(false, createdAt),
@@ -407,6 +423,7 @@ pq("start-practice").addEventListener("click", startPractice);
 pq("review-five").addEventListener("click", () => startReview("five"));
 pq("review-month").addEventListener("click", () => startReview("month"));
 pq("practice-deck-list").addEventListener("click", event => { const button = event.target.closest("[data-start-deck]"); if (button) startDeck(button.dataset.startDeck); });
+pq("practice-bridge-list").addEventListener("click", event => { const button = event.target.closest("[data-start-deck]"); if (button) startDeck(button.dataset.startDeck); });
 pq("card-list").addEventListener("click", event => {
   const learn = event.target.closest("[data-card-learn]");
   const edit = event.target.closest("[data-card-edit]");
@@ -464,7 +481,7 @@ pq("sentence-form").addEventListener("submit", async event => {
   if (!core.sentenceUsesWord(sentence, card.word)) { pq("sentence-feedback").textContent = pc("sentenceNeedWord"); pq("sentence-feedback").className = "sentence-feedback is-error"; return; }
   const button = pq("session-check");
   button.disabled = true;
-  pq("sentence-feedback").textContent = pc("checkingSentence");
+  pq("sentence-feedback").textContent = pc("formFound") + "\n" + pc("checkingSentence");
   pq("sentence-feedback").className = "sentence-feedback is-checking";
   card.sentence = sentence;
   card.sentenceStatus = "idle";
@@ -494,10 +511,12 @@ pq("sentence-form").addEventListener("submit", async event => {
   } finally { button.disabled = false; }
 });
 pq("session-actions").addEventListener("click", event => { const button = event.target.closest("[data-rate]"); if (button) nextSession(button.dataset.rate); });
+pq("session-next").addEventListener("click", skipSession);
 document.querySelectorAll("[data-practice-close]").forEach(element => element.addEventListener("click", closePractice));
 document.addEventListener("keydown", event => {
   if (event.key === "Escape") { closePractice(); return; }
   if (!pq("practice-modal").classList.contains("is-open") || /^(INPUT|TEXTAREA|SELECT)$/.test(event.target.tagName)) return;
+  if (event.key === "ArrowRight") { event.preventDefault(); skipSession(); return; }
   if (!meaningRevealed && (event.key === "Enter" || event.key === " ")) { event.preventDefault(); pq("session-reveal").click(); }
   const rating = {"1":"again","2":"hard","3":"good","4":"easy"}[event.key];
   if (meaningRevealed && rating) nextSession(rating);

@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><title>Practice browser smoke test</title>
+<pre id="result">WAITING</pre>
+<iframe id="site" src="../practice.html?lang=ru" style="width:1000px;height:800px"></iframe>
+<script>
+document.getElementById("site").addEventListener("load", () => {
+  const result = document.getElementById("result");
+  try {
+    const doc = document.getElementById("site").contentDocument;
+    const checks = [];
+    const check = (label, value) => { if (!value) throw new Error(label); checks.push(label); };
+    check("six level decks", doc.querySelectorAll("#practice-deck-list .practice-deck").length === 6);
+    check("three bridge decks", doc.querySelectorAll("#practice-bridge-list .practice-deck").length === 3);
+    doc.querySelector('#practice-deck-list [data-start-deck="A1"]').click();
+    check("modal opens", doc.getElementById("practice-modal").classList.contains("is-open"));
+    const first = doc.getElementById("session-word").textContent;
+    doc.getElementById("session-next").click();
+    check("next works before reveal", doc.getElementById("session-word").textContent !== first);
+    while (!doc.defaultView.FullRidePracticeTranslations.ru[doc.getElementById("session-word").textContent]) doc.getElementById("session-next").click();
+    const second = doc.getElementById("session-word").textContent;
+    const counterBefore = Number.parseInt(doc.getElementById("session-counter").textContent, 10);
+    const start = performance.now();
+    doc.getElementById("session-reveal").click();
+    const elapsed = performance.now() - start;
+    const gloss = doc.getElementById("session-translation").textContent;
+    check("Russian gloss appears on reveal", Boolean(gloss) && !gloss.includes("загружается"));
+    check("reveal is synchronous", elapsed < 500);
+    doc.getElementById("session-next").click();
+    check("next works without sentence", doc.getElementById("session-word").textContent !== second);
+    check("next advances counter", doc.getElementById("session-counter").textContent.startsWith((counterBefore + 1) + " /"));
+    check("sentence stays optional", !doc.getElementById("session-sentence").value);
+    result.textContent = "PASS: " + checks.join(", ") + `. Reveal: ${elapsed.toFixed(1)} ms.`;
+  } catch (error) { result.textContent = "FAIL: " + error.message; }
+});
+</script>
+</html>

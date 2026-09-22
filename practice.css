@@ -132,8 +132,14 @@
 .session-actions button:hover { border-color:#a2772a; background:var(--acid); }
 .session-actions button[data-rate="again"] { border-color:#c9958e; color:#994a42; }
 .session-actions button[data-rate="easy"] { border-color:#9dbf86; color:#446b2c; }
+.session-next-row { display:flex; align-items:center; justify-content:space-between; gap:1rem; margin-top:1.2rem; padding-top:1rem; border-top:1px solid #e4d7cc; }
+.session-next-row>span { color:#746b70; font-size:.68rem; line-height:1.4; }
+.session-next-row button { display:inline-flex; align-items:center; justify-content:center; gap:.6rem; min-width:110px; min-height:46px; border:0; border-radius:10px; background:#aa293d; color:#fff; cursor:pointer; font:800 .76rem var(--sans); transition:background .2s ease,transform .2s ease; }
+.session-next-row button:hover { background:#842135; transform:translateX(3px); }
+.session-next-row button:focus-visible { outline:3px solid #d59e46; outline-offset:3px; }
 @media (max-width:820px) { .practice-topbar nav { display:none; } .practice-main { width:min(100% - 1.2rem,680px); padding-top:2.8rem; } .practice-hero { align-items:flex-start; flex-direction:column; padding:1.4rem; } .practice-stats { width:100%; border-top:1px solid #627890; border-left:0; padding:1rem 0 0; text-align:left; } .practice-stats__number { display:inline-block; margin-right:.45rem; font-size:2.4rem; } .practice-dashboard { grid-template-columns:repeat(3,1fr); } .practice-add,.practice-library { padding:1.2rem; } .card-form,.practice-tools { grid-template-columns:1fr; } .practice-result-count { text-align:left; } .card-list { grid-template-columns:1fr; } .practice-library__heading { align-items:flex-start; flex-direction:column; } .practice-primary--compact { width:100%; } }
 @media (max-width:700px) { .sentence-form .practice-primary { width:100%; } }
 @media (max-width:820px) { .practice-deck-list { grid-template-columns:repeat(2,minmax(0,1fr)); } .practice-decks__heading { display:block; } .practice-decks__heading p { margin-top:.7rem; } }
 @media (max-width:560px) { .practice-deck-list { grid-template-columns:1fr; } .practice-deck { min-height:190px; } }
 @media (max-width:560px) { .practice-dashboard { grid-template-columns:repeat(2,1fr); } .bulk-form__bottom { align-items:stretch; flex-direction:column; } .bulk-form__bottom label,.bulk-form__bottom button { width:100%; } .session-actions { grid-template-columns:repeat(2,1fr); } .practice-modal__dialog { padding:1.2rem; } }
+@media (max-width:560px) { .session-next-row { position:sticky; bottom:-1.2rem; z-index:2; align-items:stretch; flex-direction:column; padding:.8rem 0 1.2rem; background:#fff9f1; box-shadow:0 -8px 15px rgba(255,249,241,.9); } .session-next-row button { width:100%; } }

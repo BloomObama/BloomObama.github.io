@@ -11,7 +11,28 @@
     mean:["meant"], pay:["paid"], read:["read"], run:["ran"], say:["said"], see:["saw","seen"],
     sell:["sold"], send:["sent"], sit:["sat"], speak:["spoke","spoken"], spend:["spent"],
     stand:["stood"], take:["took","taken"], teach:["taught"], tell:["told"], think:["thought"],
-    understand:["understood"], wear:["wore","worn"], win:["won"], write:["wrote","written"]
+    understand:["understood"], wear:["wore","worn"], win:["won"], write:["wrote","written"],
+    arise:["arose","arisen"], awake:["awoke","awoken"], bear:["bore","born","borne"], beat:["beaten"],
+    bend:["bent"], bet:["bet"], bind:["bound"], bite:["bit","bitten"], bleed:["bled"],
+    blow:["blew","blown"], break:["broke","broken"], breed:["bred"], build:["built"],
+    burn:["burnt","burned"], burst:["burst"], cast:["cast"], cling:["clung"], cost:["cost"],
+    creep:["crept"], cut:["cut"], deal:["dealt"], dig:["dug"], draw:["drew","drawn"],
+    dream:["dreamt","dreamed"], feed:["fed"], fight:["fought"], flee:["fled"], fly:["flew","flown"],
+    forbid:["forbade","forbidden"], forget:["forgot","forgotten"], forgive:["forgave","forgiven"],
+    freeze:["froze","frozen"], grind:["ground"], hang:["hung"], hide:["hid","hidden"],
+    hit:["hit"], hurt:["hurt"], kneel:["knelt"], lay:["laid"], lend:["lent"],
+    lie:["lay","lain","lying"], light:["lit"], lose:["lost"], put:["put"],
+    ride:["rode","ridden"], ring:["rang","rung"], rise:["rose","risen"], seek:["sought"],
+    shake:["shook","shaken"], shine:["shone"], shoot:["shot"], shrink:["shrank","shrunk"],
+    shut:["shut"], sing:["sang","sung"], sink:["sank","sunk"], slide:["slid"],
+    smell:["smelt","smelled"], sow:["sowed","sown"], split:["split"], spread:["spread"],
+    steal:["stole","stolen"], stick:["stuck"], sting:["stung"], strike:["struck"],
+    swear:["swore","sworn"], sweep:["swept"], swim:["swam","swum"], swing:["swung"],
+    tear:["tore","torn"], throw:["threw","thrown"], wake:["woke","woken"], weave:["wove","woven"],
+    withdraw:["withdrew","withdrawn"], child:["children"], man:["men"], woman:["women"],
+    person:["people"], tooth:["teeth"], foot:["feet"], mouse:["mice"], goose:["geese"],
+    criterion:["criteria"], phenomenon:["phenomena"], analysis:["analyses"], thesis:["theses"],
+    crisis:["crises"], basis:["bases"], datum:["data"], index:["indices","indexes"]
   };
   function normalize(value) { return String(value || "").trim().toLocaleLowerCase("en"); }
   function inflections(word) {

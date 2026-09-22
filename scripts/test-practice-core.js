@@ -7,6 +7,11 @@ assert.equal(core.sentenceUsesWord("He sells books.", "sell"), true);
 assert.equal(core.sentenceUsesWord("We sold it.", "sellout"), false);
 assert.equal(core.sentenceUsesWord("They went home.", "go"), true);
 assert.equal(core.sentenceUsesWord("This policy led to change.", "lead to"), true);
+assert.equal(core.sentenceUsesWord("The child was singing yesterday.", "sing"), true);
+assert.equal(core.sentenceUsesWord("The children were smiling.", "child"), true);
+assert.equal(core.sentenceUsesWord("She wrote a letter.", "write"), true);
+assert.equal(core.sentenceUsesWord("I am lying on the sofa.", "lie"), true);
+assert.equal(core.sentenceUsesWord("The sales increased.", "sell"), false);
 assert.deepEqual(core.parseWords("sell, recline; sell\nfoster"), ["sell", "recline", "foster"]);
 
 const now = 1_700_000_000_000;

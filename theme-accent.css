@@ -159,6 +159,10 @@ body.has-side-rail { background:#faf7f2; }
 .practice-page .practice-decks__heading h2,.practice-page .practice-add h2,.practice-page .practice-library h2 { color:var(--fr-wine); }
 .practice-page .practice-decks__heading p { color:#76646a; }
 .practice-page .practice-deck-list { gap:1rem; }
+.practice-page .practice-bridges { margin-top:1.2rem; border-color:#e6d2ad; background:linear-gradient(150deg,#fffaf0,#fff4e3); }
+.practice-page .practice-bridges .practice-section-label { color:#9a6521; }
+.practice-page .practice-bridges .practice-decks__heading { padding-bottom:1rem; border-bottom:1px solid #ecd9ba; }
+.practice-page .practice-bridges .practice-decks__heading h2 { font-size:clamp(1.6rem,3vw,2.5rem); }
 .practice-page .practice-deck {
   min-height:216px;
   position:relative;
