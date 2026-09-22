@@ -135,19 +135,26 @@ body.has-side-rail { background:#faf7f2; }
 .practice-page .practice-deck__progress span { border-radius:5px; background:linear-gradient(90deg,var(--fr-red),var(--fr-gold)); }
 .practice-page .practice-deck__bottom button { min-height:39px; border-color:var(--fr-red); border-radius:8px; background:var(--fr-red); font-size:.7rem; }
 .practice-page .practice-deck__bottom button:hover { border-color:var(--fr-red-dark); background:var(--fr-red-dark); color:#fff; }
-.practice-page .practice-deck:nth-child(3n):not(.practice-deck--bridge) {
-  border-color:#722633;
-  border-top-color:var(--fr-gold);
-  background:linear-gradient(145deg,#7a2434,#4b1b2c);
+.practice-page .practice-deck--b1,.practice-page .practice-deck--b2 {
+  border-color:#e5c884;
+  border-top-color:#c59036;
+  background:linear-gradient(145deg,#fff4d4,#ffe8b4);
 }
-.practice-page .practice-deck:nth-child(3n):not(.practice-deck--bridge) .practice-deck__level { color:#ffd38e; }
-.practice-page .practice-deck:nth-child(3n):not(.practice-deck--bridge) .practice-deck__count,
-.practice-page .practice-deck:nth-child(3n):not(.practice-deck--bridge) .practice-deck__bottom small,
-.practice-page .practice-deck:nth-child(3n):not(.practice-deck--bridge) p { color:#f0d7d2; }
-.practice-page .practice-deck:nth-child(3n):not(.practice-deck--bridge) h3 { color:#fff; }
-.practice-page .practice-deck:nth-child(3n):not(.practice-deck--bridge) .practice-deck__progress { background:rgba(255,255,255,.22); }
-.practice-page .practice-deck:nth-child(3n):not(.practice-deck--bridge) .practice-deck__bottom button { border-color:#f5ca7d; background:#f5ca7d; color:#4b1b2c; }
-.practice-page .practice-deck:nth-child(3n):not(.practice-deck--bridge) .practice-deck__bottom button:hover { background:#fff3da; }
+.practice-page .practice-deck--b1 .practice-deck__level,.practice-page .practice-deck--b2 .practice-deck__level { color:#8b5418; }
+.practice-page .practice-deck--b1 .practice-deck__progress,.practice-page .practice-deck--b2 .practice-deck__progress { background:#ead5a6; }
+.practice-page .practice-deck--c1,.practice-page .practice-deck--c2 {
+  border-color:#8e2639;
+  border-top-color:var(--fr-gold);
+  background:linear-gradient(145deg,#a32b42,#681c30);
+}
+.practice-page .practice-deck--c1 .practice-deck__level,.practice-page .practice-deck--c2 .practice-deck__level,
+.practice-page .practice-deck--c1 .practice-deck__count,.practice-page .practice-deck--c2 .practice-deck__count,
+.practice-page .practice-deck--c1 .practice-deck__bottom small,.practice-page .practice-deck--c2 .practice-deck__bottom small,
+.practice-page .practice-deck--c1 p,.practice-page .practice-deck--c2 p,
+.practice-page .practice-deck--c1 h3,.practice-page .practice-deck--c2 h3 { color:#fff; }
+.practice-page .practice-deck--c1 .practice-deck__progress,.practice-page .practice-deck--c2 .practice-deck__progress { background:rgba(255,255,255,.28); }
+.practice-page .practice-deck--c1 .practice-deck__bottom button,.practice-page .practice-deck--c2 .practice-deck__bottom button { border-color:#f5ca7d; background:#f5ca7d; color:#4b1b2c; }
+.practice-page .practice-deck--c1 .practice-deck__bottom button:hover,.practice-page .practice-deck--c2 .practice-deck__bottom button:hover { background:#fff3da; }
 .practice-page .practice-deck--bridge { border-top-color:var(--fr-gold); background:#fff6e7; }
 .practice-page .practice-deck--bridge .practice-deck__level { color:#99652b; }
 .practice-page .practice-add,.practice-page .practice-library {
