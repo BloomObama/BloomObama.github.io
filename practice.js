@@ -13,9 +13,15 @@ const practiceCopy = {
 Object.assign(practiceCopy.uk, { decksLabel:"ГОТОВІ НАБОРИ", decksTitle:"Оберіть свій рівень", decksIntro:"У кожному наборі 500 слів. За одне тренування ви отримаєте 20 випадкових карток обраного рівня.", packWords:"слів", packLearned:"вивчено", packStart:"Почати", packReview:"Повторити", packDone:"Ви вивчили всі слова цього набору. Можна повторити їх ще раз.", packSessionDone:"Тренування завершено. Поверніться до набору, щоб отримати нові слова.", packTranslateError:"Не вдалося отримати переклад. Спробуйте ще раз.", packTranslating:"Перекладаємо…", packA1:"Базові слова для щоденних ситуацій.", packA2:"Більше тем для розмови й простих текстів.", packB1:"Самостійне спілкування та знайомі теми.", packB2:"Складніші тексти, навчання й аргументація.", packC1:"Точна мова для навчання і професійних тем.", packNative:"Складна лексика рівня C2 для впевненого володіння мовою.", packA1A2:"250 слів A1 і 250 слів A2 для плавного переходу.", packA2B1:"250 слів A2 і 250 слів B1 для наступного кроку.", packB1B2:"250 слів B1 і 250 слів B2 для переходу до складніших тем." });
 Object.assign(practiceCopy.ru, { decksLabel:"ГОТОВЫЕ НАБОРЫ", decksTitle:"Выберите свой уровень", decksIntro:"В каждом наборе 500 слов. За одну тренировку вы получите 20 случайных карточек выбранного уровня.", packWords:"слов", packLearned:"выучено", packStart:"Начать", packReview:"Повторить", packDone:"Вы выучили все слова этого набора. Можно повторить их ещё раз.", packSessionDone:"Тренировка завершена. Вернитесь к набору за новыми словами.", packTranslateError:"Не удалось получить перевод. Попробуйте ещё раз.", packTranslating:"Переводим…", packA1:"Базовые слова для повседневных ситуаций.", packA2:"Больше тем для разговора и простых текстов.", packB1:"Самостоятельное общение и знакомые темы.", packB2:"Более сложные тексты, учёба и аргументация.", packC1:"Точная речь для учёбы и профессиональных тем.", packNative:"Сложная лексика уровня C2 для уверенного владения языком.", packA1A2:"250 слов A1 и 250 слов A2 для плавного перехода.", packA2B1:"250 слов A2 и 250 слов B1 для следующего шага.", packB1B2:"250 слов B1 и 250 слов B2 для перехода к сложным темам." });
 Object.assign(practiceCopy.en, { decksLabel:"READY-MADE DECKS", decksTitle:"Choose your level", decksIntro:"Each deck has 500 words. Each session draws 20 random cards from the selected level.", packWords:"words", packLearned:"learned", packStart:"Start", packReview:"Review", packDone:"You have learned every word in this deck. You can review them again.", packSessionDone:"Session complete. Return to the deck for more words.", packTranslateError:"Translation is unavailable. Please try again.", packTranslating:"Translating…", packA1:"Everyday words for familiar situations.", packA2:"More topics for conversations and simple texts.", packB1:"Independent communication on familiar topics.", packB2:"More complex texts, study and discussion.", packC1:"Precise language for academic and professional contexts.", packNative:"Challenging C2 vocabulary for proficient speakers.", packA1A2:"250 A1 words and 250 A2 words for a smooth transition.", packA2B1:"250 A2 words and 250 B1 words for the next step.", packB1B2:"250 B1 words and 250 B2 words for more complex topics." });
+practiceCopy.uk.decksIntro = "Кожен рівень поділено на 25 постійних блоків по 20 слів. Ваш прогрес зберігається після кожної відповіді.";
+practiceCopy.ru.decksIntro = "Каждый уровень разделён на 25 постоянных блоков по 20 слов. Прогресс сохраняется после каждого ответа.";
+practiceCopy.en.decksIntro = "Each level is split into 25 fixed sets of 20 words. Progress is saved after every answer.";
 Object.assign(practiceCopy.uk, { bridgesLabel:"ПЕРЕХІДНІ НАБОРИ", bridgesTitle:"Між рівнями", bridgesIntro:"По 250 слів із кожного сусіднього рівня для плавного переходу.", nextHint:"Речення необов'язкове. Переходьте далі коли завгодно.", nextAria:"Наступна картка" });
 Object.assign(practiceCopy.ru, { bridgesLabel:"ПЕРЕХОДНЫЕ НАБОРЫ", bridgesTitle:"Между уровнями", bridgesIntro:"По 250 слов из двух соседних уровней для плавного перехода.", nextHint:"Предложение необязательно. Переходите дальше в любой момент.", nextAria:"Следующая карточка" });
 Object.assign(practiceCopy.en, { bridgesLabel:"BRIDGE DECKS", bridgesTitle:"Between levels", bridgesIntro:"250 words from each adjacent level for a smoother transition.", nextHint:"The sentence is optional. Move on whenever you like.", nextAria:"Next card" });
+practiceCopy.uk.bridgesIntro = "Перехідні рівні також поділено на 25 блоків по 20 слів із двох сусідніх рівнів.";
+practiceCopy.ru.bridgesIntro = "Переходные уровни тоже разделены на 25 блоков по 20 слов из двух соседних уровней.";
+practiceCopy.en.bridgesIntro = "Bridge levels are also split into 25 sets of 20 words drawn from adjacent levels.";
 
 Object.assign(practiceCopy.uk, {
   bulkLabel:"Або вставте список слів / виразів", bulkButton:"Додати список", bulkNote:"Дублікати пропускаються. Картки зберігаються одразу; переклад і словникові дані завантажуються у фоні.", sourceLabel:"Джерело (необов'язково)", bulkAdded:"Додано {count} карток. Дані завантажуються у фоні.", bulkEmpty:"Вставте англійські слова, розділені комами або рядками.", bulkLimit:"У бібліотеці може бути до 500 особистих карток.",
@@ -56,6 +62,7 @@ let learnedDeckWords = loadDeckProgress();
 let deckTranslations = loadDeckTranslations();
 let deckSrs = loadDeckSrs();
 let activeDeckId = null;
+let activeDeckModule = null;
 function deckEntries(id) {
   const bridge = id.split("-");
   const levels = bridge.length === 2 ? bridge : [id];
@@ -69,10 +76,21 @@ function saveDeckProgress() { localStorage.setItem(deckProgressKey, JSON.stringi
 function srsForDeck(id) { return core.hydrateSrs(deckSrs[id], learnedDeckWords.has(id), Date.now()); }
 function saveDeckSrs() { localStorage.setItem(deckSrsKey, JSON.stringify(deckSrs)); }
 function renderDecks() {
+  const openDecks = new Set([...document.querySelectorAll(".practice-deck details[open]")].map(item => item.closest(".practice-deck")?.dataset.deck).filter(Boolean));
+  if (!openDecks.size) openDecks.add(activeDeckId || "A1");
   const renderGroup = bridge => deckDefinitions.filter(deck => Boolean(deck.bridge) === bridge).map(deck => {
     const words = deckEntries(deck.id);
-    const learned = words.filter(word => srsForDeck(word.id).status !== "new").length;
-    return `<article class="practice-deck ${deck.bridge ? `practice-deck--bridge practice-deck--bridge-${deck.id.toLowerCase()}` : `practice-deck--${deck.id.toLowerCase()}`}"><div class="practice-deck__top"><span class="practice-deck__level">${deck.bridge ? "BRIDGE" : "CEFR"}</span><span class="practice-deck__count">${words.length} ${pc("packWords")}</span></div><h3>${deck.title}</h3><p>${pc(deck.copy)}</p><div class="practice-deck__progress" role="progressbar" aria-valuenow="${learned}" aria-valuemin="0" aria-valuemax="500" aria-label="${deck.title}"><span style="width:${learned / 5}%"></span></div><div class="practice-deck__bottom"><small>${learned} / 500 ${pc("packLearned")}</small><button type="button" data-start-deck="${deck.id}" ${words.length !== 500 ? "disabled" : ""}>${pc(learned === 500 ? "packReview" : "packStart")} →</button></div></article>`;
+    const learned = words.filter(word => learnedDeckWords.has(word.id)).length;
+    const modules = Array.from({ length:25 }, (_, index) => {
+      const moduleWords = words.slice(index * 20, index * 20 + 20);
+      const known = moduleWords.filter(word => learnedDeckWords.has(word.id)).length;
+      const percent = Math.round(known / 20 * 100);
+      const label = pc("moduleProgress").replace("{known}", known);
+      const action = pc(known === 20 ? "moduleComplete" : known ? "moduleContinue" : "moduleStart");
+      const aria = pc("moduleAria").replace("{number}", index + 1).replace("{level}", deck.title);
+      return `<button class="practice-module" type="button" data-start-deck="${deck.id}" data-module="${index}" aria-label="${escapeHtml(aria)}"><span class="practice-module__number"><b>${String(index + 1).padStart(2,"0")}</b><small>${pc("module")}</small></span><span class="practice-module__body"><strong>${deck.title} · ${pc("module")} ${index + 1}</strong><small>${escapeHtml(label)}</small><span class="practice-module__track"><i style="width:${percent}%"></i></span></span><span class="practice-module__percent">${percent}%<small>${action}</small></span></button>`;
+    }).join("");
+    return `<article class="practice-deck ${deck.bridge ? `practice-deck--bridge practice-deck--bridge-${deck.id.toLowerCase()}` : `practice-deck--${deck.id.toLowerCase()}`}" data-deck="${deck.id}"><details ${openDecks.has(deck.id) ? "open" : ""}><summary><span class="practice-deck__identity"><small>${deck.bridge ? "BRIDGE" : "CEFR"}</small><b>${deck.title}</b><em>${pc(deck.copy)}</em></span><span class="practice-deck__summary"><strong>${Math.round(learned / 5)}%</strong><small>${learned} / 500 · ${pc("modules")}</small></span><span class="practice-deck__chevron" aria-hidden="true">⌄</span></summary><div class="practice-module-list">${modules}</div></details></article>`;
   }).join("");
   pq("practice-deck-list").innerHTML = renderGroup(false);
   pq("practice-bridge-list").innerHTML = renderGroup(true);
@@ -84,6 +102,9 @@ Object.assign(practiceCopy.en, { translationNote:"Local dictionary words appear 
 Object.assign(practiceCopy.uk, { previewReady:"Переклад готовий одразу · можна змінити", previewLooking:"Шукаємо переклад для нового слова…", previewOnline:"Переклад готовий · можна змінити", previewMissing:"Автопереклад недоступний · впишіть вручну", previewManual:"Ваш переклад буде збережено", previewEnglish:"Для англійського інтерфейсу переклад не потрібен" });
 Object.assign(practiceCopy.ru, { previewReady:"Перевод готов сразу · можно изменить", previewLooking:"Ищем перевод нового слова…", previewOnline:"Перевод готов · можно изменить", previewMissing:"Автоперевод недоступен · впишите вручную", previewManual:"Ваш перевод будет сохранён", previewEnglish:"Для английского интерфейса перевод не нужен" });
 Object.assign(practiceCopy.en, { previewReady:"Instant translation · editable", previewLooking:"Looking up this new word…", previewOnline:"Translation ready · editable", previewMissing:"Automatic translation unavailable · enter it manually", previewManual:"Your translation will be saved", previewEnglish:"No translation needed in the English interface" });
+Object.assign(practiceCopy.uk, { module:"Блок", modules:"25 блоків по 20 слів", moduleProgress:"{known} із 20 знаю", moduleComplete:"Вивчено", moduleContinue:"Продовжити", moduleStart:"Почати", moduleAria:"Відкрити блок {number} рівня {level}", learningMode:"Вивчення", sessionCount:"{current} із {total}", sentenceOptional:"Додати речення — необов'язково", rateAgain:"Не знаю", rateGood:"Знаю", skipWord:"Пропустити", speakWord:"Прослухати слово" });
+Object.assign(practiceCopy.ru, { module:"Блок", modules:"25 блоков по 20 слов", moduleProgress:"{known} из 20 знаю", moduleComplete:"Выучено", moduleContinue:"Продолжить", moduleStart:"Начать", moduleAria:"Открыть блок {number} уровня {level}", learningMode:"Изучение", sessionCount:"{current} из {total}", sentenceOptional:"Добавить предложение — необязательно", rateAgain:"Не знаю", rateGood:"Знаю", skipWord:"Пропустить", speakWord:"Прослушать слово" });
+Object.assign(practiceCopy.en, { module:"Set", modules:"25 sets of 20 words", moduleProgress:"{known} of 20 known", moduleComplete:"Learned", moduleContinue:"Continue", moduleStart:"Start", moduleAria:"Open set {number} for level {level}", learningMode:"Learning", sessionCount:"{current} of {total}", sentenceOptional:"Add a sentence — optional", rateAgain:"I don't know", rateGood:"I know", skipWord:"Skip", speakWord:"Hear the word" });
 
 const flashcardKey = "fullride-flashcards-v1";
 let practiceLanguage = ["uk", "ru", "en"].includes(new URLSearchParams(location.search).get("lang")) ? new URLSearchParams(location.search).get("lang") : "uk";
@@ -290,7 +311,7 @@ function renderMeaning(card) {
   pq("session-source").textContent = [card.cefr,card.source,card.metadataStatus === "ready" ? "Dictionary API" : localDefinition ? "Openjam" : ""].filter(Boolean).join(" · ");
   pq("session-source").hidden = !card.cefr && !card.source && card.metadataStatus !== "ready" && !localDefinition;
 }
-function renderLanguage() { document.documentElement.lang = practiceLanguage; document.querySelectorAll("[data-practice-key]").forEach(element => { element.innerHTML = pc(element.dataset.practiceKey); }); document.querySelectorAll("[data-practice-placeholder]").forEach(element => { element.placeholder = pc(element.dataset.practicePlaceholder); }); document.querySelectorAll("[data-practice-lang]").forEach(button => button.classList.toggle("active", button.dataset.practiceLang === practiceLanguage)); pq("session-next").setAttribute("aria-label",pc("nextAria")); pq("word-input").placeholder = practiceLanguage === "en" ? "for example, scholarship" : "например, scholarship"; updateTranslationPreview(); renderDecks(); render(); queueEnrichment(flashcards.slice(0,120)); }
+function renderLanguage() { document.documentElement.lang = practiceLanguage; document.querySelectorAll("[data-practice-key]").forEach(element => { element.innerHTML = pc(element.dataset.practiceKey); }); document.querySelectorAll("[data-practice-placeholder]").forEach(element => { element.placeholder = pc(element.dataset.practicePlaceholder); }); document.querySelectorAll("[data-practice-lang]").forEach(button => button.classList.toggle("active", button.dataset.practiceLang === practiceLanguage)); pq("session-next").setAttribute("aria-label",pc("nextAria")); pq("session-speak").setAttribute("aria-label",pc("speakWord")); pq("word-input").placeholder = practiceLanguage === "en" ? "for example, scholarship" : "например, scholarship"; updateTranslationPreview(); renderDecks(); render(); queueEnrichment(flashcards.slice(0,120)); }
 function sentenceBadge(card) { if (card.sentenceStatus === "correct") return `<span class="sentence-badge is-correct">✓ ${escapeHtml(pc("sentenceCorrect"))}</span>`; if (card.sentenceStatus === "needs-review") return `<span class="sentence-badge is-review">! ${escapeHtml(pc("sentenceError"))}</span>`; return ""; }
 function render() {
   const now = Date.now();
@@ -326,7 +347,7 @@ function render() {
       (card.sentence ? '<div class="flashcard-row__sentence"><small>' + escapeHtml(pc("sentenceLabel")) + '</small><p>' + escapeHtml(card.sentence) + '</p>' + sentenceBadge(card) + '</div>' : "") + '</article>';
   }).join("") : '<p class="card-empty">' + escapeHtml(pc(searchTerm || filterMode !== "all" ? "noMatch" : "empty")) + '</p>';
 }
-function closePractice() { pq("practice-modal").classList.remove("is-open"); pq("practice-modal").setAttribute("aria-hidden","true"); activeDeckId = null; practiceQueue = []; practiceIndex = 0; meaningRevealed = false; }
+function closePractice() { pq("practice-modal").classList.remove("is-open"); pq("practice-modal").setAttribute("aria-hidden","true"); activeDeckId = null; activeDeckModule = null; practiceQueue = []; practiceIndex = 0; meaningRevealed = false; }
 function currentSessionCard() { return practiceQueue[practiceIndex]; }
 function renderSentenceState(card) {
   pq("session-sentence").value = card.sentence || "";
@@ -351,18 +372,22 @@ async function refreshSessionTranslation() {
 function updateSession() {
   const card = currentSessionCard();
   if (!card) { const wasDeck = Boolean(activeDeckId); closePractice(); if (wasDeck) pq("practice-deck-status").textContent = pc("packSessionDone"); else setStatus(pc("sessionDone")); return; }
-  pq("session-title").textContent = activeDeckId ? deckDefinitions.find(deck => deck.id === activeDeckId)?.title || activeDeckId : pc("sessionTitle");
+  const deckTitle = activeDeckId ? deckDefinitions.find(deck => deck.id === activeDeckId)?.title || activeDeckId : "";
+  pq("session-title").textContent = activeDeckId ? `${deckTitle} · ${pc("module")} ${activeDeckModule + 1}` : pc("sessionTitle");
   pq("session-word").textContent = card.word;
+  pq("session-level").textContent = card.cefr || deckTitle;
   const instant = cachedTranslation(card.word);
   if (instant && !card.translations?.[practiceLanguage]) card.translations = { ...card.translations, [practiceLanguage]:instant };
-  meaningRevealed = false;
-  pq("session-meaning").hidden = true;
-  pq("session-actions").hidden = true;
-  pq("session-reveal").hidden = false;
-  pq("session-reveal").disabled = false;
-  pq("session-reveal").textContent = pc("revealButton");
-  pq("session-counter").textContent = (practiceIndex + 1) + " / " + practiceQueue.length;
+  meaningRevealed = true;
+  pq("session-meaning").hidden = false;
+  pq("session-actions").hidden = false;
+  const known = activeDeckId ? learnedDeckWords.has(card.id) : Boolean(card.learned);
+  pq("session-actions").querySelector('[data-rate="again"]').setAttribute("aria-pressed", String(!known));
+  pq("session-actions").querySelector('[data-rate="good"]').setAttribute("aria-pressed", String(known));
+  pq("session-reveal").hidden = true;
+  pq("session-counter").textContent = pc("sessionCount").replace("{current}", practiceIndex + 1).replace("{total}", practiceQueue.length);
   pq("session-progress").style.setProperty("--session-progress", (((practiceIndex + 1) / practiceQueue.length) * 100) + "%");
+  renderMeaning(card);
   renderSentenceState(card);
   queueEnrichment([card], true);
 }
@@ -379,13 +404,13 @@ function startReview(mode) {
   practiceQueue = shuffled(cards).slice(0,20);
   openSession();
 }
-function startDeck(id) {
+function startDeck(id, moduleIndex = 0) {
   const words = deckEntries(id);
   if (words.length !== 500) return;
-  const entries = words.map(entry => ({ ...entry, createdAt:Date.now(), srs:srsForDeck(entry.id) }));
-  const chosen = core.selectSession(shuffled(entries));
-  if (!chosen.length) { pq("practice-deck-status").textContent = pc("packDone"); return; }
+  const safeModule = Math.max(0, Math.min(24, Number.parseInt(moduleIndex, 10) || 0));
+  const chosen = words.slice(safeModule * 20, safeModule * 20 + 20).map(entry => ({ ...entry, createdAt:Date.now(), srs:srsForDeck(entry.id) }));
   activeDeckId = id;
+  activeDeckModule = safeModule;
   sessionMode = "due";
   practiceQueue = chosen.map(entry => ({ ...entry, translation:"", translations:cachedTranslation(entry.word) ? {[practiceLanguage]:cachedTranslation(entry.word)} : {}, definition:"", examples:[], synonyms:[], metadataStatus:"pending", cefr:entry.id.split(":")[0], source:"", sentence:"", sentenceStatus:"idle", sentenceCorrected:"", sentenceTranslation:"", sentenceTranslationLanguage:"" }));
   pq("practice-deck-status").textContent = "";
@@ -393,13 +418,13 @@ function startDeck(id) {
 }
 function nextSession(rating) {
   const card = currentSessionCard();
-  if (!card || !meaningRevealed || !["again","hard","good","easy"].includes(rating)) return;
+  if (!card || !["again","good"].includes(rating)) return;
   card.srs = core.scheduleReview(card.srs, rating);
   card.learned = rating === "good" || rating === "easy";
   if (activeDeckId) {
     deckSrs[card.id] = card.srs;
     saveDeckSrs();
-    if (card.learned) learnedDeckWords.add(card.id);
+    if (rating === "good") learnedDeckWords.add(card.id);
     else learnedDeckWords.delete(card.id);
     saveDeckProgress();
     renderDecks();
@@ -499,8 +524,8 @@ pq("card-filter").addEventListener("change", event => { filterMode = event.targe
 pq("start-practice").addEventListener("click", startPractice);
 pq("review-five").addEventListener("click", () => startReview("five"));
 pq("review-month").addEventListener("click", () => startReview("month"));
-pq("practice-deck-list").addEventListener("click", event => { const button = event.target.closest("[data-start-deck]"); if (button) startDeck(button.dataset.startDeck); });
-pq("practice-bridge-list").addEventListener("click", event => { const button = event.target.closest("[data-start-deck]"); if (button) startDeck(button.dataset.startDeck); });
+pq("practice-deck-list").addEventListener("click", event => { const button = event.target.closest("[data-start-deck]"); if (button) startDeck(button.dataset.startDeck, button.dataset.module); });
+pq("practice-bridge-list").addEventListener("click", event => { const button = event.target.closest("[data-start-deck]"); if (button) startDeck(button.dataset.startDeck, button.dataset.module); });
 pq("card-list").addEventListener("click", event => {
   const learn = event.target.closest("[data-card-learn]");
   const edit = event.target.closest("[data-card-edit]");
@@ -589,15 +614,24 @@ pq("sentence-form").addEventListener("submit", async event => {
 });
 pq("session-actions").addEventListener("click", event => { const button = event.target.closest("[data-rate]"); if (button) nextSession(button.dataset.rate); });
 pq("session-next").addEventListener("click", skipSession);
+pq("session-speak").addEventListener("click", () => {
+  const card = currentSessionCard();
+  if (!card || !("speechSynthesis" in window)) return;
+  window.speechSynthesis.cancel();
+  const speech = new SpeechSynthesisUtterance(card.word);
+  speech.lang = "en-US";
+  speech.rate = .82;
+  window.speechSynthesis.speak(speech);
+});
 document.querySelectorAll("[data-practice-close]").forEach(element => element.addEventListener("click", closePractice));
 document.addEventListener("keydown", event => {
   if (event.key === "Escape") { closePractice(); return; }
   if (!pq("practice-modal").classList.contains("is-open") || /^(INPUT|TEXTAREA|SELECT)$/.test(event.target.tagName)) return;
   if (event.key === "ArrowRight") { event.preventDefault(); skipSession(); return; }
   if (!meaningRevealed && (event.key === "Enter" || event.key === " ")) { event.preventDefault(); pq("session-reveal").click(); }
-  const rating = {"1":"again","2":"hard","3":"good","4":"easy"}[event.key];
+  const rating = {"1":"again","2":"good"}[event.key];
   if (meaningRevealed && rating) nextSession(rating);
 });
 document.querySelectorAll("[data-practice-lang]").forEach(button => button.addEventListener("click", () => { practiceLanguage = button.dataset.practiceLang; history.replaceState({}, "", `practice.html?lang=${practiceLanguage}`); renderLanguage(); if (currentSessionCard()) { updateSession(); if (currentSessionCard().sentenceStatus === "correct") refreshSessionTranslation(); } }));
-window.addEventListener("fullride:cloud-data", () => { flashcards = loadCards(); learnedDeckWords = loadDeckProgress(); renderDecks(); render(); queueEnrichment(flashcards.slice(0,120)); if (currentSessionCard()) updateSession(); });
+window.addEventListener("fullride:cloud-data", () => { flashcards = loadCards(); learnedDeckWords = loadDeckProgress(); deckSrs = loadDeckSrs(); renderDecks(); render(); queueEnrichment(flashcards.slice(0,120)); if (currentSessionCard()) updateSession(); });
 renderLanguage();

@@ -12,5 +12,6 @@ try {
   await page.waitForFunction(() => /^(PASS|FAIL):/.test(document.getElementById("result").textContent), null, { timeout:10000 });
   const result = await page.locator("#result").textContent();
   console.log(result);
+  if (process.env.SCREENSHOT_PATH) await page.screenshot({ path:process.env.SCREENSHOT_PATH, fullPage:true });
   if (!result.startsWith("PASS:")) process.exitCode = 1;
 } finally { await browser.close(); }

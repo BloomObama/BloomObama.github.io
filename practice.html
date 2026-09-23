@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css?v=14" />
-    <link rel="stylesheet" href="practice.css?v=7" />
+    <link rel="stylesheet" href="practice.css?v=8" />
     <link rel="stylesheet" href="auth.css?v=1" />
     <link rel="stylesheet" href="site-refresh.css?v=1" />
     <link rel="stylesheet" href="theme-accent.css?v=4" />
@@ -94,11 +94,12 @@
       <div class="practice-modal__backdrop" data-practice-close></div>
       <section class="practice-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="session-title">
         <button class="practice-modal__close" type="button" data-practice-close aria-label="Close">×</button>
-        <p class="practice-section-label"><span>05</span><span data-practice-key="sessionLabel">СЕССИЯ</span></p>
-        <div class="session-progress"><span id="session-progress"></span><b id="session-counter"></b></div>
+        <div class="session-heading"><b id="session-counter"></b><span data-practice-key="learningMode">Изучение</span></div>
+        <div class="session-progress"><span id="session-progress"></span></div>
         <h2 id="session-title" data-practice-key="sessionTitle">Вспомните перевод</h2>
-        <div class="session-card"><span id="session-word"></span><button id="session-reveal" type="button" data-practice-key="revealButton">Показать перевод</button><div id="session-meaning" class="session-meaning" hidden><strong id="session-translation"></strong><p id="session-definition" hidden></p><ul id="session-examples" hidden></ul><p id="session-synonyms" hidden></p><small id="session-source" hidden></small></div></div>
-        <form id="sentence-form" class="sentence-form">
+        <div class="session-card"><div class="session-word-line"><span id="session-word"></span><small id="session-level"></small><button id="session-speak" type="button" aria-label="Прослушать слово"><span aria-hidden="true">◖))</span></button></div><button id="session-reveal" type="button" data-practice-key="revealButton" hidden>Показать перевод</button><div id="session-meaning" class="session-meaning"><strong id="session-translation"></strong><p id="session-definition" hidden></p><ul id="session-examples" hidden></ul><p id="session-synonyms" hidden></p><small id="session-source" hidden></small></div></div>
+        <div id="session-actions" class="session-actions"><button type="button" data-rate="again" data-practice-key="rateAgain">Не знаю</button><button type="button" data-rate="good" data-practice-key="rateGood">Знаю</button></div>
+        <details class="sentence-optional"><summary data-practice-key="sentenceOptional">Добавить предложение — необязательно</summary><form id="sentence-form" class="sentence-form">
           <label>
             <span data-practice-key="sentenceLabel">Ваше предложение</span>
             <textarea id="session-sentence" rows="3" maxlength="500" data-practice-placeholder="sentencePlaceholder" placeholder="Составьте английское предложение с этим словом"></textarea>
@@ -108,19 +109,19 @@
           <p id="sentence-feedback" class="sentence-feedback" role="status" aria-live="polite"></p>
           <div id="sentence-corrected" class="sentence-corrected" hidden></div>
           <div id="sentence-translation" class="sentence-translation" hidden></div>
-        </form>
-        <div id="session-actions" class="session-actions" hidden><p data-practice-key="rateHint">Як добре ви згадали значення?</p><button type="button" data-rate="again" data-practice-key="rateAgain">Again</button><button type="button" data-rate="hard" data-practice-key="rateHard">Hard</button><button type="button" data-rate="good" data-practice-key="rateGood">Good</button><button type="button" data-rate="easy" data-practice-key="rateEasy">Easy</button></div>
-        <div class="session-next-row"><span data-practice-key="nextHint">Речення необов'язкове — перейдіть далі в будь-який момент.</span><button id="session-next" type="button" aria-label="Наступна картка"><span data-practice-key="nextButton">Далі</span><span aria-hidden="true">→</span></button></div>
+        </form></details>
+        <div class="session-next-row"><button id="session-next" type="button" aria-label="Наступна картка"><span data-practice-key="skipWord">Пропустить</span><span aria-hidden="true">→</span></button></div>
       </section>
     </div>
 
     <footer><div><strong>FullRide UA</strong><span data-practice-key="footerTagline">Практика маленькими шагами.</span></div><div class="footer-meta"><a class="footer-contact" href="mailto:fullrideua@gmail.com">fullrideua@gmail.com</a><span>© 2026</span></div></footer>
     <script src="practice-packs.js?v=1"></script>
     <script src="practice-translations.js?v=1"></script>
+    <script src="practice-translation-corrections.js?v=1"></script>
     <script src="practice-core.js?v=1"></script>
-    <script src="practice.js?v=9"></script>
+    <script src="practice.js?v=10"></script>
     <script src="firebase-config.js?v=1"></script>
-    <script type="module" src="auth.js?v=4"></script>
+    <script type="module" src="auth.js?v=5"></script>
     <script src="site-nav.js?v=1"></script>
   </body>
 </html>

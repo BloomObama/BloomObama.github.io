@@ -29,6 +29,10 @@ let syncTimer = null;
 let lastFocusedElement = null;
 const accountDataKeys = ["fullride-shortlist-v1", "fullride-compare-v1", "fullride-flashcards-v1", "fullride-pack-learned-v1"];
 
+authTranslations.uk.savedSync = "Обране, порівняння та прогрес у словах синхронізуються автоматично.";
+authTranslations.ru.savedSync = "Избранное, сравнение и прогресс по словам синхронизируются автоматически.";
+authTranslations.en.savedSync = "Saved universities, comparisons, and vocabulary progress sync automatically.";
+
 function getLanguage() {
   const params = new URLSearchParams(location.search);
   const value = document.documentElement.lang || params.get("lang");

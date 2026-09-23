@@ -2,6 +2,7 @@ const assert = require("node:assert/strict");
 const { performance } = require("node:perf_hooks");
 require("../practice-packs.js");
 require("../practice-translations.js");
+require("../practice-translation-corrections.js");
 
 const packs = globalThis.FullRidePracticePacks;
 const translations = globalThis.FullRidePracticeTranslations;
@@ -10,6 +11,10 @@ assert.equal(words.length, 3000);
 assert.equal(translations.uk.school, "школа");
 assert.equal(translations.uk.have, "мати");
 assert.equal(translations.ru.sell, "продавать");
+assert.equal(translations.ru.can, "мочь");
+assert.equal(translations.ru.love, "любовь; любить");
+assert.equal(translations.uk.keep, "зберігати; продовжувати");
+assert.equal(translations.uk.diversity, "різноманітність");
 assert.ok(translations.en.sell.includes("exchange") || translations.en.sell.includes("money"));
 for (const language of ["uk", "ru"]) {
   const count = words.filter(word => translations[language][word]).length;

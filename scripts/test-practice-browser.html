@@ -3,7 +3,10 @@
 <pre id="result">WAITING</pre>
 <iframe id="site" src="../practice-test.html?lang=ru" style="width:1000px;height:800px"></iframe>
 <script>
+let testStarted = false;
 document.getElementById("site").addEventListener("load", async () => {
+  if (testStarted) return;
+  testStarted = true;
   const result = document.getElementById("result");
   try {
     const doc = document.getElementById("site").contentDocument;
@@ -44,25 +47,40 @@ document.getElementById("site").addEventListener("load", async () => {
     doc.querySelector('[data-practice-lang="ru"]').click();
     check("six level decks", doc.querySelectorAll("#practice-deck-list .practice-deck").length === 6);
     check("three bridge decks", doc.querySelectorAll("#practice-bridge-list .practice-deck").length === 3);
-    doc.querySelector('#practice-deck-list [data-start-deck="A1"]').click();
+    check("each level has 25 fixed sets", [...doc.querySelectorAll("#practice-deck-list .practice-deck")].every(deck => deck.querySelectorAll(".practice-module").length === 25));
+    check("corrected common translation", doc.defaultView.FullRidePracticeTranslations.ru.can === "мочь");
+    const secondSet = doc.querySelector('#practice-deck-list [data-start-deck="A1"][data-module="1"]');
+    secondSet.click();
     check("modal opens", doc.getElementById("practice-modal").classList.contains("is-open"));
+    check("set contains exactly 20 words", doc.getElementById("session-counter").textContent === "1 из 20");
+    check("fixed set starts at word 21", doc.getElementById("session-word").textContent === doc.defaultView.FullRidePracticePacks.A1[20]);
+    check("meaning is visible immediately", !doc.getElementById("session-meaning").hidden);
     const first = doc.getElementById("session-word").textContent;
-    doc.getElementById("session-next").click();
-    check("next works before reveal", doc.getElementById("session-word").textContent !== first);
-    while (!doc.defaultView.FullRidePracticeTranslations.ru[doc.getElementById("session-word").textContent]) doc.getElementById("session-next").click();
-    const second = doc.getElementById("session-word").textContent;
-    const counterBefore = Number.parseInt(doc.getElementById("session-counter").textContent, 10);
+    let syncEvents = 0;
+    win.addEventListener("fullride:local-data-changed", event => { if (event.detail?.kind === "packLearned") syncEvents += 1; });
     const start = performance.now();
-    doc.getElementById("session-reveal").click();
+    doc.querySelector('[data-rate="good"]').click();
     const elapsed = performance.now() - start;
-    const gloss = doc.getElementById("session-translation").textContent;
-    check("Russian gloss appears on reveal", Boolean(gloss) && !gloss.includes("загружается"));
-    check("reveal is synchronous", elapsed < 500);
+    check("know advances without waiting", elapsed < 500 && doc.getElementById("session-word").textContent !== first);
+    check("known word saves immediately", JSON.parse(doc.defaultView.localStorage.getItem("fullride-pack-learned-v1")).includes("A1:" + first));
+    check("answer schedules account sync", syncEvents === 1);
+    const second = doc.getElementById("session-word").textContent;
+    doc.querySelector('[data-rate="again"]').click();
+    check("unknown word is not counted as known", !JSON.parse(doc.defaultView.localStorage.getItem("fullride-pack-learned-v1")).includes("A1:" + second));
+    const counterBefore = Number.parseInt(doc.getElementById("session-counter").textContent, 10);
     doc.getElementById("session-next").click();
-    check("next works without sentence", doc.getElementById("session-word").textContent !== second);
-    check("next advances counter", doc.getElementById("session-counter").textContent.startsWith((counterBefore + 1) + " /"));
+    check("skip works without sentence", Number.parseInt(doc.getElementById("session-counter").textContent, 10) === counterBefore + 1);
     check("sentence stays optional", !doc.getElementById("session-sentence").value);
-    result.textContent = "PASS: " + checks.join(", ") + `. Reveal: ${elapsed.toFixed(1)} ms.`;
+    doc.querySelector("[data-practice-close]").click();
+    check("set percentage updates", doc.querySelector('#practice-deck-list [data-start-deck="A1"][data-module="1"] .practice-module__percent').textContent.trim().startsWith("5%"));
+    const frame = document.getElementById("site");
+    const reloaded = new Promise(resolve => frame.addEventListener("load", resolve, { once:true }));
+    frame.contentWindow.location.reload();
+    await reloaded;
+    const reloadedDoc = frame.contentDocument;
+    const savedSet = reloadedDoc.querySelector('#practice-deck-list [data-start-deck="A1"][data-module="1"]');
+    check("progress survives reload", savedSet.querySelector(".practice-module__percent").textContent.trim().startsWith("5%"));
+    result.textContent = "PASS: " + checks.join(", ") + `. Answer transition: ${elapsed.toFixed(1)} ms.`;
   } catch (error) { result.textContent = "FAIL: " + error.message; }
 });
 </script>
