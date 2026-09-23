@@ -63,6 +63,7 @@ let deckTranslations = loadDeckTranslations();
 let deckSrs = loadDeckSrs();
 let activeDeckId = null;
 let activeDeckModule = null;
+let sessionDisplayMode = localStorage.getItem("fullride-practice-mode-v1") === "check" ? "check" : "learn";
 function deckEntries(id) {
   const bridge = id.split("-");
   const levels = bridge.length === 2 ? bridge : [id];
@@ -77,7 +78,6 @@ function srsForDeck(id) { return core.hydrateSrs(deckSrs[id], learnedDeckWords.h
 function saveDeckSrs() { localStorage.setItem(deckSrsKey, JSON.stringify(deckSrs)); }
 function renderDecks() {
   const openDecks = new Set([...document.querySelectorAll(".practice-deck details[open]")].map(item => item.closest(".practice-deck")?.dataset.deck).filter(Boolean));
-  if (!openDecks.size) openDecks.add(activeDeckId || "A1");
   const renderGroup = bridge => deckDefinitions.filter(deck => Boolean(deck.bridge) === bridge).map(deck => {
     const words = deckEntries(deck.id);
     const learned = words.filter(word => learnedDeckWords.has(word.id)).length;
@@ -105,6 +105,9 @@ Object.assign(practiceCopy.en, { previewReady:"Instant translation · editable",
 Object.assign(practiceCopy.uk, { module:"Блок", modules:"25 блоків по 20 слів", moduleProgress:"{known} із 20 знаю", moduleComplete:"Вивчено", moduleContinue:"Продовжити", moduleStart:"Почати", moduleAria:"Відкрити блок {number} рівня {level}", learningMode:"Вивчення", sessionCount:"{current} із {total}", sentenceOptional:"Додати речення — необов'язково", rateAgain:"Не знаю", rateGood:"Знаю", skipWord:"Пропустити", speakWord:"Прослухати слово" });
 Object.assign(practiceCopy.ru, { module:"Блок", modules:"25 блоков по 20 слов", moduleProgress:"{known} из 20 знаю", moduleComplete:"Выучено", moduleContinue:"Продолжить", moduleStart:"Начать", moduleAria:"Открыть блок {number} уровня {level}", learningMode:"Изучение", sessionCount:"{current} из {total}", sentenceOptional:"Добавить предложение — необязательно", rateAgain:"Не знаю", rateGood:"Знаю", skipWord:"Пропустить", speakWord:"Прослушать слово" });
 Object.assign(practiceCopy.en, { module:"Set", modules:"25 sets of 20 words", moduleProgress:"{known} of 20 known", moduleComplete:"Learned", moduleContinue:"Continue", moduleStart:"Start", moduleAria:"Open set {number} for level {level}", learningMode:"Learning", sessionCount:"{current} of {total}", sentenceOptional:"Add a sentence — optional", rateAgain:"I don't know", rateGood:"I know", skipWord:"Skip", speakWord:"Hear the word" });
+Object.assign(practiceCopy.uk, { setupReady:"Готові до блоку?", setupIntro:"Оберіть, як працювати з цими 20 словами.", setupKnown:"{known} із 20 уже знаю", modeLearn:"Знайомство", modeLearnText:"Слово та значення видно одразу", modeCheck:"Самоперевірка", modeCheckText:"Спочатку слово — потім відкрийте значення", modeRecommended:"Радимо почати звідси", setupTip:"Відповідайте чесно — відсоток блоку оновлюється після кожного слова.", setupHow:"Як це працює", setupStep1:"Пройдіть 20 слів у постійному порядку.", setupStep2:"Позначайте «Знаю» або «Не знаю».", setupStep3:"Поверніться до блоку — прогрес залишиться збереженим.", setupStart:"Почати блок" });
+Object.assign(practiceCopy.ru, { setupReady:"Готовы к блоку?", setupIntro:"Выберите, как работать с этими 20 словами.", setupKnown:"{known} из 20 уже знаю", modeLearn:"Знакомство", modeLearnText:"Слово и значение видны сразу", modeCheck:"Самопроверка", modeCheckText:"Сначала слово — затем откройте значение", modeRecommended:"Советуем начать отсюда", setupTip:"Отвечайте честно — процент блока обновляется после каждого слова.", setupHow:"Как это работает", setupStep1:"Пройдите 20 слов в постоянном порядке.", setupStep2:"Отмечайте «Знаю» или «Не знаю».", setupStep3:"Вернитесь к блоку — прогресс останется сохранённым.", setupStart:"Начать блок" });
+Object.assign(practiceCopy.en, { setupReady:"Ready for this set?", setupIntro:"Choose how to work through these 20 words.", setupKnown:"{known} of 20 already known", modeLearn:"Learn", modeLearnText:"See the word and meaning together", modeCheck:"Self-check", modeCheckText:"See the word first, then reveal its meaning", modeRecommended:"Recommended first", setupTip:"Answer honestly—the set percentage updates after every word.", setupHow:"How it works", setupStep1:"Work through the same 20 words in a fixed order.", setupStep2:"Mark each word “I know” or “I don't know”.", setupStep3:"Return later—your progress remains saved.", setupStart:"Start set" });
 
 const flashcardKey = "fullride-flashcards-v1";
 let practiceLanguage = ["uk", "ru", "en"].includes(new URLSearchParams(location.search).get("lang")) ? new URLSearchParams(location.search).get("lang") : "uk";
@@ -311,7 +314,7 @@ function renderMeaning(card) {
   pq("session-source").textContent = [card.cefr,card.source,card.metadataStatus === "ready" ? "Dictionary API" : localDefinition ? "Openjam" : ""].filter(Boolean).join(" · ");
   pq("session-source").hidden = !card.cefr && !card.source && card.metadataStatus !== "ready" && !localDefinition;
 }
-function renderLanguage() { document.documentElement.lang = practiceLanguage; document.querySelectorAll("[data-practice-key]").forEach(element => { element.innerHTML = pc(element.dataset.practiceKey); }); document.querySelectorAll("[data-practice-placeholder]").forEach(element => { element.placeholder = pc(element.dataset.practicePlaceholder); }); document.querySelectorAll("[data-practice-lang]").forEach(button => button.classList.toggle("active", button.dataset.practiceLang === practiceLanguage)); pq("session-next").setAttribute("aria-label",pc("nextAria")); pq("session-speak").setAttribute("aria-label",pc("speakWord")); pq("word-input").placeholder = practiceLanguage === "en" ? "for example, scholarship" : "например, scholarship"; updateTranslationPreview(); renderDecks(); render(); queueEnrichment(flashcards.slice(0,120)); }
+function renderLanguage() { document.documentElement.lang = practiceLanguage; document.querySelectorAll("[data-practice-key]").forEach(element => { element.innerHTML = pc(element.dataset.practiceKey); }); document.querySelectorAll("[data-practice-placeholder]").forEach(element => { element.placeholder = pc(element.dataset.practicePlaceholder); }); document.querySelectorAll("[data-practice-lang]").forEach(button => button.classList.toggle("active", button.dataset.practiceLang === practiceLanguage)); pq("session-next").setAttribute("aria-label",pc("nextAria")); pq("session-speak").setAttribute("aria-label",pc("speakWord")); pq("word-input").placeholder = practiceLanguage === "en" ? "for example, scholarship" : "например, scholarship"; updateTranslationPreview(); renderDecks(); render(); if (pq("practice-modal").classList.contains("is-open") && !pq("session-setup").hidden) renderSessionSetup(); queueEnrichment(flashcards.slice(0,120)); }
 function sentenceBadge(card) { if (card.sentenceStatus === "correct") return `<span class="sentence-badge is-correct">✓ ${escapeHtml(pc("sentenceCorrect"))}</span>`; if (card.sentenceStatus === "needs-review") return `<span class="sentence-badge is-review">! ${escapeHtml(pc("sentenceError"))}</span>`; return ""; }
 function render() {
   const now = Date.now();
@@ -378,13 +381,14 @@ function updateSession() {
   pq("session-level").textContent = card.cefr || deckTitle;
   const instant = cachedTranslation(card.word);
   if (instant && !card.translations?.[practiceLanguage]) card.translations = { ...card.translations, [practiceLanguage]:instant };
-  meaningRevealed = true;
-  pq("session-meaning").hidden = false;
-  pq("session-actions").hidden = false;
+  meaningRevealed = sessionDisplayMode === "learn";
+  pq("session-meaning").hidden = !meaningRevealed;
+  pq("session-actions").hidden = !meaningRevealed;
   const known = activeDeckId ? learnedDeckWords.has(card.id) : Boolean(card.learned);
   pq("session-actions").querySelector('[data-rate="again"]').setAttribute("aria-pressed", String(!known));
   pq("session-actions").querySelector('[data-rate="good"]').setAttribute("aria-pressed", String(known));
-  pq("session-reveal").hidden = true;
+  pq("session-reveal").hidden = meaningRevealed;
+  pq("session-study").querySelector(".session-heading span").textContent = pc(sessionDisplayMode === "check" ? "modeCheck" : "modeLearn");
   pq("session-counter").textContent = pc("sessionCount").replace("{current}", practiceIndex + 1).replace("{total}", practiceQueue.length);
   pq("session-progress").style.setProperty("--session-progress", (((practiceIndex + 1) / practiceQueue.length) * 100) + "%");
   renderMeaning(card);
@@ -392,7 +396,33 @@ function updateSession() {
   queueEnrichment([card], true);
 }
 function shuffled(items) { const result = [...items]; for (let index = result.length - 1; index > 0; index -= 1) { const other = Math.floor(Math.random() * (index + 1)); [result[index], result[other]] = [result[other], result[index]]; } return result; }
-function openSession() { practiceIndex = 0; pq("practice-modal").classList.add("is-open"); pq("practice-modal").setAttribute("aria-hidden","false"); updateSession(); }
+function renderSessionSetup() {
+  const deckTitle = activeDeckId ? deckDefinitions.find(deck => deck.id === activeDeckId)?.title || activeDeckId : pc("sessionTitle");
+  const moduleTitle = activeDeckId ? `${deckTitle} · ${pc("module")} ${activeDeckModule + 1}` : deckTitle;
+  const known = activeDeckId
+    ? practiceQueue.filter(card => learnedDeckWords.has(card.id)).length
+    : practiceQueue.filter(card => card.learned).length;
+  pq("setup-level").textContent = moduleTitle;
+  pq("setup-progress").textContent = pc("setupKnown").replace("{known}", known);
+  document.querySelectorAll("[data-session-mode]").forEach(button => {
+    const selected = button.dataset.sessionMode === sessionDisplayMode;
+    button.classList.toggle("is-selected", selected);
+    button.setAttribute("aria-checked", String(selected));
+  });
+}
+function beginSession() {
+  pq("session-setup").hidden = true;
+  pq("session-study").hidden = false;
+  updateSession();
+}
+function openSession() {
+  practiceIndex = 0;
+  pq("practice-modal").classList.add("is-open");
+  pq("practice-modal").setAttribute("aria-hidden","false");
+  pq("session-setup").hidden = false;
+  pq("session-study").hidden = true;
+  renderSessionSetup();
+}
 function startPractice() { activeDeckId = null; sessionMode = "due"; practiceQueue = core.selectSession(visibleCards()); if (!practiceQueue.length) { setStatus(pc("reviewEmpty"), true); return; } openSession(); }
 function startReview(mode) {
   const now = Date.now();
@@ -524,8 +554,30 @@ pq("card-filter").addEventListener("change", event => { filterMode = event.targe
 pq("start-practice").addEventListener("click", startPractice);
 pq("review-five").addEventListener("click", () => startReview("five"));
 pq("review-month").addEventListener("click", () => startReview("month"));
-pq("practice-deck-list").addEventListener("click", event => { const button = event.target.closest("[data-start-deck]"); if (button) startDeck(button.dataset.startDeck, button.dataset.module); });
-pq("practice-bridge-list").addEventListener("click", event => { const button = event.target.closest("[data-start-deck]"); if (button) startDeck(button.dataset.startDeck, button.dataset.module); });
+function handleDeckClick(event) {
+  const summary = event.target.closest(".practice-deck summary");
+  if (summary) {
+    const selected = summary.parentElement;
+    setTimeout(() => {
+      if (!selected.open) return;
+      document.querySelectorAll(".practice-deck details[open]").forEach(details => {
+        if (details !== selected) details.removeAttribute("open");
+      });
+    });
+  }
+  const button = event.target.closest("[data-start-deck]");
+  if (button) startDeck(button.dataset.startDeck, button.dataset.module);
+}
+pq("practice-deck-list").addEventListener("click", handleDeckClick);
+pq("practice-bridge-list").addEventListener("click", handleDeckClick);
+pq("session-setup").addEventListener("click", event => {
+  const mode = event.target.closest("[data-session-mode]");
+  if (!mode) return;
+  sessionDisplayMode = mode.dataset.sessionMode === "check" ? "check" : "learn";
+  localStorage.setItem("fullride-practice-mode-v1", sessionDisplayMode);
+  renderSessionSetup();
+});
+pq("session-start").addEventListener("click", beginSession);
 pq("card-list").addEventListener("click", event => {
   const learn = event.target.closest("[data-card-learn]");
   const edit = event.target.closest("[data-card-edit]");
@@ -627,6 +679,11 @@ document.querySelectorAll("[data-practice-close]").forEach(element => element.ad
 document.addEventListener("keydown", event => {
   if (event.key === "Escape") { closePractice(); return; }
   if (!pq("practice-modal").classList.contains("is-open") || /^(INPUT|TEXTAREA|SELECT)$/.test(event.target.tagName)) return;
+  if (!pq("session-setup").hidden) {
+    if (event.key === "Enter") { event.preventDefault(); beginSession(); }
+    return;
+  }
+  if (pq("session-study").hidden) return;
   if (event.key === "ArrowRight") { event.preventDefault(); skipSession(); return; }
   if (!meaningRevealed && (event.key === "Enter" || event.key === " ")) { event.preventDefault(); pq("session-reveal").click(); }
   const rating = {"1":"again","2":"good"}[event.key];

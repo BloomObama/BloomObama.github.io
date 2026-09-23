@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css?v=14" />
-    <link rel="stylesheet" href="practice.css?v=8" />
+    <link rel="stylesheet" href="practice.css?v=9" />
     <link rel="stylesheet" href="auth.css?v=1" />
     <link rel="stylesheet" href="site-refresh.css?v=1" />
     <link rel="stylesheet" href="theme-accent.css?v=4" />
@@ -94,6 +94,17 @@
       <div class="practice-modal__backdrop" data-practice-close></div>
       <section class="practice-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="session-title">
         <button class="practice-modal__close" type="button" data-practice-close aria-label="Close">×</button>
+        <div id="session-setup" class="session-setup">
+          <div class="session-setup__hero"><span id="setup-level">A1</span><h2 id="setup-title" data-practice-key="setupReady">Готовы к блоку?</h2><p data-practice-key="setupIntro">Выберите, как работать с этими 20 словами.</p><strong id="setup-progress">0 из 20 уже знаю</strong></div>
+          <div class="session-mode-list" role="radiogroup" aria-label="Practice mode">
+            <button class="session-mode is-selected" type="button" data-session-mode="learn" role="radio" aria-checked="true"><span class="session-mode__icon" aria-hidden="true">Aa</span><b data-practice-key="modeLearn">Знакомство</b><small data-practice-key="modeLearnText">Слово и значение видны сразу</small><em data-practice-key="modeRecommended">Советуем начать отсюда</em></button>
+            <button class="session-mode" type="button" data-session-mode="check" role="radio" aria-checked="false"><span class="session-mode__icon" aria-hidden="true">?</span><b data-practice-key="modeCheck">Самопроверка</b><small data-practice-key="modeCheckText">Сначала слово — затем откройте значение</small></button>
+          </div>
+          <p class="session-setup__tip"><span aria-hidden="true">✦</span><span data-practice-key="setupTip">Отвечайте честно — процент блока обновляется после каждого слова.</span></p>
+          <div class="session-setup__how"><b data-practice-key="setupHow">Как это работает</b><ol><li data-practice-key="setupStep1">Пройдите 20 слов в постоянном порядке.</li><li data-practice-key="setupStep2">Отмечайте «Знаю» или «Не знаю».</li><li data-practice-key="setupStep3">Вернитесь к блоку — прогресс останется сохранённым.</li></ol></div>
+          <button id="session-start" class="session-start" type="button"><span data-practice-key="setupStart">Начать блок</span><span aria-hidden="true">→</span></button>
+        </div>
+        <div id="session-study" class="session-study" hidden>
         <div class="session-heading"><b id="session-counter"></b><span data-practice-key="learningMode">Изучение</span></div>
         <div class="session-progress"><span id="session-progress"></span></div>
         <h2 id="session-title" data-practice-key="sessionTitle">Вспомните перевод</h2>
@@ -111,6 +122,7 @@
           <div id="sentence-translation" class="sentence-translation" hidden></div>
         </form></details>
         <div class="session-next-row"><button id="session-next" type="button" aria-label="Наступна картка"><span data-practice-key="skipWord">Пропустить</span><span aria-hidden="true">→</span></button></div>
+        </div>
       </section>
     </div>
 
@@ -119,7 +131,7 @@
     <script src="practice-translations.js?v=1"></script>
     <script src="practice-translation-corrections.js?v=1"></script>
     <script src="practice-core.js?v=1"></script>
-    <script src="practice.js?v=10"></script>
+    <script src="practice.js?v=11"></script>
     <script src="firebase-config.js?v=1"></script>
     <script type="module" src="auth.js?v=5"></script>
     <script src="site-nav.js?v=1"></script>
