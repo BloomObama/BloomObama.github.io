@@ -27,6 +27,9 @@ try {
   await page.locator('[data-resource-lang="en"]').click();
   passed.push(check("language switch updates the page",await page.locator("#library-title").textContent() === "Choose what you need now"));
   passed.push(check("resource route is active in side navigation",await page.locator('[data-rail-route="resources"]').getAttribute("aria-current") === "page"));
+  await page.locator('[data-path-resource="bc-mocks"]').click();
+  passed.push(check("preparation path opens its promised resource",await page.locator("#resource-dialog-title").textContent() === "Free IELTS Practice & Mock Tests"));
+  await page.locator("[data-resource-close]").click();
   await page.waitForTimeout(900);
   await page.screenshot({ path:"ielts-resources-desktop-preview.png", fullPage:true });
   await page.setViewportSize({ width:390, height:844 });
