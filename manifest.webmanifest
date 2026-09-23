@@ -1,0 +1,13 @@
+{
+  "name": "FullRide UA",
+  "short_name": "FullRide",
+  "description": "Пошук університетів США, підготовка до вступу та IELTS.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f4f7fb",
+  "theme_color": "#7d1e33",
+  "icons": [
+    { "src":"assets/app-icon.svg", "sizes":"any", "type":"image/svg+xml", "purpose":"any maskable" }
+  ]
+}

@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /compare.html
+
+Sitemap: https://bloomobama.github.io/sitemap.xml

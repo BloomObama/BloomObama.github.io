@@ -1,0 +1,41 @@
+name: Site quality
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm test
+      - name: Confirm generated runtime data is current
+        run: git diff --exit-code -- college-index.js data/college-details sitemap.xml
+
+  browser-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install --no-save playwright
+      - run: npx playwright install --with-deps chromium
+      - name: Test core user journeys
+        run: |
+          node scripts/serve-test.mjs &
+          SERVER_PID=$!
+          trap "kill $SERVER_PID" EXIT
+          node scripts/test-catalog-runtime.mjs
+          node scripts/test-practice-ui.mjs
+          node scripts/test-ielts-resources.mjs

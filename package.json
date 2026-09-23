@@ -1,0 +1,11 @@
+{
+  "name": "fullride-ua",
+  "private": true,
+  "scripts": {
+    "build:data": "node scripts/build-runtime-data.mjs",
+    "check:site": "node scripts/check-site.mjs",
+    "validate:data": "node scripts/validate-college-data.mjs && node scripts/check-reviewed-sources.mjs",
+    "test:practice": "node scripts/test-practice-core.js && node scripts/test-practice-translations.js",
+    "test": "node scripts/build-runtime-data.mjs && node scripts/check-site.mjs && node scripts/validate-college-data.mjs && node scripts/check-reviewed-sources.mjs && node scripts/test-practice-core.js && node scripts/test-practice-translations.js"
+  }
+}

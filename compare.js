@@ -22,6 +22,7 @@ let compareLanguage = ["uk", "ru", "en"].includes(compareParams.get("lang")) ? c
 const cq = id => document.getElementById(id);
 const ct = key => compareTranslations[compareLanguage][key] || key;
 let compareToastTimer;
+let comparisonHydrating = false;
 
 const typeLabels = { research:"research", "liberal-arts":"liberalArts", specialized:"specialized", unverified:"unknown" };
 const settingLabels = { urban:"urban", suburban:"suburban", town:"town", rural:"rural", unverified:"unknown" };
@@ -85,6 +86,14 @@ function renderEmpty() {
 
 function renderComparison() {
   const selected = selectedColleges();
+  const pendingDetails = selected.filter(college => !college._detailsLoaded);
+  if (pendingDetails.length && window.FullRideCollegeData && !comparisonHydrating) {
+    comparisonHydrating = true;
+    window.FullRideCollegeData.load(pendingDetails).then(() => {
+      comparisonHydrating = false;
+      renderComparison();
+    }).catch(() => { comparisonHydrating = false; });
+  }
   const onlyDifferences = cq("differences-only").checked && selected.length >= 2;
   cq("compare-total").textContent = selected.length;
   cq("compare-clear").disabled = !selected.length;
@@ -113,7 +122,7 @@ function renderComparison() {
       ${selected.map(college => `
         <article class="comparison-college-head">
           <button type="button" data-remove-compare="${college.slug}" aria-label="${ct("remove")}: ${college.name}">×</button>
-          <div class="comparison-college-head__photo"><img src="${college.photo}" alt="" /></div>
+          <div class="comparison-college-head__photo"><img src="${college.photoThumb || college.photo}" alt="" loading="lazy" decoding="async" /></div>
           <span>${college.short}</span><h2>${college.name}</h2><p>${college.location}</p>
           <a href="university.html?id=${encodeURIComponent(college.slug)}&lang=${compareLanguage}">${ct("openProfile")} →</a>
         </article>`).join("")}

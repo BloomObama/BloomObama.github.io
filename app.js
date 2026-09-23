@@ -32,9 +32,9 @@ Object.assign(translations.en, {
   navContact:"Contact", contactLabel:"Contact the project", contactTitle:"A question,<br />correction or idea?", contactText:"Write to the FullRide UA team. We read corrections, suggestions and questions about how the directory works.", contactEmailLabel:"Official email", contactCopy:"Copy address", contactCopied:"Address copied", contactCopyFailed:"Could not copy — select the address manually", contactFormTitle:"Prepare a message", contactName:"Your name", contactNamePlaceholder:"How should we address you?", contactReply:"Reply email", contactReplyPlaceholder:"name@example.com", contactTopic:"Subject", contactTopicQuestion:"Question about the site", contactTopicCorrection:"Report an inaccuracy", contactTopicIdea:"Suggest an idea", contactTopicOther:"Other", contactMessage:"Message", contactMessagePlaceholder:"Describe the question or include a link to the page", contactSend:"Open email", contactPrivacy:"This form stores nothing. It prepares a message in your email application.", contactOpened:"The message is ready in your email application."
 });
 
-Object.assign(translations.uk, { notAvailableYet:"Поки немає інформації.", otherRegion:"Інші території" });
-Object.assign(translations.ru, { notAvailableYet:"Пока нет информации.", otherRegion:"Другие территории" });
-Object.assign(translations.en, { notAvailableYet:"Information is not available yet.", otherRegion:"Other territories" });
+Object.assign(translations.uk, { notAvailableYet:"Поки немає інформації.", otherRegion:"Інші території", loadingDetails:"Завантажуємо короткий опис…" });
+Object.assign(translations.ru, { notAvailableYet:"Пока нет информации.", otherRegion:"Другие территории", loadingDetails:"Загружаем краткое описание…" });
+Object.assign(translations.en, { notAvailableYet:"Information is not available yet.", otherRegion:"Other territories", loadingDetails:"Loading the short profile…" });
 
 Object.assign(translations.uk, {
   randomTitle:"Випадковий університет", randomHint:"Затисніть і потягніть вниз", randomCount:"у базі", randomAria:"Потягніть важіль вниз або натисніть, щоб обрати випадковий університет", randomResult:"Ваш випадковий вибір", randomOpen:"Відкрити профіль →", randomClose:"Закрити результат", randomImageAlt:"Кампус: {name}", randomTeaserLabel:"Не знаєте, з чого почати?", randomTeaserTitle:"Довірте перший вибір випадку.", randomTeaserText:"Потягніть важіль — ми покажемо один університет із повної бази."
@@ -124,7 +124,7 @@ function renderShortlistDrawer() {
   q("show-saved-results").disabled = !saved.length;
   q("shortlist-drawer-list").innerHTML = saved.length ? saved.map((college, index) => `
     <article class="saved-drawer-card">
-      <a class="saved-drawer-card__photo" href="university.html?id=${encodeURIComponent(college.slug)}&lang=${language}"><img src="${college.photo}" alt="${t("randomImageAlt").replace("{name}", college.name)}" /></a>
+      <a class="saved-drawer-card__photo" href="university.html?id=${encodeURIComponent(college.slug)}&lang=${language}"><img src="${college.photoThumb || college.photo}" alt="${t("randomImageAlt").replace("{name}", college.name)}" loading="lazy" decoding="async" /></a>
       <div class="saved-drawer-card__copy">
         <span>${String(index + 1).padStart(2, "0")} · ${t(college.verified ? "collectionVerified" : "collectionPending")}</span>
         <h3>${college.name}</h3>
@@ -137,6 +137,10 @@ function renderShortlistDrawer() {
       <strong>${t("collectionEmptyTitle")}</strong>
       <p>${t("collectionEmptyText")}</p>
     </div>`;
+  const pending = saved.filter(college => !college._detailsLoaded);
+  if (pending.length && window.FullRideCollegeData) {
+    window.FullRideCollegeData.load(pending).then(renderShortlistDrawer).catch(() => {});
+  }
 }
 
 function showCompareToast(message) {
@@ -156,7 +160,7 @@ function renderComparisonUI() {
   q("open-comparison").href = destination;
   q("comparison-tray").hidden = !selected.length || compareTrayDismissed;
   q("comparison-chips").innerHTML = selected.map(college => `
-    <span class="comparison-chip"><img src="${college.photo}" alt="" /><b>${college.short}</b><button type="button" data-compare-remove="${college.slug}" aria-label="${t("compareRemove")}: ${college.name}">×</button></span>`).join("");
+    <span class="comparison-chip"><img src="${college.photoThumb || college.photo}" alt="" loading="lazy" decoding="async" /><b>${college.short}</b><button type="button" data-compare-remove="${college.slug}" aria-label="${t("compareRemove")}: ${college.name}">×</button></span>`).join("");
 }
 
 function toggleComparison(slug) {
@@ -244,7 +248,7 @@ function render() {
 
   const text = q("search").value.trim().toLowerCase();
   const matches = colleges.filter(college => {
-    const searchable = `${college.name} ${college.short} ${college.location} ${college.description} ${college.focus.join(" ")}`.toLowerCase();
+    const searchable = `${college.name} ${college.short} ${college.location} ${college._searchText || ""} ${college.focus.join(" ")}`.toLowerCase();
     const shortQueryMatch = text.length <= 3
       ? college.short.toLowerCase() === text || `${college.name} ${college.location}`.toLowerCase().split(/\s+/).some(word => word.startsWith(text))
       : searchable.includes(text);
@@ -269,12 +273,16 @@ function render() {
   q("results-toggle").setAttribute("aria-expanded", String(resultsExpanded));
   q("results-toggle").querySelector("span").textContent = t(resultsExpanded ? "hideResults" : "showResults");
   const visibleMatches = matches.slice(0, visibleCount);
+  const pendingDetails = visibleMatches.filter(college => !college._detailsLoaded);
+  if (pendingDetails.length && window.FullRideCollegeData) {
+    window.FullRideCollegeData.load(pendingDetails).then(render).catch(() => {});
+  }
   const cards = matches.length ? visibleMatches.map(college => `
-    <article class="card card--photo ${college.verified ? "card--verified" : "card--pending"}" style="--campus:url('${college.photo}')">
+    <article class="card card--photo ${college.verified ? "card--verified" : "card--pending"}" style="--campus:url('${college.photoThumb || college.photo}')">
       <a class="card-hit-area" href="university.html?id=${encodeURIComponent(college.slug)}&lang=${language}" aria-label="${t("viewProfile")}: ${college.name}"></a>
       <div class="card-audit-status ${college.verified ? "is-verified" : "is-pending"}">${college.verified ? `${t("verifiedBadge")} · ${formatAuditDate(college.checkedAt)}` : t("pendingBadge")}</div>
       <div class="card-top"><div><h3>${college.name}</h3><p class="place">${college.location}</p></div><span class="badge">${college.verified ? college.aidShort : t("notAvailableYet")}</span></div>
-      ${college.basicOnly ? "" : `<p class="card-description">${college.descriptionPending ? t("notAvailableYet") : college.description}</p>`}
+      ${college.basicOnly ? "" : `<p class="card-description">${college.descriptionPending ? t("notAvailableYet") : college.description || t("loadingDetails")}</p>`}
       ${college.verified ? `<dl class="details">
         <div class="detail"><dt>${t("aid")}</dt><dd>${college.aid}<a class="detail-source" href="${college.aidSource}" target="_blank" rel="noopener noreferrer">${t("fieldSource")}</a></dd></div>
         <div class="detail"><dt>${t("tests")}</dt><dd>${college.testing}<a class="detail-source" href="${college.testingSource}" target="_blank" rel="noopener noreferrer">${t("fieldSource")}</a></dd></div>
@@ -463,17 +471,20 @@ function pickRandomCollege() {
 function updateRandomReveal(college) {
   const image = q("random-reveal-image");
   if (!college || !image) return;
-  image.src = college.photo;
+  image.src = college.photoThumb || college.photo;
   image.alt = t("randomImageAlt").replace("{name}", college.name);
   q("random-reveal-name").textContent = college.name;
   q("random-reveal-location").textContent = college.location;
   q("random-reveal-link").href = `university.html?id=${encodeURIComponent(college.slug)}&lang=${language}`;
 }
 
-function showRandomCollege() {
+async function showRandomCollege() {
   if (randomLever?.classList.contains("is-spinning")) return;
   const college = pickRandomCollege();
   if (!college) return;
+  if (window.FullRideCollegeData && !college._detailsLoaded) {
+    try { await window.FullRideCollegeData.load([college]); } catch {}
+  }
   selectedRandomCollege = college;
   randomLever?.classList.add("is-spinning");
   q("random-teaser").hidden = true;

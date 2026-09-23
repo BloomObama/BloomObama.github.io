@@ -94,6 +94,28 @@ function policyRow(label, value, url) {
   return `<article><span>${label}</span><p>${value}</p><a href="${url}" target="_blank" rel="noopener noreferrer">${profileT("source")}</a></article>`;
 }
 
+function updateProfileMetadata() {
+  if (!college) return;
+  const description = `${college.name}, ${college.location}. ${college.description || profileT("basicRecordNote")}`.slice(0, 260);
+  document.querySelector('meta[name="description"]')?.setAttribute("content", description);
+  let canonical = document.querySelector('link[rel="canonical"]');
+  if (!canonical) {
+    canonical = document.createElement("link");
+    canonical.rel = "canonical";
+    document.head.append(canonical);
+  }
+  canonical.href = `https://bloomobama.github.io/university.html?id=${encodeURIComponent(college.slug)}`;
+  [["og:title",`${college.name} — FullRide UA`],["og:description",description],["og:type","website"],["og:url",canonical.href],["og:image",college.photo]].forEach(([property,content]) => {
+    let meta = document.querySelector(`meta[property="${property}"]`);
+    if (!meta) {
+      meta = document.createElement("meta");
+      meta.setAttribute("property",property);
+      document.head.append(meta);
+    }
+    meta.setAttribute("content",content || "");
+  });
+}
+
 function renderProfile() {
   document.documentElement.lang = profileLanguage;
   document.querySelectorAll("[data-profile-i18n]").forEach(element => { element.textContent = profileT(element.dataset.profileI18n); });
@@ -105,6 +127,7 @@ function renderProfile() {
   }
 
   document.title = `${college.name} — FullRide UA`;
+  updateProfileMetadata();
   const facts = college.facts || {};
   const hasFederalFacts = Object.values(facts).some(hasValue);
   const stats = profile || { cycle:hasFederalFacts ? profileT("federalCycle") : profileT("notAvailableYet"), aidSnapshot:hasFederalFacts ? federalSummary(facts) : profileT("notAvailableYet"), statsSource:hasFederalFacts ? scorecardUrl(college) : college.source, gallery:[] };

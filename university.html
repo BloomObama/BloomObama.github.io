@@ -4,13 +4,15 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="Перевірений профіль університету: вступ, фінансова допомога, статистика та офіційні джерела." />
+    <meta name="theme-color" content="#7d1e33" />
+    <link rel="manifest" href="manifest.webmanifest" />
     <title>University profile — FullRide UA</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2311263f'/%3E%3Cpath d='M14 22 32 13l18 9-18 9-18-9Zm5 8v13l13 7 13-7V30l-13 7-13-7Z' fill='%23f1c66a'/%3E%3C/svg%3E" />
     <link rel="stylesheet" href="styles.css?v=14" />
-    <link rel="stylesheet" href="university.css?v=3" />
+    <link rel="stylesheet" href="university.css?v=4" />
     <link rel="stylesheet" href="auth.css?v=1" />
     <link rel="stylesheet" href="site-refresh.css?v=1" />
     <link rel="stylesheet" href="theme-accent.css?v=3" />
@@ -24,18 +26,14 @@
       </div>
     </header>
 
-    <main id="profile-root" class="profile-root" aria-live="polite"></main>
+    <main id="profile-root" class="profile-root" aria-live="polite"><p class="profile-loading">Завантажуємо профіль університету…</p></main>
 
     <footer><div><strong>FullRide UA</strong><span data-profile-i18n="footerTagline">Дані з першоджерел, а не з рейтингів.</span></div><div class="footer-meta"><a class="footer-contact" href="mailto:fullrideua@gmail.com">fullrideua@gmail.com</a><span>© 2026</span><span data-profile-i18n="footer">Перевіряйте умови перед подачею</span></div></footer>
-    <script src="college-catalog.js?v=4"></script>
-    <script src="college-directory.js?v=2"></script>
-    <script src="college-media.js?v=2"></script>
-    <script src="college-policies.js?v=1"></script>
-    <script src="data.js?v=16"></script>
+    <script src="college-index.js?v=1"></script>
     <script src="profiles.js?v=1"></script>
-    <script src="university.js?v=6"></script>
+    <script src="university-loader.js?v=1"></script>
     <script src="firebase-config.js?v=1"></script>
     <script type="module" src="auth.js?v=3"></script>
-    <script src="site-nav.js?v=2"></script>
+    <script src="site-nav.js?v=3"></script>
   </body>
 </html>

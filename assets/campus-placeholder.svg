@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc">
+  <title id="title">University campus placeholder</title>
+  <desc id="desc">A restrained red and gold architectural illustration used while a campus image loads.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#7d1e33"/>
+      <stop offset="1" stop-color="#3f1020"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#bg)"/>
+  <circle cx="990" cy="130" r="210" fill="#f1c66a" opacity=".16"/>
+  <path d="M170 600h860M250 570V350h700v220M210 350l390-190 390 190M360 570V390m120 180V390m120 180V390m120 180V390m120 180V390" fill="none" stroke="#fff8e8" stroke-width="24" stroke-linecap="square" opacity=".9"/>
+  <path d="M130 640h940" stroke="#f1c66a" stroke-width="14"/>
+</svg>

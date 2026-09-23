@@ -105,3 +105,4 @@
 .profile-source-list a { border-bottom:1px solid #cbd7e2; }
 .profile-source-list a:nth-child(even) { padding-left:1.2rem; border-left:1px solid #cbd7e2; }
 @media (max-width:700px) { .profile-root { padding-top:1rem; }.profile-hero { border-radius:12px; }.profile-hero::before { top:1rem; left:1rem; }.profile-section { margin-top:1.4rem; padding:1.35rem; border-radius:12px; box-shadow:5px 5px 0 rgba(207,218,229,.7); }.profile-stat-grid,.profile-fact-grid,.profile-policy-grid,.profile-checklist ol { gap:.55rem; }.profile-stat-grid article,.profile-policy-grid article,.profile-checklist li { box-shadow:3px 3px 0 #dbe3eb; } }
+.profile-loading { min-height:55vh; display:grid; place-items:center; color:#6d7785; font:600 .75rem/1.5 var(--mono); letter-spacing:.04em; }
