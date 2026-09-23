@@ -1,4 +1,4 @@
-/* Shared, progressively enhanced navigation for the four site pages. */
+/* Shared, progressively enhanced navigation for the site pages. */
 (() => {
   const topbar = document.querySelector(".topbar");
   if (!topbar) return;
@@ -6,19 +6,19 @@
   const copy = {
     uk: {
       menu:"Відкрити меню", close:"Закрити меню", navigation:"Навігація", tools:"Інструменти",
-      home:"Головна", finder:"Університети", practice:"Практика", compare:"Порівняння",
+      home:"Головна", finder:"Університети", practice:"Практика", resources:"Ресурси IELTS", compare:"Порівняння",
       saved:"Обране", roi:"Калькулятор ROI", method:"Як користуватися", about:"Про проєкт",
       contact:"Контакти", account:"Мій акаунт", tagline:"Ваш шлях до вступу"
     },
     ru: {
       menu:"Открыть меню", close:"Закрыть меню", navigation:"Навигация", tools:"Инструменты",
-      home:"Главная", finder:"Университеты", practice:"Практика", compare:"Сравнение",
+      home:"Главная", finder:"Университеты", practice:"Практика", resources:"Ресурсы IELTS", compare:"Сравнение",
       saved:"Избранное", roi:"Калькулятор ROI", method:"Как пользоваться", about:"О проекте",
       contact:"Контакты", account:"Мой аккаунт", tagline:"Ваш путь к поступлению"
     },
     en: {
       menu:"Open menu", close:"Close menu", navigation:"Explore", tools:"Tools",
-      home:"Home", finder:"Universities", practice:"Practice", compare:"Compare",
+      home:"Home", finder:"Universities", practice:"Practice", resources:"IELTS resources", compare:"Compare",
       saved:"Saved", roi:"ROI calculator", method:"How it works", about:"About",
       contact:"Contact", account:"My account", tagline:"Your path to admission"
     }
@@ -27,6 +27,7 @@
     home:'<path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/>',
     finder:'<circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/>',
     practice:'<path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v18H6.5A2.5 2.5 0 0 0 4 22z"/><path d="M4 4.5V22m5-14h7m-7 4h5"/>',
+    resources:'<path d="M5 3h12a2 2 0 0 1 2 2v16H7a2 2 0 0 1-2-2z"/><path d="M5 18a3 3 0 0 1 3-3h11M9 7h6m-6 4h5"/>',
     compare:'<path d="M4 7h16m-4-4 4 4-4 4M20 17H4m4-4-4 4 4 4"/>',
     saved:'<path d="m12 2 3 6.3 7 .9-5.1 4.9 1.3 7L12 17.8 5.8 21l1.3-7L2 9.2l7-.9z"/>',
     roi:'<path d="M4 20h16M6 16v-5m4 5V7m4 9V9m4 7V4"/>',
@@ -36,7 +37,7 @@
     account:'<circle cx="12" cy="8" r="3.5"/><path d="M5 21a7 7 0 0 1 14 0"/>'
   };
   const route = [
-    ["home","home"], ["finder","finder"], ["practice","practice"], ["compare","compare"],
+    ["home","home"], ["finder","finder"], ["practice","practice"], ["resources","resources"], ["compare","compare"],
     ["saved","saved"], ["roi","roi"], ["method","method"], ["about","about"], ["contact","contact"]
   ];
   const icon = key => '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' + icons[key] + '</svg>';
@@ -48,6 +49,7 @@
   const onHome = file === "index.html";
   const href = (key, lang) => {
     if (key === "practice" || key === "compare") return key + ".html?lang=" + lang;
+    if (key === "resources") return "ielts-resources.html?lang=" + lang;
     const section = key === "home" ? "top" : key;
     return (onHome ? "" : "index.html?lang=" + lang) + "#" + section;
   };
@@ -71,6 +73,7 @@
 
   function activeRoute() {
     if (file === "practice.html") return "practice";
+    if (file === "ielts-resources.html") return "resources";
     if (file === "compare.html") return "compare";
     if (file === "university.html") return "finder";
     const section = location.hash.slice(1);
@@ -94,8 +97,8 @@
     };
     rail.innerHTML =
       '<div class="fr-rail__brand"><a href="' + href("home",lang) + '" aria-label="FullRide UA"><span class="fr-rail__mark">FR</span><strong>FullRide <i>UA</i></strong></a><button class="fr-rail__close" type="button" aria-label="' + t.close + '">×</button></div>' +
-      '<p class="fr-rail__caption">' + t.navigation + '</p><nav aria-label="' + t.navigation + '">' + route.slice(0,5).map(link).join("") + '</nav>' +
-      '<p class="fr-rail__caption fr-rail__caption--tools">' + t.tools + '</p><nav aria-label="' + t.tools + '">' + route.slice(5).map(link).join("") + '</nav>' +
+      '<p class="fr-rail__caption">' + t.navigation + '</p><nav aria-label="' + t.navigation + '">' + route.slice(0,6).map(link).join("") + '</nav>' +
+      '<p class="fr-rail__caption fr-rail__caption--tools">' + t.tools + '</p><nav aria-label="' + t.tools + '">' + route.slice(6).map(link).join("") + '</nav>' +
       '<div class="fr-rail__footer"><button class="fr-rail__account" type="button" data-rail-account>' + icon("account") + '<span>' + t.account + '</span></button><small>' + t.tagline + '</small></div>';
     rail.setAttribute("aria-label", t.navigation);
     toggle.setAttribute("aria-label", document.body.classList.contains("fr-rail-open") ? t.close : t.menu);

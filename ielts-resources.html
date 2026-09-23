@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Офіційні книги, пробні тести та ресурси для підготовки до IELTS від Cambridge, British Council, IDP та IELTS.org." />
+    <title>IELTS resources — FullRide UA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%237d1e33'/%3E%3Cpath d='M18 15h28v36H18z' fill='%23fffaf4'/%3E%3Cpath d='M23 23h18M23 29h18M23 35h12' stroke='%23d6a340' stroke-width='3'/%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="styles.css?v=14" />
+    <link rel="stylesheet" href="ielts-resources.css?v=1" />
+    <link rel="stylesheet" href="auth.css?v=1" />
+    <link rel="stylesheet" href="site-refresh.css?v=1" />
+    <link rel="stylesheet" href="theme-accent.css?v=4" />
+  </head>
+  <body class="resources-page has-side-rail">
+    <header class="topbar resources-topbar">
+      <a class="brand" href="index.html#top" aria-label="FullRide UA"><span class="brand-mark">FR</span><span>FullRide <i>UA</i></span></a>
+      <a class="resources-back" href="index.html#finder"><span aria-hidden="true">←</span><span data-resource-key="back">До каталогу</span></a>
+      <div class="language-switch" aria-label="Language">
+        <button class="active" type="button" data-resource-lang="uk">UA</button><button type="button" data-resource-lang="ru">RU</button><button type="button" data-resource-lang="en">EN</button>
+      </div>
+    </header>
+
+    <main class="resources-main">
+      <section class="resources-hero" aria-labelledby="resources-title">
+        <div class="resources-hero__copy">
+          <p class="resources-eyebrow" data-resource-key="eyebrow">IELTS / ПЕРЕВІРЕНІ ДЖЕРЕЛА</p>
+          <h1 id="resources-title" data-resource-key="title">Готуйтеся за матеріалами,<br /><em>яким можна довіряти.</em></h1>
+          <p data-resource-key="intro">Офіційні книги Cambridge та безкоштовні ресурси партнерів IELTS — без піратських PDF, застарілих тестів і випадкових порад.</p>
+          <div class="resources-hero__meta"><span><b id="resource-total">9</b> <span data-resource-key="materials">матеріалів</span></span><span data-resource-key="checked">Перевірено 23 вересня 2026</span></div>
+        </div>
+        <div class="resources-hero__visual" aria-hidden="true">
+          <div class="hero-book hero-book--back"><span>IELTS</span><b>21</b><small>GENERAL</small></div>
+          <div class="hero-book hero-book--front"><span>CAMBRIDGE</span><b>IELTS</b><small>ACADEMIC</small></div>
+          <div class="hero-orbit"><i>R</i><i>W</i><i>L</i><i>S</i></div>
+        </div>
+      </section>
+
+      <section class="resource-path" aria-label="Recommended preparation path">
+        <div><span>01</span><b data-resource-key="path1Title">Розберіться у форматі</b><small data-resource-key="path1Text">Почніть з офіційного гайда або безкоштовних sample tests.</small></div>
+        <div><span>02</span><b data-resource-key="path2Title">Відпрацюйте навички</b><small data-resource-key="path2Text">Окремо тренуйте Writing, Reading, Listening і Speaking.</small></div>
+        <div><span>03</span><b data-resource-key="path3Title">Зробіть повний пробник</b><small data-resource-key="path3Text">Переходьте до Cambridge IELTS 21 в умовах реального часу.</small></div>
+      </section>
+
+      <section id="resources" class="resources-library" aria-labelledby="library-title">
+        <div class="resources-heading">
+          <div><p class="resources-section-label"><span>01</span><span data-resource-key="libraryLabel">БІБЛІОТЕКА</span></p><h2 id="library-title" data-resource-key="libraryTitle">Оберіть, що потрібно зараз</h2></div>
+          <p data-resource-key="libraryIntro">Натисніть на картку: відкриється короткий розбір, кому підходить матеріал і офіційне посилання.</p>
+        </div>
+        <div class="resource-toolbar">
+          <label class="resource-search"><span aria-hidden="true">⌕</span><input id="resource-search" type="search" autocomplete="off" data-resource-placeholder="search" placeholder="Книга, навичка або видавець" /></label>
+          <div id="resource-filters" class="resource-filters" aria-label="Resource filters"></div>
+        </div>
+        <div class="resource-results-line"><span id="resource-count"></span><button id="resource-reset" type="button" data-resource-key="reset">Скинути фільтри</button></div>
+        <div id="resource-grid" class="resource-grid"></div>
+        <p id="resource-empty" class="resource-empty" data-resource-key="empty" hidden>Нічого не знайдено. Спробуйте інший запит або фільтр.</p>
+      </section>
+
+      <section class="resource-note">
+        <span aria-hidden="true">✓</span><div><b data-resource-key="noteTitle">Тільки першоджерела</b><p data-resource-key="noteText">Посилання ведуть на Cambridge, IELTS.org, British Council або IDP. FullRide UA не продає книги й не отримує комісію.</p></div>
+      </section>
+    </main>
+
+    <dialog id="resource-dialog" class="resource-dialog" aria-labelledby="resource-dialog-title">
+      <button class="resource-dialog__close" type="button" data-resource-close aria-label="Close">×</button>
+      <div id="resource-dialog-body"></div>
+    </dialog>
+
+    <footer><div><strong>FullRide UA</strong><span data-resource-key="footer">Офіційні матеріали для впевненої підготовки.</span></div><div class="footer-meta"><a class="footer-contact" href="mailto:fullrideua@gmail.com">fullrideua@gmail.com</a><span>© 2026</span></div></footer>
+    <script src="ielts-resources.js?v=1"></script>
+    <script src="firebase-config.js?v=1"></script>
+    <script type="module" src="auth.js?v=5"></script>
+    <script src="site-nav.js?v=2"></script>
+  </body>
+</html>
