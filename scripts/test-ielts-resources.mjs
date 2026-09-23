@@ -21,8 +21,10 @@ try {
   await page.locator("#resource-reset").click();
   await page.locator('[data-resource-id="ielts-21-academic"]').click();
   passed.push(check("card opens an information dialog",await page.locator("#resource-dialog").evaluate(dialog => dialog.open)));
-  const officialLink = page.locator(".resource-detail__actions a");
-  passed.push(check("dialog contains an official Cambridge link",(await officialLink.getAttribute("href")).startsWith("https://www.cambridge.org/")));
+  const backupLink = page.locator(".resource-detail__fallback");
+  const officialLink = page.locator(".resource-detail__official");
+  passed.push(check("dialog contains a working ISBN fallback",(await backupLink.getAttribute("href")).startsWith("https://search.worldcat.org/")));
+  passed.push(check("dialog keeps the official Cambridge link",(await officialLink.getAttribute("href")).startsWith("https://shop.cambridge.org/")));
   await page.locator("[data-resource-close]").click();
   await page.locator('[data-resource-lang="en"]').click();
   passed.push(check("language switch updates the page",await page.locator("#library-title").textContent() === "Choose what you need now"));
