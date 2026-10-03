@@ -31,6 +31,7 @@ try {
  await page.setViewportSize({width:1440,height:1000});
  await page.evaluate(()=>FullRidePreferences.update({interface:{fontScale:1,theme:'light'}}));
  const handle=page.locator('#random-lever-handle');
+ assert.deepEqual(await page.locator('.random-lever__knob').evaluate(el=>{const s=getComputedStyle(el);return [s.width,s.height,s.borderRadius];}),['42px','42px','50%'],'original round grip restored');
  await handle.scrollIntoViewIfNeeded();
  // Verify geometry, not just the progress value: the axle stays fixed while
  // the grip crosses from above to below it through a central 3D rotation.
