@@ -160,6 +160,86 @@
         }
       }
     },
+    "136950": {
+      "fields": {
+        "aid": {
+          "status": "verified",
+          "value": "International admission is explicitly need-aware. Merit and variable need-based aid are available, not universal full-cost coverage. Submit the free portal Non-US Citizen aid form instead of CSS within days of the admission application; priority February 1. Qualifying need support can last eight semesters; financial certification before enrollment remains separate. Alfond has separate fall first-year eligibility: ED I/EA with all materials by November 15, at most two gap years, competitive interviews; spring/transfer applicants excluded. It covers tuition, room/board, not insurance/books/personal/taxes; international recipients need roughly $6,000–8,000 for residual expenses. Details: https://www.rollins.edu/scholarships-aid/scholarships/alfond-scholars-program/faq/",
+          "source": "https://www.rollins.edu/apply/international/faqs/",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "aidCategory": "need-aware",
+            "needBlind": false,
+            "aidShort": "Need-aware partial aid; competitive Alfond has residual costs"
+          },
+          "evidence": {
+            "hash": "38088d1b7cc8e6203061f495a68680056e48cb7c05ca60220392ea6afb1b3451",
+            "quote": "Rollins takes into account a family’s contribution"
+          }
+        },
+        "testing": {
+          "status": "verified",
+          "value": "International applicants can submit official SAT/ACT scores or apply test-optional. This does not waive English proficiency; test-optional first-year applicants remain eligible for the competitive Alfond award, subject to its separate requirements.",
+          "source": "https://www.rollins.edu/apply/international/",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "testFlexible": true
+          },
+          "evidence": {
+            "hash": "6a96ad8ddf218f294739e0a3133cf0f00a8a2308fe0dc85fb0c35c436cb5905c",
+            "quote": "Official SAT/ACT scores or apply"
+          }
+        },
+        "english": {
+          "status": "verified",
+          "value": "Older TOEFL minimum 80 before January 21, 2026; new minimum 4.5 after that date, IELTS 6.5 or DET 120. Confirm the transition-day wording for an exam taken on January 21. Waiver: SAT critical reading 550 or recent English-medium school transcripts covering at least two years. Official IELTS must be delivered electronically by the test center, not paper reports; DET results must also be officially shared.",
+          "source": "https://www.rollins.edu/apply/international/faqs/",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "englishStatus": "required"
+          },
+          "evidence": {
+            "hash": "38088d1b7cc8e6203061f495a68680056e48cb7c05ca60220392ea6afb1b3451",
+            "quote": "IELTS: an overall band score of 6.5"
+          }
+        },
+        "fee": {
+          "status": "verified",
+          "value": "Both the Rollins application and Common App routes are free for international admission. The free financial-aid form is separate; visa, testing, document and enrollment expenses are not automatically waived.",
+          "source": "https://www.rollins.edu/apply/international/",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "6a96ad8ddf218f294739e0a3133cf0f00a8a2308fe0dc85fb0c35c436cb5905c",
+            "quote": "neither requires an application fee"
+          }
+        },
+        "deadline": {
+          "status": "conflict",
+          "value": "The international timetable lists ED II January 5, while the first-year ED FAQ says January 6: https://www.rollins.edu/apply/first-time/faqs/early-decision/ . Confirm the intake and ED II date; do not silently choose the later one. Both sources have ED I/EA November 15; international RD February 1 and spring December 10 are listed without entry-year labels. Alfond requires all materials November 15, earlier than the generic EA supporting-document December 1 instruction. The international FAQ's blanket February 1 statement should not override earlier rounds or Alfond eligibility.",
+          "source": "https://www.rollins.edu/apply/international/",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "6a96ad8ddf218f294739e0a3133cf0f00a8a2308fe0dc85fb0c35c436cb5905c",
+            "quote": "Early Decision Round 2 Apply By January 5"
+          }
+        }
+      }
+    },
     "138600": {
       "fields": {
         "aid": {
@@ -909,6 +989,240 @@
           "evidence": {
             "hash": "a15b349a07141abe60d125e4deb4948e4464f5865fcad9d7159a4223f50074a5",
             "quote": "English Proficiency November 26"
+          }
+        }
+      }
+    },
+    "167783": {
+      "fields": {
+        "aid": {
+          "status": "conflict",
+          "value": "International students receive merit consideration, not need-based aid, but the international aid page gives inconsistent first-year merit ceilings: $30,000 in the introduction versus $33,000 in its detailed award section and undergraduate overview. Confirm the current amount and renewal conditions rather than assigning an exact guaranteed net cost. Its approximate $73,559 cost is explicitly 2026–27, not a future-year quote. Distinguished Scholar is a separate competitive application covering tuition, specified fees and room/board, excluding health insurance; it supersedes ordinary merit. Transfer/adult awards and eligibility are separate. No CSS-based international need aid is implied by generic Common App tags.",
+          "source": "https://www.simmons.edu/admission-aid/application-process/international-applicants/undergraduate/financial-aid",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "080e104b2871991fe48727cfaef5ce2fa500a618a78e76b93c213ef87629cfe8",
+            "quote": "these scholarships range from $16,000 to 30,000 per year"
+          }
+        },
+        "testing": {
+          "status": "verified",
+          "value": "Simmons' exact Common App profile lists first-year SAT/ACT optional/flexible. SAT/ACT can still supply English-proficiency evidence; that requirement is separate. Undergraduate admission is women-centered with published eligibility conditions, unlike coeducational graduate programs; check eligibility at https://www.simmons.edu/admission-aid/application-process/international-applicants/undergraduate before applying.",
+          "source": "https://www.commonapp.org/explore/simmons-university/",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "testFlexible": true
+          },
+          "evidence": {
+            "hash": "907d4fe42cfdde5713df093a5bf5d8fd0466d3dcde847a5046f5b58a8e421902",
+            "quote": "Test Optional/Flexible - First Year"
+          }
+        },
+        "english": {
+          "status": "verified",
+          "value": "Non-native speakers need proof. First-year exemption requires all secondary education (3–4 years) in English and no ESL/ELL classes in grades 11–12. Completing Kaplan Advanced Level is another alternative. Published tests: older TOEFL 83, Essentials 8, IELTS 6.5, DET 115, SAT EBRW 550, ACT English 21, PTE 55 or KiBT 83. No new TOEFL scale is given; confirm newer exams. Transfer/Dix/online college-credit alternatives are not first-year exemptions.",
+          "source": "https://www.simmons.edu/admission-aid/application-process/international-applicants/undergraduate/english-proficiency",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "englishStatus": "required"
+          },
+          "evidence": {
+            "hash": "ff1f2c6a2371e719466716556beac843be4a4b28b4b0ad248bb6a7826ee88c56",
+            "quote": "who have not taken any ESL/ELL classes in 11th or 12th grades"
+          }
+        },
+        "fee": {
+          "status": "verified",
+          "value": "The exact institution-owned Common App profile lists no first-year application fee. Graduate/online fees, proficiency tests, visa, transcript evaluations and enrollment expenses are separate.",
+          "source": "https://www.commonapp.org/explore/simmons-university/",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "907d4fe42cfdde5713df093a5bf5d8fd0466d3dcde847a5046f5b58a8e421902",
+            "quote": "Charges no application fee - First Year"
+          }
+        },
+        "deadline": {
+          "status": "verified",
+          "value": "First-year fall EA I/priority nursing November 1; EA II and Distinguished Scholar December 1; RD February 1, with RD decisions rolling February–April. These dates have no entry-year label; confirm the intended intake. First-year classification is age 23 or younger with 0–16 post-high-school credits. Transfer/adult and graduate schedules on the page are separate, not alternative first-year deadlines.",
+          "source": "https://www.simmons.edu/admission-aid/application-process/application-deadlines",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "facaf2b717f65194ff61173bebf472c30bb866e39936e87d358d0c8c54cef0e2",
+            "quote": "Fall Regular Decision February 1"
+          }
+        }
+      }
+    },
+    "173647": {
+      "fields": {
+        "aid": {
+          "status": "verified",
+          "value": "International applicants are automatically reviewed for the $43,000 Count Folke Bernadotte Scholarship, not guaranteed a full ride. Admission requires proof of ability to pay at least $33,800/year through certified sponsor/parent bank documents. Campus employment is separately evaluated. The catalog also requires ISFAA; confirm package, renewal and future costs.",
+          "source": "https://gustavus.edu/admission-aid/apply/international-student-admission",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "aidShort": "Merit review; at least $33,800/year financial capacity required"
+          },
+          "evidence": {
+            "hash": "f2f9de3c90db2aa7c08faa5762c6a596fd98ac806da7a552a2d77b1c92062643",
+            "quote": "a minimum of $33,800 per year"
+          }
+        },
+        "testing": {
+          "status": "verified",
+          "value": "International SAT/ACT are optional. English proficiency and financial documentation remain separate requirements; competitive average scores are not compulsory cutoffs.",
+          "source": "https://gustavus.edu/admission-aid/apply/international-student-admission",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "testFlexible": true
+          },
+          "evidence": {
+            "hash": "f2f9de3c90db2aa7c08faa5762c6a596fd98ac806da7a552a2d77b1c92062643",
+            "quote": "SAT/ACT (optional)"
+          }
+        },
+        "english": {
+          "status": "verified",
+          "value": "Current minima: TOEFL iBT 5.0, IELTS 6.5, DET 110, or successful MELP Level 4 completion. Native speakers from listed countries are exempt. The checklist also mentions fluency/English-medium schooling; confirm documentation for this alternative. No older TOEFL-score conversion or Cambridge minimum is invented.",
+          "source": "https://gustavus.edu/admission-aid/apply/international-student-admission",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "englishStatus": "required"
+          },
+          "evidence": {
+            "hash": "f2f9de3c90db2aa7c08faa5762c6a596fd98ac806da7a552a2d77b1c92062643",
+            "quote": "TOEFL iBT: Total score of 5.0"
+          }
+        },
+        "fee": {
+          "status": "verified",
+          "value": "The current catalog specifically requires international applicants, including those studying in the US, to pay a $50 Common App processing fee that cannot be waived, transferred or refunded. This international-specific rule overrides generic no-first-year-fee advertising on the Common App profile. Graduate ATCAS fees are separate.",
+          "source": "https://catalog.gustavus.edu/college/admission",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "feeWaiver": false
+          },
+          "evidence": {
+            "hash": "583bdfb316560f44e2a27b927c3464a6878200e505d03230db4a3c36cf7f1c4e",
+            "quote": "the fee cannot be waived, transferred, or refunded"
+          }
+        },
+        "deadline": {
+          "status": "verified",
+          "value": "International first-year/transfer spring applications: November 15, spring deposit December 1. Fall applications: April 1; the page lists June 1 for all enrollment deposits. These international-specific dates override generic domestic EA/May 1 schedules. The page does not label entry years; confirm the intended intake.",
+          "source": "https://gustavus.edu/admission-aid/apply/international-student-admission",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "f2f9de3c90db2aa7c08faa5762c6a596fd98ac806da7a552a2d77b1c92062643",
+            "quote": "April 1 —Fall Entry Term: Completed applications due"
+          }
+        }
+      }
+    },
+    "174844": {
+      "fields": {
+        "aid": {
+          "status": "verified",
+          "value": "International merit/need aid is available, not universally full-cost. Non-UWC grants/merit can cover tuition, leaving roughly $15,000 of room/board beyond aid; UWC/Davis funding can reach the comprehensive fee. Loans and earned campus wages are not grants. Need-based applicants may use CSS (6638), free ISFAA or Intl ACAC; no international CSS fee waivers. Merit-only applicants need no aid form; fine-arts awards require separate applications. Both biological parents' finances are considered. Renewal requires academic progress and grants may not track all cost increases; budget insurance, travel and other indirect expenses separately.",
+          "source": "https://wp.stolaf.edu/financialaid/how-to-apply-for-financial-aid-international/",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "aidShort": "Non-UWC tuition cap; substantial room/board and indirect expenses remain"
+          },
+          "evidence": {
+            "hash": "89eee81ee4a6b732e8b4d6f6a65a8b49ec89f0317c03ff06be73d4bbaade0adb",
+            "quote": "Non-UWC students can receive up to 100% of tuition"
+          }
+        },
+        "testing": {
+          "status": "verified",
+          "value": "International SAT/ACT are optional. Self-reported results are accepted for admission review; enrolled students who submitted scores must provide official reports. English evidence and major-specific music/nursing requirements remain separate.",
+          "source": "https://wp.stolaf.edu/international-applications/checklist/",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "testFlexible": true
+          },
+          "evidence": {
+            "hash": "93dab40aafb530236772d65e76bdcb079a7b270f05b1dab15cb836160882b279",
+            "quote": "Optional: SAT or ACT scores."
+          }
+        },
+        "english": {
+          "status": "verified",
+          "value": "The international checklist lists older TOEFL 90, Academic IELTS 6.5 or DET 120. English-first-language or primary-English-instruction applicants receive automatic waiver. No new TOEFL-scale threshold is published here; confirm it for newer exams, rather than converting 90 automatically. International school reports, teacher evaluation and final external examination evidence are also required.",
+          "source": "https://wp.stolaf.edu/international-applications/checklist/",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "englishStatus": "required"
+          },
+          "evidence": {
+            "hash": "93dab40aafb530236772d65e76bdcb079a7b270f05b1dab15cb836160882b279",
+            "quote": "This requirement will be waived automatically"
+          }
+        },
+        "fee": {
+          "status": "verified",
+          "value": "The exact St. Olaf institution-owned Common App profile lists no first-year application fee. CSS costs are separate: free international financial forms are available. Testing, visa and enrollment charges are not automatically waived.",
+          "source": "https://www.commonapp.org/explore/st-olaf-college/",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "6576c7c3abc2b3f1fe4c50405f309865ef179d770d8425ea5e1cad44479b7d64",
+            "quote": "Charges no application fee - First Year"
+          }
+        },
+        "deadline": {
+          "status": "verified",
+          "value": "Fall 2027 aid forms: ED I/EA November 1; ED II/RD January 15. The international admission/fine-arts timetable has the same application deadlines. Use 2025 financial information for 2027–28 forms available after October 1, 2026. The two pages differ on approximate award-notification timing; confirm that separately. Financial certification is deferred until enrollment for need-aid applicants.",
+          "source": "https://wp.stolaf.edu/financialaid/how-to-apply-for-financial-aid-international/",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "89eee81ee4a6b732e8b4d6f6a65a8b49ec89f0317c03ff06be73d4bbaade0adb",
+            "quote": "For Students Applying for Fall 2027 Enrollment"
           }
         }
       }

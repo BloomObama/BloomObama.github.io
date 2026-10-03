@@ -71,3 +71,17 @@ Coverage after batch 07: **70 complete profiles, 12 partial profiles, 393 verifi
 - Augustana College, Illinois (143084): all five fields approved, with the exact institution distinguished from Augustana University in South Dakota. International aid uses the applicant portal rather than domestic FAFSA. ED scholarship housing/meal conditions are explicit, not a full-ride guarantee. Current spring/fall 2027 application and deposit dates, new TOEFL scale, study-based proficiency alternatives and its institution-owned Common App fee/testing policies are captured.
 
 Coverage after batch 08: **72 complete profiles, 12 partial profiles, 403 verified fields**, across 84 institutions. Added ten verified fields. Proposal: `data/policy-review-batches/2026-10-04-08.json`.
+
+## Batch 09
+
+- Gustavus Adolphus (173647): all five fields approved. The international catalog's non-waivable processing fee overrides generic free-application advertising; specific international schedules override domestic dates. Required financial capacity, English alternatives and newer TOEFL requirements are captured without converting legacy scores.
+- St. Olaf (174844): all five fields approved. Non-UWC tuition support is distinguished from UWC/Davis comprehensive-fee coverage; residual living expenses, loans and earned wages are explicit. Free aid-form alternatives, Fall 2027 filing dates and automatic English waiver conditions are captured. Approximate notification schedules differ and need confirmation; application deadlines agree.
+
+Coverage after batch 09: **74 complete profiles, 12 partial profiles, 413 verified fields**, across 86 institutions. Added ten verified fields. Proposal: `data/policy-review-batches/2026-10-04-09.json`.
+
+## Batch 10
+
+- Rollins (136950): four fields approved. Need-aware aid and the competitive Alfond exception have separate cost/eligibility limits. New TOEFL requirements, official result delivery and free application routes are captured. ED II dates disagree between the international table and ED FAQ; that field is a conflict, with earlier scholarship-document requirements retained.
+- Simmons (167783): four fields approved. SAT/ACT optional admission, English study/exam alternatives, first-year classification and deadlines are separate from transfer/adult/graduate rules. No application fee does not waive other costs. The international merit page contradicts itself on award ceilings, so aid remains a conflict rather than a guaranteed net-cost claim.
+
+Coverage after batch 10: **74 complete profiles, 14 partial profiles, 421 verified fields**, across 88 institutions. Added eight verified fields and two conflicts. Proposal: `data/policy-review-batches/2026-10-04-10.json`.

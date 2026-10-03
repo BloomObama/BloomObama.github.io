@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1, "cycle": "2026–27",
+  "records": {
+    "173647": { "fields": {
+      "aid": {
+        "status": "verified", "value": "International applicants are automatically reviewed for the $43,000 Count Folke Bernadotte Scholarship, not guaranteed a full ride. Admission requires proof of ability to pay at least $33,800/year through certified sponsor/parent bank documents. Campus employment is separately evaluated. The catalog also requires ISFAA; confirm package, renewal and future costs.",
+        "source": "https://gustavus.edu/admission-aid/apply/international-student-admission", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "attributes": { "aidShort": "Merit review; at least $33,800/year financial capacity required" },
+        "evidence": { "hash": "f2f9de3c90db2aa7c08faa5762c6a596fd98ac806da7a552a2d77b1c92062643", "quote": "a minimum of $33,800 per year" }
+      },
+      "testing": {
+        "status": "verified", "value": "International SAT/ACT are optional. English proficiency and financial documentation remain separate requirements; competitive average scores are not compulsory cutoffs.",
+        "source": "https://gustavus.edu/admission-aid/apply/international-student-admission", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "attributes": { "testFlexible": true },
+        "evidence": { "hash": "f2f9de3c90db2aa7c08faa5762c6a596fd98ac806da7a552a2d77b1c92062643", "quote": "SAT/ACT (optional)" }
+      },
+      "english": {
+        "status": "verified", "value": "Current minima: TOEFL iBT 5.0, IELTS 6.5, DET 110, or successful MELP Level 4 completion. Native speakers from listed countries are exempt. The checklist also mentions fluency/English-medium schooling; confirm documentation for this alternative. No older TOEFL-score conversion or Cambridge minimum is invented.",
+        "source": "https://gustavus.edu/admission-aid/apply/international-student-admission", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "attributes": { "englishStatus": "required" },
+        "evidence": { "hash": "f2f9de3c90db2aa7c08faa5762c6a596fd98ac806da7a552a2d77b1c92062643", "quote": "TOEFL iBT: Total score of 5.0" }
+      },
+      "fee": {
+        "status": "verified", "value": "The current catalog specifically requires international applicants, including those studying in the US, to pay a $50 Common App processing fee that cannot be waived, transferred or refunded. This international-specific rule overrides generic no-first-year-fee advertising on the Common App profile. Graduate ATCAS fees are separate.",
+        "source": "https://catalog.gustavus.edu/college/admission", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "attributes": { "feeWaiver": false },
+        "evidence": { "hash": "583bdfb316560f44e2a27b927c3464a6878200e505d03230db4a3c36cf7f1c4e", "quote": "the fee cannot be waived, transferred, or refunded" }
+      },
+      "deadline": {
+        "status": "verified", "value": "International first-year/transfer spring applications: November 15, spring deposit December 1. Fall applications: April 1; the page lists June 1 for all enrollment deposits. These international-specific dates override generic domestic EA/May 1 schedules. The page does not label entry years; confirm the intended intake.",
+        "source": "https://gustavus.edu/admission-aid/apply/international-student-admission", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "evidence": { "hash": "f2f9de3c90db2aa7c08faa5762c6a596fd98ac806da7a552a2d77b1c92062643", "quote": "April 1 —Fall Entry Term: Completed applications due" }
+      }
+    } },
+    "174844": { "fields": {
+      "aid": {
+        "status": "verified", "value": "International merit/need aid is available, not universally full-cost. Non-UWC grants/merit can cover tuition, leaving roughly $15,000 of room/board beyond aid; UWC/Davis funding can reach the comprehensive fee. Loans and earned campus wages are not grants. Need-based applicants may use CSS (6638), free ISFAA or Intl ACAC; no international CSS fee waivers. Merit-only applicants need no aid form; fine-arts awards require separate applications. Both biological parents' finances are considered. Renewal requires academic progress and grants may not track all cost increases; budget insurance, travel and other indirect expenses separately.",
+        "source": "https://wp.stolaf.edu/financialaid/how-to-apply-for-financial-aid-international/", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "attributes": { "aidShort": "Non-UWC tuition cap; substantial room/board and indirect expenses remain" },
+        "evidence": { "hash": "89eee81ee4a6b732e8b4d6f6a65a8b49ec89f0317c03ff06be73d4bbaade0adb", "quote": "Non-UWC students can receive up to 100% of tuition" }
+      },
+      "testing": {
+        "status": "verified", "value": "International SAT/ACT are optional. Self-reported results are accepted for admission review; enrolled students who submitted scores must provide official reports. English evidence and major-specific music/nursing requirements remain separate.",
+        "source": "https://wp.stolaf.edu/international-applications/checklist/", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "attributes": { "testFlexible": true },
+        "evidence": { "hash": "93dab40aafb530236772d65e76bdcb079a7b270f05b1dab15cb836160882b279", "quote": "Optional: SAT or ACT scores." }
+      },
+      "english": {
+        "status": "verified", "value": "The international checklist lists older TOEFL 90, Academic IELTS 6.5 or DET 120. English-first-language or primary-English-instruction applicants receive automatic waiver. No new TOEFL-scale threshold is published here; confirm it for newer exams, rather than converting 90 automatically. International school reports, teacher evaluation and final external examination evidence are also required.",
+        "source": "https://wp.stolaf.edu/international-applications/checklist/", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "attributes": { "englishStatus": "required" },
+        "evidence": { "hash": "93dab40aafb530236772d65e76bdcb079a7b270f05b1dab15cb836160882b279", "quote": "This requirement will be waived automatically" }
+      },
+      "fee": {
+        "status": "verified", "value": "The exact St. Olaf institution-owned Common App profile lists no first-year application fee. CSS costs are separate: free international financial forms are available. Testing, visa and enrollment charges are not automatically waived.",
+        "source": "https://www.commonapp.org/explore/st-olaf-college/", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "evidence": { "hash": "6576c7c3abc2b3f1fe4c50405f309865ef179d770d8425ea5e1cad44479b7d64", "quote": "Charges no application fee - First Year" }
+      },
+      "deadline": {
+        "status": "verified", "value": "Fall 2027 aid forms: ED I/EA November 1; ED II/RD January 15. The international admission/fine-arts timetable has the same application deadlines. Use 2025 financial information for 2027–28 forms available after October 1, 2026. The two pages differ on approximate award-notification timing; confirm that separately. Financial certification is deferred until enrollment for need-aid applicants.",
+        "source": "https://wp.stolaf.edu/financialaid/how-to-apply-for-financial-aid-international/", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "evidence": { "hash": "89eee81ee4a6b732e8b4d6f6a65a8b49ec89f0317c03ff06be73d4bbaade0adb", "quote": "For Students Applying for Fall 2027 Enrollment" }
+      }
+    } }
+  }
+}
