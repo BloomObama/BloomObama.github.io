@@ -5,6 +5,13 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE_PATH || 'playwright')
 const browser = await chromium.launch({ executablePath:process.env.BROWSER_EXECUTABLE, headless:true });
 try {
   const page = await browser.newPage({ viewport:{ width:1440, height:1000 } });
+  const assertSettledColor = async (locator, expected, label) => {
+    // Observe the actual end state instead of assuming a wall-clock delay is
+    // enough for every animation frame on a busy CI runner.
+    await page.waitForFunction(({ element, expected }) => getComputedStyle(element).color === expected,
+      { element:await locator.elementHandle(), expected }, { timeout:5000 });
+    assert.equal(await locator.evaluate(el => getComputedStyle(el).color), expected, label);
+  };
   await page.goto('http://127.0.0.1:8765/practice-test.html?lang=ru');
   await page.locator('.practice-deck').first().waitFor();
   const decks = page.locator('.practice-deck');
@@ -60,10 +67,9 @@ try {
     await page.goto(`http://127.0.0.1:8765/${route}`);
     const active = page.locator('.fr-rail__link.is-active').first();
     await active.hover();
-    await page.waitForTimeout(300);
-    assert.equal(await active.evaluate(el => getComputedStyle(el).color), 'rgb(255, 255, 255)', `${route}: active navigation hover stays readable`);
+    await assertSettledColor(active, 'rgb(255, 255, 255)', `${route}: active navigation hover stays readable`);
     await active.focus();
-    assert.equal(await active.evaluate(el => getComputedStyle(el).color), 'rgb(255, 255, 255)', `${route}: active navigation focus stays readable`);
+    await assertSettledColor(active, 'rgb(255, 255, 255)', `${route}: active navigation focus stays readable`);
     if (route.startsWith('index')) {
       await page.locator('#search').fill('Harvard University');
       const card = page.locator('.card').first();
@@ -79,8 +85,7 @@ try {
       assert.equal(await card.locator('h3').evaluate(el => getComputedStyle(el).color), color, 'resource card hover preserves title');
       const filter = page.locator('.resource-filters button.is-active').first();
       await filter.hover();
-      await page.waitForTimeout(300);
-      assert.equal(await filter.evaluate(el => getComputedStyle(el).color), 'rgb(255, 255, 255)', 'active resource filter hover stays readable');
+      await assertSettledColor(filter, 'rgb(255, 255, 255)', 'active resource filter hover stays readable');
     }
   }
   console.log('PASS: all 9 deck hover/focus states, expanded modules, collapsed height, mobile layout, rating buttons, navigation, university/resource cards and active filters');
