@@ -64,3 +64,10 @@ Coverage after batch 06: **69 complete profiles, 11 partial profiles, 385 verifi
 - Centre (156408): substantive official pages were found, but two bounded collection attempts could not capture them under the collector's robots policy. No snapshot or approval was fabricated; all fields remain pending. Findings are routed in the source manifest for a future permitted capture.
 
 Coverage after batch 07: **70 complete profiles, 12 partial profiles, 393 verified fields**, across 82 institutions. Added eight verified fields and two conflicts. Proposal: `data/policy-review-batches/2026-10-04-07.json`.
+
+## Batch 08
+
+- Luther (153834): all five fields approved. Limited aid and campus employment are not a universal full-need promise; the family's residual contribution and ISAFA documentation are explicit. SAT/ACT are optional, English has separate evidence/waiver conditions and a new TOEFL scale. Undated priority dates are not assigned an invented entry year; talent-scholarship deadlines remain separate.
+- Augustana College, Illinois (143084): all five fields approved, with the exact institution distinguished from Augustana University in South Dakota. International aid uses the applicant portal rather than domestic FAFSA. ED scholarship housing/meal conditions are explicit, not a full-ride guarantee. Current spring/fall 2027 application and deposit dates, new TOEFL scale, study-based proficiency alternatives and its institution-owned Common App fee/testing policies are captured.
+
+Coverage after batch 08: **72 complete profiles, 12 partial profiles, 403 verified fields**, across 84 institutions. Added ten verified fields. Proposal: `data/policy-review-batches/2026-10-04-08.json`.

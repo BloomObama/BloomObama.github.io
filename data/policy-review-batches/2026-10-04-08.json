@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1, "cycle": "2026–27",
+  "records": {
+    "153834": { "fields": {
+      "aid": {
+        "status": "verified", "value": "International aid combines merit, need-based support and campus employment, but resources are limited; the page says families often contribute half or more of expenses. Its aspiration to meet need is not a universal full-need guarantee. Automatic academic merit can reach $39,000/year and is renewable through year four. Submit signed/verified ISAFA and supporting bank/wage documentation, not domestic FAFSA. A campus job is guaranteed to willing international participants with estimated annual earnings of $3,800, not an upfront grant. Some talent or external awards need separate materials/deadlines; their dates are not general admission deadlines. Confirm the individual package and remaining costs.",
+        "source": "https://www.luther.edu/admission-aid/how-to-apply/international/financial-aid", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "attributes": { "aidShort": "Limited merit/need aid plus work; family contribution required" },
+        "evidence": { "hash": "02392373a126e42bdd41af25334a752e195d8dd6379d84dae4c0c60775904661", "quote": "financial aid resources for international students are limited" }
+      },
+      "testing": {
+        "status": "verified", "value": "First-year international SAT/ACT submissions are optional; submitted scores join holistic review. English-proficiency evidence, financial documents and the other admission requirements remain separate.",
+        "source": "https://www.luther.edu/admission-aid/how-to-apply/international/apply", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "attributes": { "testFlexible": true },
+        "evidence": { "hash": "5c1ea7e37113275fa5e6fda2270b747e8700cd78597fe93a666a14fa4acdae0d", "quote": "SAT or ACT: OPTIONAL." }
+      },
+      "english": {
+        "status": "verified", "value": "Non-native speakers who do not attend English-speaking high school must submit TOEFL, IELTS or DET. Minimums: older TOEFL 80 before January 21, 2026; new TOEFL 4 after that date; Essentials 8.5, IELTS 6.5, DET 115. Confirm exams taken exactly on the transition date. US college-credit/composition alternatives listed for transfers are not automatically first-year waivers. Submit original/certified academic records and complete English translations.",
+        "source": "https://www.luther.edu/admission-aid/how-to-apply/international/apply", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "attributes": { "englishStatus": "required" },
+        "evidence": { "hash": "5c1ea7e37113275fa5e6fda2270b747e8700cd78597fe93a666a14fa4acdae0d", "quote": "TOEFL Essentials: Band 8.5 or higher" }
+      },
+      "fee": {
+        "status": "verified", "value": "Luther's institution-owned Common App profile lists no first-year application fee. English testing, certified/translated documents and enrollment/visa costs are separate, not automatically waived.",
+        "source": "https://www.commonapp.org/explore/luther-college/", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "evidence": { "hash": "59f9c78b5e1f14af115a8315b70b05c4f7e748eddad9e3f887f24d029606f640", "quote": "Charges no application fee - First Year" }
+      },
+      "deadline": {
+        "status": "verified", "value": "Completed international admission and aid files: non-binding EA January 1, fall RD priority March 1, spring RD priority November 1. After priority dates, consideration depends on space and available aid. Entry years are not labelled in this timetable; confirm the intended cycle rather than applying scholarship-specific March 2027 dates to admission.",
+        "source": "https://www.luther.edu/admission-aid/how-to-apply/international/apply", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "evidence": { "hash": "5c1ea7e37113275fa5e6fda2270b747e8700cd78597fe93a666a14fa4acdae0d", "quote": "Early Action* : January 1 deadline" }
+      }
+    } },
+    "143084": { "fields": {
+      "aid": {
+        "status": "verified", "value": "Augustana College in Rock Island, Illinois offers automatic merit consideration and case-by-case international need-based aid through its free-standing international aid application in the applicant portal. Do not apply domestic FAFSA requirements or the South Dakota university's policies. Admission considers ability to meet costs; no universal full-need/full-cost guarantee is stated. ED advertises at least $35,500 annual scholarship for campus residents with a full meal plan, not a zero-cost offer. Confirm the individual package and renewal terms.",
+        "source": "https://augustana.edu/admissions/apply/international/procedure", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "attributes": { "aidShort": "Merit and case-by-case international aid; ED housing/meal conditions" },
+        "evidence": { "hash": "82c272b8b21037bc1e15288d94304f023745d3d3dc1e81ceef623a54433e5225", "quote": "merit-based scholarships and need-based financial aid to international students" }
+      },
+      "testing": {
+        "status": "verified", "value": "The exact Augustana College (Illinois) Common App profile lists first-year SAT/ACT optional/flexible admission. SAT Reading or ACT English can be used as English evidence, but are not compulsory for every applicant. English requirements are separate.",
+        "source": "https://www.commonapp.org/explore/augustana-college-illinois/", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "attributes": { "testFlexible": true },
+        "evidence": { "hash": "440549a9ceb18dc075cd9f65db15ae34d3a0e82cd348b2f5ebe7202ad385293a", "quote": "Test Optional/Flexible - First Year" }
+      },
+      "english": {
+        "status": "verified", "value": "Non-native speakers need qualifying study or test evidence. Minima include TOEFL 4.5 on/after January 21, 2026 (earlier iBT/PBT 80/550), Essentials 9.5, IELTS 6.5, DET 115, PTE 56, iTEP 3.9, SAT Reading 550 or ACT English 21. Qualifying alternatives include full English-medium IB Diploma and three consecutive years at an accredited US high school; course-specific and transfer-credit alternatives have their own conditions. Tests normally must be within two years. Self-reports can support a decision; official evidence is required for full admission/enrollment. Check availability and exact requirements for other legacy tests listed on the official page.",
+        "source": "https://augustana.edu/admissions/apply/international/procedure/english", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "attributes": { "englishStatus": "required" },
+        "evidence": { "hash": "b38f5811ed6b4d60bde31a02c4b5d10e8066a434571e009aeb0f337dab09ddef", "quote": "Applicants whose first language is not English" }
+      },
+      "fee": {
+        "status": "verified", "value": "Augustana College (Illinois)'s exact Common App profile lists no first-year application fee. Do not substitute historical $35 catalog fees, study-away fees or another Augustana institution. Testing, visa, enrollment and document charges are separate.",
+        "source": "https://www.commonapp.org/explore/augustana-college-illinois/", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "evidence": { "hash": "440549a9ceb18dc075cd9f65db15ae34d3a0e82cd348b2f5ebe7202ad385293a", "quote": "Charges no application fee - First Year" }
+      },
+      "deadline": {
+        "status": "verified", "value": "Applications on the page are for spring/fall 2027. Fall ED and EA: November 1; ED requires interview/agreement and deposit December 20, EA deposit May 1. Fall RD: April 1, deposit May 1. Spring RD: November 1, deposit December 1. Submit the international aid application in the portal; domestic FAFSA deadlines are not copied. Allow time for official English and academic evidence before enrollment.",
+        "source": "https://augustana.edu/admissions/apply/international/procedure", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "evidence": { "hash": "82c272b8b21037bc1e15288d94304f023745d3d3dc1e81ceef623a54433e5225", "quote": "Early Decision: Nov. 1" }
+      }
+    } }
+  }
+}
