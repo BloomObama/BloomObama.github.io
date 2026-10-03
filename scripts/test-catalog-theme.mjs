@@ -52,6 +52,9 @@ try {
  assert(positions[1].knobY>positions[0].knobY&&positions[1].knobY<positions[2].knobY,'grip follows downward arc');
  assert(positions.every(p=>Math.abs(p.pivotY-positions[0].pivotY)<.1&&Math.abs(p.pivotX-positions[0].pivotX)<.1),'axle does not travel');
  await page.locator('.random-lever').evaluate(el=>el.style.setProperty('--pull',0));
+ // Flush the reset while transitions are disabled, before re-enabling motion.
+ // Otherwise the last geometry sample can still be rotating when the drag starts.
+ await page.waitForFunction(()=>new DOMMatrix(getComputedStyle(document.querySelector('#random-lever-handle')).transform).isIdentity);
  await page.evaluate(()=>FullRidePreferences.update({interface:{reduceMotion:false}}));
  let box=await handle.boundingBox();
  await page.mouse.move(box.x+box.width/2,box.y+26);await page.mouse.down();await page.mouse.move(box.x+box.width/2,box.y+70,{steps:6});
