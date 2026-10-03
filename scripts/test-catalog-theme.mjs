@@ -32,6 +32,26 @@ try {
  await page.evaluate(()=>FullRidePreferences.update({interface:{fontScale:1,theme:'light'}}));
  const handle=page.locator('#random-lever-handle');
  await handle.scrollIntoViewIfNeeded();
+ // Verify geometry, not just the progress value: the axle stays fixed while
+ // the grip crosses from above to below it through a central 3D rotation.
+ await page.evaluate(()=>FullRidePreferences.update({interface:{reduceMotion:true}}));
+ const positions=[];
+ for(const pull of [0,.5,1]){
+  await page.locator('.random-lever').evaluate((el,pull)=>el.style.setProperty('--pull',pull),pull);
+  const geometry=await handle.evaluate(el=>{
+   const r=el.getBoundingClientRect(),knob=el.querySelector('.random-lever__knob').getBoundingClientRect(),pivot=document.querySelector('.random-lever__pivot').getBoundingClientRect(),s=getComputedStyle(el);
+   return {origin:s.transformOrigin,center:{x:r.x+r.width/2,y:r.y+r.height/2},knobY:knob.y+knob.height/2,pivotX:pivot.x+pivot.width/2,pivotY:pivot.y+pivot.height/2,transform:s.transform};
+  });
+  assert.equal(geometry.origin,'32px 92px','central transform origin');
+  positions.push(geometry);
+  await page.locator('.random-lever').screenshot({path:'catalog-lever-axis-'+pull+'-preview.png'});
+ }
+ assert(positions[0].knobY<positions[0].pivotY-40,'grip starts above axle');
+ assert(positions[2].knobY>positions[2].pivotY+40,'grip ends below axle');
+ assert(positions[1].knobY>positions[0].knobY&&positions[1].knobY<positions[2].knobY,'grip follows downward arc');
+ assert(positions.every(p=>Math.abs(p.pivotY-positions[0].pivotY)<.1&&Math.abs(p.pivotX-positions[0].pivotX)<.1),'axle does not travel');
+ await page.locator('.random-lever').evaluate(el=>el.style.setProperty('--pull',0));
+ await page.evaluate(()=>FullRidePreferences.update({interface:{reduceMotion:false}}));
  let box=await handle.boundingBox();
  await page.mouse.move(box.x+box.width/2,box.y+26);await page.mouse.down();await page.mouse.move(box.x+box.width/2,box.y+70,{steps:6});
  assert(Number(await handle.getAttribute('aria-valuenow'))>20,'partial drag changes lever position');
