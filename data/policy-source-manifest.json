@@ -12,6 +12,9 @@
     "150400": { "domains": ["depauw.edu"], "urls": ["https://www.depauw.edu/admission-aid/apply/international-applicants/application-checklist/", "https://www.depauw.edu/admission-aid/apply/international-applicants/international-students/scholarships-and-financial-aid-for-international-students/", "https://www.depauw.edu/admission-aid/scholarships-aid/the-depauw-promise/", "https://www.depauw.edu/admission-aid/apply/international-applicants/international-students/faqs/"] },
     "150455": { "domains": ["earlham.edu"], "urls": ["https://earlham.edu/admissions/how-to-apply/international-admissions/"] },
     "195304": { "domains": ["sarahlawrence.edu"], "urls": ["https://www.sarahlawrence.edu/admission/apply/international/apply.html"] },
-    "212674": { "domains": ["gettysburg.edu"], "urls": ["https://www.gettysburg.edu/admissions-aid/international-students/"] }
+    "212674": { "domains": ["gettysburg.edu"], "urls": ["https://www.gettysburg.edu/admissions-aid/international-students/", "https://www.gettysburg.edu/admissions-aid/international-students/financial-aid-international-students"] },
+    "399911": { "domains": ["soka.edu"], "urls": ["https://www.soka.edu/admissions-aid/how-apply", "https://www.soka.edu/admissions-aid/aid-international-undergraduate-students", "https://catalog.soka.edu/applying-for-undergraduate-admission"] },
+    "211893": { "domains": ["curtis.edu"], "urls": ["https://www.curtis.edu/apply/applying/", "https://www.curtis.edu/apply/faq/"] },
+    "148016": { "domains": ["principiacollege.edu"], "urls": ["https://www.principiacollege.edu/admissions/apply/international-students", "https://catalog.principiacollege.edu/admissions-finances/general-requirements-for-admissions/", "https://catalog.principiacollege.edu/admissions-finances/financial-aid/"] }
   }
 }

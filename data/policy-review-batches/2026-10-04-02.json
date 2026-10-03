@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 1, "cycle": "2026–27",
+  "records": {
+    "189088": { "fields": {
+      "aid": {
+        "status": "verified",
+        "value": "Bard typically expects an international contribution of at least $30,000/year. It guarantees calculated full need for ED I, EA and Immediate Decision admits, but international packages generally stop at full tuition; living-expense support is rare. ED II/RD full need is not guaranteed. BISFAA must accompany admission and be renewed annually; aid cannot be requested after admission. Davis UWC Scholars have separate rules and no minimum expected contribution. Financial-aid deadlines disagree elsewhere on this page: see the deadline warning before applying.",
+        "source": "https://www.bard.edu/sfs/prospective/international/", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "attributes": { "aidShort": "Round-dependent aid; contribution normally $30,000/year", "aidCategory": "need-aware", "needBlind": false },
+        "evidence": { "hash": "df933ae95c3ed1d97391699c3bcd7c3fc827336bb1c9fcc2a3a9ef38e6d79d97", "quote": "international students contribute at least $30,000 per year" }
+      },
+      "deadline": {
+        "status": "conflict",
+        "value": "The international admissions page lists November 1 for early rounds and January 15 for ED II/RD, but also places March 1 fall entries in the January section. https://www.bard.edu/sfs/prospective/international/ gives RD aid January 1, international first-year aid January 15, and also a within-five-days rule. Confirm both admission and BISFAA deadlines for your round with Bard; the March transfer deadline must not be assumed to apply to first-year applicants.",
+        "source": "https://www.bard.edu/sfs/prospective/international/", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "evidence": { "hash": "df933ae95c3ed1d97391699c3bcd7c3fc827336bb1c9fcc2a3a9ef38e6d79d97", "quote": "Jan 1 Deadline for financial aid form for regular-decision students." }
+      }
+    } },
+    "150400": { "fields": {
+      "english": {
+        "status": "verified",
+        "value": "Non-native English speakers need official proficiency evidence: IELTS 6.5, DET 110, PTE 57, or TOEFL iBT 85 with 20 per section on the published older scale. The page does not specify the new 2026 TOEFL threshold; confirm it with admissions. Published country/region exemptions apply, and applicants whose entire secondary education was English-medium may request a reviewed waiver after school documents arrive; this is not automatic.",
+        "source": "https://www.depauw.edu/admission-aid/apply/international-applicants/application-checklist/", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "attributes": { "englishStatus": "required" },
+        "evidence": { "hash": "e63cc39f490b6e821f510f07a0f71b49fb775e6e415c91ffb6191ffd49c07456", "quote": "IELTS (minimum 6.5), Duolingo (minimum 110) or PTE (minimum 57)" }
+      },
+      "deadline": {
+        "status": "verified",
+        "value": "International first-year ED I/EA I applications November 1, materials November 8; ED II/EA II December 15, materials December 22; RD February 1, materials February 8. International aid deadlines follow the admission round. The source does not label an entry year. All international applicants must submit DePauw's Certification of Finances and supporting proof; CSS Profile/ISFAA are not substitutes on the international checklist.",
+        "source": "https://www.depauw.edu/admission-aid/apply/international-applicants/application-checklist/", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "evidence": { "hash": "e63cc39f490b6e821f510f07a0f71b49fb775e6e415c91ffb6191ffd49c07456", "quote": "Regular Decision Feb. 1 Feb. 8 Mar. 1 May 1" }
+      },
+      "aid": {
+        "status": "conflict",
+        "value": "Merit scholarships and need-based assistance exist, but the full-need guarantee needs clarification. The DePauw Promise advertises every incoming first-year student from Fall 2026 and discusses international Certification of Finances; the international FAQ at https://www.depauw.edu/admission-aid/apply/international-applicants/international-students/faqs/ still describes limited need-based aid. The Promise also permits CSS Profile for FAFSA-ineligible applicants while the international checklist rejects CSS/ISFAA substitutes. Confirm international eligibility, award components and required forms with intladmission@depauw.edu; no universal full-ride claim is approved.",
+        "source": "https://www.depauw.edu/admission-aid/scholarships-aid/the-depauw-promise/", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "evidence": { "hash": "348274743740df8a2e95c1fa39a175c0cd66b9e90bb976f65dcccaba8dc511fd", "quote": "The DePauw Promise is available to incoming, first-year students who enroll in Fall 2026 or later." }
+      }
+    } },
+    "212674": { "fields": {
+      "aid": {
+        "status": "verified",
+        "value": "International need-based aid is competitive and limited; Gettysburg strives to meet need but does not state a universal guarantee. Full-tuition grants are possible but uncommon; loans, employment and family contribution may be included. All applicants submit the International Student Financial Statement; aid seekers also submit the separate international aid form, not CSS Profile. Break housing/food and mandatory health insurance are additional costs. Admission and aid pages list different round deadlines: confirm them with the international office.",
+        "source": "https://www.gettysburg.edu/admissions-aid/international-students/financial-aid-international-students", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "attributes": { "aidShort": "Competitive, limited international need-based aid", "aidCategory": "limited" },
+        "evidence": { "hash": "f4c832924168362be2935dde19abbd69d97a1e44230b5af1d98565261c3bdaba", "quote": "the financial aid process is highly competitive and funds are limited" }
+      },
+      "english": {
+        "status": "verified",
+        "value": "The international page requires proficiency testing if classroom instruction has not been English for at least two years, or English is not the first language. Ask admissions to confirm waiver eligibility rather than assuming English-medium schooling alone suffices. TOEFL 90, IELTS 7.0 and DET 120 are competitive guidance, not minimum application cutoffs. Official scores may come from an agency or school official; no English-test superscoring. The page has not published a new-scale TOEFL conversion.",
+        "source": "https://www.gettysburg.edu/admissions-aid/international-students/", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "attributes": { "englishStatus": "required" },
+        "evidence": { "hash": "e2f7257fc7ff04e6e18bd4d965fb4e5e1254a11d794d505bf70c6b434cb31282", "quote": "Gettysburg does not have a minimum score to apply" }
+      },
+      "deadline": {
+        "status": "conflict",
+        "value": "The international admissions page gives ED I November 1, EA November 15, ED II January 20 and RD January 15, but its ED II agreement is due January 15. https://www.gettysburg.edu/admissions-aid/international-students/financial-aid-international-students instead lists aid deadlines ED I November 15, EA December 1 and ED II January 15 while saying forms follow the admission deadline. Confirm application, ED agreement and both international financial forms separately with admissions; these dates are not approved as one consistent schedule.",
+        "source": "https://www.gettysburg.edu/admissions-aid/international-students/", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "evidence": { "hash": "e2f7257fc7ff04e6e18bd4d965fb4e5e1254a11d794d505bf70c6b434cb31282", "quote": "Early Decision II: January 20" }
+      }
+    } },
+    "399911": { "fields": {
+      "aid": {
+        "status": "verified",
+        "value": "International undergraduates can apply for institutional need-based aid using Soka's International Student Financial Aid Application. Grants, scholarships and institutional loans are distinct aid types; loans are optional and not free funding. Apply by February 15 for priority review, no later than March 2; verify requested financial documents in the Learn portal. This page does not establish a universal full-cost award or need-blind admission policy.",
+        "source": "https://www.soka.edu/admissions-aid/aid-international-undergraduate-students", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "attributes": { "aidShort": "Institutional need-based aid; separate international form" },
+        "evidence": { "hash": "5ce8cbd3c184b44ea65e78e0cca056a9c46e474724f79197dd327208a33df1f4", "quote": "International students are eligible for need-based financial aid" }
+      },
+      "testing": {
+        "status": "verified", "value": "SAT/ACT are optional for undergraduate admission. Submitted scores must be official and no older than five years; SAT Subject Tests are not required.",
+        "source": "https://www.soka.edu/admissions-aid/how-apply", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial", "attributes": { "testFlexible": true },
+        "evidence": { "hash": "cce1ef5064aa823cce1fb68b9981d7e683a4cf24990db94cf5642718942f9c76", "quote": "Official ACT or SAT scores (optional)" }
+      },
+      "english": {
+        "status": "verified", "value": "Non-native speakers demonstrate proficiency with TOEFL or DET. Preferred thresholds are TOEFL iBT 4 (80 before January 2026) or DET 115. IELTS and Cambridge English are not accepted. Official agency scores are required, within two years; self-reports are not accepted. These are undergraduate rules, not the graduate program's separate requirements.",
+        "source": "https://www.soka.edu/admissions-aid/how-apply", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial", "attributes": { "englishStatus": "required" },
+        "evidence": { "hash": "cce1ef5064aa823cce1fb68b9981d7e683a4cf24990db94cf5642718942f9c76", "quote": "We do not accept the IELTS or Cambridge English." }
+      },
+      "fee": {
+        "status": "verified", "value": "$30 undergraduate application fee. Soka accepts Common Application, College Board and NACAC fee waivers; submit an eligible waiver or payment to complete the application.",
+        "source": "https://www.soka.edu/admissions-aid/how-apply", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial", "attributes": { "feeWaiver": true },
+        "evidence": { "hash": "cce1ef5064aa823cce1fb68b9981d7e683a4cf24990db94cf5642718942f9c76", "quote": "$30 application fee" }
+      },
+      "deadline": {
+        "status": "verified", "value": "Undergraduate application and documents: nonbinding EA November 1; Regular Admission January 15. Aid follows a separate February 15 priority/March 2 schedule, with supporting verification requested separately. The admissions source does not label an entry year; confirm the intended cycle before submission.",
+        "source": "https://catalog.soka.edu/applying-for-undergraduate-admission", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "evidence": { "hash": "d9d01b1076f4e15f6ce27c9586c65d13329546dcc708be962f34369e42cd3b9f", "quote": "November 1st for Early Action and January 15th for Regular Admission" }
+      }
+    } },
+    "211893": { "fields": {
+      "aid": {
+        "status": "verified", "value": "Admitted students receive merit-based full-tuition scholarships without a separate aid application. Living-expense assistance may be considered separately; tuition-free does not mean all costs are covered.",
+        "source": "https://www.curtis.edu/apply/applying/", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial", "attributes": { "aidShort": "Full-tuition merit scholarship; living costs separate", "aidCategory": "merit" },
+        "evidence": { "hash": "3665fdcad23775401636b089dba2305969fa1b9b748385bd100d331a33105fa1", "quote": "full-tuition scholarships to all undergraduate" }
+      },
+      "testing": {
+        "status": "verified", "value": "SAT is optional for Bachelor of Music applicants. Admission is audition-based; academic/degree placement is evaluated after acceptance.",
+        "source": "https://www.curtis.edu/apply/applying/", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial", "attributes": { "testFlexible": true },
+        "evidence": { "hash": "3665fdcad23775401636b089dba2305969fa1b9b748385bd100d331a33105fa1", "quote": "SAT I) scores (optional)." }
+      },
+      "english": {
+        "status": "verified", "value": "English evidence is required after acceptance for degree placement, not to submit the application. TOEFL iBT 4 (older 79–80), IELTS Academic 6.5–7.0 per area (confirm the required value), or Cambridge 169 are listed. Home tests are not accepted. Three years at an accredited in-person English-medium secondary school can support an exemption request. Insufficient proficiency may lead to Diploma rather than bachelor's placement.",
+        "source": "https://www.curtis.edu/apply/applying/", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial", "attributes": { "englishStatus": "required" },
+        "evidence": { "hash": "3665fdcad23775401636b089dba2305969fa1b9b748385bd100d331a33105fa1", "quote": "score minimum of 4 (post-2026)" }
+      },
+      "fee": {
+        "status": "verified", "value": "$250 nonrefundable application fee plus $50 for a live audition; late materials incur $75 extra. Applicants of any nationality can request a significant-financial-need waiver through the application.",
+        "source": "https://www.curtis.edu/apply/applying/", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial", "attributes": { "feeWaiver": true },
+        "evidence": { "hash": "3665fdcad23775401636b089dba2305969fa1b9b748385bd100d331a33105fa1", "quote": "Online application fee: $250" }
+      },
+      "deadline": {
+        "status": "verified", "value": "Application/prescreening December 10; waiver request December 3. Undergraduate reply May 1; official transcripts/test scores July 15. Recommendations/unofficial transcripts: December 31 per https://www.curtis.edu/apply/faq/. The general schedule is not entry-year labelled; confirm instrument openings/auditions.",
+        "source": "https://www.curtis.edu/apply/applying/", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "evidence": { "hash": "3665fdcad23775401636b089dba2305969fa1b9b748385bd100d331a33105fa1", "quote": "December 10" }
+      }
+    } }
+  }
+}
