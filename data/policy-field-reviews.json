@@ -35,6 +35,83 @@
         }
       }
     },
+    "145646": {
+      "fields": {
+        "aid": {
+          "status": "verified",
+          "value": "IWU's international admission is need-sensitive, with a required family contribution of $30,000/year; only after meeting this floor does it describe further review as need-blind. Family Financial Statement is required. https://www.iwu.edu/international/scholarships.html lists automatically considered merit awards up to $38,000/year, renewable for four years, and CSS Profile for additional aid (preferred March 1), which may include loans/work. The international FAQ explicitly rules out full-ride funding; full tuition does not cover living, insurance, visa or travel costs.",
+          "source": "https://www.iwu.edu/international/admission.html",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "needBlind": false,
+            "aidCategory": "need-aware",
+            "aidShort": "Required contribution $30,000/year; merit and additional aid"
+          },
+          "evidence": {
+            "hash": "f67e8b1b252c2e2b371a8e61872f70a89506d31da3d8610da352a341c1819ec3",
+            "quote": "required financial contribution of $30,000 USD per year"
+          }
+        },
+        "testing": {
+          "status": "verified",
+          "value": "SAT/ACT are optional for international admission. They cannot replace the English proficiency requirement. Music, theatre and BFA art applicants have separate audition, interview or portfolio requirements; nursing applicants need the stated secondary science/math courses.",
+          "source": "https://www.iwu.edu/international/admission-faq.html",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "testFlexible": true
+          },
+          "evidence": {
+            "hash": "cca61240daf2a5ca7678f109840b77ce49e62930e9623eccabf2e182a4522279",
+            "quote": "IWU is now test optional."
+          }
+        },
+        "english": {
+          "status": "conflict",
+          "value": "The requirements page at https://www.iwu.edu/international/admission.html gives IELTS 6.5, TOEFL iBT 80 on the old scale, DET 115 or PTE 56, accepts TOEFL MyBest and rejects scores older than two years. However, it describes an English-medium secondary waiver after at least three years, while the FAQ says more than three years. Native English speakers are exempt; a school official must send the waiver letter and official results. Confirm exact-three-year eligibility and new-scale TOEFL requirements with admissions rather than assuming a waiver.",
+          "source": "https://www.iwu.edu/international/admission-faq.html",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "cca61240daf2a5ca7678f109840b77ce49e62930e9623eccabf2e182a4522279",
+            "quote": "attending English-medium school(s) for more than three years"
+          }
+        },
+        "fee": {
+          "status": "verified",
+          "value": "International applicants pay no application fee using either the Titan Application or Common Application. CSS Profile costs for additional aid are separate; admitted students may ask about a CSS fee waiver, not assume one.",
+          "source": "https://www.iwu.edu/international/admission.html",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "f67e8b1b252c2e2b371a8e61872f70a89506d31da3d8610da352a341c1819ec3",
+            "quote": "There is no application fee."
+          }
+        },
+        "deadline": {
+          "status": "verified",
+          "value": "Non-binding international Early Action requires all application materials by November 15. The preferred international fall application deadline is March 15. Additional-aid CSS Profile has a separate preferred March 1 date at https://www.iwu.edu/international/scholarships.html. No entry year is labelled, so confirm the intended round/cycle.",
+          "source": "https://www.iwu.edu/international/admission.html",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "f67e8b1b252c2e2b371a8e61872f70a89506d31da3d8610da352a341c1819ec3",
+            "quote": "materials to be submitted by November 15th"
+          }
+        }
+      }
+    },
     "146427": {
       "fields": {
         "fee": {
@@ -110,6 +187,85 @@
           "evidence": {
             "hash": "937cf5c68a61fb975bbd5a86f921cf11c56bca97b362fb62a807fc7483bbe2f5",
             "quote": "Regular Decision Jan 15 March 15 May 1"
+          }
+        }
+      }
+    },
+    "148016": {
+      "fields": {
+        "aid": {
+          "status": "verified",
+          "value": "International applicants are considered for merit scholarships, not institutional need-based aid. Faith-affiliated external support is separate. The 2026–27 catalog allows an inquiry after an exceptional adverse change in family finances, but guarantees no additional assistance. This is not a full-need or full-cost promise.",
+          "source": "https://catalog.principiacollege.edu/admissions-finances/financial-aid/",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "aidCategory": "merit",
+            "aidShort": "International merit scholarships; no institutional need-based aid"
+          },
+          "evidence": {
+            "hash": "2a4a4ea6adfaf48c7fb5b34fc15a5f587d6576bca0c42e6ffcbb7ffb51c1c95e",
+            "quote": "International students are not eligible for need-based financial aid through the institution."
+          }
+        },
+        "testing": {
+          "status": "conflict",
+          "value": "The international application page says SAT/ACT submission is optional, with published submitted-score floors SAT 1010 or ACT 19. However, the 2026–27 catalog at https://catalog.principiacollege.edu/admissions-finances/general-requirements-for-admissions/ includes SAT/ACT among mandatory international application materials. Confirm the controlling international policy with admissions; test flexibility is not certified while these instructions disagree.",
+          "source": "https://catalog.principiacollege.edu/admissions-finances/general-requirements-for-admissions/",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "c8dc7d6f19b926383fdd4295524529a771ac5945b83fd082a6b2cb8ea58a507b",
+            "quote": "SAT/ACT test scores, and English Proficiency scores"
+          }
+        },
+        "english": {
+          "status": "verified",
+          "value": "International applicants need university-level English proficiency; Principia offers no ESL support. Official IELTS 6.5, DET 115 or TOEFL iBT 80 are accepted. Only TOEFL iBT is accepted, not MyBest scores. The listed TOEFL threshold uses the old scale; ask admissions about tests taken on the new 2026 scale and any individual exemption before applying.",
+          "source": "https://www.principiacollege.edu/admissions/apply/international-students",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "englishStatus": "required"
+          },
+          "evidence": {
+            "hash": "3ab2b25c989737fe03af43fb4c681d7572f931b32d2770f1567014430175b636",
+            "quote": "Duolingo English Test – minimum score: 115"
+          }
+        },
+        "fee": {
+          "status": "verified",
+          "value": "The international first-year application fee is $75, non-refundable and explicitly not waivable. General website advertising of a free application must not override these international-specific instructions.",
+          "source": "https://www.principiacollege.edu/admissions/apply/international-students",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "feeWaiver": false
+          },
+          "evidence": {
+            "hash": "3ab2b25c989737fe03af43fb4c681d7572f931b32d2770f1567014430175b636",
+            "quote": "The fee cannot be waived and is non-refundable."
+          }
+        },
+        "deadline": {
+          "status": "verified",
+          "value": "International first-year Fall 2027 applications are due March 15. The separate December 1 Spring 2027 date belongs to transfer students already studying at a US post-secondary institution, not first-year applicants. Secondary records and external examinations must be official and in English.",
+          "source": "https://www.principiacollege.edu/admissions/apply/international-students",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "3ab2b25c989737fe03af43fb4c681d7572f931b32d2770f1567014430175b636",
+            "quote": "FALL 2027 ADMISSION Application Deadline: March 15"
           }
         }
       }
@@ -368,6 +524,72 @@
         }
       }
     },
+    "195216": {
+      "fields": {
+        "aid": {
+          "status": "verified",
+          "value": "International merit and need-based aid is competitive. Indicate aid intent on the application and submit Certificate of Finance/documentation together; CSS Profile and ISFAA are not required. Merit awards range from $5,000 to full tuition, not a general full-cost guarantee. Davis UWC matriculants have a separate full-demonstrated-need commitment excluding travel. Two Kenya-specific scholarships cover tuition/fees/room/board but not books, personal expenses or transport; they are not open to every nationality. CoF priority is February 1, later review depends on funding. The Kenya instructions still mention discontinued SAT subject tests: confirm directly.",
+          "source": "https://www.stlawu.edu/admissions/financial-aid-scholarships/financial-aid/financial-aid-international-students",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "aidCategory": "limited",
+            "aidShort": "Competitive merit/need-based aid; UWC and Kenya-specific exceptions"
+          },
+          "evidence": {
+            "hash": "18bd4c5e8f3598108f44f54a498df6343d2f394ec0e7e28b5f3ca6ea398ae2e1",
+            "quote": "these opportunities are very competitive"
+          }
+        },
+        "testing": {
+          "status": "verified",
+          "value": "St. Lawrence explicitly makes SAT/ACT optional for all applicants. This does not remove required English proficiency evidence. Kenya scholarship instructions separately list older/discontinued exams; confirm scholarship-specific materials rather than applying those instructions to general admission.",
+          "source": "https://www.stlawu.edu/applying-st-lawrence/international-students",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "testFlexible": true
+          },
+          "evidence": {
+            "hash": "982fecdf3c77765c7b6c8350a0cf112749c68fa9514f26f1b96495450ac5185b",
+            "quote": "We are SAT/ACT-optional for all applicants."
+          }
+        },
+        "english": {
+          "status": "verified",
+          "value": "Applicants whose native language is not English and who do not attend an English-speaking school must submit TOEFL or IELTS proof. Scores should name St. Lawrence as a recipient. This page publishes no minimum score, DET acceptance or duration-based waiver threshold; none are inferred.",
+          "source": "https://www.stlawu.edu/applying-st-lawrence/international-students",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "englishStatus": "required"
+          },
+          "evidence": {
+            "hash": "982fecdf3c77765c7b6c8350a0cf112749c68fa9514f26f1b96495450ac5185b",
+            "quote": "must submit either TOEFL or IELTS scores"
+          }
+        },
+        "deadline": {
+          "status": "verified",
+          "value": "The international schedule lists ED I November 2, EA December 1, ED II February 1 and RD March 1, without an entry year. Financial-aid CoF priority is separately February 1. The official consumer policy at https://www.stlawu.edu/consumer-information/admissions-policies says international applicants needing aid who are not Canadian should apply RD, so confirm round eligibility before choosing ED. The direct audit collector was denied access to that consumer page; it was read through official-page web results, not counted as a fresh captured source.",
+          "source": "https://www.stlawu.edu/applying-st-lawrence/international-students",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "982fecdf3c77765c7b6c8350a0cf112749c68fa9514f26f1b96495450ac5185b",
+            "quote": "Regular Decision Mar. 1"
+          }
+        }
+      }
+    },
     "195304": {
       "fields": {
         "testing": {
@@ -400,6 +622,73 @@
           "evidence": {
             "hash": "3fa1c61b29fac2748d3c6b8c737eda00a47cb66bbedc4096d3535316e2a12577",
             "quote": "Applicants for whom English is not their first language and who have not studied in an English language curriculum for the past four years"
+          }
+        }
+      }
+    },
+    "206589": {
+      "fields": {
+        "aid": {
+          "status": "verified",
+          "value": "Wooster's international admission is need-aware. Submit Wooster Certification of Finances (or an existing CSS Profile) with the application by the round deadline. Its combined merit/need award uses institutionally assessed need; the college generally does not admit applicants it cannot fund. Families are typically expected to pay 40–50% of predicted costs. Full-ride scholarships are explicitly unavailable, though a competitive Presidential full-tuition award exists. Budget separately for housing, insurance, books/personal costs and future 3–5% annual fee increases. CSS fee waivers are not provided because Wooster's own form is free.",
+          "source": "https://wooster.edu/admissions/financial-aid/international-students",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "needBlind": false,
+            "aidCategory": "need-aware",
+            "aidShort": "Need-aware; family normally funds 40–50%; no full ride"
+          },
+          "evidence": {
+            "hash": "e129fb968bfa5f996dd139954ace41cdf5e44f185cf72662fb0c83090d9c3f7c",
+            "quote": "we are not able to offer full-ride scholarships for international students"
+          }
+        },
+        "testing": {
+          "status": "verified",
+          "value": "International admission is test-flexible, not a blanket removal of all evidence. Preferred tests include ACT/SAT or accepted English exams; listed alternatives require a requested waiver, such as IB predictions, three APs including English, three A-level predictions, WAEC with verification, named South Asian board exams, or Korean CSAT with InitialView. Self-reports need official verification upon enrolment. The 3+4 Pre-Dental program specifically requires official SAT/ACT and ED I/EA application.",
+          "source": "https://wooster.edu/admissions/international-students",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "testFlexible": true
+          },
+          "evidence": {
+            "hash": "4e6c3c184e4776a220ec26960ec86122e9b94eac1b27bd19f54c00cdc831b36a",
+            "quote": "test-flexible policy for international students"
+          }
+        },
+        "english": {
+          "status": "verified",
+          "value": "International applicants must demonstrate English proficiency through Wooster's test-flexible policy. TOEFL, IELTS, PTE Academic and DET are among preferred evidence; listed school-exam alternatives require emailing global@wooster.edu for a waiver. TOEFL 80 is recommended on the older scale, not labelled an absolute cutoff; no numerical IELTS/DET/PTE minimum is published here. Confirm the new 2026 TOEFL scale with admissions rather than converting it ourselves.",
+          "source": "https://wooster.edu/admissions/international-students",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "englishStatus": "required"
+          },
+          "evidence": {
+            "hash": "4e6c3c184e4776a220ec26960ec86122e9b94eac1b27bd19f54c00cdc831b36a",
+            "quote": "asking for Proof of English Proficiency"
+          }
+        },
+        "deadline": {
+          "status": "verified",
+          "value": "For Fall 2027: ED I and EA November 1, ED II January 15, RD February 15. The separate Spring 2027 RD deadline is December 1. International scholarship/CoF deadlines follow the admission round and require all materials by that date. Binding ED requires the ED agreement; the special Pre-Dental program is available through ED I/EA only.",
+          "source": "https://wooster.edu/admissions/international-students",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "4e6c3c184e4776a220ec26960ec86122e9b94eac1b27bd19f54c00cdc831b36a",
+            "quote": "Regular Decision February 15 April 1 May 1"
           }
         }
       }

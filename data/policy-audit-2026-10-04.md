@@ -19,3 +19,12 @@ Coverage after batch 01: **60 complete profiles, 10 partial profiles, 321 verifi
 - Gettysburg (212674): English guidance and limited aid approved. Competitive English scores are not application cutoffs. The existing ED II conflict now also includes the different dates stated for financial forms.
 
 Coverage after batch 02: **62 complete profiles, 10 partial profiles, 336 verified fields**, across 72 institutions. Added 15 verified fields and retained three unresolved policy conflicts. Proposal: `data/policy-review-batches/2026-10-04-02.json`.
+
+## Batch 03
+
+- Principia (148016): four fields approved. International fee instructions override generic free-application advertising; the Fall 2027 first-year deadline is not the spring transfer deadline. International merit aid is not institutional need-based support. SAT/ACT remain a conflict between the international website and current catalog.
+- Illinois Wesleyan (145646): four fields approved. Its $30,000 required contribution means admission is not universally need-blind; no full-ride claim is allowed. CSS preferred filing date and admission deadline are distinct. English waiver duration differs (at least three years vs more than three years), so that field remains a conflict despite published exam thresholds.
+- St. Lawrence (195216): four fields approved; fee remains pending. General competitive aid is separate from UWC and Kenya scholarships. Kenya instructions mention discontinued tests and need direct confirmation. The consumer admissions policy was readable in official-page web results but direct collection returned 403; no fresh capture was invented. It restricts ED for aid-seeking non-Canadian international applicants, so the deadline field warns about round eligibility.
+- Wooster (206589): four fields approved; application fee remains pending, not confused with the free financial form. Test flexibility requires evidence/waiver and has a Pre-Dental SAT/ACT exception. No full-ride international awards; family contribution guidance and living costs are explicit. Admission dates are labelled Fall/Spring 2027.
+
+Coverage after batch 03: **62 complete profiles, 14 partial profiles, 352 verified fields**, across 76 institutions. Added 16 verified fields and two unresolved conflicts. Proposal: `data/policy-review-batches/2026-10-04-03.json`.
