@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1, "cycle": "2026–27",
+  "records": {
+    "166939": { "fields": {
+      "aid": {
+        "status": "verified", "value": "Mount Holyoke promises to meet each admitted student's institutionally assessed need, including international applicants. Packages may include grants, loans and campus work; full need is not automatically a grant covering all expenses. International applicants must request need-based aid with admission, submit CSS Profile and translated parental income documents, and cannot initiate aid after admission. All applicants are considered for merit scholarships. The US-family tuition commitment must not be applied to international families. Deadline instructions conflict for ED I English results: confirm separately.",
+        "source": "https://www.mtholyoke.edu/admission/apply-undergraduate-first-year/application-process/international-admission/international-admission-faq", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "attributes": { "aidShort": "Meets assessed full need; grants, loans and campus work" },
+        "evidence": { "hash": "a15b349a07141abe60d125e4deb4948e4464f5865fcad9d7159a4223f50074a5", "quote": "promises to meet the demonstrated financial need" }
+      },
+      "english": {
+        "status": "verified", "value": "Non-native speakers submit TOEFL, IELTS, DET, PTE Academic or Cambridge English. Cambridge C1/C2 has a 185 minimum; other published figures are averages, not minimums: DET over 130, IELTS over 7, PTE over 68, TOEFL 100 or 5.5 for tests from January 21, 2026. Uploading a score-report PDF to the portal is accepted initially; Common App/Coalition score entries alone are not. Official agency results are required before enrolment. Waivers are individually reviewed, including English-medium schooling since grade nine; bilingual schools do not meet that criterion and SAT/ACT cannot waive English.",
+        "source": "https://www.mtholyoke.edu/admission/apply-undergraduate-first-year/application-process/international-admission/english-proficiency-requirements", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "attributes": { "englishStatus": "required" },
+        "evidence": { "hash": "832f8b4e519d781eed55539ea66cddee6e969c8801d8645af25eb05a84317a7b", "quote": "Mount Holyoke has no minimum score" }
+      },
+      "deadline": {
+        "status": "conflict", "value": "International application and aid schedules agree on ED I November 15, ED II January 5 and RD January 15. But the international FAQ gives ED I English proficiency November 26, whereas https://www.mtholyoke.edu/admission/apply-undergraduate-first-year/application-process/international-admission/english-proficiency-requirements says official reports must arrive November 15 to guarantee review. Confirm which English-results deadline controls. The aid page refers to 2026–27 forms, so do not assume those forms apply to a later entry year. Midyear report and optional interview dates are separate.",
+        "source": "https://www.mtholyoke.edu/admission/apply-undergraduate-first-year/application-process/international-admission/international-admission-faq", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "evidence": { "hash": "a15b349a07141abe60d125e4deb4948e4464f5865fcad9d7159a4223f50074a5", "quote": "English Proficiency November 26" }
+      }
+    } },
+    "128902": { "fields": {
+      "aid": {
+        "status": "verified", "value": "Connecticut College meets institutionally assessed demonstrated need for admitted students regardless of citizenship. International aid seekers submit CSS Profile; every international applicant also submits Verification of Financial Support in the applicant portal. The aid office describes packages as grants, loans and part-time employment, and reassesses family eligibility annually. This is not a universal full-cost grant or proof of need-blind admission. Aid and admission pages disagree on early-round dates: confirm the separate deadlines before applying.",
+        "source": "https://www.conncoll.edu/admission/international-applicants/faq/", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "attributes": { "aidShort": "Meets assessed need; CSS plus Verification of Financial Support" },
+        "evidence": { "hash": "7c694669116d95de534de1ea81e1207c4a624aaa5ea218d366e4ecb8a2dc052a", "quote": "meets demonstrated need for all admitted students regardless of citizenship" }
+      },
+      "english": {
+        "status": "verified", "value": "Applicants educated outside the US provide official TOEFL, IELTS or DET results. TOEFL around 100, IELTS 7 and DET 130 describe successful applicants, not fixed cutoffs; no new-scale TOEFL conversion is published here. First-year waiver requests are available after admission application for native English speakers at home or three completed high-school years taught primarily in English. An approved waiver may still trigger further evidence. Agency reports are preferred; school-counsellor submission is permitted if agency delivery creates a financial burden. The college offers no ESL programme.",
+        "source": "https://www.conncoll.edu/admission/international-applicants/faq/", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "attributes": { "englishStatus": "required" },
+        "evidence": { "hash": "7c694669116d95de534de1ea81e1207c4a624aaa5ea218d366e4ecb8a2dc052a", "quote": "completed three full years at a high school" }
+      },
+      "deadline": {
+        "status": "conflict", "value": "The international checklist lists EA/ED I application and aid November 1, and ED II/RD January 15, without an entry year. However, the financial-aid page explicitly preparing for 2027–28 lists EA/ED I aid November 16, 2026 and ED II/RD January 15, 2027. These are not one consistent early-round aid deadline. Confirm both admission and financial forms with the offices. Non-US citizens are not admitted as first-year spring entrants; the November spring deadline is for transfer applicants.",
+        "source": "https://www.conncoll.edu/financial-aid/applying-for-financial-aid/index.html", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "evidence": { "hash": "bae7473609fa93d844846f31f598896a8ab27b7b977074983f0db75f9c24c037", "quote": "Early Action Applicants November 16, 2026" }
+      }
+    } },
+    "195304": { "fields": {
+      "aid": {
+        "status": "verified", "value": "International merit/need scholarships are highly competitive, usually $10,000–$25,000/year, renewable subject to satisfactory academic progress. This is not a full-cost guarantee. Complete the free SLC International Student Financial Aid Application through the portal and supply translated family income evidence. Forms become available 2–3 business days after Common App; receipt within ten days of the application deadline has no adverse impact. Failure to complete aid requirements makes students ineligible for funding during all four years.",
+        "source": "https://www.sarahlawrence.edu/financial-aid/undergraduate/international-applicants.html", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "attributes": { "aidCategory": "limited", "aidShort": "Competitive international scholarships, usually $10,000–$25,000/year" },
+        "evidence": { "hash": "96518e7143b461c847094c390e12e4c7697580f4ac15e0cc2080b465a3a5c6d0", "quote": "These funds are highly competitive" }
+      },
+      "fee": {
+        "status": "verified", "value": "Sarah Lawrence's own Common App profile lists no first-year application fee. This concerns undergraduate application, not fees for master's programmes, early childhood education or study abroad.",
+        "source": "https://www.commonapp.org/explore/sarah-lawrence-college/", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "evidence": { "hash": "8182ae1f4317927a149f0c5dd7739823ca836d277c714e2c3a162a28763b816b", "quote": "Charges no application fee - First Year" }
+      },
+      "deadline": {
+        "status": "verified", "value": "First-year EA and ED I applications November 1; ED II and RD January 15. ED is binding and requires parent/counsellor signatures. Optional interview deadlines are November 10 for EA/ED I, January 19 for ED II and January 31 for RD. International aid forms follow those rounds with the ten-day document window on the international aid page. Generic FAFSA instructions apply only to eligible applicants, not ordinary international aid applications. No entry year is labelled.",
+        "source": "https://www.sarahlawrence.edu/admission/apply/deadlines.html", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "evidence": { "hash": "087bc4a7e7efe054539b70c8ecd9a7ab6006ab320156a32d2724b3e30e583816", "quote": "Early Decision II January 15 Common Application due" }
+      }
+    } },
+    "212009": { "fields": {
+      "aid": {
+        "status": "verified", "value": "Dickinson is need-aware for international admission. Its current first-year checklist explicitly caps international need-based funding at tuition; do not promise coverage of housing or all expenses. Aid seekers submit CSS Profile plus Certification of Finances, while all international applicants submit CoF. Mandatory insurance and one-time fees are excluded from need calculations. Merit awards are considered without a separate application. General full-need marketing must not override the specific international tuition cap.",
+        "source": "https://www.dickinson.edu/info/20256/apply/1025/application_checklist", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "attributes": { "aidCategory": "need-aware", "needBlind": false, "aidShort": "Need-aware; international need-based aid capped at tuition" },
+        "evidence": { "hash": "117db2615b8e75130349893ef251f28b7203e8eef1be2b19005527fd8bbc1494", "quote": "not to exceed the cost of tuition" }
+      },
+      "fee": {
+        "status": "verified", "value": "Dickinson's Common App first-year profile currently lists no application fee, consistent with the college's announcement that it removed the fee. The older 2024–25 Common Data Set lists $65 and is not used as the current application fee. Check the actual application before paying any charge.",
+        "source": "https://www.commonapp.org/explore/dickinson-college/", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "evidence": { "hash": "cef925c2659bdf4800be9021da63a29100f0437adf6be8a64f29e8485d66fe57", "quote": "Charges no application fee - First Year" }
+      },
+      "deadline": {
+        "status": "verified", "value": "First-year ED I and EA applications/aid November 15; ED II and RD January 15. RD may switch to ED II with an agreement by January 28. International aid uses CSS Profile/CoF, not generic federal FAFSA eligibility. The page explicitly says there is no Spring 2027 first-year cycle: do not use its otherwise displayed October 7 spring date. Confirm the intended fall entry year, which is not labelled in the round table.",
+        "source": "https://www.dickinson.edu/info/20256/apply/1024/application_deadlines", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "evidence": { "hash": "2b0200e6d9ab78b656b7aa62fb9438faf79eedb0b11aada24699c30086f3b3fc", "quote": "There will not be a spring 2027 first-year admissions cycle." }
+      }
+    } },
+    "195216": { "fields": {
+      "fee": {
+        "status": "verified", "value": "St. Lawrence's own Common App profile lists no first-year undergraduate application fee. This does not establish fees for graduate programmes or other institutions with similar names.",
+        "source": "https://www.commonapp.org/explore/st-lawrence-university/", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "evidence": { "hash": "7134958c5f4c5a549d6e6a8bfa1d57582ea58cbb0284e66ef4497480e696bf99", "quote": "Charges no application fee - First Year" }
+      }
+    } },
+    "206589": { "fields": {
+      "fee": {
+        "status": "verified", "value": "Wooster's own Common App profile lists no first-year application fee. Its financial form is separately free and CSS fee waivers are not offered. Do not copy the older Common App deadline narrative (including EA November 15 and a 2025 spring reference) over the explicitly dated Fall 2027 international admissions schedule.",
+        "source": "https://www.commonapp.org/explore/college-wooster/", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "evidence": { "hash": "a6ec9af49539e8905200ed685bcedee1af035f9caee624535bc9b0d9a385eb96", "quote": "Charges no application fee - First Year" }
+      }
+    } }
+  }
+}

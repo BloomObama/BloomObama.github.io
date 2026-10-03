@@ -2,6 +2,7 @@ import fs from "node:fs";
 import vm from "node:vm";
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
+import { loadColleges } from "./policy-pipeline-core.mjs";
 
 const runFile = promisify(execFile);
 const certificateChainErrors = new Set(["UNABLE_TO_VERIFY_LEAF_SIGNATURE", "UNABLE_TO_GET_ISSUER_CERT_LOCALLY"]);
@@ -40,7 +41,8 @@ for (const file of ["college-catalog.js", "college-directory.js", "college-media
 vm.runInContext(`${fs.readFileSync(new URL("data.js", root), "utf8")}\nglobalThis.__colleges = colleges;`, sandbox);
 vm.runInContext(`${fs.readFileSync(new URL("profiles.js", root), "utf8")}\nglobalThis.__profiles = collegeProfiles;`, sandbox);
 
-const reviewed = sandbox.globalThis.__colleges.filter(college => college.verified);
+// Include the approved field-level overlays, just like the deployed runtime.
+const reviewed = loadColleges().filter(college => college.verified);
 const profiles = sandbox.globalThis.__profiles;
 const urls = new Set();
 for (const college of reviewed) {

@@ -28,3 +28,15 @@ Coverage after batch 02: **62 complete profiles, 10 partial profiles, 336 verifi
 - Wooster (206589): four fields approved; application fee remains pending, not confused with the free financial form. Test flexibility requires evidence/waiver and has a Pre-Dental SAT/ACT exception. No full-ride international awards; family contribution guidance and living costs are explicit. Admission dates are labelled Fall/Spring 2027.
 
 Coverage after batch 03: **62 complete profiles, 14 partial profiles, 352 verified fields**, across 76 institutions. Added 16 verified fields and two unresolved conflicts. Proposal: `data/policy-review-batches/2026-10-04-03.json`.
+
+## Batch 04
+
+- Mount Holyoke (166939): aid and English approved. Full assessed need may include loans/work; average English scores are not cutoffs except the explicit Cambridge minimum. ED I English results are due November 26 in the FAQ versus November 15 on the English page, so deadlines remain a conflict.
+- Connecticut (128902): aid and English approved with reviewed waiver requirements and no invented test minimums. The freshly captured financial-aid page now refers to 2027–28 and November 16, 2026 for early rounds, while the international checklist says November 1 for both admission and aid. The inconsistent financial deadline is flagged.
+- Sarah Lawrence (195304): completed aid, fee and deadline fields. Competitive partial scholarships, the free institutional international aid form and its ten-day document window are explicit; domestic FAFSA instructions are not applied to international students.
+- Dickinson (212009): completed fee/deadline fields and strengthened aid wording with the specific international tuition cap. The explicit absence of Spring 2027 first-year admission overrides older general narratives. Older $65 CDS fee data are not substituted for current Common App application instructions.
+- Wooster (206589) and St. Lawrence (195216): completed fee fields using each institution's own exact Common App profile, not graduate or namesake-college pages. Common App is approved individually in the source manifest for these institutions. Wooster's stale Common App date narrative does not override its dated Fall 2027 international schedule.
+
+Coverage after batch 04: **66 complete profiles, 10 partial profiles, 363 verified fields**, across 76 institutions. Added 11 verified fields, improved one existing aid field, and recorded two deadline conflicts. Proposal: `data/policy-review-batches/2026-10-04-04.json`.
+
+Quality repair: the link checker now includes approved field-level overlays rather than counting only the original 58 profiles. This exposed Wooster's legacy general source URL returning 404; it was replaced with the current international admissions page. Browser comparison checks now use the approved aid value instead of a stale hard-coded sentence.

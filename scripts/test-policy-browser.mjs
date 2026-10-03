@@ -36,7 +36,7 @@ try {
   await page.evaluate(slugs=>localStorage.setItem('fullride-compare-v1',JSON.stringify(slugs)),[ids['212009'],ids['166939']]);
   await page.goto('http://127.0.0.1:8765/compare.html?lang=en');
   await page.waitForFunction(()=>document.querySelector('.comparison-table')?.textContent.includes('No application fee for international first-year applicants'));
-  assert.ok((await page.locator('.comparison-table').textContent()).includes('International admission is need-aware.'));
+  assert.ok((await page.locator('.comparison-table').textContent()).includes(reviews['212009'].fields.aid.value));
   const initialRows=await page.locator('[data-compare-row]:visible').count();
   assert.ok(initialRows>0);
   assert.equal(await page.locator('[data-compare-row="fee-waiver"] .compare-value--unknown').count(),2,'No fee is not automatically a verified fee-waiver policy');
