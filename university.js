@@ -93,12 +93,69 @@ function sourceLinks(item) {
 Object.assign(profileTranslations.uk, { fieldVerified:'Підтверджено', fieldPending:'Очікує перевірки', fieldConflict:'Джерела суперечать одне одному', fieldEvidence:'Підтвердження з джерела', partialStatus:'Підтверджено вимог: {count}/5', legacyReview:'Редакційна перевірка · 2026–27' });
 Object.assign(profileTranslations.ru, { fieldVerified:'Подтверждено', fieldPending:'Ожидает проверки', fieldConflict:'Источники противоречат друг другу', fieldEvidence:'Подтверждение из источника', partialStatus:'Подтверждено требований: {count}/5', legacyReview:'Редакционная проверка · 2026–27' });
 Object.assign(profileTranslations.en, { fieldVerified:'Verified', fieldPending:'Review pending', fieldConflict:'Conflicting sources', fieldEvidence:'Source evidence', partialStatus:'Verified policies: {count}/5', legacyReview:'Editorial review · 2026–27' });
+const profileDesignTranslations = {
+  uk:{ overview:'Огляд', navigation:'Розділи профілю', checklistCount:'Відмічено {count} із 8', checklistLocal:'Особисті позначки зберігаються в цьому браузері. Це орієнтир, а не офіційний перелік вимог.', checklistUnsaved:'Браузер не дозволяє зберегти позначки. Вони залишаться лише до оновлення сторінки.', checkAid:'Форми й документи для фінансової допомоги, якщо потрібні' },
+  ru:{ overview:'Обзор', navigation:'Разделы профиля', checklistCount:'Отмечено {count} из 8', checklistLocal:'Личные отметки сохраняются в этом браузере. Это ориентир, а не официальный список требований.', checklistUnsaved:'Браузер не позволяет сохранить отметки. Они останутся только до обновления страницы.', checkAid:'Формы и документы для финансовой помощи, если нужны' },
+  en:{ overview:'Overview', navigation:'Profile sections', checklistCount:'{count} of 8 checked', checklistLocal:'Personal checkmarks are saved in this browser. This is a guide, not an official list of requirements.', checklistUnsaved:'This browser cannot save checkmarks. They will last only until the page is refreshed.', checkAid:'Financial aid forms and documents, if required' }
+};
+Object.entries(profileDesignTranslations).forEach(([language,labels]) => Object.assign(profileTranslations[language],labels));
+
+const checklistKeys = ['checkApplication','checkTranscript','checkRecommendations','checkTests','checkEnglish','checkAid','checkFee','checkDeadlines'];
+const checklistStorageKey = `fullride-profile-checklist-v1:${college?.catalogId || college?.slug || 'missing'}`;
+let checklistChecked = new Set();
+let checklistCanSave = true;
+let profileObserver;
+try {
+  const stored = JSON.parse(localStorage.getItem(checklistStorageKey) || '[]');
+  if (Array.isArray(stored)) checklistChecked = new Set(stored.filter(key => checklistKeys.includes(key)));
+} catch { /* A malformed or unavailable local record must never prevent the profile from opening. */ }
+
+function policyIcon(key) {
+  const paths = {
+    aid:'<rect x="3" y="6" width="18" height="14" rx="3"/><path d="M3 10h18M16 15h2M7 6V4h10v2"/>',
+    testing:'<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V2h6v2M9 10h6M9 14h6M9 18h3"/>',
+    english:'<path d="M4 4h10M9 2v2M6 4c0 6 3 9 7 11M13 4c0 6-3 9-7 11M14 21l4-10 4 10M16 17h4"/>',
+    fee:'<circle cx="12" cy="12" r="9"/><path d="M15 8h-4a2 2 0 0 0 0 4h2a2 2 0 0 1 0 4H9M12 6v12"/>',
+    deadline:'<rect x="3" y="5" width="18" height="16" rx="3"/><path d="M7 3v4M17 3v4M3 10h18M8 15h3M14 15h2"/>'
+  };
+  return `<span class="policy-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${paths[key]}</svg></span>`;
+}
+
+function bindProfileInteractions() {
+  const root = document.getElementById('profile-root');
+  const updateChecklist = () => {
+    root.querySelector('[data-checklist-count]').textContent = profileT('checklistCount').replace('{count}',checklistChecked.size);
+    const progress = root.querySelector('.profile-checklist-status progress');
+    progress.value = checklistChecked.size;
+    progress.setAttribute('aria-label',profileT('checklistCount').replace('{count}',checklistChecked.size));
+    root.querySelector('[data-checklist-note]').textContent = profileT(checklistCanSave ? 'checklistLocal' : 'checklistUnsaved');
+  };
+  root.querySelectorAll('[data-profile-check]').forEach(input => input.addEventListener('change', () => {
+    const key = input.dataset.profileCheck;
+    if (input.checked) checklistChecked.add(key); else checklistChecked.delete(key);
+    input.closest('li').classList.toggle('is-complete',input.checked);
+    try { localStorage.setItem(checklistStorageKey,JSON.stringify([...checklistChecked])); checklistCanSave = true; }
+    catch { checklistCanSave = false; }
+    updateChecklist();
+  }));
+  updateChecklist();
+  profileObserver?.disconnect();
+  if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    profileObserver = new IntersectionObserver(entries => entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('is-revealed');
+      profileObserver.unobserve(entry.target);
+    }),{threshold:0.05});
+    root.querySelectorAll('.profile-section').forEach(section => profileObserver.observe(section));
+  }
+}
+
 function policyRow(key) {
   const field = FullRidePolicy.field(college,key);
   const confirmed = field.status === 'verified';
   const escape = FullRidePolicy.escape;
   const status = confirmed ? 'fieldVerified' : field.status === 'conflict' ? 'fieldConflict' : 'fieldPending';
-  return `<article data-policy-field="${key}" data-policy-status="${field.status}"><span>${profileT(key)}</span><small class="policy-status ${confirmed?'is-verified':'is-pending'}">${profileT(status)}${field.checkedAt?' · '+formatAuditDate(field.checkedAt):''}</small><p>${escape(confirmed && field.value ? field.value : profileT('notAvailableYet'))}</p>${field.status==='conflict'?`<div class="policy-conflict">${escape(field.value)}</div>`:''}${field.source ? `<a href="${escape(field.source)}" target="_blank" rel="noopener noreferrer">${profileT('source')}</a>` : ''}${field.evidence ? `<details class="policy-evidence"><summary>${profileT('fieldEvidence')}</summary><blockquote>${escape(field.evidence.quote)}</blockquote><small>${escape(field.cycle)} · ${escape(field.evidence.hash.slice(0,12))}</small></details>` : confirmed ? `<small class="policy-method">${profileT('legacyReview')}</small>` : ''}</article>`;
+  return `<article data-policy-field="${key}" data-policy-status="${field.status}"><div class="policy-heading">${policyIcon(key)}<h3>${profileT(key)}</h3></div><small class="policy-status ${confirmed?'is-verified':'is-pending'}">${profileT(status)}${field.checkedAt?' · '+formatAuditDate(field.checkedAt):''}</small><p>${escape(confirmed && field.value ? field.value : profileT('notAvailableYet'))}</p>${field.status==='conflict'?`<div class="policy-conflict">${escape(field.value)}</div>`:''}${field.source ? `<a href="${escape(field.source)}" target="_blank" rel="noopener noreferrer">${profileT('source')}</a>` : ''}${field.evidence ? `<details class="policy-evidence"><summary>${profileT('fieldEvidence')}</summary><blockquote>${escape(field.evidence.quote)}</blockquote><small>${escape(field.cycle)} · ${escape(field.evidence.hash.slice(0,12))}</small></details>` : confirmed ? `<small class="policy-method">${profileT('legacyReview')}</small>` : ''}</article>`;
 }
 
 function updateProfileMetadata() {
@@ -149,7 +206,6 @@ function renderProfile() {
   const detailCells = federalDetailCells(facts);
   const gallery = [{ url:college.photo, source:college.photoSource, credit:college.photoIsIllustrative ? profileT("illustrative") : college.photoCredit }, ...(stats.gallery || [])]
     .filter((image, index, array) => image.url && array.findIndex(candidate => candidate.url === image.url) === index);
-  const checklist = ["checkApplication","checkTranscript","checkRecommendations","checkTests","checkEnglish","checkAid","checkFee","checkDeadlines"];
 
   document.getElementById("profile-root").innerHTML = `
     <section class="profile-hero" style="--profile-photo:url('${college.photo}')">
@@ -161,12 +217,14 @@ function renderProfile() {
       </div>
     </section>
 
+    <nav class="profile-jump-nav" aria-label="${profileT('navigation')}">${[['profile-overview','overview'],['profile-admissions','policies'],['profile-preparation','checklist'],['profile-photos','gallery'],['profile-references','sources']].map(([id,key],index) => `<a href="#${id}"><span aria-hidden="true">0${index+1}</span>${profileT(key)}</a>`).join('')}</nav>
+
     ${college.verified ? "" : `<div class="profile-notice">${profileT("pendingNotice")}</div>`}
 
-    <section class="profile-section profile-stats" aria-labelledby="stats-title">
+    <section id="profile-overview" class="profile-section profile-stats" aria-labelledby="stats-title">
       <div class="profile-section-heading"><div><p>01 / ${profileT("cycle")}</p><h2 id="stats-title">${stats.cycle}</h2></div>${college.basicOnly ? "" : `<a href="${stats.statsSource}" target="_blank" rel="noopener noreferrer">${profileT("statsSource")}</a>`}</div>
       <div class="profile-stat-grid">
-        ${statCells.map(([value,label]) => `<article><strong>${value}</strong><span>${label}</span></article>`).join("")}
+        ${statCells.map(([value,label],index) => `<article><span class="profile-stat-index" aria-hidden="true">0${index+1}</span><strong class="${/[a-zа-яіїєґ]/i.test(String(value)) ? 'is-text-value' : ''}">${value}</strong><span class="profile-stat-label">${label}</span></article>`).join("")}
       </div>
       <div class="profile-aid-note"><span>${profileT(profile ? "aidStat" : college.basicOnly ? "cycle" : "federalContext")}</span><p>${stats.aidSnapshot}</p></div>
       ${detailCells.length ? `<div class="profile-fact-wrap"><h3>${profileT("federalPassport")}</h3><div class="profile-fact-grid">${detailCells.map(([label,value]) => `<article><span>${label}</span><strong>${value}</strong></article>`).join("")}</div></div>` : ""}
@@ -174,27 +232,30 @@ function renderProfile() {
       <p class="profile-fineprint">${profileT(profile ? "fullRideNote" : college.basicOnly ? "basicRecordNote" : "scorecardCaveat")}</p>
     </section>
 
-    <section class="profile-section" aria-labelledby="policies-title">
+    <section id="profile-admissions" class="profile-section" aria-labelledby="policies-title">
       <div class="profile-section-heading"><div><p>02 / ${profileT("policies")}</p><h2 id="policies-title">${profileT("policies")}</h2></div></div>
       <div class="profile-policy-grid">
         ${FullRidePolicy.fields.map(policyRow).join('')}
       </div>
     </section>
 
-    <section class="profile-section profile-checklist" aria-labelledby="checklist-title">
+    <section id="profile-preparation" class="profile-section profile-checklist" aria-labelledby="checklist-title">
       <div class="profile-section-heading"><div><p>03 / Checklist</p><h2 id="checklist-title">${profileT("checklist")}</h2></div><p>${profileT("checklistIntro")}</p></div>
-      <ol>${checklist.map((key,index) => `<li><span>${String(index + 1).padStart(2,"0")}</span><p>${profileT(key)}</p></li>`).join("")}</ol>
+      <div class="profile-checklist-status"><strong data-checklist-count aria-live="polite"></strong><progress max="8" value="${checklistChecked.size}"></progress></div>
+      <ol>${checklistKeys.map(key => `<li class="${checklistChecked.has(key) ? 'is-complete' : ''}"><label><input type="checkbox" data-profile-check="${key}" ${checklistChecked.has(key) ? 'checked' : ''}><span class="profile-checklist-text">${profileT(key)}</span></label></li>`).join("")}</ol>
+      <p class="profile-checklist-note" data-checklist-note></p>
     </section>
 
-    <section class="profile-section" aria-labelledby="gallery-title">
+    <section id="profile-photos" class="profile-section" aria-labelledby="gallery-title">
       <div class="profile-section-heading"><div><p>04 / Visual</p><h2 id="gallery-title">${profileT(college.photoIsIllustrative ? "illustrativeGallery" : "gallery")}</h2></div><p>${profileT("galleryNote")}</p></div>
       <div class="profile-gallery ${gallery.length === 1 ? "is-single" : ""}">${gallery.map((image,index) => `<a href="${image.source}" target="_blank" rel="noopener noreferrer" class="gallery-image gallery-image--${index + 1}" style="--gallery:url('${image.url}')"><span>${image.credit} ↗</span></a>`).join("")}</div>
     </section>
 
-    <section class="profile-section profile-sources" aria-labelledby="sources-title">
+    <section id="profile-references" class="profile-section profile-sources" aria-labelledby="sources-title">
       <div class="profile-section-heading"><div><p>05 / Sources</p><h2 id="sources-title">${profileT("sources")}</h2></div></div>
       <div class="profile-source-list">${sourceLinks(college)}${profile ? `<a href="${profile.statsSource}" target="_blank" rel="noopener noreferrer"><span>${profileT("statsSource").replace(" ↗","")}</span><b>↗</b></a>` : ""}${hasFederalFacts ? `<a href="${scorecardUrl(college)}" target="_blank" rel="noopener noreferrer"><span>${profileT("scorecardSource").replace(" ↗","")}</span><b>↗</b></a>` : ""}</div>
     </section>`;
+  bindProfileInteractions();
 }
 
 document.querySelectorAll("[data-profile-lang]").forEach(button => button.addEventListener("click", () => { profileLanguage = button.dataset.profileLang; renderProfile(); }));
