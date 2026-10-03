@@ -7,6 +7,19 @@ const runFile = promisify(execFile);
 const certificateChainErrors = new Set(["UNABLE_TO_VERIFY_LEAF_SIGNATURE", "UNABLE_TO_GET_ISSUER_CERT_LOCALLY"]);
 const acceptedStatus = status => status < 400 || [401, 403, 405, 406, 409, 418, 429, 451].includes(status);
 
+async function fetchSource(url) {
+  for (let attempt = 0; attempt < 3; attempt++) {
+    try {
+      return await fetch(url, { redirect:"follow", signal:AbortSignal.timeout(20000), headers:{ "User-Agent":"Mozilla/5.0 FullRideUA source audit" } });
+    } catch (error) {
+      // A transient connection reset is not a broken admissions URL. Retry
+      // twice, but keep persistent failures fatal and report their cause.
+      if (certificateChainErrors.has(error.cause?.code) || attempt === 2) throw error;
+      await new Promise(resolve => setTimeout(resolve, 500 * (attempt + 1)));
+    }
+  }
+}
+
 // System HTTPS clients can build an intermediate chain that Node's bundled
 // trust store cannot. Never use insecure TLS flags or disable verification.
 async function checkWithSystemTrust(url) {
@@ -44,7 +57,7 @@ async function worker() {
   while (queue.length) {
     const url = queue.shift();
     try {
-      const response = await fetch(url, { redirect:"follow", signal:AbortSignal.timeout(20000), headers:{ "User-Agent":"Mozilla/5.0 FullRideUA source audit" } });
+      const response = await fetchSource(url);
       results.push({ url, status:response.status, ok:acceptedStatus(response.status) });
       await response.body?.cancel();
     } catch (error) {
@@ -55,7 +68,7 @@ async function worker() {
           continue;
         }
       }
-      results.push({ url, status:"network-error", ok:false, detail:error.message });
+      results.push({ url, status:"network-error", ok:false, detail:error.cause?.code || error.message });
     }
   }
 }

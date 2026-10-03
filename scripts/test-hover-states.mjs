@@ -63,7 +63,9 @@ try {
     await button.hover();
     assert.deepEqual(await button.evaluate(el => ({ background:getComputedStyle(el).backgroundColor, color:getComputedStyle(el).color })), { background, color }, `${rating}: semantic rating hover`);
   }
-  for (const route of ['index.html?lang=ru#finder', 'compare.html?lang=ru', 'ielts-resources.html?lang=ru']) {
+  // Start at the top on the home page: its scroll observer legitimately
+  // switches the active link while a deep-linked finder is settling.
+  for (const route of ['index.html?lang=ru', 'compare.html?lang=ru', 'ielts-resources.html?lang=ru']) {
     await page.goto(`http://127.0.0.1:8765/${route}`);
     const active = page.locator('.fr-rail__link.is-active').first();
     await active.hover();
