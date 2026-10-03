@@ -40,7 +40,7 @@ try{
    audit.push(...(await contrast(page,'#'+section)).map(v=>({page:'settings/'+section,theme,...v})));
    await page.screenshot({path:'theme-settings-'+section+'-'+theme+'-preview.png'});
   }
-  for(const [file,scopes]of [['index.html',['.search-prompt','.roi-section','.aid-guide','.method','.about','.contact']],['practice.html',['.practice-main']],['compare.html',['.compare-hero','.compare-workspace']],['university.html?id=harvard',['.profile-root']],['ielts-resources.html',['.resource-path','.resource-note','.resources-library']]]){
+  for(const [file,scopes]of [['index.html',['.search-prompt','.filter-panel','.college-randomizer','.roi-section','.aid-guide','.method','.about','.contact']],['practice.html',['.practice-main']],['compare.html',['.compare-hero','.compare-workspace']],['university.html?id=harvard',['.profile-root']],['ielts-resources.html',['.resource-path','.resource-note','.resources-library']]]){
    await page.goto(base+file+(file.includes('?')?'&':'?')+'lang=en');
    await page.locator(scopes[0]).first().waitFor();
    for(const scope of scopes){await page.locator(scope).first().scrollIntoViewIfNeeded();audit.push(...(await contrast(page,scope)).map(v=>({page:file,scope,theme,...v})));}

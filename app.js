@@ -527,11 +527,13 @@ async function showRandomCollege() {
   if (randomLever?.classList.contains("is-spinning")) return;
   const college = pickRandomCollege();
   if (!college) return;
+  // Lock before lazy loading: repeated pulls must not start competing reveals.
+  randomLever?.classList.add("is-spinning");
+  randomHandle?.setAttribute("aria-busy", "true");
   if (window.FullRideCollegeData && !college._detailsLoaded) {
     try { await window.FullRideCollegeData.load([college]); } catch {}
   }
   selectedRandomCollege = college;
-  randomLever?.classList.add("is-spinning");
   q("random-teaser").hidden = true;
   q("random-reveal").hidden = false;
   q("random-reveal").classList.remove("is-visible");
@@ -550,12 +552,14 @@ async function showRandomCollege() {
     render();
     q("random-reveal").classList.add("is-visible");
     randomLever?.classList.remove("is-spinning", "is-ready");
+    randomHandle?.setAttribute("aria-busy", "false");
     setLeverProgress(0);
     window.setTimeout(() => document.querySelector("#results .card")?.scrollIntoView({ behavior:globalThis.FullRidePreferences?.motionBehavior()||"smooth", block:"center" }), 120);
-  }, 520);
+  }, globalThis.FullRidePreferences?.motionBehavior() === "auto" ? 0 : 320);
 }
 
 randomHandle?.addEventListener("pointerdown", event => {
+  if (randomLever?.classList.contains("is-spinning")) return;
   if (event.button !== undefined && event.button !== 0) return;
   leverDragging = true;
   leverTriggered = false;
@@ -588,17 +592,20 @@ function releaseLever(event) {
 randomHandle?.addEventListener("pointerup", releaseLever);
 randomHandle?.addEventListener("pointercancel", releaseLever);
 randomHandle?.addEventListener("click", event => {
-  if (suppressLeverClick) {
+  if (suppressLeverClick && event.detail > 0) {
     suppressLeverClick = false;
     event.preventDefault();
     return;
   }
+  suppressLeverClick = false;
+  if (randomLever?.classList.contains("is-spinning")) return;
   setLeverProgress(1);
   showRandomCollege();
 });
 randomHandle?.addEventListener("keydown", event => {
   if (!["ArrowDown", "ArrowUp", "Home", "End"].includes(event.key)) return;
   event.preventDefault();
+  if (randomLever?.classList.contains("is-spinning")) return;
   if (event.key === "Home") setLeverProgress(0);
   if (event.key === "ArrowUp") setLeverProgress(leverProgress - .2);
   if (event.key === "ArrowDown") setLeverProgress(leverProgress + .2);
@@ -612,7 +619,7 @@ q("random-reveal-close")?.addEventListener("click", () => {
   window.setTimeout(() => {
     q("random-reveal").hidden = true;
     q("random-teaser").hidden = false;
-  }, 180);
+  }, globalThis.FullRidePreferences?.motionBehavior() === "auto" ? 0 : 180);
 });
 
 const contactEmail = "fullrideua@gmail.com";
