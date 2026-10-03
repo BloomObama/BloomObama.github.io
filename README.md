@@ -36,6 +36,8 @@ Reminders are opt-in and run only while a site page is open. System notification
 
 Run `node scripts/test-preferences.js` for normalization, matching, account isolation and cloud-envelope tests. `node scripts/test-settings.mjs` verifies browser flows, calendar/backup files, themes and practice settings. Its Firebase SDK stubs deliberately never send real emails or write to production.
 
+Settings use a sticky section navigator, grouped admission/study fields, visual theme/font/avatar choices, and keyboard-accessible switches. `preferences.css` separates dark surfaces from text colours: the legacy `--forest` token stays dark because older components use it as a background. `node scripts/test-theme-design.mjs` audits computed text contrast on opaque surfaces (4.5:1 normal, 3:1 large), including open comparison, saved drawer, practice session and resource dialog; it also checks theme controls, draft preservation and enlarged-text layouts. Photographic backgrounds and decorative book covers require visual review, not the flat-surface contrast calculation.
+
 ## English practice decks
 
 The practice page offers six 500-word base decks (A1, A2, B1, B2, C1 and Native/C2) and three 500-word bridge decks. Each deck is split into 25 stable modules of 20 words, visible after selecting a level. Modules remember both knowledge ratings and the last position, so an unfinished module can be resumed after a reload. Skipping a word never marks it as learned. Sentences are optional. See [`VOCABULARY_SOURCES.md`](VOCABULARY_SOURCES.md) for source attribution, licensing, and regeneration instructions.

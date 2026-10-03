@@ -47,7 +47,7 @@ try {
  assert.equal(await page.locator('.settings-section').count(),6);
  assert.equal(await page.locator('.fr-rail__link[href^="settings.html"]').count(),1);
  const fill=(name,value)=>page.locator('[name="'+name+'"]').fill(value);
- const select=(name,value)=>page.locator('[name="'+name+'"]').selectOption(value);
+ const select=async(name,value)=>{const choice=page.locator('[data-setting="'+name+'"][data-value="'+value+'"]');if(await choice.count())await choice.click();else await page.locator('[name="'+name+'"]').selectOption(value);};
  await fill('profile.name','Мария');await fill('profile.notes','<script>window.bad=1</script>');
  await select('admission.degree','3');await select('admission.focus','stem');await fill('admission.budget','80000');
  await fill('preparation.dailyWords','5');await fill('cards.newWords','2');await fill('cards.reviewLimit','5');

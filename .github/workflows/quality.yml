@@ -43,5 +43,6 @@ jobs:
           node scripts/test-ielts-resources.mjs
           node scripts/test-site-upgrades.mjs
           node scripts/test-settings.mjs
+          node scripts/test-theme-design.mjs
           node scripts/test-hover-states.mjs
           node scripts/test-release.mjs
