@@ -47,3 +47,20 @@ Quality repair: the link checker now includes approved field-level overlays rath
 - Beloit (238333): completed four fields and refreshed the existing SAT/ACT review against a new capture. The newly announced 2027–28 All-In guarantee applies to international entrants and caps first-year direct costs through gift aid; insurance/indirect costs and subsequent tuition increases are outside the cap. Waivers are requested, not automatic. New TOEFL scale and SAT/ACT English alternatives are explicit. All admission rounds are non-binding.
 
 Coverage after batch 05: **68 complete profiles, 8 partial profiles, 370 verified fields**, across 76 institutions. Added seven verified fields and refreshed one existing testing field. Proposal: `data/policy-review-batches/2026-10-04-05.json`.
+
+## Batch 06
+
+- Sewanee (221519): all five fields approved. Seven Global Scholarships cover direct costs, not everyone's indirect expenses. CSS has no substitute/waiver; ordinary application is free. Application, supporting-document and international deposit dates are separate. An anomalous ACT raw-score waiver table is not copied as a reliable threshold.
+- Hult (164368): four fields approved. Current undergraduate interview, English evidence and explicit 2027 entry deadlines are captured; Boston is distinguished from other campuses. Merit/CSS support and nominated tuition grants are not a universal full-cost promise. No current undergraduate application-fee evidence was found; master's fees and old brochures are not substituted.
+- University of the West (449870): three fields approved with explicit scope limitations. Its current bachelor's pages focus on transfers; the Lotus transfer award and continuing-student full-tuition award are not incoming first-year guarantees. EPT and application fees are separate. First-year testing/deadline eligibility remains pending rather than copying transfer dates.
+- Rhodes (221351): testing, English and fee approved. Aid guarantees/merit ceilings and ED decision/deposit schedules conflict between the admissions website and the current catalog; neither is silently chosen. English competitive recommendations are not minima, and the catalog's special pre-high-school-completion plan is distinct from ordinary ED.
+
+Coverage after batch 06: **69 complete profiles, 11 partial profiles, 385 verified fields**, across 80 institutions. Added 15 verified fields and recorded two conflicts. Proposal: `data/policy-review-batches/2026-10-04-06.json`.
+
+## Batch 07
+
+- Hendrix (107080): all five fields approved. Need-sensitive admission and the $35,000 annual contribution guidance are explicit. The legacy international URL redirects to the new official site; current international application and I-20 dates override old search snippets and are distinguished from early-round/domestic dates. No new TOEFL conversion is invented. SAT/ACT flexibility and no application fee are captured from its exact institution-owned Common App profile.
+- Agnes Scott (138600): testing, English and non-waivable international fee approved. The Fall 2027 $100K+ Promise includes international students but conflicts with RD merit-not-guaranteed text; EA II is January 16 on the international table versus January 15 on the Promise page. Both conflicts remain flagged. Undergraduate women's-college eligibility is noted without inventing exclusions.
+- Centre (156408): substantive official pages were found, but two bounded collection attempts could not capture them under the collector's robots policy. No snapshot or approval was fabricated; all fields remain pending. Findings are routed in the source manifest for a future permitted capture.
+
+Coverage after batch 07: **70 complete profiles, 12 partial profiles, 393 verified fields**, across 82 institutions. Added eight verified fields and two conflicts. Proposal: `data/policy-review-batches/2026-10-04-07.json`.

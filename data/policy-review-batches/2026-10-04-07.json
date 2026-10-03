@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1, "cycle": "2026–27",
+  "records": {
+    "107080": { "fields": {
+      "aid": {
+        "status": "verified", "value": "International admission is need-sensitive. Plan to demonstrate at least $35,000 yearly contribution, described as the average gap after scholarship, not a guaranteed net price. Submit CSS; if unavailable, request Hendrix ISFAA from admissions. No universal full-need/full-ride promise is approved.",
+        "source": "https://via.hendrix.edu/admission-aid/international-applicants/", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "attributes": { "aidCategory": "need-aware", "needBlind": false, "aidShort": "Need-sensitive; plan at least $35,000 yearly family contribution" },
+        "evidence": { "hash": "65c87786e5f719026b4bfccb2308074a3c9490c0966d280d1e9a84452f57b73f", "quote": "need sensitive admission policy for international students" }
+      },
+      "testing": {
+        "status": "verified", "value": "Hendrix's own Common App profile lists first-year SAT/ACT optional/flexible review and self-reported scores. Non-native speakers still need English evidence; SAT/ACT English scores are one accepted alternative, not a universal entrance-exam requirement.",
+        "source": "https://www.commonapp.org/explore/hendrix-college/", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "attributes": { "testFlexible": true },
+        "evidence": { "hash": "ca769816f8682f468bb033f224e44497ff74b433b963e4079f27cc3e352e23bc", "quote": "Test Optional/Flexible - First Year" }
+      },
+      "english": {
+        "status": "verified", "value": "Non-native speakers submit official English evidence: older TOEFL 94, IELTS 7.0, DET 115, SAT reading/writing 730+ or ACT English 32+. No new-scale TOEFL minimum or general English-medium waiver is published here; confirm before relying on one.",
+        "source": "https://via.hendrix.edu/admission-aid/international-applicants/", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "attributes": { "englishStatus": "required" },
+        "evidence": { "hash": "65c87786e5f719026b4bfccb2308074a3c9490c0966d280d1e9a84452f57b73f", "quote": "Non-native English speakers must submit an official score report" }
+      },
+      "fee": {
+        "status": "verified", "value": "Hendrix's exact Common App profile lists no first-year application fee. CSS, English tests, visa/SEVIS and enrollment charges are separate, not automatically waived.",
+        "source": "https://www.commonapp.org/explore/hendrix-college/", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "evidence": { "hash": "ca769816f8682f468bb033f224e44497ff74b433b963e4079f27cc3e352e23bc", "quote": "Charges no application fee - First Year" }
+      },
+      "deadline": {
+        "status": "verified", "value": "International fall: application/materials May 12, enrollment fee May 21, first-year I-20 documents priority May 31/final June 15. Spring: application/materials October 14, enrollment fee October 23, first-year I-20 documents November 9. Transfer SEVIS dates differ. The page does not label an entry year; confirm cycle and round before applying. These final international dates are not domestic early-round deadlines.",
+        "source": "https://via.hendrix.edu/admission-aid/international-applicants/", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "evidence": { "hash": "65c87786e5f719026b4bfccb2308074a3c9490c0966d280d1e9a84452f57b73f", "quote": "May 12: Deadline to submit application" }
+      }
+    } },
+    "138600": { "fields": {
+      "aid": {
+        "status": "conflict", "value": "Agnes Scott offers international merit, not need-based aid, and does not accept CSS/ISFAA. The new Fall 2027 $100K+ Promise explicitly includes international entrants and promises at least $25,000 yearly renewable merit. But https://www.agnesscott.edu/admission/undergraduate-admission/international-students/index.html still says RD merit is not guaranteed, and the requirements page describes competitive awards. Confirm guarantee eligibility and scholarship timing before relying on it. Renewal requires award-specific academic standing; insurance/indirect costs and break housing/meals are separate. No full-cost promise is approved. The institution describes itself as an inclusive women's college; confirm eligibility individually.",
+        "source": "https://www.agnesscott.edu/admission/undergraduate-admission/scholarships-financial-aid/100k-promise.html", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "evidence": { "hash": "d680b12ab9daf3dfae8d9fbbcf16b368bf8785215df8601a3e4a3083e30f5450", "quote": "every student admitted for Fall 2027" }
+      },
+      "testing": {
+        "status": "verified", "value": "International SAT/ACT submissions are optional, with merit consideration regardless of submitting scores. English-language evidence is separate; SAT/ACT English results may meet that requirement without making SAT/ACT compulsory for everyone.",
+        "source": "https://www.agnesscott.edu/admission/undergraduate-admission/international-students/application-requirements.html", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "attributes": { "testFlexible": true },
+        "evidence": { "hash": "0a06af13514fe375c3100c371bd1162b230139d20170bf524cbe4d79c56a7beb", "quote": "The submission of SAT or ACT scores is optional for international applicants." }
+      },
+      "english": {
+        "status": "verified", "value": "Non-native speakers need English evidence. Published minima: older TOEFL 80 (MyBest accepted), IELTS 6.5, DET 110, Cambridge 176, ELS Level 12 or SAT verbal/ACT English 520/20. No new-scale TOEFL minimum is stated. Alternatives include native English from listed countries, qualifying US associate degree, US high-school graduation after three continuous years, or GCSE/IGCSE English Language C (not ESL). Required documents must be official/attested, not ordinary scanned copies. Confirm individual eligibility and accepted delivery.",
+        "source": "https://www.agnesscott.edu/admission/undergraduate-admission/international-students/application-requirements.html", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "attributes": { "englishStatus": "required" },
+        "evidence": { "hash": "0a06af13514fe375c3100c371bd1162b230139d20170bf524cbe4d79c56a7beb", "quote": "Agnes Scott accepts TOEFL MyBest Score." }
+      },
+      "fee": {
+        "status": "verified", "value": "International applicants pay a non-waivable $30 application fee. Generic domestic fee-waiver claims must not override this international instruction. English exams, visa and the non-refundable enrollment deposit are separate.",
+        "source": "https://www.agnesscott.edu/admission/undergraduate-admission/international-students/index.html", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "attributes": { "feeWaiver": false },
+        "evidence": { "hash": "02cc37453c53333fdc1012c44aba0227a82c3968811498d690d3d3394cff19d1", "quote": "Application fee of US $30" }
+      },
+      "deadline": {
+        "status": "conflict", "value": "The Fall 2027 international timetable gives ED November 1, EA I November 15, EA II January 16 and RD March 15; ED deposit December 15, other deposits May 1. https://www.agnesscott.edu/admission/undergraduate-admission/scholarships-financial-aid/100k-promise.html instead gives January 15 for EA II/scholarship priority. Confirm January 15 versus 16 and RD merit eligibility with admissions; do not silently select the later date. These are first-year dates, not transfer deadlines.",
+        "source": "https://www.agnesscott.edu/admission/undergraduate-admission/international-students/index.html", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "evidence": { "hash": "02cc37453c53333fdc1012c44aba0227a82c3968811498d690d3d3394cff19d1", "quote": "Admission Application: January 16" }
+      }
+    } }
+  }
+}

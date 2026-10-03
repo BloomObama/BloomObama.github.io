@@ -1,0 +1,108 @@
+{
+  "schemaVersion": 1, "cycle": "2026–27",
+  "records": {
+    "164368": { "fields": {
+      "aid": {
+        "status": "verified", "value": "All incoming applicants, including international students, receive automatic merit consideration. Need-based aid requires CSS for international applicants; no universal full-need promise is stated. The separately nominated Hult Scholar Grant aims to cover tuition for up to 10% of entrants, not everyone's living costs. Awards require timely confirmation and full-time good academic/conduct standing for renewal. Boston's published 2027–28 tuition/program charges and living estimates differ from London/Dubai; first-year Boston housing is mandatory. Confirm campus-specific costs and the individual award before committing.",
+        "source": "https://www.hult.edu/undergraduate/admissions/scholarships/", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "attributes": { "aidShort": "Merit and CSS-based aid; nominated tuition grants, not universal full cost" },
+        "evidence": { "hash": "cbb189d0da06a05172c492cd2fac53b807cd82fc75ca23c88eb28d902e5278b0", "quote": "Every applicant—whether first-year, transfer, or international—is automatically considered" }
+      },
+      "testing": {
+        "status": "verified", "value": "Undergraduate SAT/ACT submissions are optional. Academic records and the required personal assessment interview remain part of review; English proficiency is a separate requirement.",
+        "source": "https://www.hult.edu/undergraduate/admissions/", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "attributes": { "testFlexible": true },
+        "evidence": { "hash": "79f9aaf4b88a282a0305225247dad0067190a9ed3d6d3e009881405e50150dfd", "quote": "SAT/ACT scores are optional." }
+      },
+      "english": {
+        "status": "verified", "value": "Non-native speakers must provide English-proficiency evidence. The compulsory online assessment interview can also assess English when needed. The current undergraduate page gives no exam-specific minimums; do not substitute master's or old brochure scores. Ask the enrollment advisor which evidence is accepted for your campus/program.",
+        "source": "https://www.hult.edu/undergraduate/admissions/", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "attributes": { "englishStatus": "required" },
+        "evidence": { "hash": "79f9aaf4b88a282a0305225247dad0067190a9ed3d6d3e009881405e50150dfd", "quote": "Evidence of English proficiency (if not a native speaker)" }
+      },
+      "deadline": {
+        "status": "verified", "value": "September 2027 entry: application rounds November 1, 2026, December 15, 2026 and March 1, 2027; late applicants June 1. April 1 is a transfer deadline, not an ordinary first-year round. January 2027 entry: October 1 and November 1, 2026. Complete all required steps, including interview, for review. September offers normally require confirmation May 1, 2027 or within two weeks for decisions afterwards; January offers use two weeks. Follow the individual offer deadline.",
+        "source": "https://www.hult.edu/undergraduate/admissions/", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "evidence": { "hash": "79f9aaf4b88a282a0305225247dad0067190a9ed3d6d3e009881405e50150dfd", "quote": "Late applicants June 1, 2027" }
+      }
+    } },
+    "449870": { "fields": {
+      "aid": {
+        "status": "verified", "value": "The current international aid page offers the $6,000/year Lotus award specifically to undergraduate transfers. President's full-tuition and Dean's half-tuition awards are listed for continuing students, not guaranteed incoming first-years. Graduate and monastic IBEF awards have separate program eligibility and must not be presented as general bachelor's aid. Scholarship deadlines are separate from admission. Current undergraduate pages focus on transfers; confirm first-year availability and any award in writing before planning to enroll.",
+        "source": "https://www.uwest.edu/admissions-financial-aid-international-students/", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "attributes": { "aidShort": "Transfer Lotus award; full-tuition award is for continuing students" },
+        "evidence": { "hash": "b4e7fd03e0bad6b911e7275bd99d5da85529737933be645ff914768d9c3a5e2b", "quote": "$6,000/year (Undergraduate Transfer)" }
+      },
+      "english": {
+        "status": "verified", "value": "Non-native undergraduate applicants need official TOEFL/IELTS evidence, or may request UWest's remote English Placement Test for $50. Direct entry without EPT: older-scale TOEFL 69+ with reading/listening/speaking 16 and writing 18; IELTS Academic 5.5 with reading/listening 5.0 and speaking/writing 6.0. Conditional entry with EPT lists TOEFL 59–68 or IELTS 5.0 and separate section thresholds. The page has no new 2026 TOEFL scale; ask admissions rather than converting it. Current undergraduate application guidance focuses on transfers, so confirm first-year eligibility.",
+        "source": "https://www.uwest.edu/admissions-international-students-2/", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "attributes": { "englishStatus": "required" },
+        "evidence": { "hash": "7fdab011604e0d545d3431a58f94a093f5209800ef622d60f9445414df89799e", "quote": "Undergraduate Degree Programs, EPT not required 69 & above" }
+      },
+      "fee": {
+        "status": "verified", "value": "The international undergraduate checklist requires a non-refundable application fee, but this page does not publish the amount or a waiver. Confirm the charge in the application before payment. The $50 remote English placement test is a separate fee, not the application fee. Current undergraduate pages focus on transfers; confirm whether a first-year application is available.",
+        "source": "https://www.uwest.edu/admissions-international-students-2/", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "evidence": { "hash": "7fdab011604e0d545d3431a58f94a093f5209800ef622d60f9445414df89799e", "quote": "Pay the non-refundable application fee." }
+      }
+    } },
+    "221519": { "fields": {
+      "aid": {
+        "status": "verified", "value": "International aid may combine academic scholarships, need-based grants and campus work, without packaged loans. Seven competitive Global Scholarships cover tuition, room, board and university fees for four consecutive years; first-years receive priority. This is not a universal full-cost or full-need promise. Budget about $5,000 first-year indirect costs; travel, insurance, books, visa/SEVIS and possible taxes are outside covered direct costs. Request need-based aid during admission through CSS 1842: no CSS fee waivers or substitute forms. Non-aid applicants use Certificate of Finances. Aid cannot first be requested after admission or in later years; financial documents go through the portal, not email.",
+        "source": "https://new.sewanee.edu/admission-aid/application-process/application-review/international-applicant/international-aid/", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "attributes": { "aidShort": "Seven competitive direct-cost Global awards; CSS aid; indirect costs excluded" },
+        "evidence": { "hash": "ea6ee7a3759cfcc5ca6ebcd56bd4295c88e3a70a17e68df29edcef983008ea7f", "quote": "We do not package international students with loans." }
+      },
+      "testing": {
+        "status": "verified", "value": "International first-year applicants may choose SAT/ACT-optional review in Common App or self-report scores without a reporting fee. English-proficiency evidence and financial documents are separate requirements.",
+        "source": "https://new.sewanee.edu/admission-aid/application-process/application-review/international-applicant/", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "attributes": { "testFlexible": true },
+        "evidence": { "hash": "ab04c3c4497cef85c1f01d788d55cb6799f173adee80c5aa35e7829d08a9c5bd", "quote": "SAT/ACT scores (optional)" }
+      },
+      "english": {
+        "status": "verified", "value": "International applicants and those educated outside the US need an English exam or an approved waiver. Recommended minimums: DET 115+, IELTS 7.0+, older TOEFL 95+; no new-scale TOEFL threshold is published. Scores must be within two years and are not superscored. Applicant self-reports are not accepted; agency delivery or specified school-sent complete reports are required. Request a waiver through the portal after application, using eligible exams or four years of English-medium high school with B+ in all four English-course years. Do not copy the page's anomalous ACT raw-score guidance without confirmation. TOEFL Home Edition is accepted, MyBest/iTP Plus and IELTS Indicator are not.",
+        "source": "https://new.sewanee.edu/admission-aid/application-process/application-review/international-applicant/english-proficiency/", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "attributes": { "englishStatus": "required" },
+        "evidence": { "hash": "ac0c3d4d520bfc89384a201344c3630734861c22641ac77b4bfd512a584d7dec", "quote": "We do not provide waivers until the applicant submits the above form." }
+      },
+      "fee": {
+        "status": "verified", "value": "The first-year international checklist explicitly provides a free Common Application. This does not waive CSS Profile, visa, English-testing or document costs; Sewanee separately states it provides no CSS fee waivers.",
+        "source": "https://new.sewanee.edu/admission-aid/application-process/application-review/international-applicant/", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "evidence": { "hash": "ab04c3c4497cef85c1f01d788d55cb6799f173adee80c5aa35e7829d08a9c5bd", "quote": "Free Common Application" }
+      },
+      "deadline": {
+        "status": "verified", "value": "International first-year applications: ED I November 15, EA December 1, ED II January 15, RD February 1. Supporting documents, including financial documents: November 19, December 6, January 21 and February 8 respectively. ED agreements must accompany the application. International deposit dates in the table are January 15, April 1, March 1 and April 1 respectively; do not assume a domestic May 1 deadline. The table does not label an entry year: confirm the intended cycle and allow document-processing time.",
+        "source": "https://new.sewanee.edu/admission-aid/application-process/application-review/international-applicant/", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "evidence": { "hash": "ab04c3c4497cef85c1f01d788d55cb6799f173adee80c5aa35e7829d08a9c5bd", "quote": "Early Decision I Nov. 15 Nov. 19" }
+      }
+    } },
+    "221351": { "fields": {
+      "aid": {
+        "status": "conflict", "value": "The current international aid/checklist pages state assessed need is met through grants, merit and campus work, with need-aware competitive admission; merit ranges $20,000 to full tuition. https://catalog.rhodes.edu/general-information/admission instead says Rhodes strives to meet need and gives a $20,000–$40,000 merit range. Confirm the guarantee and award ceiling before relying on either. Both use the Rhodes financial supplement, not compulsory CSS/FAFSA. The international page requires a supporting bank statement and excludes transport, books, SEVIS, personal expenses and break housing. No full-cost guarantee or zero-family-contribution assumption is approved.",
+        "source": "https://www.rhodes.edu/admission-aid/international-student-admission/international-student-financial-aid", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "evidence": { "hash": "edd45b563aa526b5a54afb818bfd432cdc3c2ed6848f5b1f4d27aa93851b4923", "quote": "Our international admission process is need-aware" }
+      },
+      "testing": {
+        "status": "verified", "value": "SAT/ACT are optional for ordinary international first-year admission. Applicants without scores may be asked for a virtual interview. The English exam requirement remains separate. The catalog's special Early Admission plan for students enrolling before high-school completion has separate testing requirements; it is not ordinary Early Decision.",
+        "source": "https://www.rhodes.edu/admission-aid/international-student-admission/international-application-checklist", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "attributes": { "testFlexible": true },
+        "evidence": { "hash": "f14d91cfffdab27c831f1f51fd61cc0a4bba38161ec735037e95964740d3433c", "quote": "SAT or ACT Scores (optional;" }
+      },
+      "english": {
+        "status": "verified", "value": "Non-native speakers submit TOEFL, IELTS or DET. Competitive recommendations, not universal cutoffs: new TOEFL 5.0 (95 on pre-January-2026 tests), IELTS 7.0, DET 130. English-medium secondary education can support a waiver; the catalog specifies at least two years as primary instructional language. Confirm waiver eligibility with admissions. Official exam delivery is stated in https://catalog.rhodes.edu/general-information/admission. Outside interviews are recommended but not compulsory and may carry separate costs.",
+        "source": "https://www.rhodes.edu/admission-aid/international-student-admission/international-application-checklist", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "attributes": { "englishStatus": "required" },
+        "evidence": { "hash": "f14d91cfffdab27c831f1f51fd61cc0a4bba38161ec735037e95964740d3433c", "quote": "Applicants most competitive for admission are recommended" }
+      },
+      "fee": {
+        "status": "verified", "value": "The current online admissions catalog explicitly says no first-year or transfer application fee is required. This does not waive optional interview services, exam delivery or financial/visa document costs.",
+        "source": "https://catalog.rhodes.edu/general-information/admission", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "evidence": { "hash": "4d62217adc8765b311831497599e7d8f8af730863ace58f93858fc0946676834", "quote": "No application fee is required for first-year or transfer students." }
+      },
+      "deadline": {
+        "status": "conflict", "value": "Both current admissions pages and https://catalog.rhodes.edu/general-information/admission agree on ED I November 1, EA November 15 and ED II/RD January 15 application dates. But the website requires the ED deposit within two weeks of notification, whereas the catalog gives December 1 and February 15; decision schedules also differ. Confirm the actual offer and financial-document deadlines. International aid uses the Rhodes supplement, not the generic FAFSA instructions; no entry year is labelled in these tables.",
+        "source": "https://www.rhodes.edu/admission-aid/apply-rhodes/application-plans-deadlines", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "evidence": { "hash": "90fc1276a149f92086dfa1b06d66f9da8d4cacd5b7d5265f09fcf7bb83ad2b0c", "quote": "must make a $500 enrollment deposit within two weeks of notification." }
+      }
+    } }
+  }
+}
