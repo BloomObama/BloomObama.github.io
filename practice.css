@@ -152,7 +152,8 @@
 .practice-deck { min-height:0; padding:0; overflow:hidden; border:1px solid #dfd6d1; border-radius:18px; background:#fffdfa; box-shadow:0 8px 26px rgba(74,27,41,.06); }
 .practice-deck details>summary { min-height:118px; padding:1.25rem 1.4rem; display:grid; grid-template-columns:1fr auto 34px; align-items:center; gap:1.2rem; cursor:pointer; list-style:none; }
 .practice-deck details>summary::-webkit-details-marker { display:none; }
-.practice-deck details>summary:hover { background:#fff8f2; }
+.practice-deck details>summary:hover { background:var(--deck-summary-hover,rgba(104,28,48,.04)); }
+.practice-deck details>summary:focus-visible { outline:3px solid #d6a548; outline-offset:-5px; border-radius:inherit; }
 .practice-deck__identity { min-width:0; display:grid; grid-template-columns:auto 1fr; align-items:center; gap:.25rem .8rem; }
 .practice-deck__identity small { color:#b92840; font:800 .58rem var(--mono); letter-spacing:.08em; }
 .practice-deck__identity b { color:#401a2b; font:800 2rem/1 var(--sans); }
@@ -178,8 +179,9 @@
 .practice-module__percent small { display:block; margin-top:.2rem; color:#917a82; font:600 .48rem var(--mono); }
 .practice-deck--b1,.practice-deck--b2 { background:#fff7dc; }
 .practice-deck--c1,.practice-deck--c2 { border-color:#8d2137; background:#7d1e33; }
-.practice-deck--c1 summary:hover,.practice-deck--c2 summary:hover { background:#8c233a; }
+.practice-deck--c1,.practice-deck--c2 { --deck-summary-hover:rgba(255,255,255,.07); }
 .practice-deck--c1 .practice-deck__identity b,.practice-deck--c2 .practice-deck__identity b,.practice-deck--c1 .practice-deck__identity em,.practice-deck--c2 .practice-deck__identity em,.practice-deck--c1 .practice-deck__summary small,.practice-deck--c2 .practice-deck__summary small { color:#fff; }
+.practice-deck--c1 .practice-deck__identity small,.practice-deck--c2 .practice-deck__identity small,.practice-deck--c1 .practice-deck__summary strong,.practice-deck--c2 .practice-deck__summary strong { color:#ffe0a0; }
 .practice-module { background:#fbf6ef; }
 .practice-module:hover { background:#fff0e8; }
 .practice-deck--b1 .practice-module,.practice-deck--b2 .practice-module { border-color:#e6d39a; background:#fff2c8; }

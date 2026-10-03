@@ -3,7 +3,7 @@
   const selected = colleges.find(item => item.slug === params.get("id"));
   if (selected?._detailShard) {
     try {
-      const response = await fetch(`data/college-details/${selected._detailShard}.json?v=1`);
+      const response = await fetch(`data/college-details/${selected._detailShard}.json?v=2`);
       if (!response.ok) throw new Error(`College detail request failed: ${response.status}`);
       const detail = (await response.json())[selected.slug];
       if (detail) Object.assign(selected, detail);

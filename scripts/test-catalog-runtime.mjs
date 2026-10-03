@@ -1,4 +1,11 @@
 import { createRequire } from "node:module";
+import fs from "node:fs";
+import vm from "node:vm";
+
+const sourceContext = vm.createContext({});
+vm.runInContext(fs.readFileSync(new URL('../college-policies.js', import.meta.url), 'utf8'), sourceContext);
+const latestDate = Object.values(sourceContext.FullRidePolicyAudits).map(item => item.checkedAt).sort().at(-1);
+const latestBatch = Object.entries(sourceContext.FullRidePolicyAudits).filter(([, item]) => item.verified && item.checkedAt === latestDate);
 
 const require = createRequire(import.meta.url);
 const { chromium } = require(process.env.PLAYWRIGHT_MODULE_PATH || "playwright");
@@ -28,8 +35,20 @@ try {
   await page.goto("http://127.0.0.1:8765/compare.html?lang=ru", { waitUntil:"domcontentloaded" });
   await page.locator(".comparison-table").waitFor();
   assert(await page.locator(".comparison-college-head").count() === 2, "Comparison did not render two selected universities");
+  for (const [id, expected] of latestBatch) {
+    const slug = await page.evaluate(id => colleges.find(item => String(item.catalogId) === id)?.slug, id);
+    assert(slug, `Missing exact-ID index entry: ${id}`);
+    await page.goto(`http://127.0.0.1:8765/university.html?id=${encodeURIComponent(slug)}&lang=en`, { waitUntil:'domcontentloaded' });
+    await page.locator('.profile-policy-grid').waitFor();
+    assert(await page.locator('.profile-status.is-verified').count() === 1, `${slug}: reviewed status`);
+    const rows = page.locator('.profile-policy-grid article');
+    for (const [position, field] of ['aid','testing','english','fee','deadline'].entries()) {
+      assert(await rows.nth(position).locator('p').textContent() === expected[field], `${slug}: published ${field}`);
+      assert(await rows.nth(position).locator('a').getAttribute('href') === expected[`${field}Source`], `${slug}: official ${field} evidence`);
+    }
+  }
   assert(errors.length === 0, `Runtime errors: ${errors.join("; ")}`);
-  console.log("PASS: compact catalogue, lazy card details, university profile, comparison, and legacy-bundle exclusion");
+  console.log(`PASS: compact catalogue, lazy card details, university profile, comparison, legacy-bundle exclusion, and all five sourced fields for ${latestBatch.length} latest reviewed profiles`);
 } finally {
   await browser.close();
 }

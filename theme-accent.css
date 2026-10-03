@@ -13,7 +13,7 @@ body.has-side-rail { background:#faf7f2; }
 .fr-rail__brand i { color:var(--fr-red); }
 .fr-rail__caption { color:#9b735d; }
 .fr-rail__link:hover,.fr-rail__link:focus-visible { border-color:#eed4d2; background:#fff0ed; color:var(--fr-red-dark); }
-.fr-rail__link.is-active { border-color:var(--fr-red-dark); background:var(--fr-red); box-shadow:0 9px 20px rgba(120,32,47,.2); }
+.fr-rail__link.is-active { border-color:var(--fr-red-dark); background:var(--fr-red); color:#fff; box-shadow:0 9px 20px rgba(120,32,47,.2); }
 .fr-rail__link.is-active svg,.fr-rail__link.is-active .fr-rail__arrow { color:#ffe1a1; }
 .fr-rail__link.is-active:hover { background:#921e30; }
 .fr-rail__account:hover { border-color:var(--fr-red); background:#fff3ed; }
@@ -164,7 +164,7 @@ body.has-side-rail { background:#faf7f2; }
 .practice-page .practice-bridges .practice-decks__heading { padding-bottom:1rem; border-bottom:1px solid #ecd9ba; }
 .practice-page .practice-bridges .practice-decks__heading h2 { font-size:clamp(1.6rem,3vw,2.5rem); }
 .practice-page .practice-deck {
-  min-height:216px;
+  min-height:0;
   position:relative;
   overflow:hidden;
   border:1px solid #ead9ce;
@@ -248,7 +248,8 @@ body.has-side-rail { background:#faf7f2; }
 .practice-page .session-card { border-color:#e4cdbd; border-radius:15px; box-shadow:0 8px 23px rgba(91,48,37,.1); }
 .practice-page .session-progress span { background:var(--fr-red); }
 .practice-page .session-progress b,.practice-page .session-card>button { color:var(--fr-red); }
-.practice-page .session-actions button:hover { border-color:var(--fr-red); background:#fff0ea; }
+.practice-page .session-actions button[data-rate="again"]:hover { border-color:#e45169; background:#ffdce3; color:#b00032; }
+.practice-page .session-actions button[data-rate="good"]:hover { border-color:#26b58e; background:#baf7e0; color:#005f4a; }
 .practice-page .sentence-form textarea:focus { border-color:var(--fr-red); box-shadow:0 0 0 3px rgba(174,41,56,.12); }
 
 @media (max-width:900px) {

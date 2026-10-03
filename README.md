@@ -12,6 +12,8 @@ Regenerate `college-catalog.js` from the downloaded CSV with `scripts/build-coll
 
 Admissions policies, deadlines, test rules and international financial-aid claims are a separate editorial layer. Only records marked as verified have completed that official-site review; all others explicitly say that the information is not yet available.
 
+As of October 3, 2026, 58 profiles have completed the five-field admissions-policy review (international aid, SAT/ACT, English proficiency, application fee, and deadlines). This status does not certify every historical statistic or promise a full scholarship. The latest 12-profile batch and unresolved source discrepancies are documented in [`data/policy-audit-2026-10-03.md`](data/policy-audit-2026-10-03.md). A reachable link is not, by itself, evidence of a verified policy.
+
 An independent pilot resource for Ukrainian students researching need-based financial aid at U.S. universities.
 
 The first release includes a multilingual College Finder with verified links to official university admissions and financial-aid pages. Requirements and deadlines change regularly, so applicants should always confirm details with the university before applying.
