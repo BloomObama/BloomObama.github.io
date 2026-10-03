@@ -3,7 +3,7 @@ globalThis.FullRideCollegeData = (() => {
 
   async function fetchShard(name) {
     if (!shardRequests.has(name)) {
-      shardRequests.set(name, fetch(`data/college-details/${name}.json?v=2`).then(response => {
+      shardRequests.set(name, fetch(`data/college-details/${name}.json?v=3`).then(response => {
         if (!response.ok) throw new Error(`College data request failed: ${response.status}`);
         return response.json();
       }).catch(error => {

@@ -37,6 +37,7 @@ jobs:
           SERVER_PID=$!
           trap "kill $SERVER_PID" EXIT
           node scripts/test-catalog-runtime.mjs
+          node scripts/test-policy-browser.mjs
           node scripts/test-practice-ui.mjs
           node scripts/test-ielts-resources.mjs
           node scripts/test-site-upgrades.mjs

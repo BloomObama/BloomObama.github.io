@@ -76,7 +76,7 @@
 
         <div class="data-audit" role="status">
           <span class="data-audit-mark" aria-hidden="true">✓</span>
-          <div><strong data-i18n="auditTitle">Аудит даних 2026–27</strong><p data-i18n="auditText">Лічильник показує профілі, де кожне правило подачі звірене з офіційним джерелом; решта чесно позначені як такі, що очікують перевірки.</p></div>
+          <div><strong data-i18n="auditTitle">Аудит даних 2026–27</strong><p data-i18n="auditText">Перевіряємо кожну вимогу окремо, за офіційним джерелом. Федеральна статистика — історичний зріз, не правила вступу.</p><p id="audit-coverage"></p></div>
           <span id="audit-count" class="data-audit-count">58 / 5 002</span>
         </div>
 
@@ -101,7 +101,7 @@
               <label><span data-i18n="settingLabel">Середовище</span><select id="setting-filter"><option value="" data-i18n="allSettings">Будь-яке</option><option value="urban" data-i18n="urban">Велике місто</option><option value="suburban" data-i18n="suburban">Передмістя</option><option value="town" data-i18n="town">Невелике місто</option><option value="rural" data-i18n="rural">Кампус поза містом</option></select></label>
               <label><span data-i18n="aidPolicyLabel">Фінансова політика</span><select id="aid-filter"><option value="" data-i18n="allAid">Будь-яка</option><option value="need-blind">Need-blind</option><option value="need-aware">Need-aware / aid available</option><option value="merit" data-i18n="meritFocus">Merit scholarships</option><option value="limited" data-i18n="limitedAid">Обмежена допомога</option></select></label>
               <label><span data-i18n="focusLabel">Академічний напрям</span><select id="focus-filter"><option value="" data-i18n="allFocus">Усі напрями</option><option value="stem">STEM</option><option value="business" data-i18n="businessFocus">Бізнес та економіка</option><option value="arts" data-i18n="artsFocus">Мистецтво та дизайн</option><option value="social-sciences" data-i18n="socialFocus">Соціальні науки</option><option value="health" data-i18n="healthFocus">Медицина та здоров’я</option></select></label>
-              <label><span data-i18n="verificationLabel">Статус даних</span><select id="verification-filter"><option value="" data-i18n="allVerification">Усі статуси</option><option value="verified" data-i18n="verifiedOnly">Перевірено 2026–27</option><option value="pending" data-i18n="pendingOnly">Очікує перевірки</option></select></label>
+              <label><span data-i18n="verificationLabel">Статус даних</span><select id="verification-filter"><option value="" data-i18n="allVerification">Усі статуси</option><option value="verified" data-i18n="verifiedOnly">Перевірено 2026–27</option><option value="partial" data-i18n="partialOnly">Частково перевірено</option><option value="pending" data-i18n="pendingOnly">Очікує перевірки</option></select></label>
               <label><span data-i18n="degreeLabel">Рівень програми</span><select id="degree-filter"><option value="" data-i18n="anyDegree">Усі рівні</option><option value="1" data-i18n="certificateDegree">Сертифікат</option><option value="2">Associate</option><option value="3" data-i18n="bachelorDegree">Бакалаврат</option><option value="4" data-i18n="graduateDegree">Магістратура / PhD</option></select></label>
               <label><span data-i18n="controlLabel">Форма власності</span><select id="control-filter"><option value="" data-i18n="anyControl">Усі</option><option value="1" data-i18n="publicControl">Державний</option><option value="2" data-i18n="nonprofitControl">Приватний некомерційний</option><option value="3" data-i18n="profitControl">Приватний комерційний</option></select></label>
               <label><span data-i18n="budgetLabel">Навчання / рік, до</span><select id="budget-filter"><option value="" data-i18n="anyBudget">Без обмеження</option><option value="10000">$10,000</option><option value="20000">$20,000</option><option value="30000">$30,000</option><option value="50000">$50,000</option></select></label>
@@ -324,11 +324,12 @@
     <div id="compare-toast" class="compare-toast" role="status" aria-live="polite"></div>
 
     <footer><div><strong>FullRide UA</strong><span data-i18n="footerTagline">Перевіряйте. Порівнюйте. Подавайтеся усвідомлено.</span></div><div class="footer-meta"><a class="footer-contact" href="mailto:fullrideua@gmail.com">fullrideua@gmail.com</a><span>© 2026</span><span data-i18n="footer">Пілотна версія · Дані потребують регулярної перевірки</span></div></footer>
-    <script src="college-index.js?v=3"></script>
+    <script src="policy-core.js?v=1"></script>
+    <script src="college-index.js?v=4"></script>
     <script src="finder-core.js?v=1"></script>
-    <script src="college-data.js?v=2"></script>
+    <script src="college-data.js?v=3"></script>
     <script src="compare-store.js?v=1"></script>
-    <script src="app.js?v=22"></script>
+    <script src="app.js?v=23"></script>
     <script src="roi-data.js?v=9"></script>
     <script src="roi.js?v=9"></script>
     <script src="firebase-config.js?v=1"></script>

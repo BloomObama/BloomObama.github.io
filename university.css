@@ -106,3 +106,10 @@
 .profile-source-list a:nth-child(even) { padding-left:1.2rem; border-left:1px solid #cbd7e2; }
 @media (max-width:700px) { .profile-root { padding-top:1rem; }.profile-hero { border-radius:12px; }.profile-hero::before { top:1rem; left:1rem; }.profile-section { margin-top:1.4rem; padding:1.35rem; border-radius:12px; box-shadow:5px 5px 0 rgba(207,218,229,.7); }.profile-stat-grid,.profile-fact-grid,.profile-policy-grid,.profile-checklist ol { gap:.55rem; }.profile-stat-grid article,.profile-policy-grid article,.profile-checklist li { box-shadow:3px 3px 0 #dbe3eb; } }
 .profile-loading { min-height:55vh; display:grid; place-items:center; color:#6d7785; font:600 .75rem/1.5 var(--mono); letter-spacing:.04em; }
+/* Evidence is subordinate to the requirement, not another hero/banner. */
+.profile-policy-grid .policy-status { display:block; margin:10px 0; font-size:12px; font-weight:700; color:#9b273d; }
+.profile-policy-grid .policy-status.is-verified { color:#21614e; }
+.policy-evidence { margin-top:14px; padding:12px; border-radius:12px; background:#fff7e8; border:1px solid #edddc4; }
+.policy-evidence summary { cursor:pointer; font-size:13px; }
+.policy-evidence blockquote { margin:12px 0; font-size:14px; line-height:1.6; }
+.policy-method { display:block; margin-top:12px; opacity:.7; }

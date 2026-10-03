@@ -29,19 +29,20 @@ const settingLabels = { urban:"urban", suburban:"suburban", town:"town", rural:"
 const regionLabels = { northeast:"northeast", south:"south", midwest:"midwest", west:"west", other:"otherRegion" };
 const focusLabels = { stem:"stem", business:"business", arts:"arts", "social-sciences":"socialSciences", health:"health", general:"general" };
 
-function verifiedValue(college, value, formatter = item => item) {
-  return college.verified ? formatter(value) : ct("unknown");
+function verifiedValue(college, key, value, formatter = item => item) {
+  return FullRidePolicy.known(college,key) && value != null ? FullRidePolicy.escape(formatter(value)) : ct("unknown");
 }
+const policyRaw = (college,key,value=college[key]) => FullRidePolicy.known(college,key)&&value!=null ? value : 'unverified';
 
 function flagValue(value) {
-  if (value === "unverified") return `<span class="compare-value compare-value--unknown">${ct("unknown")}</span>`;
+  if (value === "unverified" || value == null) return `<span class="compare-value compare-value--unknown">${ct("unknown")}</span>`;
   return `<span class="compare-value ${value ? "compare-value--yes" : "compare-value--no"}">${ct(value ? "yes" : "no")}</span>`;
 }
 
 function getSections() {
   return [
     { title:"sectionProfile", rows:[
-      { key:"status", label:"dataStatus", raw:college => college.verified, display:college => `<span class="compare-value ${college.verified ? "compare-value--yes" : "compare-value--unknown"}">${ct(college.verified ? "verified" : "pending")}</span>` },
+      { key:"status", label:"dataStatus", raw:college => FullRidePolicy.count(college), display:college => `<span class="compare-value ${college.verified ? "compare-value--yes" : "compare-value--unknown"}">${ct(college.verified ? "verified" : "pending")} · ${FullRidePolicy.count(college)}/5</span>` },
       { key:"location", label:"location", raw:college => college.location, display:college => college.location },
       { key:"type", label:"institutionType", raw:college => college.institutionType, display:college => ct(typeLabels[college.institutionType]) },
       { key:"setting", label:"setting", raw:college => college.setting, display:college => ct(settingLabels[college.setting]) },
@@ -49,16 +50,16 @@ function getSections() {
       { key:"focus", label:"focus", raw:college => [...college.focus].sort(), display:college => college.focus.map(item => ct(focusLabels[item])).join(" · ") }
     ]},
     { title:"sectionAdmissions", rows:[
-      { key:"testing", label:"testing", raw:college => college.verified ? college.testing : "unverified", display:college => verifiedValue(college, college.testing) },
-      { key:"english", label:"english", raw:college => college.verified ? `${college.englishStatus}|${college.english}` : "unverified", display:college => verifiedValue(college, college.english) },
-      { key:"fee", label:"fee", raw:college => college.verified ? college.fee : "unverified", display:college => verifiedValue(college, college.fee) },
-      { key:"fee-waiver", label:"feeWaiver", raw:college => college.verified ? college.feeWaiver : "unverified", display:college => flagValue(college.verified ? college.feeWaiver : "unverified") },
-      { key:"deadline", label:"deadline", raw:college => college.verified ? college.deadline : "unverified", display:college => verifiedValue(college, college.deadline) }
+      { key:"testing", label:"testing", raw:college => policyRaw(college,'testing'), display:college => verifiedValue(college,'testing',college.testing) },
+      { key:"english", label:"english", raw:college => policyRaw(college,'english'), display:college => verifiedValue(college,'english',college.english) },
+      { key:"fee", label:"fee", raw:college => policyRaw(college,'fee'), display:college => verifiedValue(college,'fee',college.fee) },
+      { key:"fee-waiver", label:"feeWaiver", raw:college => policyRaw(college,'fee',college.feeWaiver), display:college => flagValue(policyRaw(college,'fee',college.feeWaiver)) },
+      { key:"deadline", label:"deadline", raw:college => policyRaw(college,'deadline'), display:college => verifiedValue(college,'deadline',college.deadline) }
     ]},
     { title:"sectionAid", rows:[
-      { key:"aid-policy", label:"aidPolicy", raw:college => college.verified ? college.aidCategory : "unverified", display:college => verifiedValue(college, college.aidShort) },
-      { key:"need-blind", label:"needBlind", raw:college => college.verified ? college.needBlind : "unverified", display:college => flagValue(college.verified ? college.needBlind : "unverified") },
-      { key:"aid-details", label:"aidDetails", raw:college => college.verified ? college.aid : "unverified", display:college => verifiedValue(college, college.aid) }
+      { key:"aid-policy", label:"aidPolicy", raw:college => policyRaw(college,'aid',college.aidCategory), display:college => verifiedValue(college,'aid',college.aidShort) },
+      { key:"need-blind", label:"needBlind", raw:college => policyRaw(college,'aid',college.needBlind), display:college => flagValue(policyRaw(college,'aid',college.needBlind)) },
+      { key:"aid-details", label:"aidDetails", raw:college => policyRaw(college,'aid'), display:college => verifiedValue(college,'aid',college.aid) }
     ]}
   ];
 }

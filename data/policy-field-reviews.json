@@ -1,0 +1,437 @@
+{
+  "schemaVersion": 1,
+  "cycle": "2026–27",
+  "records": {
+    "128902": {
+      "fields": {
+        "fee": {
+          "status": "verified",
+          "value": "There is no application fee for international first-year applicants using the Common Application.",
+          "source": "https://www.conncoll.edu/admission/international-applicants/requirements-and-deadlines/",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "6a13e56f763912923b59888892fdf1a13a524a5052da53648e083d574cd3418f",
+            "quote": "There is no fee to apply for admission to Connecticut College."
+          }
+        },
+        "testing": {
+          "status": "verified",
+          "value": "SAT or ACT results are optional in the international first-year checklist. English-proficiency evidence is a separate requirement.",
+          "source": "https://www.conncoll.edu/admission/international-applicants/requirements-and-deadlines/",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "testFlexible": true
+          },
+          "evidence": {
+            "hash": "6a13e56f763912923b59888892fdf1a13a524a5052da53648e083d574cd3418f",
+            "quote": "*Optional* Results of the SAT Reasoning Test or ACT"
+          }
+        }
+      }
+    },
+    "146427": {
+      "fields": {
+        "fee": {
+          "status": "verified",
+          "value": "No application fee for international applicants using the Common Application, Coalition Application or Knox College Application.",
+          "source": "https://www.knox.edu/admission/apply-to-knox/international-applicants",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "664f6d17e6074d08615ef476ee640a5d9cc6cc23b459590153955743a5dee69c",
+            "quote": "There is no application fee."
+          }
+        },
+        "testing": {
+          "status": "verified",
+          "value": "SAT/ACT are optional for international applicants. National examinations such as GCE, IGCSE, IB or A-level results still accompany the transcript when applicable.",
+          "source": "https://www.knox.edu/admission/apply-to-knox/international-applicants/international-frequently-asked-questions",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "testFlexible": true
+          },
+          "evidence": {
+            "hash": "30e91535797cb410fdb09399c2ddde33959c52df10f67cdf62c6e11c542f0f12",
+            "quote": "Knox does not require the SAT or ACT to apply"
+          }
+        },
+        "aid": {
+          "status": "verified",
+          "value": "Knox offers scholarships but does not offer need-based aid to international students. All applicants submit an Affidavit of Support proving sufficient funding. Need-aware admission is stated separately on the international application page; do not interpret a scholarship as full cost coverage.",
+          "source": "https://www.knox.edu/admission/apply-to-knox/international-applicants/international-frequently-asked-questions",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "aidCategory": "merit",
+            "aidShort": "Scholarships · no international need-based aid"
+          },
+          "evidence": {
+            "hash": "30e91535797cb410fdb09399c2ddde33959c52df10f67cdf62c6e11c542f0f12",
+            "quote": "Knox does not offer need-based aid to international students."
+          }
+        }
+      }
+    },
+    "150400": {
+      "fields": {
+        "fee": {
+          "status": "verified",
+          "value": "DePauw does not charge an application fee for international undergraduate applicants.",
+          "source": "https://www.depauw.edu/admission-aid/apply/international-applicants/application-checklist/",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "e63cc39f490b6e821f510f07a0f71b49fb775e6e415c91ffb6191ffd49c07456",
+            "quote": "DePauw University does not charge an application fee and is test-optional."
+          }
+        },
+        "testing": {
+          "status": "verified",
+          "value": "SAT/ACT are optional for international admission. Test-optional applicants are still considered for merit scholarships. English proficiency is separate.",
+          "source": "https://www.depauw.edu/admission-aid/apply/international-applicants/application-checklist/",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "testFlexible": true
+          },
+          "evidence": {
+            "hash": "e63cc39f490b6e821f510f07a0f71b49fb775e6e415c91ffb6191ffd49c07456",
+            "quote": "Test-optional applicants are still considered for merit-based scholarships."
+          }
+        }
+      }
+    },
+    "150455": {
+      "fields": {
+        "testing": {
+          "status": "verified",
+          "value": "SAT/ACT are optional for international admission. English-proficiency documentation for admission and I-20 preparation is separate and must not be confused with test-optional admission.",
+          "source": "https://earlham.edu/admissions/how-to-apply/international-admissions/",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "testFlexible": true
+          },
+          "evidence": {
+            "hash": "640cdb7346eb4138de4204e7830d779b09d5f49c01fed03e2c3b91bd60be3cf2",
+            "quote": "Earlham is test score optional regarding the SAT and ACT."
+          }
+        },
+        "aid": {
+          "status": "verified",
+          "value": "International applicants may receive merit scholarships and institutional grants, but housing, food and other costs are not covered by these awards. The current page states a minimum first-year contribution of $25,000 for non-UWC international families, increasing with attendance costs. UWC graduates have separate funding arrangements. Confirm the contribution for your entry year with admissions.",
+          "source": "https://earlham.edu/admissions/how-to-apply/international-admissions/",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "aidCategory": "limited",
+            "aidShort": "Limited international funding"
+          },
+          "evidence": {
+            "hash": "640cdb7346eb4138de4204e7830d779b09d5f49c01fed03e2c3b91bd60be3cf2",
+            "quote": "Earlham does not award scholarships or grants for housing, food and other costs"
+          }
+        }
+      }
+    },
+    "166939": {
+      "fields": {
+        "fee": {
+          "status": "verified",
+          "value": "No application fee for international first-year applicants, including Early Decision and Regular Decision.",
+          "source": "https://www.mtholyoke.edu/admission/apply-undergraduate-first-year",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "9a5b8486960f44a01511cd3238b6d31022610b07586f01ca56f95ab9deaf90b0",
+            "quote": "There is no application fee for any option."
+          }
+        },
+        "testing": {
+          "status": "verified",
+          "value": "SAT/ACT are optional for first-year admission. This does not waive separate English-proficiency requirements.",
+          "source": "https://www.mtholyoke.edu/admission/apply-undergraduate-first-year",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "testFlexible": true
+          },
+          "evidence": {
+            "hash": "9a5b8486960f44a01511cd3238b6d31022610b07586f01ca56f95ab9deaf90b0",
+            "quote": "we’re a test-optional institution"
+          }
+        }
+      }
+    },
+    "189088": {
+      "fields": {
+        "fee": {
+          "status": "verified",
+          "value": "No application fee for undergraduate admission to Bard College. Graduate and other Bard institutions have separate policies.",
+          "source": "https://www.bard.edu/admission/applying/",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "cf4ba56939e80a1d7d1997eb4ffc672e86eae12b3a49790edc41cc650bf603d4",
+            "quote": "There is no application fee to apply to Bard College"
+          }
+        },
+        "testing": {
+          "status": "verified",
+          "value": "SAT/ACT are optional for international undergraduate applicants. Not submitting scores does not penalize an application; English testing is separate.",
+          "source": "https://www.bard.edu/admission/international/",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "testFlexible": true
+          },
+          "evidence": {
+            "hash": "10a411cf9aaf53455e7ed3ba33442864ddfce9ae25ea1c1afcd85cd4ff1a31b2",
+            "quote": "You do not need to take the SAT or ACT to apply to Bard."
+          }
+        },
+        "english": {
+          "status": "verified",
+          "value": "International applicants whose primary language is not English submit TOEFL, IELTS or Duolingo. Current score guidelines: TOEFL 5 on the new scale (100 on the previous scale), IELTS 7, DET 120. A waiver can be requested after three recent years of secondary education fully in English, an English-primary home country, or case-by-case circumstances. Approval through the applicant portal is required.",
+          "source": "https://www.bard.edu/admission/international/",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "englishStatus": "required"
+          },
+          "evidence": {
+            "hash": "10a411cf9aaf53455e7ed3ba33442864ddfce9ae25ea1c1afcd85cd4ff1a31b2",
+            "quote": "All international applicants for whom English is not their primary language must submit one of the approved English proficiency tests."
+          }
+        }
+      }
+    },
+    "195304": {
+      "fields": {
+        "testing": {
+          "status": "verified",
+          "value": "SAT/ACT are optional for international applicants, as are interviews and artistic supplements.",
+          "source": "https://www.sarahlawrence.edu/admission/apply/international/apply.html",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "testFlexible": true
+          },
+          "evidence": {
+            "hash": "3fa1c61b29fac2748d3c6b8c737eda00a47cb66bbedc4096d3535316e2a12577",
+            "quote": "Standardized tests (such as the ACT and SAT), interviews, and artistic supplements are optional."
+          }
+        },
+        "english": {
+          "status": "verified",
+          "value": "Applicants whose first language is not English and who have not studied in an English-language curriculum for the past four years should submit TOEFL, IELTS or Duolingo. Competitive scores (not stated as universal minimums): TOEFL 100 before January 21, 2026, or 5–5.5 afterwards; IELTS 7+; DET 130+. Extensions may be requested for hardship.",
+          "source": "https://www.sarahlawrence.edu/admission/apply/international/apply.html",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "englishStatus": "required"
+          },
+          "evidence": {
+            "hash": "3fa1c61b29fac2748d3c6b8c737eda00a47cb66bbedc4096d3535316e2a12577",
+            "quote": "Applicants for whom English is not their first language and who have not studied in an English language curriculum for the past four years"
+          }
+        }
+      }
+    },
+    "209922": {
+      "fields": {
+        "fee": {
+          "status": "verified",
+          "value": "Reed has waived application fees for applicants.",
+          "source": "https://www.reed.edu/admission-aid/",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "69d7ce8757b1dc32a844f8b2d568e9eb2150c7d2a88679649dfe13dfa0516bd0",
+            "quote": "we've waived application fees and embraced a test-free policy for applicants."
+          }
+        },
+        "testing": {
+          "status": "verified",
+          "value": "Reed describes its admission policy as test-free. SAT/ACT are not required; separate English requirements remain under review.",
+          "source": "https://www.reed.edu/admission-aid/",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "testFlexible": true
+          },
+          "evidence": {
+            "hash": "69d7ce8757b1dc32a844f8b2d568e9eb2150c7d2a88679649dfe13dfa0516bd0",
+            "quote": "embraced a test-free policy for applicants."
+          }
+        }
+      }
+    },
+    "212009": {
+      "fields": {
+        "aid": {
+          "status": "verified",
+          "value": "International admission is need-aware. Need-based aid is limited and merit scholarships are available. Applicants requesting need-based aid submit the CSS Profile and all international applicants submit Certification of Finances. Mandatory insurance and one-time fees are excluded from international aid; do not assume full cost coverage.",
+          "source": "https://www.dickinson.edu/info/20045/admissions/1179/international_scholarships_and_financial_aid",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "aidCategory": "need-aware",
+            "aidShort": "Need-aware · limited aid",
+            "needBlind": false
+          },
+          "evidence": {
+            "hash": "15108e4865d5cc11d9926c64522a6f9a52aec6114e76db3beb7419271c1ba66c",
+            "quote": "Dickinson College is need-aware in the admission of international students"
+          }
+        },
+        "testing": {
+          "status": "verified",
+          "value": "SAT/ACT are optional for international first-year applicants. Scores may be submitted if desired.",
+          "source": "https://www.dickinson.edu/info/20045/admissions/1176/international_student_admissions_information",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "testFlexible": true
+          },
+          "evidence": {
+            "hash": "76e97ad5e3bbdca5957cc210cd92a355e796fe3f62f52d41bd26450c058f2d01",
+            "quote": "Dickinson has been test optional since 1994, so applicants may submit their tests scores if desired."
+          }
+        },
+        "english": {
+          "status": "verified",
+          "value": "Applicants whose first language is not English must demonstrate proficiency: TOEFL, IELTS or Duolingo are accepted. Recommended scores: TOEFL 90 on the old scale or 4.5 after January 2026; IELTS 7; DET 120. At least three years of high-school coursework in standard English (not ESL) is an alternative; modern-language courses are excepted.",
+          "source": "https://www.dickinson.edu/info/20045/admissions/1176/international_student_admissions_information",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "englishStatus": "required"
+          },
+          "evidence": {
+            "hash": "76e97ad5e3bbdca5957cc210cd92a355e796fe3f62f52d41bd26450c058f2d01",
+            "quote": "Applicants whose first language is other than English must demonstrate their English proficiency to be considered for admission."
+          }
+        }
+      }
+    },
+    "212674": {
+      "fields": {
+        "testing": {
+          "status": "verified",
+          "value": "SAT/ACT are strongly recommended on the international page but are not required. Self-reported scores can be submitted and are verified upon enrollment. English-proficiency requirements are separate.",
+          "source": "https://www.gettysburg.edu/admissions-aid/international-students/",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "testFlexible": true
+          },
+          "evidence": {
+            "hash": "e2f7257fc7ff04e6e18bd4d965fb4e5e1254a11d794d505bf70c6b434cb31282",
+            "quote": "SAT or ACT scores may be submitted as self-reported or official scores, but are not required."
+          }
+        },
+        "deadline": {
+          "status": "conflict",
+          "value": "The same international page lists January 20 for ED II applications but January 15 for the ED II agreement form. Confirm the deadline with admissions before applying.",
+          "source": "https://www.gettysburg.edu/admissions-aid/international-students/",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "e2f7257fc7ff04e6e18bd4d965fb4e5e1254a11d794d505bf70c6b434cb31282",
+            "quote": "Early Decision II: January 20"
+          }
+        }
+      }
+    },
+    "238333": {
+      "fields": {
+        "testing": {
+          "status": "verified",
+          "value": "Beloit is test-optional. Applicants may send SAT/ACT scores if they want them considered; separate English-proficiency requirements still apply.",
+          "source": "https://www.beloit.edu/admission/apply/our-review-process/",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "testFlexible": true
+          },
+          "evidence": {
+            "hash": "c26d13d3bdbc1141f7a1d2e44adbc6264dbdc1cd46ceacbcf2269c70bc839c0f",
+            "quote": "Beloit is test-optional."
+          }
+        }
+      }
+    },
+    "239017": {
+      "fields": {
+        "testing": {
+          "status": "verified",
+          "value": "SAT/ACT scores are not required for admission or scholarship consideration. Conservatory auditions and English requirements are separate.",
+          "source": "https://www.lawrence.edu/admissions-aid/aid-affordability/scholarships/",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "testFlexible": true
+          },
+          "evidence": {
+            "hash": "75d065e095a6751de34d9735e70635227035604b179d641fa203fdf5c0437bfa",
+            "quote": "ACT or SAT test scores are not required for admission or scholarship consideration."
+          }
+        }
+      }
+    }
+  }
+}

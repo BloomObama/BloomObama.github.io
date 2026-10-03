@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "records": {
+    "166939": { "domains": ["mtholyoke.edu"], "urls": ["https://www.mtholyoke.edu/admission/apply-undergraduate-first-year"] },
+    "209922": { "domains": ["reed.edu"], "urls": ["https://www.reed.edu/admission-aid/"] },
+    "128902": { "domains": ["conncoll.edu"], "urls": ["https://www.conncoll.edu/admission/international-applicants/requirements-and-deadlines/"] },
+    "212009": { "domains": ["dickinson.edu"], "urls": ["https://www.dickinson.edu/info/20045/admissions/1176/international_student_admissions_information", "https://www.dickinson.edu/info/20045/admissions/1179/international_scholarships_and_financial_aid", "https://www.dickinson.edu/info/20256/apply/1024/deadlines"] },
+    "189088": { "domains": ["bard.edu"], "urls": ["https://www.bard.edu/admission/international/", "https://www.bard.edu/admission/applying/"] },
+    "146427": { "domains": ["knox.edu"], "urls": ["https://www.knox.edu/admission/apply-to-knox/international-applicants", "https://www.knox.edu/admission/apply-to-knox/international-applicants/international-frequently-asked-questions"] },
+    "238333": { "domains": ["beloit.edu"], "urls": ["https://www.beloit.edu/admission/apply/our-review-process/"] },
+    "239017": { "domains": ["lawrence.edu"], "urls": ["https://www.lawrence.edu/admissions-aid/aid-affordability/scholarships/"] },
+    "150400": { "domains": ["depauw.edu"], "urls": ["https://www.depauw.edu/admission-aid/apply/international-applicants/application-checklist/"] },
+    "150455": { "domains": ["earlham.edu"], "urls": ["https://earlham.edu/admissions/how-to-apply/international-admissions/"] },
+    "195304": { "domains": ["sarahlawrence.edu"], "urls": ["https://www.sarahlawrence.edu/admission/apply/international/apply.html"] },
+    "212674": { "domains": ["gettysburg.edu"], "urls": ["https://www.gettysburg.edu/admissions-aid/international-students/"] }
+  }
+}

@@ -50,6 +50,10 @@ for (const college of reviewed) {
   const profile = profiles[college.slug];
   if (/^https?:\/\//.test(profile?.statsSource || "")) urls.add(profile.statsSource);
 }
+// Partial reviews are subject to the same link-health checks, but HTTP status
+// never promotes a policy to verified.
+const fieldReviews = JSON.parse(fs.readFileSync(new URL('data/policy-field-reviews.json',root),'utf8'));
+for (const record of Object.values(fieldReviews.records)) for (const field of Object.values(record.fields)) if (field.source) urls.add(field.source);
 
 const queue = [...urls];
 const results = [];

@@ -80,7 +80,7 @@ function federalDetailCells(facts = {}) {
 }
 
 function sourceLinks(item) {
-  if (item.basicOnly) return `<a href="${item.source}" target="_blank" rel="noopener noreferrer"><span>${profileT("officialSite")}</span><b>↗</b></a>`;
+  if (item.basicOnly && !FullRidePolicy.count(item)) return `<a href="${item.source}" target="_blank" rel="noopener noreferrer"><span>${profileT("officialSite")}</span><b>↗</b></a>`;
   const candidates = [
     [profileT("aid"), item.aidSource], [profileT("testing"), item.testingSource], [profileT("english"), item.englishSource],
     [profileT("fee"), item.feeSource], [profileT("deadline"), item.deadlineSource], ["Admissions", item.source],
@@ -90,8 +90,15 @@ function sourceLinks(item) {
   return candidates.filter(([,url]) => url && !seen.has(url) && seen.add(url)).map(([label,url]) => `<a href="${url}" target="_blank" rel="noopener noreferrer"><span>${label}</span><b>↗</b></a>`).join("");
 }
 
-function policyRow(label, value, url) {
-  return `<article><span>${label}</span><p>${value}</p><a href="${url}" target="_blank" rel="noopener noreferrer">${profileT("source")}</a></article>`;
+Object.assign(profileTranslations.uk, { fieldVerified:'Підтверджено', fieldPending:'Очікує перевірки', fieldConflict:'Джерела суперечать одне одному', fieldEvidence:'Підтвердження з джерела', partialStatus:'Підтверджено вимог: {count}/5', legacyReview:'Редакційна перевірка · 2026–27' });
+Object.assign(profileTranslations.ru, { fieldVerified:'Подтверждено', fieldPending:'Ожидает проверки', fieldConflict:'Источники противоречат друг другу', fieldEvidence:'Подтверждение из источника', partialStatus:'Подтверждено требований: {count}/5', legacyReview:'Редакционная проверка · 2026–27' });
+Object.assign(profileTranslations.en, { fieldVerified:'Verified', fieldPending:'Review pending', fieldConflict:'Conflicting sources', fieldEvidence:'Source evidence', partialStatus:'Verified policies: {count}/5', legacyReview:'Editorial review · 2026–27' });
+function policyRow(key) {
+  const field = FullRidePolicy.field(college,key);
+  const confirmed = field.status === 'verified';
+  const escape = FullRidePolicy.escape;
+  const status = confirmed ? 'fieldVerified' : field.status === 'conflict' ? 'fieldConflict' : 'fieldPending';
+  return `<article data-policy-field="${key}" data-policy-status="${field.status}"><span>${profileT(key)}</span><small class="policy-status ${confirmed?'is-verified':'is-pending'}">${profileT(status)}${field.checkedAt?' · '+formatAuditDate(field.checkedAt):''}</small><p>${escape(confirmed && field.value ? field.value : profileT('notAvailableYet'))}</p>${field.status==='conflict'?`<div class="policy-conflict">${escape(field.value)}</div>`:''}${field.source ? `<a href="${escape(field.source)}" target="_blank" rel="noopener noreferrer">${profileT('source')}</a>` : ''}${field.evidence ? `<details class="policy-evidence"><summary>${profileT('fieldEvidence')}</summary><blockquote>${escape(field.evidence.quote)}</blockquote><small>${escape(field.cycle)} · ${escape(field.evidence.hash.slice(0,12))}</small></details>` : confirmed ? `<small class="policy-method">${profileT('legacyReview')}</small>` : ''}</article>`;
 }
 
 function updateProfileMetadata() {
@@ -148,7 +155,7 @@ function renderProfile() {
     <section class="profile-hero" style="--profile-photo:url('${college.photo}')">
       <div class="profile-hero-shade"></div>
       <div class="profile-hero-content">
-        <span class="profile-status ${college.verified ? "is-verified" : "is-pending"}">${college.verified ? `${profileT("policiesVerified")} · ${formatAuditDate(college.checkedAt)}` : profileT("pending")}</span>
+        <span class="profile-status ${college.verified ? "is-verified" : "is-pending"}">${college.verified ? `${profileT("policiesVerified")} · ${formatAuditDate(college.checkedAt)}` : FullRidePolicy.count(college)>0 ? profileT('partialStatus').replace('{count}',FullRidePolicy.count(college)) : profileT("pending")}</span>
         <p>${college.location}</p><h1>${college.name}</h1><p class="profile-lede">${college.descriptionPending ? profileT("notAvailableYet") : college.description}</p>
         <a class="profile-primary" href="${college.source}" target="_blank" rel="noopener noreferrer">${profileT(college.basicOnly ? "officialSite" : "officialApply")} <span>↗</span></a>
       </div>
@@ -170,11 +177,7 @@ function renderProfile() {
     <section class="profile-section" aria-labelledby="policies-title">
       <div class="profile-section-heading"><div><p>02 / ${profileT("policies")}</p><h2 id="policies-title">${profileT("policies")}</h2></div></div>
       <div class="profile-policy-grid">
-        ${policyRow(profileT("aid"), college.verified ? college.aid : profileT("notAvailableYet"), college.aidSource)}
-        ${policyRow(profileT("testing"), college.verified ? college.testing : profileT("notAvailableYet"), college.testingSource)}
-        ${policyRow(profileT("english"), college.verified ? college.english : profileT("notAvailableYet"), college.englishSource)}
-        ${policyRow(profileT("fee"), college.verified ? college.fee : profileT("notAvailableYet"), college.feeSource)}
-        ${policyRow(profileT("deadline"), college.verified ? college.deadline : profileT("notAvailableYet"), college.deadlineSource)}
+        ${FullRidePolicy.fields.map(policyRow).join('')}
       </div>
     </section>
 

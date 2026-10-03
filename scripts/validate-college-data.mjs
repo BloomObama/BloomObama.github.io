@@ -1,5 +1,7 @@
 import fs from "node:fs";
 import vm from "node:vm";
+import policy from '../policy-core.js';
+import {readJSON,validateReview} from './policy-pipeline-core.mjs';
 
 const root = new URL("../", import.meta.url);
 const sandbox = { globalThis: {} };
@@ -14,6 +16,9 @@ const extraDirectory = sandbox.globalThis.FullRideExtraColleges || [];
 const media = sandbox.globalThis.FullRideCollegeMedia || {};
 const policyAudits = sandbox.globalThis.FullRidePolicyAudits || {};
 const colleges = sandbox.globalThis.__colleges || [];
+const reviews=readJSON('data/policy-field-reviews.json');
+for (const [id,record] of Object.entries(reviews.records)) validateReview(id,record,colleges,readJSON('data/policy-source-manifest.json'));
+colleges.forEach(college=>policy.apply(college,reviews.records[college.catalogId]));
 const errors = [];
 const assert = (condition, message) => { if (!condition) errors.push(message); };
 const inRange = (value, min, max) => value == null || (Number.isFinite(value) && value >= min && value <= max);
@@ -84,6 +89,8 @@ console.log(JSON.stringify({
   exactIdPhotos: Object.keys(media).length,
   profilesWithRealPhotos: colleges.filter(college => !college.photoIsIllustrative).length,
   fullyReviewedAdmissionsPolicies: colleges.filter(college => college.verified).length,
+  partiallyReviewedAdmissionsPolicies:colleges.filter(college=>!college.verified&&policy.count(college)>0).length,
+  verifiedAdmissionFields:colleges.reduce((n,college)=>n+policy.count(college),0),
   descriptionsPending: colleges.filter(college => college.descriptionPending).length,
   duplicateSlugs: colleges.length - new Set(colleges.map(college => college.slug)).size,
   fieldCoverage: Object.fromEntries(["enrollment", "admissionRate", "openAdmissions", "satAverage", "actMidpoint", "tuitionIn", "tuitionOut", "programTuition", "annualCost", "retentionRate", "completionRate", "pellShare", "federalLoanShare", "studentFacultyRatio", "medianDebt", "medianEarnings10", "priceCalculator", "topFields"].map(field => [field, colleges.filter(college => field === "topFields" ? college.facts?.topFields?.length : college.facts?.[field] != null).length]))

@@ -10,9 +10,11 @@ Campus images in `college-media.js` are matched by exact IPEDS ID through [Wikid
 
 Regenerate `college-catalog.js` from the downloaded CSV with `scripts/build-college-catalog.ps1`, generate the remaining records with `scripts/build-college-directory.ps1`, then regenerate exact-ID media with `node scripts/build-college-media.mjs college-catalog.js college-directory.js college-media.js`. Run `node scripts/validate-college-data.mjs` before publishing. `node scripts/check-reviewed-sources.mjs` performs a network reachability check for every source used by the editorially reviewed profiles.
 
-Admissions policies, deadlines, test rules and international financial-aid claims are a separate editorial layer. Only records marked as verified have completed that official-site review; all others explicitly say that the information is not yet available.
+Admissions policies, deadlines, test rules and international financial-aid claims are a separate editorial layer. Each of five requirements now has an independent verification status, source and review date. A profile is fully reviewed only when all five are verified. Unknown and conflicting requirements never become assumed negatives. See [the scalable verification workflow](POLICY_PIPELINE.md).
 
 As of October 3, 2026, 58 profiles have completed the five-field admissions-policy review (international aid, SAT/ACT, English proficiency, application fee, and deadlines). This status does not certify every historical statistic or promise a full scholarship. The latest 12-profile batch and unresolved source discrepancies are documented in [`data/policy-audit-2026-10-03.md`](data/policy-audit-2026-10-03.md). A reachable link is not, by itself, evidence of a verified policy.
+
+The first field-level batch adds 24 verified requirements across 12 further institutions, bringing coverage to 314 confirmed requirements across 70 institutions (58 complete, 12 partial). Gettysburg's conflicting ED II dates remain flagged, not verified. The exact-ID reviews, quotations and snapshot hashes are in `data/policy-field-reviews.json`. Raw crawl snapshots remain local and are excluded from publication. The whole-directory queue, resumable bounded collection and change detection are available through `npm run audit:policies`; neither crawling nor a healthy link automatically certifies a claim.
 
 An independent pilot resource for Ukrainian students researching need-based financial aid at U.S. universities.
 

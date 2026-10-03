@@ -3,7 +3,7 @@
   const selected = colleges.find(item => item.slug === params.get("id"));
   if (selected?._detailShard) {
     try {
-      const response = await fetch(`data/college-details/${selected._detailShard}.json?v=2`);
+      const response = await fetch(`data/college-details/${selected._detailShard}.json?v=3`);
       if (!response.ok) throw new Error(`College detail request failed: ${response.status}`);
       const detail = (await response.json())[selected.slug];
       if (detail) Object.assign(selected, detail);
@@ -13,7 +13,7 @@
   }
 
   const script = document.createElement("script");
-  script.src = "university.js?v=7";
+  script.src = "university.js?v=8";
   script.addEventListener("error", () => {
     const root = document.getElementById("profile-root");
     if (root) root.textContent = "The university profile could not be loaded. Please refresh the page.";
