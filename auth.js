@@ -1,4 +1,4 @@
-import './practice-state.js?v=2';
+import './practice-state.js?v=3';
 const FIREBASE_VERSION = "12.19.0";
 const config = globalThis.FullRideFirebaseConfig || {};
 const requiredConfigFields = ["apiKey", "authDomain", "projectId", "appId"];
@@ -25,6 +25,8 @@ let db = null;
 let authApi = null;
 let firestoreApi = null;
 let currentUser = null;
+let syncState = 'loading';
+function accountStatus(state) { syncState=state;window.dispatchEvent(new CustomEvent('fullride:account')); }
 let syncQueue = Promise.resolve(true);
 let syncTimer = null;
 let lastFocusedElement = null;
@@ -226,10 +228,15 @@ function syncUserData(user, mergeRemote = false) {
   if (!user || !user.emailVerified || !db) return Promise.resolve(false);
   const operation = syncQueue.catch(() => false).then(async () => {
     try {
+      if (auth.currentUser?.uid !== user.uid) return false;
+      accountStatus('syncing');
       const { doc, getDoc, setDoc, serverTimestamp } = firestoreApi;
       const reference = doc(db, "users", user.uid);
       const snapshot = await getDoc(reference);
       const remote = snapshot.exists() ? snapshot.data() : {};
+      if (auth.currentUser?.uid !== user.uid) return false;
+      const remotePreferences=remote.flashcards?.find(item=>item?.id===globalThis.FullRidePracticeState?.cloudRecordId)?.state?.preferences;
+      if(!remotePreferences)globalThis.FullRidePreferences?.adoptGuest();
       const localShortlist = localArray("fullride-shortlist-v1");
       const localComparison = localArray("fullride-compare-v1", 4);
       const shortlist = mergeRemote ? [...new Set([...(remote.shortlist || []), ...localShortlist])] : localShortlist;
@@ -254,12 +261,15 @@ function syncUserData(user, mergeRemote = false) {
         updatedAt: serverTimestamp()
       }, { merge:true });
 
+      if (auth.currentUser?.uid !== user.uid) return false;
       localStorage.removeItem(accountBackupKey(user.uid));
       window.dispatchEvent(new CustomEvent("fullride:cloud-data"));
+      accountStatus('synced');
       return true;
     } catch (error) {
       console.error("FullRide cloud sync failed", error);
       showStatus(at("syncError"), true);
+      if(auth.currentUser?.uid===user.uid)accountStatus('error');
       return false;
     }
   });
@@ -276,6 +286,8 @@ function scheduleSync() {
 function renderUser(user) {
   if (!aq("auth-user")) return;
   currentUser = user || null;
+  globalThis.FullRidePreferences?.setAccount(user?.uid || null);
+  accountStatus(user ? user.emailVerified ? 'ready' : 'unverified' : 'guest');
   aq("auth-loading").hidden = true;
   aq("auth-setup").hidden = configured;
   aq("auth-guest").hidden = !configured || Boolean(user);
@@ -284,8 +296,9 @@ function renderUser(user) {
   if (!configured) return;
   trigger.hidden = false;
   trigger.classList.toggle("is-signed-in", Boolean(user));
-  trigger.querySelector("[data-auth-key='account']").textContent = user?.displayName || user?.email?.split("@")[0] || at("account");
-  trigger.querySelector(".account-trigger__avatar").textContent = user ? (user.displayName || user.email || "U").trim().charAt(0).toUpperCase() : "◎";
+  const privateName = globalThis.FullRidePreferences?.value.profile.hideName;
+  trigger.querySelector("[data-auth-key='account']").textContent = privateName ? at('account') : user?.displayName || user?.email?.split("@")[0] || at("account");
+  trigger.querySelector(".account-trigger__avatar").textContent = user && !privateName ? globalThis.FullRidePreferences?.avatar() || (user.displayName || user.email || "U").trim().charAt(0).toUpperCase() : "◎";
   if (!user) return;
 
   const displayName = user.displayName || user.email?.split("@")[0] || at("account");
@@ -310,6 +323,7 @@ function emailActionUrl() {
 
 async function initializeFirebase() {
   if (!configured) {
+    accountStatus('guest');
     aq("auth-loading").hidden = true;
     aq("auth-setup").hidden = false;
     return;
@@ -341,6 +355,7 @@ async function initializeFirebase() {
     aq("auth-loading").hidden = true;
     aq("auth-guest").hidden = false;
     showStatus(errorMessage(error), true);
+    accountStatus('error');
   }
 }
 
@@ -489,5 +504,19 @@ window.addEventListener("storage", event => {
   if (["fullride-shortlist-v1", "fullride-compare-v1", "fullride-pack-learned-v1"].includes(event.key)) scheduleSync();
 });
 
-globalThis.FullRideAuth = { configured, open:openDialog };
+globalThis.FullRideAuth = {
+  configured, open:openDialog,
+  get state(){return {status:syncState,user:currentUser?{displayName:currentUser.displayName||'',email:currentUser.email||'',verified:currentUser.emailVerified,password:currentUser.providerData.some(p=>p.providerId==='password')}:null};},
+  async saveProfile(displayName){if(!currentUser)throw new Error(at('signIn'));await authApi.updateProfile(currentUser,{displayName:String(displayName).trim().slice(0,80)});renderUser(currentUser);await syncUserData(currentUser);},
+  async resetPassword(){if(!currentUser?.providerData.some(p=>p.providerId==='password'))throw new Error(at('signIn'));await authApi.sendPasswordResetEmail(auth,currentUser.email,{url:emailActionUrl()});},
+  sync:()=>syncUserData(currentUser,true),
+  signOut:()=>aq('auth-signout').click(),
+  verify:()=>aq('auth-send-verification').click()
+};
+window.addEventListener('fullride:preferences',()=>{
+  const name=aq('account-trigger')?.querySelector("[data-auth-key='account']");
+  if(name)name.textContent=globalThis.FullRidePreferences?.value.profile.hideName?at('account'):currentUser?.displayName||at('account');
+  const avatar=aq('account-trigger')?.querySelector('.account-trigger__avatar');
+  if(avatar)avatar.textContent=currentUser&&!globalThis.FullRidePreferences?.value.profile.hideName?globalThis.FullRidePreferences.avatar():'◎';
+});
 initializeFirebase();

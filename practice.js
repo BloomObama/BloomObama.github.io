@@ -61,7 +61,8 @@ let deckTranslations = loadDeckTranslations();
 let deckSrs = loadDeckSrs();
 let activeDeckId = null;
 let activeDeckModule = null;
-let sessionDisplayMode = localStorage.getItem("fullride-practice-mode-v1") === "check" ? "check" : "learn";
+let sessionDisplayMode = globalThis.FullRidePreferences?.value.cards.direction === 'reproduction' || localStorage.getItem("fullride-practice-mode-v1") === "check" ? "check" : "learn";
+let sessionModeChosen=false;
 Object.assign(practiceCopy.uk,{resumeAt:'Продовжити зі слова {number}',restartSet:'Почати спочатку',finishTitle:'Блок завершено',finishText:'Знаю {known} із {total}. Прогрес збережено.',backToSets:'До блоків',exportProgress:'Завантажити резервну копію',importProgress:'Відновити копію',backupDone:'Копію відновлено. Дані об’єднано з поточним прогресом.',backupError:'Це не резервна копія FullRide. Виберіть JSON-файл, завантажений на цій сторінці.',previewLooking:'Шукаємо переклад…',translationNote:'Словниковий переклад з’являється одразу. Для нового слова онлайн-сервіс дає машинну підказку; її можна виправити.'});
 Object.assign(practiceCopy.ru,{resumeAt:'Продолжить со слова {number}',restartSet:'Начать сначала',finishTitle:'Блок завершён',finishText:'Знаю {known} из {total}. Прогресс сохранён.',backToSets:'К блокам',exportProgress:'Скачать резервную копию',importProgress:'Восстановить копию',backupDone:'Копия восстановлена. Данные объединены с текущим прогрессом.',backupError:'Это не резервная копия FullRide. Выберите JSON-файл, скачанный на этой странице.',previewLooking:'Ищем перевод…',translationNote:'Словарный перевод появляется сразу. Для нового слова онлайн-сервис даёт машинную подсказку; её можно исправить.'});
 Object.assign(practiceCopy.en,{resumeAt:'Continue from word {number}',restartSet:'Start over',finishTitle:'Set complete',finishText:'{known} of {total} known. Progress saved.',backToSets:'Back to sets',exportProgress:'Download backup',importProgress:'Restore backup',backupDone:'Backup restored and merged with current progress.',backupError:'This is not a FullRide backup. Select a JSON file downloaded from this page.',previewLooking:'Looking up translation…',translationNote:'Dictionary glosses appear instantly. New words use a machine suggestion from an online service; you can edit it.'});
@@ -121,8 +122,10 @@ Object.assign(practiceCopy.uk, { setupReady:"Готові до блоку?", set
 Object.assign(practiceCopy.ru, { setupReady:"Готовы к блоку?", setupIntro:"Выберите, как работать с этими 20 словами.", setupKnown:"{known} из 20 уже знаю", modeLearn:"Знакомство", modeLearnText:"Слово и значение видны сразу", modeCheck:"Самопроверка", modeCheckText:"Сначала слово — затем откройте значение", modeRecommended:"Советуем начать отсюда", setupTip:"Отвечайте честно — процент блока обновляется после каждого слова.", setupHow:"Как это работает", setupStep1:"Пройдите 20 слов в постоянном порядке.", setupStep2:"Отмечайте «Знаю» или «Не знаю».", setupStep3:"Вернитесь к блоку — прогресс останется сохранённым.", setupStart:"Начать блок" });
 Object.assign(practiceCopy.en, { setupReady:"Ready for this set?", setupIntro:"Choose how to work through these 20 words.", setupKnown:"{known} of 20 already known", modeLearn:"Learn", modeLearnText:"See the word and meaning together", modeCheck:"Self-check", modeCheckText:"See the word first, then reveal its meaning", modeRecommended:"Recommended first", setupTip:"Answer honestly—the set percentage updates after every word.", setupHow:"How it works", setupStep1:"Work through the same 20 words in a fixed order.", setupStep2:"Mark each word “I know” or “I don't know”.", setupStep3:"Return later—your progress remains saved.", setupStart:"Start set" });
 
-let practiceLanguage = ["uk", "ru", "en"].includes(new URLSearchParams(location.search).get("lang")) ? new URLSearchParams(location.search).get("lang") : "uk";
+let practiceLanguage = globalThis.FullRidePreferences?.language() || "uk";
 let flashcards = loadCards();
+const cardSignature=card=>JSON.stringify({...card,updatedAt:0});
+let savedCardSignatures=new Map(flashcards.map(card=>[card.id,cardSignature(card)]));
 let searchTerm = "";
 let filterMode = "all";
 let practiceQueue = [];
@@ -176,11 +179,10 @@ function saveEnrichedCards() {
   enrichSyncTimer = window.setTimeout(() => window.dispatchEvent(new CustomEvent("fullride:local-data-changed", { detail:{ kind:"flashcards" } })), 3000);
 }
 function stampChangedCards() {
-  const previous = new Map(practiceState.state.cards.map(card=>[card.id,card]));
   for(const card of flashcards) {
-    const old=previous.get(card.id);
-    if(!old || JSON.stringify({...old,updatedAt:0}) !== JSON.stringify({...card,updatedAt:0})) card.updatedAt=Date.now();
+    if(savedCardSignatures.get(card.id)!==cardSignature(card))card.updatedAt=Date.now();
   }
+  savedCardSignatures=new Map(flashcards.map(card=>[card.id,cardSignature(card)]));
 }
 function cardTranslation(card) { return practiceLanguage === "en" ? "" : String(card.manualTranslations?.[practiceLanguage] || localTranslation(card.word, practiceLanguage) || card.translations?.[practiceLanguage] || cachedTranslation(card.word)).slice(0,240); }
 function localTranslation(word, language = practiceLanguage) { return String(globalThis.FullRidePracticeTranslations?.[language]?.[normalize(word)] || ""); }
@@ -325,7 +327,41 @@ async function enrichCard(card, target = practiceLanguage) {
   if (!document.activeElement.closest(".flashcard-row__edit")) render();
   await translationPromise;
 }
+const cardPreferences=()=>globalThis.FullRidePreferences?.value.cards||{newWords:20,reviewLimit:20,direction:'recognition',autoSpeak:false,speechRepeats:1};
+function reversePrompt(card) {
+  if(cardPreferences().direction!=='reproduction')return '';
+  return cardTranslation(card)||card.definition||globalThis.FullRidePracticeTranslations?.en?.[normalize(card.word)]||'';
+}
+let spokenCard=null;
+let renderedSessionKey=null;
+function speakCard(automatic=false) {
+  const card=currentSessionCard();
+  if(!card||!('speechSynthesis' in window)||!pq('session-setup').hidden||(!meaningRevealed&&reversePrompt(card)))return;
+  if(automatic&&(!meaningRevealed||!cardPreferences().autoSpeak||spokenCard===card.id))return;
+  spokenCard=card.id;window.speechSynthesis.cancel();
+  for(let i=0;i<cardPreferences().speechRepeats;i++){const utterance=new SpeechSynthesisUtterance(card.word);utterance.lang='en-US';utterance.rate=.82;window.speechSynthesis.speak(utterance);}
+}
+function renderPrompt(card) {
+  const reverse=reversePrompt(card);
+  pq('session-reveal').textContent=reverse&&!meaningRevealed?({uk:'Показати слово',ru:'Показать слово',en:'Reveal word'}[practiceLanguage]):pc('revealButton');
+  pq('session-word').textContent=reverse&&!meaningRevealed?reverse:card.word;
+  pq('session-word').classList.toggle('is-definition',Boolean(reverse&&!meaningRevealed));
+  pq('session-speak').hidden=Boolean(reverse&&!meaningRevealed);
+  pq('sentence-form').closest('.sentence-optional').hidden=Boolean(reverse&&!meaningRevealed);
+}
+function renderDailyGoal() {
+  const today=new Date().setHours(0,0,0,0);
+  const reviewed=flashcards.filter(c=>c.srs.history.some(h=>h.at>=today)).length+Object.values(deckSrs).filter(s=>Array.isArray(s?.history)&&s.history.some(h=>h.at>=today)).length;
+  const goal=globalThis.FullRidePreferences?.value.preparation.dailyWords||20;
+  const labels={uk:'Ціль на сьогодні',ru:'Цель на сегодня',en:'Daily goal'};
+  let node=pq('practice-daily-goal');
+  if(!node){node=document.createElement('p');node.id='practice-daily-goal';node.className='practice-daily-goal';document.querySelector('.practice-dashboard').after(node);}
+  node.replaceChildren(document.createTextNode(labels[practiceLanguage]+': '));
+  const count=document.createElement('strong');count.textContent=reviewed+' / '+goal;node.append(count);
+  const link=document.createElement('a');link.href='settings.html?lang='+practiceLanguage+'#study';link.textContent=' ⚙';link.setAttribute('aria-label',{uk:'Налаштувати ціль',ru:'Настроить цель',en:'Edit daily goal'}[practiceLanguage]);node.append(link);
+}
 function renderMeaning(card) {
+  renderPrompt(card);
   const translation = cardTranslation(card);
   const translationPending = queuedEnrichment.has(card.id) || translationRequests.has(practiceLanguage + ":" + normalize(card.word));
   pq("session-translation").textContent = practiceLanguage === "en" ? "" : translation || pc(translationPending ? "translationPending" : "translationUnavailable");
@@ -344,6 +380,7 @@ function renderMeaning(card) {
 function renderLanguage() { document.documentElement.lang = practiceLanguage; document.querySelectorAll("[data-practice-key]").forEach(element => { element.innerHTML = pc(element.dataset.practiceKey); }); document.querySelectorAll("[data-practice-placeholder]").forEach(element => { element.placeholder = pc(element.dataset.practicePlaceholder); }); document.querySelectorAll("[data-practice-lang]").forEach(button => button.classList.toggle("active", button.dataset.practiceLang === practiceLanguage)); pq("session-next").setAttribute("aria-label",pc("nextAria")); pq("session-speak").setAttribute("aria-label",pc("speakWord")); pq("word-input").placeholder = practiceLanguage === "en" ? "for example, scholarship" : "например, scholarship"; updateTranslationPreview(); renderDecks(); render(); if (pq("practice-modal").classList.contains("is-open") && !pq("session-setup").hidden) renderSessionSetup(); queueEnrichment(flashcards.slice(0,120)); }
 function sentenceBadge(card) { if (card.sentenceStatus === "correct") return `<span class="sentence-badge is-correct">✓ ${escapeHtml(pc("sentenceCorrect"))}</span>`; if (card.sentenceStatus === "needs-review") return `<span class="sentence-badge is-review">! ${escapeHtml(pc("sentenceError"))}</span>`; return ""; }
 function render() {
+  renderDailyGoal();
   const now = Date.now();
   const reviewed = flashcards.filter(card => card.srs.status !== "new").length;
   const counts = {
@@ -377,7 +414,7 @@ function render() {
       (card.sentence ? '<div class="flashcard-row__sentence"><small>' + escapeHtml(pc("sentenceLabel")) + '</small><p>' + escapeHtml(card.sentence) + '</p>' + sentenceBadge(card) + '</div>' : "") + '</article>';
   }).join("") : '<p class="card-empty">' + escapeHtml(pc(searchTerm || filterMode !== "all" ? "noMatch" : "empty")) + '</p>';
 }
-function closePractice() { pq("practice-modal").classList.remove("is-open"); pq("practice-modal").setAttribute("aria-hidden","true"); document.body.classList.remove('practice-session-open'); activeDeckId = null; activeDeckModule = null; practiceQueue = []; practiceIndex = 0; meaningRevealed = false; practiceTrigger?.focus(); }
+function closePractice() { window.speechSynthesis?.cancel();spokenCard=null; pq("practice-modal").classList.remove("is-open"); pq("practice-modal").setAttribute("aria-hidden","true"); document.body.classList.remove('practice-session-open'); activeDeckId = null; activeDeckModule = null; practiceQueue = []; practiceIndex = 0; meaningRevealed = false; practiceTrigger?.focus(); }
 function currentSessionCard() { return practiceQueue[practiceIndex]; }
 function renderSentenceState(card) {
   pq("session-sentence").value = card.sentence || "";
@@ -401,6 +438,7 @@ async function refreshSessionTranslation() {
 }
 function updateSession() {
   const card = currentSessionCard();
+  if(!card||spokenCard!==card.id)window.speechSynthesis?.cancel();
   if (!card) {
     pq('session-study').hidden=true;pq('session-setup').hidden=true;pq('session-complete').hidden=false;
     pq('practice-modal').querySelector('[role="dialog"]').setAttribute('aria-labelledby','session-finish-title');
@@ -414,18 +452,22 @@ function updateSession() {
   pq("session-level").textContent = card.cefr || deckTitle;
   const instant = cachedTranslation(card.word);
   if (instant && !card.translations?.[practiceLanguage]) card.translations = { ...card.translations, [practiceLanguage]:instant };
-  meaningRevealed = sessionDisplayMode === "learn";
+  const renderKey=card.id+':'+practiceIndex;
+  const changedCard=renderKey!==renderedSessionKey;
+  if(changedCard)meaningRevealed = sessionDisplayMode === "learn";
+  renderedSessionKey=renderKey;
   pq("session-meaning").hidden = !meaningRevealed;
   pq("session-actions").hidden = !meaningRevealed;
   const known = activeDeckId ? learnedDeckWords.has(card.id) : Boolean(card.learned);
   pq("session-actions").querySelector('[data-rate="again"]').setAttribute("aria-pressed", String(!known));
   pq("session-actions").querySelector('[data-rate="good"]').setAttribute("aria-pressed", String(known));
   pq("session-reveal").hidden = meaningRevealed;
-  pq("session-study").querySelector(".session-heading span").textContent = pc(sessionDisplayMode === "check" ? "modeCheck" : "modeLearn");
+  pq("session-study").querySelector(".session-heading span").textContent = reversePrompt(card)&&sessionDisplayMode==='check'?({uk:'Значення → слово',ru:'Значение → слово',en:'Meaning → word'}[practiceLanguage]):pc(sessionDisplayMode === "check" ? "modeCheck" : "modeLearn");
   pq("session-counter").textContent = pc("sessionCount").replace("{current}", practiceIndex + 1).replace("{total}", practiceQueue.length);
   pq("session-progress").style.setProperty("--session-progress", (((practiceIndex + 1) / practiceQueue.length) * 100) + "%");
   renderMeaning(card);
-  renderSentenceState(card);
+  if(changedCard)renderSentenceState(card);
+  speakCard(true);
   queueEnrichment([card], true);
 }
 function shuffled(items) { const result = [...items]; for (let index = result.length - 1; index > 0; index -= 1) { const other = Math.floor(Math.random() * (index + 1)); [result[index], result[other]] = [result[other], result[index]]; } return result; }
@@ -436,7 +478,9 @@ function renderSessionSetup() {
     ? practiceQueue.filter(card => learnedDeckWords.has(card.id)).length
     : practiceQueue.filter(card => card.learned).length;
   pq("setup-level").textContent = moduleTitle;
-  pq("setup-progress").textContent = pc("setupKnown").replace("{known}", known);
+  pq("setup-progress").textContent = pc("setupKnown").replace("{known}", known).replace('20',practiceQueue.length);
+  for(const key of ['setupIntro','setupStep1'])pq('session-setup').querySelector('[data-practice-key="'+key+'"]').textContent=pc(key).replace('20',practiceQueue.length);
+  pq('session-setup').querySelector('[data-practice-key="modeCheckText"]').textContent=cardPreferences().direction==='reproduction'?({uk:'Спочатку значення — потім відкрийте слово',ru:'Сначала значение — затем откройте слово',en:'See the meaning first, then reveal the word'}[practiceLanguage]):pc('modeCheckText');
   const saved = activeDeckId ? practiceState.state.sessions[activeDeckId + ':' + activeDeckModule] : null;
   const resume = saved && saved.index > 0 && saved.index < practiceQueue.length;
   pq('session-start').querySelector('span').textContent=resume?pc('resumeAt').replace('{number}',saved.index+1):pc('setupStart');
@@ -453,7 +497,8 @@ function beginSession() {
   pq('practice-modal').querySelector('[role="dialog"]').setAttribute('aria-labelledby','session-title');
   updateSession();
 }
-function openSession() {
+function openSession() { spokenCard=null;renderedSessionKey=null;
+  if(!sessionModeChosen&&cardPreferences().direction==='reproduction')sessionDisplayMode='check';
   const saved = activeDeckId ? practiceState.state.sessions[activeDeckId + ':' + activeDeckModule] : null;
   practiceIndex = saved && saved.index < practiceQueue.length ? saved.index : 0;
   practiceTrigger=document.activeElement;
@@ -467,7 +512,7 @@ function openSession() {
   renderSessionSetup();
   pq('session-start').focus();
 }
-function startPractice() { activeDeckId = null; sessionMode = "due"; practiceQueue = core.selectSession(visibleCards()); if (!practiceQueue.length) { setStatus(pc("reviewEmpty"), true); return; } openSession(); }
+function startPractice() { activeDeckId = null; sessionMode = "due"; const pref=cardPreferences(),visible=visibleCards(),fresh=visible.filter(c=>c.srs.status==='new').sort((a,b)=>a.createdAt-b.createdAt).slice(0,pref.newWords);practiceQueue = core.selectSession([...visible.filter(c=>c.srs.status!=='new'),...fresh],Date.now(),pref.reviewLimit); if (!practiceQueue.length) { setStatus(pc("reviewEmpty"), true); return; } openSession(); }
 function startReview(mode) {
   const now = Date.now();
   const start = mode === "five" ? now - 5 * core.DAY : new Date(new Date().getFullYear(), new Date().getMonth(), 1).getTime();
@@ -475,7 +520,7 @@ function startReview(mode) {
   if (!cards.length) { setStatus(pc("reviewEmpty"), true); return; }
   activeDeckId = null;
   sessionMode = mode;
-  practiceQueue = shuffled(cards).slice(0,20);
+  practiceQueue = shuffled(cards).slice(0,cardPreferences().reviewLimit);
   openSession();
 }
 function startDeck(id, moduleIndex = 0) {
@@ -627,6 +672,7 @@ pq("session-setup").addEventListener("click", event => {
   const mode = event.target.closest("[data-session-mode]");
   if (!mode) return;
   sessionDisplayMode = mode.dataset.sessionMode === "check" ? "check" : "learn";
+  sessionModeChosen=true;
   localStorage.setItem("fullride-practice-mode-v1", sessionDisplayMode);
   renderSessionSetup();
 });
@@ -687,6 +733,7 @@ pq("session-reveal").addEventListener("click", () => {
   pq("session-meaning").hidden = false;
   pq("session-actions").hidden = false;
   renderMeaning(card);
+  speakCard(true);
   queueEnrichment([card], true);
 });
 pq("session-sentence").addEventListener("input", () => {
@@ -737,15 +784,7 @@ pq("sentence-form").addEventListener("submit", async event => {
 });
 pq("session-actions").addEventListener("click", event => { const button = event.target.closest("[data-rate]"); if (button) nextSession(button.dataset.rate); });
 pq("session-next").addEventListener("click", skipSession);
-pq("session-speak").addEventListener("click", () => {
-  const card = currentSessionCard();
-  if (!card || !("speechSynthesis" in window)) return;
-  window.speechSynthesis.cancel();
-  const speech = new SpeechSynthesisUtterance(card.word);
-  speech.lang = "en-US";
-  speech.rate = .82;
-  window.speechSynthesis.speak(speech);
-});
+pq("session-speak").addEventListener("click", () => speakCard());
 document.querySelectorAll("[data-practice-close]").forEach(element => element.addEventListener("click", closePractice));
 document.addEventListener("keydown", event => {
   if (!pq("practice-modal").classList.contains("is-open")) return;
@@ -765,5 +804,14 @@ document.addEventListener("keydown", event => {
   if (meaningRevealed && rating) nextSession(rating);
 });
 document.querySelectorAll("[data-practice-lang]").forEach(button => button.addEventListener("click", () => { practiceLanguage = button.dataset.practiceLang; history.replaceState({}, "", `practice.html?lang=${practiceLanguage}`); renderLanguage(); if (currentSessionCard()) { updateSession(); if (currentSessionCard().sentenceStatus === "correct") refreshSessionTranslation(); } }));
-window.addEventListener("fullride:cloud-data", () => { flashcards = loadCards(); learnedDeckWords = loadDeckProgress(); deckSrs = loadDeckSrs(); deckTranslations = loadDeckTranslations(); renderDecks(); render(); queueEnrichment(flashcards.slice(0,120)); if (currentSessionCard()) updateSession(); });
+window.addEventListener('fullride:preferences',()=>renderDailyGoal());
+window.addEventListener("fullride:cloud-data", () => {
+  flashcards=loadCards();
+  savedCardSignatures=new Map(flashcards.map(card=>[card.id,cardSignature(card)]));
+  learnedDeckWords=loadDeckProgress();deckSrs=loadDeckSrs();deckTranslations=loadDeckTranslations();
+  if(!activeDeckId){const latest=new Map(flashcards.map(card=>[card.id,card]));practiceQueue=practiceQueue.map(card=>latest.get(card.id)||card);}
+  else practiceQueue.forEach(card=>{card.srs=core.hydrateSrs(deckSrs[card.id],learnedDeckWords.has(card.id),card.createdAt);});
+  renderDecks();render();queueEnrichment(flashcards.slice(0,120));
+  if(currentSessionCard())updateSession();
+});
 renderLanguage();

@@ -79,7 +79,7 @@ Object.assign(translations.en, {
 Object.assign(translations.uk, { partialOnly:'Частково перевірено', partialBadge:'Вимог перевірено: {count}/5', auditText:'Кожну вимогу перевіряємо окремо за офіційним джерелом. Федеральна статистика — історичний зріз, не правила вступу.', coverageText:'Повністю: {full} · Частково: {partial} · Підтверджених вимог: {fields} / {total}', partialCard:'Підтверджені вимоги вже доступні у профілі. Решта очікують перевірки; не вважайте їх відсутністю вимог.' });
 Object.assign(translations.ru, { partialOnly:'Частично проверено', partialBadge:'Требований проверено: {count}/5', auditText:'Каждое требование проверяем отдельно по официальному источнику. Федеральная статистика — исторический срез, не правила поступления.', coverageText:'Полностью: {full} · Частично: {partial} · Подтверждённых требований: {fields} / {total}', partialCard:'Подтверждённые требования уже доступны в профиле. Остальные ждут проверки; это не означает отсутствия требований.' });
 Object.assign(translations.en, { partialOnly:'Partially verified', partialBadge:'Policies verified: {count}/5', auditText:'Each policy is reviewed separately against an official source. Federal statistics are a historical snapshot, not current admissions rules.', coverageText:'Complete: {full} · Partial: {partial} · Verified policies: {fields} / {total}', partialCard:'Verified policies are available in the profile. Other policies still await review; missing information does not mean no requirement.' });
-let language = ["uk", "ru", "en"].includes(new URLSearchParams(window.location.search).get("lang")) ? new URLSearchParams(window.location.search).get("lang") : "uk";
+let language = globalThis.FullRidePreferences?.language() || 'uk';
 let englishFilter = "all";
 let visibleCount = 10;
 let resultsExpanded = true;
@@ -296,6 +296,16 @@ function render() {
   });
 
   matches = FullRideFinder.sorted(matches,q('finder-sort').value,text);
+  const personalMatches=new Map(matches.map(c=>[c.slug,globalThis.FullRidePreferences?.match(c)]));
+  if(!text&&q('finder-sort').value==='relevance')matches.sort((a,b)=>{
+    const score=m=>m?.complete?100:m&&!m.mismatch?m.matched:0;
+    return score(personalMatches.get(b.slug))-score(personalMatches.get(a.slug));
+  });
+  let personalNote=q('personal-finder-note');
+  if(!personalNote){personalNote=document.createElement('p');personalNote.id='personal-finder-note';personalNote.className='personal-finder-note';q('results-count').after(personalNote);}
+  const hasProfile=globalThis.FullRidePreferences?.match({}).total>0;
+  personalNote.hidden=!hasProfile;
+  personalNote.innerHTML=language==='ru'?'Учитываем ваш профиль. Совпадение фильтров — не гарантия поступления. <a href="settings.html?lang=ru#admission">Изменить параметры →</a>':language==='en'?'Your profile helps order results. Matching filters do not guarantee admission. <a href="settings.html?lang=en#admission">Edit preferences →</a>':'Враховуємо ваш профіль. Збіг фільтрів — не гарантія вступу. <a href="settings.html?lang=uk#admission">Змінити параметри →</a>';
   q("results-count").textContent = t("results").replace("{count}", matches.length);
   q("results-panel").hidden = !resultsExpanded;
   q("results-toggle").classList.toggle("open", resultsExpanded);
@@ -310,8 +320,9 @@ function render() {
     <article class="card card--photo ${college.verified ? "card--verified" : "card--pending"}" style="--campus:url('${college.photoThumb || college.photo}')">
       <a class="card-hit-area" href="university.html?id=${encodeURIComponent(college.slug)}&lang=${language}" aria-label="${t("viewProfile")}: ${college.name}"></a>
       <div class="card-audit-status ${college.verified ? "is-verified" : "is-pending"}">${college.verified ? `${t("verifiedBadge")} · ${formatAuditDate(college.checkedAt)}` : FullRidePolicy.count(college)>0 ? t('partialBadge').replace('{count}',FullRidePolicy.count(college)) : t("pendingBadge")}</div>
-      <div class="card-top"><div><h3>${college.name}</h3><p class="place">${college.location}</p></div><span class="badge">${FullRidePolicy.known(college,'aid')&&college.aidShort ? FullRidePolicy.escape(college.aidShort) : t("notAvailableYet")}</span></div>
-      <p class="finder-card-price" title="${t('costNote')}">${t('tuitionLabel')}: ${Number.isFinite(college.finderFacts?.tuition) ? '$' + formatCount(college.finderFacts.tuition) : t('unknownPrice')}<small>${language==='ru'?'Nonresident · до помощи':language==='uk'?'Nonresident · до допомоги':'Nonresident · before aid'}</small></p>
+      <div class="card-top"><div><h3>${college.name}</h3><p class="place">${college.location}</p></div>${FullRidePolicy.known(college,'aid')&&college.aidShort ? '<span class="badge">'+FullRidePolicy.escape(college.aidShort)+'</span>' : ''}</div>
+      ${personalFitMarkup(personalMatches.get(college.slug))}
+      <p class="${Number.isFinite(college.finderFacts?.tuition)?'finder-card-price':'card-availability'}" title="${t('costNote')}">${t('tuitionLabel')}: ${Number.isFinite(college.finderFacts?.tuition) ? '$' + formatCount(college.finderFacts.tuition) : t('unknownPrice')}<small>${language==='ru'?'Nonresident · до помощи':language==='uk'?'Nonresident · до допомоги':'Nonresident · before aid'}</small></p>
       ${college.basicOnly ? "" : `<p class="card-description">${college.descriptionPending ? t("notAvailableYet") : college.description || t("loadingDetails")}</p>`}
       ${college.verified && college._detailsLoaded ? `<dl class="details">
         <div class="detail"><dt>${t("aid")}</dt><dd>${college.aid}<a class="detail-source" href="${college.aidSource}" target="_blank" rel="noopener noreferrer">${t("fieldSource")}</a></dd></div>
@@ -399,11 +410,11 @@ q("show-saved-results")?.addEventListener("click", () => {
   document.querySelectorAll("[data-english-filter]").forEach(option => option.classList.toggle("active", option.dataset.englishFilter === "all"));
   closeShortlistDrawer(false);
   render();
-  window.setTimeout(() => q("results-shell")?.scrollIntoView({ behavior:"smooth", block:"start" }), 80);
+  window.setTimeout(() => q("results-shell")?.scrollIntoView({ behavior:globalThis.FullRidePreferences?.motionBehavior()||"smooth", block:"start" }), 80);
 });
 q("continue-search")?.addEventListener("click", () => {
   closeShortlistDrawer(false);
-  q("finder")?.scrollIntoView({ behavior:"smooth", block:"start" });
+  q("finder")?.scrollIntoView({ behavior:globalThis.FullRidePreferences?.motionBehavior()||"smooth", block:"start" });
   window.setTimeout(() => q("search")?.focus(), 350);
 });
 document.addEventListener("keydown", event => {
@@ -465,7 +476,7 @@ document.querySelectorAll("[data-discovery-route]").forEach(button => button.add
   resultsExpanded = true;
   saveFinderUrl();
   render();
-  window.setTimeout(() => q("results-shell")?.scrollIntoView({ behavior:"smooth", block:"start" }), 80);
+  window.setTimeout(() => q("results-shell")?.scrollIntoView({ behavior:globalThis.FullRidePreferences?.motionBehavior()||"smooth", block:"start" }), 80);
 }));
 document.querySelectorAll("[data-lang]").forEach(button => button.addEventListener("click", () => { language = button.dataset.lang; saveFinderUrl(); updateLanguage(); }));
 
@@ -540,7 +551,7 @@ async function showRandomCollege() {
     q("random-reveal").classList.add("is-visible");
     randomLever?.classList.remove("is-spinning", "is-ready");
     setLeverProgress(0);
-    window.setTimeout(() => document.querySelector("#results .card")?.scrollIntoView({ behavior:"smooth", block:"center" }), 120);
+    window.setTimeout(() => document.querySelector("#results .card")?.scrollIntoView({ behavior:globalThis.FullRidePreferences?.motionBehavior()||"smooth", block:"center" }), 120);
   }, 520);
 }
 
@@ -634,6 +645,13 @@ window.addEventListener("fullride:cloud-data", () => {
   render();
 });
 
+function personalFitMarkup(match) {
+  if(!match||match.mismatch||!match.matched)return '';
+  const text=match.complete?({uk:'Підходить за вашими фільтрами',ru:'Подходит по вашим фильтрам',en:'Matches your filters'}[language]):({uk:'Частковий збіг · є невідомі дані',ru:'Частичное совпадение · есть неизвестные данные',en:'Partial match · some data unknown'}[language]);
+  const note={uk:'Збіг параметрів каталогу, не оцінка шансів вступу. Перевірте вимоги на офіційному сайті.',ru:'Совпадение параметров каталога, не оценка шансов поступления. Проверьте требования на официальном сайте.',en:'A catalogue filter match, not an admission probability. Check official requirements.'}[language];
+  return '<span class="personal-fit '+(match.complete?'':'personal-fit--partial')+'" tabindex="0" title="'+note+'">'+(match.complete?'✓':'◐')+' '+text+' · '+match.matched+'/'+match.total+'</span>';
+}
+window.addEventListener('fullride:preferences',()=>render());
 populateStates();
 restoreFinderUrl();
 updateLanguage();

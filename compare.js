@@ -18,7 +18,7 @@ Object.assign(compareTranslations.ru, { otherRegion:"Другие террито
 Object.assign(compareTranslations.en, { otherRegion:"Other territories" });
 
 const compareParams = new URLSearchParams(window.location.search);
-let compareLanguage = ["uk", "ru", "en"].includes(compareParams.get("lang")) ? compareParams.get("lang") : "uk";
+let compareLanguage = globalThis.FullRidePreferences?.language() || 'uk';
 const cq = id => document.getElementById(id);
 const ct = key => compareTranslations[compareLanguage][key] || key;
 let compareToastTimer;

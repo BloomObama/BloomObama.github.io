@@ -120,7 +120,7 @@ Object.assign(resourceCopy.uk,{checked:'Джерела перевірено 3 ж
 Object.assign(resourceCopy.ru,{checked:'Источники проверены 3 октября 2026',reading:'Reading',listening:'Listening',speaking:'Speaking',grammar:'Грамматика',vocabulary:'Лексика',anySkill:'Все навыки',anyFormat:'Все форматы',generalEnglish:'Общий английский',books:'Книги · платные',officialBadge:'Проверенный источник',noteText:'Книги ведут на страницы издателей; упражнения — на IELTS.org, British Council или IDP. Материалы General English дополняют подготовку, но не являются пробниками IELTS. Для части ресурсов нужна регистрация или покупка книги.',cambridgeOutage:'Если магазин Cambridge временно недоступен, найдите это издание по ISBN в библиотечном каталоге WorldCat.'});
 Object.assign(resourceCopy.en,{checked:'Sources checked 3 October 2026',reading:'Reading',listening:'Listening',speaking:'Speaking',grammar:'Grammar',vocabulary:'Vocabulary',anySkill:'All skills',anyFormat:'All formats',generalEnglish:'General English',books:'Books · paid',officialBadge:'Verified source',noteText:'Books link to publishers; exercises link to IELTS.org, the British Council or IDP. General English activities complement preparation but are not IELTS mocks. Some resources require registration or a book purchase.',cambridgeOutage:'If the Cambridge shop is unavailable, find this edition by ISBN in the WorldCat library catalogue.'});
 
-let resourceLanguage = ["uk","ru","en"].includes(new URLSearchParams(location.search).get("lang")) ? new URLSearchParams(location.search).get("lang") : "uk";
+let resourceLanguage = globalThis.FullRidePreferences?.language() || 'uk';
 let activeFilter = "all";
 let searchTerm = "";
 let lastTrigger = null;

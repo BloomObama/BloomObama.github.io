@@ -8,19 +8,19 @@
       menu:"Відкрити меню", close:"Закрити меню", navigation:"Навігація", tools:"Інструменти",
       home:"Головна", finder:"Університети", practice:"Практика", resources:"Ресурси IELTS", compare:"Порівняння",
       saved:"Обране", roi:"Калькулятор ROI", method:"Як користуватися", about:"Про проєкт",
-      contact:"Контакти", account:"Мій акаунт", tagline:"Ваш шлях до вступу"
+      contact:"Контакти", settings:"Налаштування", account:"Мій акаунт", tagline:"Ваш шлях до вступу"
     },
     ru: {
       menu:"Открыть меню", close:"Закрыть меню", navigation:"Навигация", tools:"Инструменты",
       home:"Главная", finder:"Университеты", practice:"Практика", resources:"Ресурсы IELTS", compare:"Сравнение",
       saved:"Избранное", roi:"Калькулятор ROI", method:"Как пользоваться", about:"О проекте",
-      contact:"Контакты", account:"Мой аккаунт", tagline:"Ваш путь к поступлению"
+      contact:"Контакты", settings:"Настройки", account:"Мой аккаунт", tagline:"Ваш путь к поступлению"
     },
     en: {
       menu:"Open menu", close:"Close menu", navigation:"Explore", tools:"Tools",
       home:"Home", finder:"Universities", practice:"Practice", resources:"IELTS resources", compare:"Compare",
       saved:"Saved", roi:"ROI calculator", method:"How it works", about:"About",
-      contact:"Contact", account:"My account", tagline:"Your path to admission"
+      contact:"Contact", settings:"Settings", account:"My account", tagline:"Your path to admission"
     }
   };
   const icons = {
@@ -34,11 +34,12 @@
     method:'<circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2.3 4.7-4.7 2.3 2.3-4.7z"/>',
     about:'<circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-10v.5"/>',
     contact:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 7 9-7"/>',
-    account:'<circle cx="12" cy="8" r="3.5"/><path d="M5 21a7 7 0 0 1 14 0"/>'
+    account:'<circle cx="12" cy="8" r="3.5"/><path d="M5 21a7 7 0 0 1 14 0"/>',
+    settings:'<path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="3"/><circle cx="15" cy="17" r="3"/>'
   };
   const route = [
     ["home","home"], ["finder","finder"], ["practice","practice"], ["resources","resources"], ["compare","compare"],
-    ["saved","saved"], ["roi","roi"], ["method","method"], ["about","about"], ["contact","contact"]
+    ["saved","saved"], ["roi","roi"], ["method","method"], ["about","about"], ["contact","contact"], ["settings","settings"]
   ];
   const icon = key => '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' + icons[key] + '</svg>';
   const language = () => {
@@ -48,7 +49,7 @@
   const file = location.pathname.split("/").pop() || "index.html";
   const onHome = file === "index.html";
   const href = (key, lang) => {
-    if (key === "practice" || key === "compare") return key + ".html?lang=" + lang;
+    if (key === "practice" || key === "compare" || key === "settings") return key + ".html?lang=" + lang;
     if (key === "resources") return "ielts-resources.html?lang=" + lang;
     const section = key === "home" ? "top" : key;
     return (onHome ? "" : "index.html?lang=" + lang) + "#" + section;
@@ -72,6 +73,7 @@
   document.body.classList.add("has-side-rail");
 
   function activeRoute() {
+    if (file === "settings.html") return "settings";
     if (file === "practice.html") return "practice";
     if (file === "ielts-resources.html") return "resources";
     if (file === "compare.html") return "compare";

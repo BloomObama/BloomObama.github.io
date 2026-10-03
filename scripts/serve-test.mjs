@@ -6,8 +6,8 @@ const root = resolve(import.meta.dirname, "..");
 const types = { ".html":"text/html", ".js":"text/javascript", ".css":"text/css", ".json":"application/json", ".svg":"image/svg+xml" };
 createServer(async (request, response) => {
   const pathname = decodeURIComponent(new URL(request.url, "http://localhost").pathname);
-  if (pathname === "/practice-test.html") {
-    const page = (await readFile(resolve(root, "practice.html"), "utf8"))
+  if (pathname === "/practice-test.html" || pathname === "/settings-test.html") {
+    const page = (await readFile(resolve(root, pathname === "/settings-test.html" ? "settings.html" : "practice.html"), "utf8"))
       .replace(/<script src="firebase-config\.js[^\n]*\n/, "")
       .replace(/<script type="module" src="auth\.js[^\n]*\n/, "");
     response.writeHead(200, { "Content-Type":"text/html", "Cache-Control":"no-store" }).end(page);

@@ -93,7 +93,7 @@
     state = emptyState();
     for (const key of [STORAGE_KEY, OLD_CARDS_KEY, OLD_LEARNED_KEY, OLD_SRS_KEY, OLD_TRANSLATIONS_KEY]) localStorage.removeItem(key);
   }
-  function cloudRecord() { return { id:CLOUD_RECORD_ID, state }; }
+  function cloudRecord() { return { id:CLOUD_RECORD_ID, state:{...state,preferences:globalThis.FullRidePreferences?.record()} }; }
   function exportLearned() { return Object.entries(state.learnedWords).filter(([,entry]) => entry.learned).map(([id]) => id).slice(0,3000); }
 
   const api = {
@@ -101,13 +101,19 @@
     save,
     removeCard,
     clear,
-    mergeCloud(cards, learned) { mergeState(fromCloud(cards, learned)); save(); return state; },
+    mergeCloud(cards, learned) {
+      const wrapper=Array.isArray(cards)?cards.find(item=>item?.id===CLOUD_RECORD_ID)?.state:cards?.state;
+      globalThis.FullRidePreferences?.merge(wrapper?.preferences);
+      mergeState(fromCloud(cards, learned)); save(); return state;
+    },
     mergeBackup(value) { mergeState(value); save(); return state; },
     cloudRecord,
     exportLearned,
     cloudRecordId:CLOUD_RECORD_ID
   };
-  save();
+  // Read-only/private storage must not prevent account/settings UI or export.
+  // Normal saves still throw so callers cannot claim persistence succeeded.
+  try { save(); } catch {}
   globalThis.FullRidePracticeState = api;
   if (typeof window !== 'undefined') window.addEventListener('storage',event => {
     if (event.key !== STORAGE_KEY || !event.newValue) return;

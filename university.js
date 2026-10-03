@@ -27,7 +27,7 @@ Object.assign(profileTranslations.ru, { policiesVerified:"Условия под�
 Object.assign(profileTranslations.en, { policiesVerified:"Admissions policies verified" });
 
 const params = new URLSearchParams(location.search);
-let profileLanguage = ["uk","ru","en"].includes(params.get("lang")) ? params.get("lang") : "uk";
+let profileLanguage = globalThis.FullRidePreferences?.language() || 'uk';
 const profileT = key => profileTranslations[profileLanguage][key] || key;
 const college = colleges.find(item => item.slug === params.get("id"));
 const profile = college ? collegeProfiles[college.slug] : null;

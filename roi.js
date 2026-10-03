@@ -130,7 +130,7 @@ function setRoiOpen(open) {
   button.setAttribute("aria-expanded", String(open));
   button.querySelector("span").textContent = roiTranslations[getRoiLanguage()][open ? "closeButton" : "openButton"];
   button.classList.toggle("open", open);
-  if (open) window.setTimeout(() => panel.scrollIntoView({ behavior:"smooth", block:"start" }), 50);
+  if (open) window.setTimeout(() => panel.scrollIntoView({ behavior:globalThis.FullRidePreferences?.motionBehavior()||"smooth", block:"start" }), 50);
 }
 
 window.updateRoiLanguage = function updateRoiLanguage(nextLanguage = getRoiLanguage()) {
