@@ -12,7 +12,10 @@ try {
   await page.locator('#verification-filter').selectOption('partial');
   await page.locator('.card').first().waitFor();
   const reviews = readJSON('data/policy-field-reviews.json').records;
-  const expected = Object.keys(reviews).length;
+  const expected = Object.values(reviews).filter(record=>{
+    const count=Object.values(record.fields).filter(field=>field.status==='verified').length;
+    return count>0 && count<5;
+  }).length;
   assert.ok((await page.locator('#results-count').textContent()).includes(String(expected)));
   assert.ok((await page.locator('#audit-coverage').textContent()).includes('Частично: '+expected));
   const ids = await page.evaluate(()=>Object.fromEntries(colleges.map(c=>[c.catalogId,c.slug])));
@@ -50,5 +53,5 @@ try {
   await page.setViewportSize({width:390,height:844});
   assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));
   assert.deepEqual(errors,[]);
-  console.log(`PASS: partial filter, coverage counters, all sourced fields/evidence in ${expected} profiles, comparison and conflicting deadlines, mobile layout`);
+  console.log(`PASS: partial filter (${expected}), coverage counters, all sourced fields/evidence in ${Object.keys(reviews).length} profiles, comparison and conflicting deadlines, mobile layout`);
 } finally { await browser.close(); }

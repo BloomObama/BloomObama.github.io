@@ -82,6 +82,35 @@
             "hash": "30e91535797cb410fdb09399c2ddde33959c52df10f67cdf62c6e11c542f0f12",
             "quote": "Knox does not offer need-based aid to international students."
           }
+        },
+        "english": {
+          "status": "verified",
+          "value": "English proficiency is required: IELTS 6.5, TOEFL iBT 80 (4.5 for tests after January 2026), or DET 115. Scores must remain valid within two years. Exemptions may cover two consecutive full-time study years in the US/an English-only official-language country, four secondary years at an American-accredited English-medium school abroad, or official AP English Language 4+, IB English Language and Literature 5+, or A/AS English C+. Predicted scores and English-medium instruction alone do not qualify.",
+          "source": "https://www.knox.edu/admission/apply-to-knox/international-applicants",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "englishStatus": "required"
+          },
+          "evidence": {
+            "hash": "664f6d17e6074d08615ef476ee640a5d9cc6cc23b459590153955743a5dee69c",
+            "quote": "TOEFL (iBT): Overall score of 80 or 4.5 for tests taken after January 2026"
+          }
+        },
+        "deadline": {
+          "status": "verified",
+          "value": "International first-year deadlines: binding ED and nonbinding EA I November 1; EA II December 1; RD January 15. Later applications are considered on a space-available rolling basis. Supporting documents, including arts submissions, must meet the applicable deadline. The source does not label an entry year; reconfirm dates before submitting.",
+          "source": "https://www.knox.edu/admission/apply-to-knox/international-applicants/when-to-apply",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "937cf5c68a61fb975bbd5a86f921cf11c56bca97b362fb62a807fc7483bbe2f5",
+            "quote": "Regular Decision Jan 15 March 15 May 1"
+          }
         }
       }
     },
@@ -151,6 +180,35 @@
           "evidence": {
             "hash": "640cdb7346eb4138de4204e7830d779b09d5f49c01fed03e2c3b91bd60be3cf2",
             "quote": "Earlham does not award scholarships or grants for housing, food and other costs"
+          }
+        },
+        "english": {
+          "status": "verified",
+          "value": "Non-native English speakers must document proficiency for the I-20/F-1 process. The international page lists required/recommended scores: IELTS 6.0/7.0, DET 115/125, TOEFL 79/92, SAT EBRW 400/600, ACT Reading 20/26. An achieved IB English grade equivalent to CEFR B2+ is another route. The page has not converted TOEFL to the 2026 scale: ask international admissions about newer tests rather than assuming equivalence. SAT/ACT remain optional for admission.",
+          "source": "https://earlham.edu/admissions/how-to-apply/international-admissions/",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "englishStatus": "required"
+          },
+          "evidence": {
+            "hash": "640cdb7346eb4138de4204e7830d779b09d5f49c01fed03e2c3b91bd60be3cf2",
+            "quote": "IELTS (Total) 6.0 / 7.0 Duolingo (Total) 115 / 125"
+          }
+        },
+        "deadline": {
+          "status": "conflict",
+          "value": "Do not rely on one deadline: the international page lists ED/EA I November 15, EA II December 15 and RD January 15, while https://earlham.edu/admissions/how-to-apply/ lists November 1, December 1 and February 1 under a 2027–28 heading and explicitly includes international first-year applicants. Different cycle labels and the undated international page prevent confirmation of the 2026–27 schedule. Obtain the intended entry-year deadlines from international admissions.",
+          "source": "https://earlham.edu/admissions/how-to-apply/",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "738211af1c7e1a5803133f495333559bf9e1b9d2b68f6ebfce4904cecdfce963",
+            "quote": "2027-28 Application Deadlines"
           }
         }
       }
@@ -429,6 +487,65 @@
           "evidence": {
             "hash": "75d065e095a6751de34d9735e70635227035604b179d641fa203fdf5c0437bfa",
             "quote": "ACT or SAT test scores are not required for admission or scholarship consideration."
+          }
+        },
+        "aid": {
+          "status": "verified",
+          "value": "International applicants are automatically considered for merit scholarships and need-based assistance after completing their application. Full scholarships are unavailable; a personal contribution is required. Submit Lawrence's own Certification of Finance and supporting documents within five days of the admission deadline; CSS Profile cannot replace it. Awards renew at the same level subject to the published terms.",
+          "source": "https://inside.lawrence.edu/admissions-aid/international-admissions/scholarships-aid",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "aidShort": "Partial merit and need-based assistance",
+            "aidCategory": "limited"
+          },
+          "evidence": {
+            "hash": "8b9fdcab6279ae67ff092e35b41c616f763307112b18f72585d5058666cfe977",
+            "quote": "full scholarships are not available"
+          }
+        },
+        "english": {
+          "status": "verified",
+          "value": "Proficiency evidence is required. Accepted thresholds include IELTS 6.5, DET 115, TOEFL iBT 80 before January 21, 2026 or 4.0 thereafter, SAT EBRW 580, or ACT English/Writing 24. English as the primary language or school-official confirmation of English-medium high school can establish proficiency. Test agencies must send scores directly; student/counselor copies are not accepted.",
+          "source": "https://inside.lawrence.edu/admissions-aid/international-admissions/admission-requirements",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "englishStatus": "required"
+          },
+          "evidence": {
+            "hash": "1ec43118afde151eb4cee99b16dc476b9696d66955f45aef89c37223e9e9e599",
+            "quote": "IELTS 6.5 out of 9 overall band score"
+          }
+        },
+        "fee": {
+          "status": "verified",
+          "value": "No application fee for international applicants.",
+          "source": "https://inside.lawrence.edu/admissions-aid/international-admissions/admission-requirements",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "1ec43118afde151eb4cee99b16dc476b9696d66955f45aef89c37223e9e9e599",
+            "quote": "does not charge an application fee"
+          }
+        },
+        "deadline": {
+          "status": "verified",
+          "value": "First-year fall applications: ED November 1, EA December 1, ED II and RD January 15; later applications are also accepted. Certification of Finance is due within five days of the application deadline. The page is not entry-year labelled. Conservatory applicants need an audition and separate round guidance; do not infer their eligibility from this general schedule.",
+          "source": "https://inside.lawrence.edu/admissions-aid/international-admissions/admission-requirements",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "1ec43118afde151eb4cee99b16dc476b9696d66955f45aef89c37223e9e9e599",
+            "quote": "Regular Decision Jan. 15 April 1 May 1"
           }
         }
       }
