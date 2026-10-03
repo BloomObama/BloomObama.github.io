@@ -79,11 +79,11 @@ document.getElementById("site").addEventListener("load", async () => {
     doc.querySelector('[data-rate="good"]').click();
     const elapsed = performance.now() - start;
     check("know advances without waiting", elapsed < 500 && doc.getElementById("session-word").textContent !== first);
-    check("known word saves immediately", JSON.parse(doc.defaultView.localStorage.getItem("fullride-pack-learned-v1")).includes("A1:" + first));
+    check("known word saves immediately", JSON.parse(doc.defaultView.localStorage.getItem("fullride-practice-state-v1")).learnedWords["A1:" + first].learned);
     check("answer schedules account sync", syncEvents === 1);
     const second = doc.getElementById("session-word").textContent;
     doc.querySelector('[data-rate="again"]').click();
-    check("unknown word is not counted as known", !JSON.parse(doc.defaultView.localStorage.getItem("fullride-pack-learned-v1")).includes("A1:" + second));
+    check("unknown word is not counted as known", !JSON.parse(doc.defaultView.localStorage.getItem("fullride-practice-state-v1")).learnedWords["A1:" + second].learned);
     const counterBefore = Number.parseInt(doc.getElementById("session-counter").textContent, 10);
     doc.getElementById("session-next").click();
     check("skip works without sentence", Number.parseInt(doc.getElementById("session-counter").textContent, 10) === counterBefore + 1);
@@ -97,6 +97,14 @@ document.getElementById("site").addEventListener("load", async () => {
     const reloadedDoc = frame.contentDocument;
     const savedSet = reloadedDoc.querySelector('#practice-deck-list [data-start-deck="A1"][data-module="1"]');
     check("progress survives reload", savedSet.querySelector(".practice-module__percent").textContent.trim().startsWith("5%"));
+    savedSet.click();
+    check('interrupted block offers continuation',reloadedDoc.getElementById('session-start').textContent.includes('4'));
+    reloadedDoc.getElementById('session-start').click();
+    check('session resumes from saved word',reloadedDoc.getElementById('session-word').textContent === reloadedDoc.defaultView.FullRidePracticePacks.A1[23]);
+    for(let index=3;index<20;index++)reloadedDoc.getElementById('session-next').click();
+    check('finish screen appears',!reloadedDoc.getElementById('session-complete').hidden);
+    reloadedDoc.getElementById('session-finish-close').click();
+    check('skipping does not mark words learned',savedSet.querySelector('.practice-module__percent').textContent.trim().startsWith('5%'));
     result.textContent = "PASS: " + checks.join(", ") + `. Answer transition: ${elapsed.toFixed(1)} ms.`;
   } catch (error) { result.textContent = "FAIL: " + error.message; }
 });

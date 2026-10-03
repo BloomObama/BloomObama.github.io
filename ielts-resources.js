@@ -114,6 +114,12 @@ const resources = [
   }
 ];
 
+resources.push(...(globalThis.FullRideResourceExtras || []));
+for (const item of resources) if (['official-guide','ielts-21-academic','ielts-21-general','mindset','sample-tests','ielts-ready','bc-mocks','idp-hub'].includes(item.id)) item.skills=['reading','listening','writing','speaking'];
+Object.assign(resourceCopy.uk,{checked:'Джерела перевірено 3 жовтня 2026',reading:'Reading',listening:'Listening',speaking:'Speaking',grammar:'Граматика',vocabulary:'Лексика',anySkill:'Усі навички',anyFormat:'Усі формати',generalEnglish:'Загальна англійська',books:'Книги · платні',officialBadge:'Перевірене джерело',noteText:'Книги ведуть на сторінки видавців; вправи — на IELTS.org, British Council або IDP. Матеріали General English доповнюють підготовку, але не є пробниками IELTS. Для частини ресурсів потрібна реєстрація чи купівля книги.',cambridgeOutage:'Якщо магазин Cambridge тимчасово недоступний, знайдіть це видання за ISBN у бібліотечному каталозі WorldCat.'});
+Object.assign(resourceCopy.ru,{checked:'Источники проверены 3 октября 2026',reading:'Reading',listening:'Listening',speaking:'Speaking',grammar:'Грамматика',vocabulary:'Лексика',anySkill:'Все навыки',anyFormat:'Все форматы',generalEnglish:'Общий английский',books:'Книги · платные',officialBadge:'Проверенный источник',noteText:'Книги ведут на страницы издателей; упражнения — на IELTS.org, British Council или IDP. Материалы General English дополняют подготовку, но не являются пробниками IELTS. Для части ресурсов нужна регистрация или покупка книги.',cambridgeOutage:'Если магазин Cambridge временно недоступен, найдите это издание по ISBN в библиотечном каталоге WorldCat.'});
+Object.assign(resourceCopy.en,{checked:'Sources checked 3 October 2026',reading:'Reading',listening:'Listening',speaking:'Speaking',grammar:'Grammar',vocabulary:'Vocabulary',anySkill:'All skills',anyFormat:'All formats',generalEnglish:'General English',books:'Books · paid',officialBadge:'Verified source',noteText:'Books link to publishers; exercises link to IELTS.org, the British Council or IDP. General English activities complement preparation but are not IELTS mocks. Some resources require registration or a book purchase.',cambridgeOutage:'If the Cambridge shop is unavailable, find this edition by ISBN in the WorldCat library catalogue.'});
+
 let resourceLanguage = ["uk","ru","en"].includes(new URLSearchParams(location.search).get("lang")) ? new URLSearchParams(location.search).get("lang") : "uk";
 let activeFilter = "all";
 let searchTerm = "";
@@ -131,12 +137,18 @@ function visual(resource, detail = false) {
 function matches(resource) {
   const filterMatches = activeFilter === "all" || activeFilter === "book" && resource.type === "book" || activeFilter === "free" && resource.type === "free" || resource.formats.includes(activeFilter) || resource.skills.includes(activeFilter);
   const haystack = [resource.title,resource.source,local(resource.summary),resource.type === "book" ? tr("books") : tr("free"),...resource.formats,...resource.skills].join(" ").toLocaleLowerCase();
-  return filterMatches && (!searchTerm || haystack.includes(searchTerm));
+  const skill = byId('resource-skill').value;
+  const format = byId('resource-format').value;
+  return filterMatches && (!skill || resource.skills.includes(skill)) && (!format || (format === 'english' ? !resource.formats.length : resource.formats.includes(format))) && (!searchTerm || searchTerm.split(/\s+/).every(term=>haystack.includes(term)));
 }
 
 function renderFilters() {
   const filters = [["all","all"],["book","books"],["free","free"],["academic","academic"],["general","general"],["writing","writing"]];
   byId("resource-filters").innerHTML = filters.map(([value,key]) => `<button type="button" data-resource-filter="${value}" class="${activeFilter === value ? "is-active" : ""}" aria-pressed="${activeFilter === value}">${tr(key)}</button>`).join("");
+  const skill = byId('resource-skill').value, format = byId('resource-format').value;
+  byId('resource-skill').innerHTML = [['','anySkill'],...['reading','listening','writing','speaking','grammar','vocabulary'].map(key=>[key,key])].map(([value,key])=>`<option value="${value}">${tr(key)}</option>`).join('');
+  byId('resource-format').innerHTML = [['','anyFormat'],['academic','academic'],['general','general'],['english','generalEnglish']].map(([value,key])=>`<option value="${value}">${tr(key)}</option>`).join('');
+  byId('resource-skill').value=skill;byId('resource-format').value=format;
 }
 
 function renderResources() {
@@ -186,7 +198,10 @@ byId("resource-filters").addEventListener("click", event => {
   renderResources();
 });
 byId("resource-search").addEventListener("input", event => { searchTerm = event.target.value.trim().toLocaleLowerCase(); renderResources(); });
-byId("resource-reset").addEventListener("click", () => { activeFilter = "all"; searchTerm = ""; byId("resource-search").value = ""; renderFilters(); renderResources(); });
+byId("resource-reset").addEventListener("click", () => { activeFilter = "all"; searchTerm = ""; byId("resource-search").value = ""; byId('resource-skill').value='';byId('resource-format').value='';renderFilters(); renderResources(); });
+byId('resource-skill').addEventListener('change',renderResources);
+byId('resource-format').addEventListener('change',renderResources);
+byId('resource-grid').addEventListener('error',event=>{if(event.target.tagName==='IMG'){const img=event.target;img.outerHTML='<span class="resource-card__monogram"><b>BOOK</b><small>'+escapeHtml(img.alt)+'</small></span>';}},true);
 byId("resource-grid").addEventListener("click", event => { const button = event.target.closest("[data-resource-id]"); const resource = resources.find(item => item.id === button?.dataset.resourceId); if (resource) openResource(resource,button); });
 document.querySelector(".resource-path").addEventListener("click", event => { const button = event.target.closest("[data-path-resource]"); const resource = resources.find(item => item.id === button?.dataset.pathResource); if (resource) openResource(resource,button); });
 document.querySelectorAll("[data-resource-lang]").forEach(button => button.addEventListener("click", () => { resourceLanguage = button.dataset.resourceLang; history.replaceState({},"",`ielts-resources.html?lang=${resourceLanguage}`); renderLanguage(); }));

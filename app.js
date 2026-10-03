@@ -89,7 +89,34 @@ const formatCount = value => value.toLocaleString(language === "en" ? "en-US" : 
 const formatAuditDate = value => value ? new Intl.DateTimeFormat(language === "en" ? "en-US" : language === "ru" ? "ru-RU" : "uk-UA", { year:"numeric", month:"short", day:"numeric" }).format(new Date(`${value}T12:00:00`)) : "";
 const showMoreLabels = { uk:"Показати ще", ru:"Показать ещё", en:"Show more" };
 const recordLabels = { uk:"університетів у базі", ru:"университетов в базе", en:"universities in the directory" };
-const selectFilters = ["region-filter", "state-filter", "type-filter", "setting-filter", "aid-filter", "focus-filter", "verification-filter"];
+const selectFilters = ["region-filter", "state-filter", "type-filter", "setting-filter", "aid-filter", "focus-filter", "verification-filter", "degree-filter", "control-filter", "budget-filter", "size-filter"];
+const finderCopy = {
+  uk:{degreeLabel:'Основний рівень програм',anyDegree:'Усі рівні',certificateDegree:'Сертифікат',bachelorDegree:'Бакалаврат',graduateDegree:'Магістратура / PhD',controlLabel:'Форма власності',anyControl:'Усі',publicControl:'Державний',nonprofitControl:'Приватний некомерційний',profitControl:'Приватний комерційний',budgetLabel:'Навчання / рік, до',anyBudget:'Без обмеження',sizeLabel:'Студентів undergraduate',anySize:'Будь-яка кількість',sortLabel:'Сортування',relevance:'За відповідністю',nameSort:'За назвою',tuitionSort:'Спочатку дешевші',verifiedSort:'Спочатку перевірені',shareSearch:'Скопіювати пошук',copiedSearch:'Посилання скопійовано',costNote:'Довідкові дані College Scorecard (реліз 2025): tuition для nonresident, до допомоги, без проживання. Невідомі ціни не потрапляють у бюджетний фільтр. Основний рівень — переважний тип програм, не повний список дипломів.',tuitionLabel:'Навчання / рік',unknownPrice:'Ціну не опубліковано'},
+  ru:{degreeLabel:'Основной уровень программ',anyDegree:'Все уровни',certificateDegree:'Сертификат',bachelorDegree:'Бакалавриат',graduateDegree:'Магистратура / PhD',controlLabel:'Форма собственности',anyControl:'Все',publicControl:'Государственный',nonprofitControl:'Частный некоммерческий',profitControl:'Частный коммерческий',budgetLabel:'Обучение / год, до',anyBudget:'Без ограничения',sizeLabel:'Студентов undergraduate',anySize:'Любое количество',sortLabel:'Сортировка',relevance:'По соответствию',nameSort:'По названию',tuitionSort:'Сначала дешевле',verifiedSort:'Сначала проверенные',shareSearch:'Скопировать поиск',copiedSearch:'Ссылка скопирована',costNote:'Справочные данные College Scorecard (релиз 2025): tuition для nonresident, до помощи, без проживания. Неизвестные цены не попадают в бюджетный фильтр. Основной уровень — преобладающий тип программ, не полный список дипломов.',tuitionLabel:'Обучение / год',unknownPrice:'Цена не опубликована'},
+  en:{degreeLabel:'Predominant program level',anyDegree:'All levels',certificateDegree:'Certificate',bachelorDegree:"Bachelor’s",graduateDegree:'Graduate / PhD',controlLabel:'Ownership',anyControl:'All',publicControl:'Public',nonprofitControl:'Private nonprofit',profitControl:'Private for-profit',budgetLabel:'Annual tuition, up to',anyBudget:'No limit',sizeLabel:'Undergraduate enrollment',anySize:'Any size',sortLabel:'Sort',relevance:'Relevance',nameSort:'Name',tuitionSort:'Lowest tuition first',verifiedSort:'Reviewed first',shareSearch:'Copy search link',copiedSearch:'Link copied',costNote:'College Scorecard reference data (2025 release): nonresident tuition before aid, excluding living costs. Unknown prices are excluded from budget results. Predominant degree is the main program type, not every award offered.',tuitionLabel:'Annual tuition',unknownPrice:'Price not reported'}
+};
+Object.entries(finderCopy).forEach(([lang,copy]) => Object.assign(translations[lang],copy));
+q('advanced-filters').insertAdjacentHTML('beforeend','<p class="finder-data-note" data-i18n="costNote"></p>');
+document.querySelector('.filter-toolbar').insertAdjacentHTML('afterend','<div class="finder-controls"><label><span data-i18n="sortLabel"></span><select id="finder-sort"><option value="relevance" data-i18n="relevance"></option><option value="name" data-i18n="nameSort"></option><option value="tuition" data-i18n="tuitionSort"></option><option value="verified" data-i18n="verifiedSort"></option></select></label><button id="finder-share" type="button" data-i18n="shareSearch"></button></div>');
+
+function saveFinderUrl() {
+  const url = new URL(location.href);
+  url.searchParams.set('lang',language);
+  const pairs = [['q',q('search').value.trim()],...selectFilters.map(id=>[id,q(id).value]),...checkboxFilters.map(id=>[id,q(id).checked?'1':'']),['english',englishFilter === 'all'?'':englishFilter],['sort',q('finder-sort').value === 'relevance'?'':q('finder-sort').value]];
+  for (const [key,value] of pairs) { if(value) url.searchParams.set(key,value); else url.searchParams.delete(key); }
+  history.replaceState({},'',url);
+}
+function restoreFinderUrl() {
+  const params = new URLSearchParams(location.search);
+  q('search').value = (params.get('q') || '').slice(0,150);
+  for(const id of selectFilters) { const value=params.get(id); if([...q(id).options].some(option=>option.value === value)) q(id).value=value; }
+  checkboxFilters.forEach(id=>{q(id).checked=params.get(id)==='1';});
+  englishFilter=['required','not-required'].includes(params.get('english'))?params.get('english'):'all';
+  q('finder-sort').value=['name','tuition','verified'].includes(params.get('sort'))?params.get('sort'):'relevance';
+  document.querySelectorAll('[data-english-filter]').forEach(option=>option.classList.toggle('active',option.dataset.englishFilter===englishFilter));
+}
+q('finder-sort').addEventListener('change',()=>{saveFinderUrl();render();});
+q('finder-share').addEventListener('click',async()=>{saveFinderUrl();try{await navigator.clipboard.writeText(location.href);showCompareToast(t('copiedSearch'));}catch{window.prompt(t('shareSearch'),location.href);}});
 const checkboxFilters = ["need-blind", "test-flexible", "fee-waiver"];
 const shortlistStorageKey = "fullride-shortlist-v1";
 let shortlistedColleges = loadShortlist();
@@ -247,13 +274,10 @@ function render() {
   }
 
   const text = q("search").value.trim().toLowerCase();
-  const matches = colleges.filter(college => {
-    const searchable = `${college.name} ${college.short} ${college.location} ${college._searchText || ""} ${college.focus.join(" ")}`.toLowerCase();
-    const shortQueryMatch = text.length <= 3
-      ? college.short.toLowerCase() === text || `${college.name} ${college.location}`.toLowerCase().split(/\s+/).some(word => word.startsWith(text))
-      : searchable.includes(text);
+  let matches = colleges.filter(college => {
     return (!shortlistMode || shortlistedColleges.has(college.slug))
-      && (!text || shortQueryMatch)
+      && (!text || FullRideFinder.textMatches(college,text))
+      && FullRideFinder.factsMatch(college,{degree:q('degree-filter').value,control:q('control-filter').value,budget:q('budget-filter').value,size:q('size-filter').value})
       && (!q("region-filter").value || college.region === q("region-filter").value)
       && (!q("state-filter").value || college.state === q("state-filter").value)
       && (!q("type-filter").value || college.institutionType === q("type-filter").value)
@@ -267,6 +291,7 @@ function render() {
       && (englishFilter === "all" || college.englishStatus === englishFilter);
   });
 
+  matches = FullRideFinder.sorted(matches,q('finder-sort').value,text);
   q("results-count").textContent = t("results").replace("{count}", matches.length);
   q("results-panel").hidden = !resultsExpanded;
   q("results-toggle").classList.toggle("open", resultsExpanded);
@@ -282,6 +307,7 @@ function render() {
       <a class="card-hit-area" href="university.html?id=${encodeURIComponent(college.slug)}&lang=${language}" aria-label="${t("viewProfile")}: ${college.name}"></a>
       <div class="card-audit-status ${college.verified ? "is-verified" : "is-pending"}">${college.verified ? `${t("verifiedBadge")} · ${formatAuditDate(college.checkedAt)}` : t("pendingBadge")}</div>
       <div class="card-top"><div><h3>${college.name}</h3><p class="place">${college.location}</p></div><span class="badge">${college.verified ? college.aidShort : t("notAvailableYet")}</span></div>
+      <p class="finder-card-price" title="${t('costNote')}">${t('tuitionLabel')}: ${Number.isFinite(college.finderFacts?.tuition) ? '$' + formatCount(college.finderFacts.tuition) : t('unknownPrice')}<small>${language==='ru'?'Nonresident · до помощи':language==='uk'?'Nonresident · до допомоги':'Nonresident · before aid'}</small></p>
       ${college.basicOnly ? "" : `<p class="card-description">${college.descriptionPending ? t("notAvailableYet") : college.description || t("loadingDetails")}</p>`}
       ${college.verified ? `<dl class="details">
         <div class="detail"><dt>${t("aid")}</dt><dd>${college.aid}<a class="detail-source" href="${college.aidSource}" target="_blank" rel="noopener noreferrer">${t("fieldSource")}</a></dd></div>
@@ -310,6 +336,7 @@ function refreshResults() {
   activeDiscoveryRoute = "";
   visibleCount = 10;
   resultsExpanded = true;
+  saveFinderUrl();
   render();
 }
 
@@ -388,6 +415,8 @@ q("reset")?.addEventListener("click", () => {
   shortlistMode = false;
   activeDiscoveryRoute = "";
   document.querySelectorAll("[data-english-filter]").forEach(option => option.classList.toggle("active", option.dataset.englishFilter === "all"));
+  q('finder-sort').value='relevance';
+  saveFinderUrl();
   render();
 });
 q("show-more")?.addEventListener("click", () => { visibleCount += 10; render(); });
@@ -430,10 +459,11 @@ document.querySelectorAll("[data-discovery-route]").forEach(button => button.add
   document.querySelectorAll("[data-english-filter]").forEach(option => option.classList.toggle("active", option.dataset.englishFilter === "all"));
   visibleCount = 10;
   resultsExpanded = true;
+  saveFinderUrl();
   render();
   window.setTimeout(() => q("results-shell")?.scrollIntoView({ behavior:"smooth", block:"start" }), 80);
 }));
-document.querySelectorAll("[data-lang]").forEach(button => button.addEventListener("click", () => { language = button.dataset.lang; updateLanguage(); }));
+document.querySelectorAll("[data-lang]").forEach(button => button.addEventListener("click", () => { language = button.dataset.lang; saveFinderUrl(); updateLanguage(); }));
 
 const randomHandle = q("random-lever-handle");
 const randomLever = document.querySelector(".random-lever");
@@ -601,4 +631,5 @@ window.addEventListener("fullride:cloud-data", () => {
 });
 
 populateStates();
+restoreFinderUrl();
 updateLanguage();

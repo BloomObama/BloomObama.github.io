@@ -52,18 +52,20 @@ const deckDefinitions = [
   { id:"B1-B2", title:"B1 → B2", copy:"packB1B2", bridge:true }
 ];
 const baseDecks = globalThis.FullRidePracticePacks || {};
-const deckProgressKey = "fullride-pack-learned-v1";
-const deckTranslationKey = "fullride-pack-translations-v1";
-const deckSrsKey = "fullride-pack-srs-v1";
-function loadDeckProgress() { try { const saved = JSON.parse(localStorage.getItem(deckProgressKey) || "[]"); return new Set(Array.isArray(saved) ? saved.filter(id => typeof id === "string") : []); } catch { return new Set(); } }
-function loadDeckTranslations() { try { const saved = JSON.parse(localStorage.getItem(deckTranslationKey) || "{}"); return saved && typeof saved === "object" && !Array.isArray(saved) ? saved : {}; } catch { return {}; } }
-function loadDeckSrs() { try { const saved = JSON.parse(localStorage.getItem(deckSrsKey) || "{}"); return saved && typeof saved === "object" && !Array.isArray(saved) ? saved : {}; } catch { return {}; } }
+const practiceState = globalThis.FullRidePracticeState;
+function loadDeckProgress() { return new Set(Object.entries(practiceState.state.learnedWords).filter(([,entry]) => entry.learned).map(([id]) => id)); }
+function loadDeckTranslations() { return practiceState.state.translations; }
+function loadDeckSrs() { return practiceState.state.deckSrs; }
 let learnedDeckWords = loadDeckProgress();
 let deckTranslations = loadDeckTranslations();
 let deckSrs = loadDeckSrs();
 let activeDeckId = null;
 let activeDeckModule = null;
 let sessionDisplayMode = localStorage.getItem("fullride-practice-mode-v1") === "check" ? "check" : "learn";
+Object.assign(practiceCopy.uk,{resumeAt:'Продовжити зі слова {number}',restartSet:'Почати спочатку',finishTitle:'Блок завершено',finishText:'Знаю {known} із {total}. Прогрес збережено.',backToSets:'До блоків',exportProgress:'Завантажити резервну копію',importProgress:'Відновити копію',backupDone:'Копію відновлено. Дані об’єднано з поточним прогресом.',backupError:'Це не резервна копія FullRide. Виберіть JSON-файл, завантажений на цій сторінці.',previewLooking:'Шукаємо переклад…',translationNote:'Словниковий переклад з’являється одразу. Для нового слова онлайн-сервіс дає машинну підказку; її можна виправити.'});
+Object.assign(practiceCopy.ru,{resumeAt:'Продолжить со слова {number}',restartSet:'Начать сначала',finishTitle:'Блок завершён',finishText:'Знаю {known} из {total}. Прогресс сохранён.',backToSets:'К блокам',exportProgress:'Скачать резервную копию',importProgress:'Восстановить копию',backupDone:'Копия восстановлена. Данные объединены с текущим прогрессом.',backupError:'Это не резервная копия FullRide. Выберите JSON-файл, скачанный на этой странице.',previewLooking:'Ищем перевод…',translationNote:'Словарный перевод появляется сразу. Для нового слова онлайн-сервис даёт машинную подсказку; её можно исправить.'});
+Object.assign(practiceCopy.en,{resumeAt:'Continue from word {number}',restartSet:'Start over',finishTitle:'Set complete',finishText:'{known} of {total} known. Progress saved.',backToSets:'Back to sets',exportProgress:'Download backup',importProgress:'Restore backup',backupDone:'Backup restored and merged with current progress.',backupError:'This is not a FullRide backup. Select a JSON file downloaded from this page.',previewLooking:'Looking up translation…',translationNote:'Dictionary glosses appear instantly. New words use a machine suggestion from an online service; you can edit it.'});
+let practiceTrigger = null;
 function deckEntries(id) {
   const bridge = id.split("-");
   const levels = bridge.length === 2 ? bridge : [id];
@@ -73,9 +75,19 @@ function deckEntries(id) {
     return chosen.map(word => ({ id:`${level}:${word}`, word }));
   });
 }
-function saveDeckProgress() { localStorage.setItem(deckProgressKey, JSON.stringify([...learnedDeckWords])); window.dispatchEvent(new CustomEvent("fullride:local-data-changed", { detail:{ kind:"packLearned" } })); }
+function saveDeckProgress() {
+  const known = new Set(learnedDeckWords);
+  const ids = new Set([...Object.keys(practiceState.state.learnedWords), ...known]);
+  for (const id of ids) {
+    const learned = known.has(id);
+    const previous = practiceState.state.learnedWords[id];
+    if (!previous || previous.learned !== learned) practiceState.state.learnedWords[id] = { learned, updatedAt:Date.now() };
+  }
+  practiceState.save();
+  window.dispatchEvent(new CustomEvent("fullride:local-data-changed", { detail:{ kind:"packLearned" } }));
+}
 function srsForDeck(id) { return core.hydrateSrs(deckSrs[id], learnedDeckWords.has(id), Date.now()); }
-function saveDeckSrs() { localStorage.setItem(deckSrsKey, JSON.stringify(deckSrs)); }
+function saveDeckSrs() { practiceState.state.deckSrs = deckSrs; practiceState.save(); window.dispatchEvent(new CustomEvent("fullride:local-data-changed", { detail:{ kind:"packSrs" } })); }
 function renderDecks() {
   const openDecks = new Set([...document.querySelectorAll(".practice-deck details[open]")].map(item => item.closest(".practice-deck")?.dataset.deck).filter(Boolean));
   const renderGroup = bridge => deckDefinitions.filter(deck => Boolean(deck.bridge) === bridge).map(deck => {
@@ -96,12 +108,12 @@ function renderDecks() {
   pq("practice-bridge-list").innerHTML = renderGroup(true);
 }
 
-Object.assign(practiceCopy.uk, { translationNote:"Слова з локального словника перекладаються одразу. Решта — через мережу; неточний переклад можна виправити в картці.", editTranslation:"Редагувати переклад", saveTranslation:"Зберегти переклад" });
-Object.assign(practiceCopy.ru, { translationNote:"Слова из локального словаря переводятся сразу. Остальные — через сеть; неточный перевод можно исправить в карточке.", editTranslation:"Изменить перевод", saveTranslation:"Сохранить перевод" });
-Object.assign(practiceCopy.en, { translationNote:"Local dictionary words appear instantly. Other words need a network request; you can edit an inaccurate translation.", editTranslation:"Edit translation", saveTranslation:"Save translation" });
-Object.assign(practiceCopy.uk, { previewReady:"Переклад готовий одразу · можна змінити", previewLooking:"Шукаємо переклад для нового слова…", previewOnline:"Переклад готовий · можна змінити", previewMissing:"Автопереклад недоступний · впишіть вручну", previewManual:"Ваш переклад буде збережено", previewEnglish:"Для англійського інтерфейсу переклад не потрібен" });
-Object.assign(practiceCopy.ru, { previewReady:"Перевод готов сразу · можно изменить", previewLooking:"Ищем перевод нового слова…", previewOnline:"Перевод готов · можно изменить", previewMissing:"Автоперевод недоступен · впишите вручную", previewManual:"Ваш перевод будет сохранён", previewEnglish:"Для английского интерфейса перевод не нужен" });
-Object.assign(practiceCopy.en, { previewReady:"Instant translation · editable", previewLooking:"Looking up this new word…", previewOnline:"Translation ready · editable", previewMissing:"Automatic translation unavailable · enter it manually", previewManual:"Your translation will be saved", previewEnglish:"No translation needed in the English interface" });
+Object.assign(practiceCopy.uk, { translationNote:"Для окремих слів переклад із контекстом ненадійний: невідомі слова введіть вручну. Автоматичний переклад фраз — лише підказка.", editTranslation:"Редагувати переклад", saveTranslation:"Зберегти переклад" });
+Object.assign(practiceCopy.ru, { translationNote:"Для отдельных слов перевод без контекста ненадёжен: неизвестные слова введите вручную. Автоперевод фраз — только подсказка.", editTranslation:"Изменить перевод", saveTranslation:"Сохранить перевод" });
+Object.assign(practiceCopy.en, { translationNote:"Context-free translations of single words are unreliable. Enter unknown words manually; machine-translated phrases are suggestions only.", editTranslation:"Edit translation", saveTranslation:"Save translation" });
+Object.assign(practiceCopy.uk, { previewReady:"Є у словнику · можна змінити", previewLooking:"Шукаємо підказку для фрази…", previewOnline:"Машинна підказка · перевірте перед збереженням", previewMissing:"Надійного автоперекладу немає · впишіть вручну", previewManual:"Ваш переклад буде збережено", previewEnglish:"Для англійського інтерфейсу переклад не потрібен" });
+Object.assign(practiceCopy.ru, { previewReady:"Есть в словаре · можно изменить", previewLooking:"Ищем подсказку для фразы…", previewOnline:"Машинная подсказка · проверьте перед сохранением", previewMissing:"Надёжного автоперевода нет · введите вручную", previewManual:"Ваш перевод будет сохранён", previewEnglish:"Для английского интерфейса перевод не нужен" });
+Object.assign(practiceCopy.en, { previewReady:"In local dictionary · editable", previewLooking:"Looking for a phrase suggestion…", previewOnline:"Machine suggestion · verify before saving", previewMissing:"No reliable automatic translation · enter it manually", previewManual:"Your translation will be saved", previewEnglish:"No translation needed in the English interface" });
 Object.assign(practiceCopy.uk, { module:"Блок", modules:"25 блоків по 20 слів", moduleProgress:"{known} із 20 знаю", moduleComplete:"Вивчено", moduleContinue:"Продовжити", moduleStart:"Почати", moduleAria:"Відкрити блок {number} рівня {level}", learningMode:"Вивчення", sessionCount:"{current} із {total}", sentenceOptional:"Додати речення — необов'язково", rateAgain:"Не знаю", rateGood:"Знаю", skipWord:"Пропустити", speakWord:"Прослухати слово" });
 Object.assign(practiceCopy.ru, { module:"Блок", modules:"25 блоков по 20 слов", moduleProgress:"{known} из 20 знаю", moduleComplete:"Выучено", moduleContinue:"Продолжить", moduleStart:"Начать", moduleAria:"Открыть блок {number} уровня {level}", learningMode:"Изучение", sessionCount:"{current} из {total}", sentenceOptional:"Добавить предложение — необязательно", rateAgain:"Не знаю", rateGood:"Знаю", skipWord:"Пропустить", speakWord:"Прослушать слово" });
 Object.assign(practiceCopy.en, { module:"Set", modules:"25 sets of 20 words", moduleProgress:"{known} of 20 known", moduleComplete:"Learned", moduleContinue:"Continue", moduleStart:"Start", moduleAria:"Open set {number} for level {level}", learningMode:"Learning", sessionCount:"{current} of {total}", sentenceOptional:"Add a sentence — optional", rateAgain:"I don't know", rateGood:"I know", skipWord:"Skip", speakWord:"Hear the word" });
@@ -109,7 +121,6 @@ Object.assign(practiceCopy.uk, { setupReady:"Готові до блоку?", set
 Object.assign(practiceCopy.ru, { setupReady:"Готовы к блоку?", setupIntro:"Выберите, как работать с этими 20 словами.", setupKnown:"{known} из 20 уже знаю", modeLearn:"Знакомство", modeLearnText:"Слово и значение видны сразу", modeCheck:"Самопроверка", modeCheckText:"Сначала слово — затем откройте значение", modeRecommended:"Советуем начать отсюда", setupTip:"Отвечайте честно — процент блока обновляется после каждого слова.", setupHow:"Как это работает", setupStep1:"Пройдите 20 слов в постоянном порядке.", setupStep2:"Отмечайте «Знаю» или «Не знаю».", setupStep3:"Вернитесь к блоку — прогресс останется сохранённым.", setupStart:"Начать блок" });
 Object.assign(practiceCopy.en, { setupReady:"Ready for this set?", setupIntro:"Choose how to work through these 20 words.", setupKnown:"{known} of 20 already known", modeLearn:"Learn", modeLearnText:"See the word and meaning together", modeCheck:"Self-check", modeCheckText:"See the word first, then reveal its meaning", modeRecommended:"Recommended first", setupTip:"Answer honestly—the set percentage updates after every word.", setupHow:"How it works", setupStep1:"Work through the same 20 words in a fixed order.", setupStep2:"Mark each word “I know” or “I don't know”.", setupStep3:"Return later—your progress remains saved.", setupStart:"Start set" });
 
-const flashcardKey = "fullride-flashcards-v1";
 let practiceLanguage = ["uk", "ru", "en"].includes(new URLSearchParams(location.search).get("lang")) ? new URLSearchParams(location.search).get("lang") : "uk";
 let flashcards = loadCards();
 let searchTerm = "";
@@ -125,13 +136,13 @@ function normalize(value) { return String(value || "").trim().toLocaleLowerCase(
 function escapeHtml(value) { return String(value).replace(/[&<>"']/g, character => ({"&":"&amp;", "<":"&lt;", ">":"&gt;", "\"":"&quot;", "'":"&#39;"}[character])); }
 function loadCards() {
   try {
-    const value = JSON.parse(localStorage.getItem(flashcardKey) || "[]");
+    const value = practiceState.state.cards;
     if (!Array.isArray(value)) return [];
     return value.filter(card => card && typeof card.id === "string" && typeof card.word === "string")
       .map(card => {
         const createdAt = typeof card.createdAt === "number" ? card.createdAt : Date.now();
         const translation = String(card.translation || "").trim().slice(0,240);
-        const translations = card.translations && typeof card.translations === "object" && !Array.isArray(card.translations) ? card.translations : {};
+        const translations = card.translations && typeof card.translations === "object" && !Array.isArray(card.translations) ? { ...card.translations } : {};
         if (translation && !Object.keys(translations).length) translations[practiceLanguage] = translation;
         return {
           id:card.id.slice(0,80), word:card.word.trim().slice(0,120), translation, translations, language:"en",
@@ -140,7 +151,7 @@ function loadCards() {
           synonyms:Array.isArray(card.synonyms) ? card.synonyms.filter(item => typeof item === "string").slice(0,8) : [],
           source:String(card.source || "").slice(0,80), cefr:String(card.cefr || "").slice(0,8),
           metadataStatus:String(card.metadataStatus || "pending").slice(0,24),
-          learned:Boolean(card.learned), createdAt, srs:core.hydrateSrs(card.srs, card.learned, createdAt),
+          learned:Boolean(card.learned), createdAt, updatedAt:Number(card.updatedAt) || createdAt, manualTranslations:card.manualTranslations || {}, srs:core.hydrateSrs(card.srs, card.learned, createdAt),
           sentence:typeof card.sentence === "string" ? card.sentence.slice(0,500) : "",
           sentenceStatus:["idle","correct","needs-review"].includes(card.sentenceStatus) ? card.sentenceStatus : "idle",
           sentenceCorrected:typeof card.sentenceCorrected === "string" ? card.sentenceCorrected.slice(0,500) : "",
@@ -150,18 +161,32 @@ function loadCards() {
       }).filter(card => card.word).slice(0,500);
   } catch { return []; }
 }
-function saveCards() { localStorage.setItem(flashcardKey, JSON.stringify(flashcards)); window.dispatchEvent(new CustomEvent("fullride:local-data-changed", { detail:{ kind:"flashcards" } })); }
+function saveCards() {
+  stampChangedCards();
+  practiceState.state.cards = flashcards;
+  practiceState.save();
+  window.dispatchEvent(new CustomEvent("fullride:local-data-changed", { detail:{ kind:"flashcards" } }));
+}
 let enrichSyncTimer = null;
 function saveEnrichedCards() {
-  localStorage.setItem(flashcardKey, JSON.stringify(flashcards));
+  stampChangedCards();
+  practiceState.state.cards = flashcards;
+  practiceState.save();
   window.clearTimeout(enrichSyncTimer);
   enrichSyncTimer = window.setTimeout(() => window.dispatchEvent(new CustomEvent("fullride:local-data-changed", { detail:{ kind:"flashcards" } })), 3000);
 }
-function cardTranslation(card) { return practiceLanguage === "en" ? "" : String(card.translations?.[practiceLanguage] || cachedTranslation(card.word)).slice(0,240); }
+function stampChangedCards() {
+  const previous = new Map(practiceState.state.cards.map(card=>[card.id,card]));
+  for(const card of flashcards) {
+    const old=previous.get(card.id);
+    if(!old || JSON.stringify({...old,updatedAt:0}) !== JSON.stringify({...card,updatedAt:0})) card.updatedAt=Date.now();
+  }
+}
+function cardTranslation(card) { return practiceLanguage === "en" ? "" : String(card.manualTranslations?.[practiceLanguage] || localTranslation(card.word, practiceLanguage) || card.translations?.[practiceLanguage] || cachedTranslation(card.word)).slice(0,240); }
 function localTranslation(word, language = practiceLanguage) { return String(globalThis.FullRidePracticeTranslations?.[language]?.[normalize(word)] || ""); }
-function cachedTranslation(word, language = practiceLanguage) { const key = normalize(word); return deckTranslations[language + ":" + key] || deckTranslations[language + ":" + (cefrByWord.get(key) || "") + ":" + key] || localTranslation(word, language); }
+function cachedTranslation(word, language = practiceLanguage) { const key = normalize(word); return localTranslation(word, language) || deckTranslations[language + ":" + key] || deckTranslations[language + ":" + (cefrByWord.get(key) || "") + ":" + key] || ""; }
 function visibleCards() { const now = Date.now(); return flashcards.filter(card => {
-  const matchesSearch = !searchTerm || normalize([card.word,card.translation,card.definition,card.sentence,...card.synonyms].join(" ")).includes(normalize(searchTerm));
+  const matchesSearch = !searchTerm || normalize([card.word,cardTranslation(card),card.translation,card.definition,card.sentence,...card.synonyms].join(" ")).includes(normalize(searchTerm));
   const matchesFilter = filterMode === "all" || (filterMode === "due" ? card.srs.status !== "new" && card.srs.dueAt <= now : card.srs.status === filterMode);
   return matchesSearch && matchesFilter;
 }); }
@@ -199,6 +224,7 @@ async function translateText(text, target = practiceLanguage) {
   if (target === "en") return text;
   const builtIn = text.length <= 120 ? cachedTranslation(text, target) : "";
   if (builtIn) return builtIn;
+  // Local reviewed glosses are preferred; remote translations are labelled suggestions.
   const cacheKey = target + ":" + normalize(text);
   if (translationRequests.has(cacheKey)) return translationRequests.get(cacheKey);
   const request = (async () => {
@@ -216,7 +242,8 @@ async function translateText(text, target = practiceLanguage) {
       if (!result) return "";
       if (text.length <= 120) {
         deckTranslations[cacheKey] = result.slice(0,240);
-        try { localStorage.setItem(deckTranslationKey, JSON.stringify(deckTranslations)); } catch {}
+        practiceState.state.translations = deckTranslations;
+        try { practiceState.save(); } catch {}
       }
       return result;
     } finally { translationRequests.delete(cacheKey); }
@@ -350,7 +377,7 @@ function render() {
       (card.sentence ? '<div class="flashcard-row__sentence"><small>' + escapeHtml(pc("sentenceLabel")) + '</small><p>' + escapeHtml(card.sentence) + '</p>' + sentenceBadge(card) + '</div>' : "") + '</article>';
   }).join("") : '<p class="card-empty">' + escapeHtml(pc(searchTerm || filterMode !== "all" ? "noMatch" : "empty")) + '</p>';
 }
-function closePractice() { pq("practice-modal").classList.remove("is-open"); pq("practice-modal").setAttribute("aria-hidden","true"); activeDeckId = null; activeDeckModule = null; practiceQueue = []; practiceIndex = 0; meaningRevealed = false; }
+function closePractice() { pq("practice-modal").classList.remove("is-open"); pq("practice-modal").setAttribute("aria-hidden","true"); document.body.classList.remove('practice-session-open'); activeDeckId = null; activeDeckModule = null; practiceQueue = []; practiceIndex = 0; meaningRevealed = false; practiceTrigger?.focus(); }
 function currentSessionCard() { return practiceQueue[practiceIndex]; }
 function renderSentenceState(card) {
   pq("session-sentence").value = card.sentence || "";
@@ -374,7 +401,13 @@ async function refreshSessionTranslation() {
 }
 function updateSession() {
   const card = currentSessionCard();
-  if (!card) { const wasDeck = Boolean(activeDeckId); closePractice(); if (wasDeck) pq("practice-deck-status").textContent = pc("packSessionDone"); else setStatus(pc("sessionDone")); return; }
+  if (!card) {
+    pq('session-study').hidden=true;pq('session-setup').hidden=true;pq('session-complete').hidden=false;
+    pq('practice-modal').querySelector('[role="dialog"]').setAttribute('aria-labelledby','session-finish-title');
+    const known=practiceQueue.filter(item=>activeDeckId?learnedDeckWords.has(item.id):item.learned).length;
+    pq('session-finish-text').textContent=pc('finishText').replace('{known}',known).replace('{total}',practiceQueue.length);
+    pq('session-finish-close').focus(); return;
+  }
   const deckTitle = activeDeckId ? deckDefinitions.find(deck => deck.id === activeDeckId)?.title || activeDeckId : "";
   pq("session-title").textContent = activeDeckId ? `${deckTitle} · ${pc("module")} ${activeDeckModule + 1}` : pc("sessionTitle");
   pq("session-word").textContent = card.word;
@@ -404,6 +437,10 @@ function renderSessionSetup() {
     : practiceQueue.filter(card => card.learned).length;
   pq("setup-level").textContent = moduleTitle;
   pq("setup-progress").textContent = pc("setupKnown").replace("{known}", known);
+  const saved = activeDeckId ? practiceState.state.sessions[activeDeckId + ':' + activeDeckModule] : null;
+  const resume = saved && saved.index > 0 && saved.index < practiceQueue.length;
+  pq('session-start').querySelector('span').textContent=resume?pc('resumeAt').replace('{number}',saved.index+1):pc('setupStart');
+  pq('session-restart').hidden=!resume;
   document.querySelectorAll("[data-session-mode]").forEach(button => {
     const selected = button.dataset.sessionMode === sessionDisplayMode;
     button.classList.toggle("is-selected", selected);
@@ -413,15 +450,22 @@ function renderSessionSetup() {
 function beginSession() {
   pq("session-setup").hidden = true;
   pq("session-study").hidden = false;
+  pq('practice-modal').querySelector('[role="dialog"]').setAttribute('aria-labelledby','session-title');
   updateSession();
 }
 function openSession() {
-  practiceIndex = 0;
+  const saved = activeDeckId ? practiceState.state.sessions[activeDeckId + ':' + activeDeckModule] : null;
+  practiceIndex = saved && saved.index < practiceQueue.length ? saved.index : 0;
+  practiceTrigger=document.activeElement;
+  document.body.classList.add('practice-session-open');
+  pq('session-complete').hidden=true;
   pq("practice-modal").classList.add("is-open");
   pq("practice-modal").setAttribute("aria-hidden","false");
   pq("session-setup").hidden = false;
   pq("session-study").hidden = true;
+  pq('practice-modal').querySelector('[role="dialog"]').setAttribute('aria-labelledby','setup-title');
   renderSessionSetup();
+  pq('session-start').focus();
 }
 function startPractice() { activeDeckId = null; sessionMode = "due"; practiceQueue = core.selectSession(visibleCards()); if (!practiceQueue.length) { setStatus(pc("reviewEmpty"), true); return; } openSession(); }
 function startReview(mode) {
@@ -456,19 +500,28 @@ function nextSession(rating) {
     saveDeckSrs();
     if (rating === "good") learnedDeckWords.add(card.id);
     else learnedDeckWords.delete(card.id);
+    practiceState.state.learnedWords[card.id]={learned:rating==='good',updatedAt:Date.now()};
     saveDeckProgress();
     renderDecks();
   } else { saveCards(); render(); }
   practiceIndex += 1;
+  saveSessionPosition();
   updateSession();
 }
-function skipSession() { if (!currentSessionCard()) return; practiceIndex += 1; updateSession(); }
+function saveSessionPosition() {
+  if (!activeDeckId) return;
+  practiceState.state.sessions[activeDeckId + ':' + activeDeckModule] = {index:practiceIndex,updatedAt:Date.now()};
+  practiceState.save();
+  window.dispatchEvent(new CustomEvent('fullride:local-data-changed',{detail:{kind:'session'}}));
+}
+function skipSession() { if (!currentSessionCard()) return; practiceIndex += 1; saveSessionPosition(); updateSession(); }
 
 function makeCard(word, translation = "", source = "") {
   const createdAt = Date.now();
   return {
     id:"card-" + createdAt + "-" + Math.random().toString(36).slice(2,10), word, translation,
     translations:(translation || cachedTranslation(word)) && practiceLanguage !== "en" ? {[practiceLanguage]:translation || cachedTranslation(word)} : {},
+    manualTranslations:translation && previewManuallyEdited && practiceLanguage !== 'en' ? {[practiceLanguage]:translation} : {},
     language:"en", definition:"", examples:[], synonyms:[], source:source.slice(0,80),
     cefr:cefrByWord.get(normalize(word)) || "", metadataStatus:"pending",
     learned:false, createdAt, srs:core.initialSrs(false, createdAt),
@@ -515,7 +568,7 @@ function updateTranslationPreview() {
     if (!result) return setPreviewStatus("previewMissing", "error");
     pq("translation-input").value = result.slice(0,240);
     setPreviewStatus("previewOnline", "ready");
-  }, 350);
+  }, 120);
 }
 pq("word-input").addEventListener("input", updateTranslationPreview);
 pq("translation-input").addEventListener("input", () => { previewManuallyEdited = true; setPreviewStatus("previewManual", "ready"); });
@@ -578,6 +631,22 @@ pq("session-setup").addEventListener("click", event => {
   renderSessionSetup();
 });
 pq("session-start").addEventListener("click", beginSession);
+pq('session-restart').addEventListener('click',()=>{practiceIndex=0;saveSessionPosition();beginSession();});
+pq('session-finish-close').addEventListener('click',closePractice);
+pq('practice-export').addEventListener('click',()=>{
+  const blob=new Blob([JSON.stringify({app:'FullRide UA',version:1,exportedAt:new Date().toISOString(),state:practiceState.state})],{type:'application/json'});
+  const url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download='fullride-practice-backup.json';link.click();window.setTimeout(()=>URL.revokeObjectURL(url),1000);
+});
+pq('practice-import').addEventListener('click',()=>pq('practice-import-file').click());
+pq('practice-import-file').addEventListener('change',async event=>{
+  const file=event.target.files[0];if(!file)return;
+  try {
+    if(file.size>5000000) throw new Error('size');
+    const backup=JSON.parse(await file.text());
+    if(backup.app!=='FullRide UA'||backup.version!==1||backup.state?.schemaVersion!==1||!Array.isArray(backup.state.cards))throw new Error('format');
+    practiceState.mergeBackup(backup.state);window.dispatchEvent(new CustomEvent('fullride:cloud-data'));window.dispatchEvent(new CustomEvent('fullride:local-data-changed'));setStatus(pc('backupDone'));
+  }catch{setStatus(pc('backupError'),true);}finally{event.target.value='';}
+});
 pq("card-list").addEventListener("click", event => {
   const learn = event.target.closest("[data-card-learn]");
   const edit = event.target.closest("[data-card-edit]");
@@ -596,7 +665,7 @@ pq("card-list").addEventListener("click", event => {
       saveCards(); render();
     }
   }
-  if (remove) { flashcards = flashcards.filter(card => card.id !== remove.dataset.cardDelete); saveCards(); setStatus(pc("deleted")); render(); }
+  if (remove) { practiceState.removeCard(remove.dataset.cardDelete); flashcards = loadCards(); saveCards(); setStatus(pc("deleted")); render(); }
 });
 pq("card-list").addEventListener("submit", event => {
   const form = event.target.closest("[data-card-edit-form]");
@@ -606,6 +675,7 @@ pq("card-list").addEventListener("submit", event => {
   const translation = form.querySelector("input").value.trim();
   if (!card || !translation) return;
   card.translations[practiceLanguage] = translation.slice(0,240);
+  card.manualTranslations = {...card.manualTranslations,[practiceLanguage]:translation.slice(0,240)};
   card.translation = translation.slice(0,240);
   saveCards(); render();
 });
@@ -642,7 +712,7 @@ pq("sentence-form").addEventListener("submit", async event => {
   if (!activeDeckId) saveCards();
   try {
     const result = await checkGrammar(sentence);
-    if (card !== currentSessionCard()) return;
+    if (card !== currentSessionCard() || pq('session-sentence').value.trim() !== sentence) return;
     const matches = result.matches || [];
     card.sentenceCorrected = correctedText(sentence, matches);
     card.sentenceStatus = matches.length ? "needs-review" : "correct";
@@ -658,6 +728,7 @@ pq("sentence-form").addEventListener("submit", async event => {
     if (!activeDeckId) render();
     refreshSessionTranslation();
   } catch {
+    if (card !== currentSessionCard() || pq('session-sentence').value.trim() !== sentence) return;
     card.sentenceStatus = "needs-review";
     if (!activeDeckId) saveCards();
     pq("sentence-feedback").textContent = pc("sentenceServiceError");
@@ -677,12 +748,16 @@ pq("session-speak").addEventListener("click", () => {
 });
 document.querySelectorAll("[data-practice-close]").forEach(element => element.addEventListener("click", closePractice));
 document.addEventListener("keydown", event => {
+  if (!pq("practice-modal").classList.contains("is-open")) return;
   if (event.key === "Escape") { closePractice(); return; }
-  if (!pq("practice-modal").classList.contains("is-open") || /^(INPUT|TEXTAREA|SELECT)$/.test(event.target.tagName)) return;
-  if (!pq("session-setup").hidden) {
-    if (event.key === "Enter") { event.preventDefault(); beginSession(); }
+  if(event.key==='Tab') {
+    const focusable=[...pq('practice-modal').querySelectorAll('button,input,textarea,select,a[href]')].filter(el=>!el.disabled&&el.getClientRects().length);
+    if(event.shiftKey&&document.activeElement===focusable[0]){event.preventDefault();focusable.at(-1)?.focus();}
+    else if(!event.shiftKey&&document.activeElement===focusable.at(-1)){event.preventDefault();focusable[0]?.focus();}
     return;
   }
+  if (/^(INPUT|TEXTAREA|SELECT)$/.test(event.target.tagName)) return;
+  if (!pq("session-setup").hidden) return;
   if (pq("session-study").hidden) return;
   if (event.key === "ArrowRight") { event.preventDefault(); skipSession(); return; }
   if (!meaningRevealed && (event.key === "Enter" || event.key === " ")) { event.preventDefault(); pq("session-reveal").click(); }
@@ -690,5 +765,5 @@ document.addEventListener("keydown", event => {
   if (meaningRevealed && rating) nextSession(rating);
 });
 document.querySelectorAll("[data-practice-lang]").forEach(button => button.addEventListener("click", () => { practiceLanguage = button.dataset.practiceLang; history.replaceState({}, "", `practice.html?lang=${practiceLanguage}`); renderLanguage(); if (currentSessionCard()) { updateSession(); if (currentSessionCard().sentenceStatus === "correct") refreshSessionTranslation(); } }));
-window.addEventListener("fullride:cloud-data", () => { flashcards = loadCards(); learnedDeckWords = loadDeckProgress(); deckSrs = loadDeckSrs(); renderDecks(); render(); queueEnrichment(flashcards.slice(0,120)); if (currentSessionCard()) updateSession(); });
+window.addEventListener("fullride:cloud-data", () => { flashcards = loadCards(); learnedDeckWords = loadDeckProgress(); deckSrs = loadDeckSrs(); deckTranslations = loadDeckTranslations(); renderDecks(); render(); queueEnrichment(flashcards.slice(0,120)); if (currentSessionCard()) updateSession(); });
 renderLanguage();

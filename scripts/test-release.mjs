@@ -1,0 +1,61 @@
+import { createRequire } from 'node:module';
+const require=createRequire(import.meta.url);
+const {chromium}=require(process.env.PLAYWRIGHT_MODULE_PATH || 'playwright');
+const browser=await chromium.launch({executablePath:process.env.BROWSER_EXECUTABLE,headless:true});
+const assert=(value,message)=>{if(!value)throw new Error(message);};
+try {
+  const context=await browser.newContext({viewport:{width:1440,height:1000}});
+  const page=await context.newPage();
+  await page.goto('http://127.0.0.1:8765/index.html?lang=ru#finder');
+  await page.locator('#filter-toggle').click();
+  await page.locator('#control-filter').selectOption('1');
+  await page.locator('#budget-filter').selectOption('20000');
+  await page.locator('.finder-controls').scrollIntoViewIfNeeded();
+  await page.screenshot({path:'finder-desktop-preview.png'});
+  await page.setViewportSize({width:390,height:844});
+  await page.waitForTimeout(350);
+  assert(await page.locator('.fr-rail').evaluate(el=>el.getBoundingClientRect().right<=0),'closed mobile rail stays outside viewport');
+  await page.locator('.finder-controls').scrollIntoViewIfNeeded();
+  await page.screenshot({path:'finder-mobile-preview.png'});
+  await page.setViewportSize({width:1440,height:1000});
+  await page.goto('http://127.0.0.1:8765/practice-test.html?lang=ru');
+  await page.locator('#practice-deck-list').scrollIntoViewIfNeeded();
+  await page.screenshot({path:'practice-decks-preview.png'});
+  await page.locator('#practice-deck-list [data-deck="A1"] summary').click();
+  await page.locator('[data-start-deck="A1"][data-module="0"]').click();
+  assert(await page.locator('#setup-title').evaluate(el=>getComputedStyle(el).color)==='rgb(255, 255, 255)','setup heading contrast');
+  await page.screenshot({path:'practice-setup-preview.png'});
+  await page.locator('#session-start').click();
+  await page.screenshot({path:'practice-session-preview.png'});
+  // Tab remains in the dialog even when the last focused element is an input.
+  const focused=await page.evaluate(()=>{
+    const elements=[...document.querySelectorAll('#practice-modal button,#practice-modal input,#practice-modal textarea')].filter(el=>!el.disabled&&el.getClientRects().length);
+    elements.at(-1).focus(); return elements[0].id;
+  });
+  await page.keyboard.press('Tab');
+  assert(await page.evaluate(()=>document.activeElement.id)===focused,'dialog focus trap');
+  await page.goto('http://127.0.0.1:8765/ielts-resources.html?lang=ru');
+  await page.locator('[data-resource-filter="book"]').click();
+  await page.locator('#library-title').scrollIntoViewIfNeeded();
+  await page.waitForTimeout(500);
+  await page.screenshot({path:'resources-books-preview.png'});
+  await context.close();
+
+  const offline=await browser.newContext(); const cached=await offline.newPage();
+  await cached.goto('http://127.0.0.1:8765/offline.html');
+  await cached.evaluate(async()=>{await navigator.serviceWorker.register('/sw.js?v=3');await navigator.serviceWorker.ready;});
+  await cached.waitForFunction(()=>navigator.serviceWorker.controller);
+  const paths=await cached.evaluate(async()=>{const c=await caches.open('fullride-v3');return(await c.keys()).map(request=>new URL(request.url).pathname);});
+  assert(paths.length===3&&!paths.includes('/index.html'),'only small offline core is eagerly cached');
+  await cached.goto('http://127.0.0.1:8765/index.html?lang=ru');
+  await cached.locator('#search').waitFor();
+  await cached.waitForFunction(async()=>Boolean(await caches.match(location.href)));
+  await cached.waitForFunction(async()=>Boolean(await caches.match(new URL('/app.js?v=21',location.href).href)));
+  await offline.setOffline(true); await cached.reload();
+  await cached.locator('#search').fill('Harvard');
+  await cached.locator('.card h3').first().waitFor();
+  assert((await cached.locator('.card h3').first().textContent()).includes('Harvard'),'cached search works offline');
+  await cached.goto('http://127.0.0.1:8765/never-visited.html');
+  assert((await cached.locator('h1').textContent()).length>0,'offline fallback for uncached page');
+  console.log('PASS: previews, dialog focus trap, lightweight offline core, offline catalogue, offline fallback');
+} finally {await browser.close();}

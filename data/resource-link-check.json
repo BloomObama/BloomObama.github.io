@@ -1,0 +1,258 @@
+{
+  "checkedAt": "2026-10-03T09:23:09.981Z",
+  "resources": 33,
+  "results": [
+    {
+      "url": "https://search.worldcat.org/search?q=bn%3A9781009672368",
+      "finalUrl": "https://search.worldcat.org/search?q=bn%3A9781009672368",
+      "status": "reachable",
+      "http": 200,
+      "title": "bn:9781009672368 - Search Results"
+    },
+    {
+      "url": "https://search.worldcat.org/search?q=bn%3A9781009826723",
+      "finalUrl": "https://search.worldcat.org/search?q=bn%3A9781009826723",
+      "status": "reachable",
+      "http": 200,
+      "title": "bn:9781009826723 - Search Results"
+    },
+    {
+      "url": "https://search.worldcat.org/search?q=bn%3A9781009826730",
+      "finalUrl": "https://search.worldcat.org/search?q=bn%3A9781009826730",
+      "status": "reachable",
+      "http": 200,
+      "title": "bn:9781009826730 - Search Results"
+    },
+    {
+      "url": "https://shop.cambridge.org/english/family/2100019847",
+      "finalUrl": "https://shop.cambridge.org/english/family/2100019847",
+      "status": "publisher-unavailable",
+      "http": 522,
+      "title": "Cambridge is unreachable - Cambridge University Press & Assessment"
+    },
+    {
+      "url": "https://shop.cambridge.org/english/family/2100169902",
+      "finalUrl": "https://shop.cambridge.org/english/family/2100169902",
+      "status": "publisher-unavailable",
+      "http": 522,
+      "title": "Cambridge is unreachable - Cambridge University Press & Assessment"
+    },
+    {
+      "url": "https://ielts.org/take-a-test/preparation-resources/sample-test-questions",
+      "finalUrl": "https://ielts.org/take-a-test/preparation-resources/sample-test-questions",
+      "status": "reachable",
+      "http": 200,
+      "title": "IELTS | IELTS sample test questions and practice papers"
+    },
+    {
+      "url": "https://search.worldcat.org/search?q=ti%3A%22Mindset%20for%20IELTS%20with%20Updated%20Digital%20Pack%22",
+      "finalUrl": "https://search.worldcat.org/search?q=ti%3A%22Mindset%20for%20IELTS%20with%20Updated%20Digital%20Pack%22",
+      "status": "reachable",
+      "http": 200,
+      "title": "ti:&quot;Mindset for IELTS with Updated Digital Pack&quot; - Search Results"
+    },
+    {
+      "url": "https://takeielts.britishcouncil.org/prepare/ielts-ready",
+      "finalUrl": "https://takeielts.britishcouncil.org/prepare/ielts-ready",
+      "status": "reachable",
+      "http": 200,
+      "title": "IELTS Ready: Free IELTS Preparation &amp; Practice Tests | British Council IELTS"
+    },
+    {
+      "url": "https://ielts.idp.com/prepare",
+      "finalUrl": "https://ielts.idp.com/prepare",
+      "status": "reachable",
+      "http": 200,
+      "title": "IELTS Test Preparation &amp; Practice Materials | IDP IELTS"
+    },
+    {
+      "url": "https://ielts.org/take-a-test/your-results/ielts-scoring-in-detail",
+      "finalUrl": "https://ielts.org/take-a-test/your-results/ielts-scoring-in-detail",
+      "status": "reachable",
+      "http": 200,
+      "title": "IELTS | IELTS scoring in detail: band scores explained"
+    },
+    {
+      "url": "https://shop.cambridge.org/english/family/2100096324",
+      "finalUrl": "https://shop.cambridge.org/english/family/2100096324",
+      "status": "publisher-unavailable",
+      "http": 522,
+      "title": "Cambridge is unreachable - Cambridge University Press & Assessment"
+    },
+    {
+      "url": "https://takeielts.britishcouncil.org/prepare/ielts-free-practice-mock-tests",
+      "finalUrl": "https://takeielts.britishcouncil.org/prepare/ielts-free-practice-mock-tests",
+      "status": "reachable",
+      "http": 200,
+      "title": "Free IELTS Practice and Sample Tests | British Council IELTS."
+    },
+    {
+      "url": "https://ielts.org/take-a-test/preparation-resources/writing-test-resources",
+      "finalUrl": "https://ielts.org/take-a-test/preparation-resources/writing-test-resources",
+      "status": "reachable",
+      "http": 200,
+      "title": "IELTS | IELTS Writing test preparation resources"
+    },
+    {
+      "url": "https://collins.co.uk/products/9780007456833",
+      "finalUrl": "https://collins.co.uk/products/9780007456833",
+      "status": "reachable",
+      "http": 200,
+      "title": "IELTS Grammar IELTS 5-6+ (B1+) by Fiona Aish and Jo Tomlinson &ndash; Collins"
+    },
+    {
+      "url": "https://collins.co.uk/products/9780007456826",
+      "finalUrl": "https://collins.co.uk/products/9780007456826",
+      "status": "reachable",
+      "http": 200,
+      "title": "IELTS Vocabulary IELTS 5-6+ (B1+) by Anneli Williams &ndash; Collins"
+    },
+    {
+      "url": "https://collins.co.uk/products/9780008367527",
+      "finalUrl": "https://collins.co.uk/products/9780008367527",
+      "status": "reachable",
+      "http": 200,
+      "title": "Listening for IELTS (With Answers and Audio) by Fiona Aish and Jo Tomlinson &ndash; Collins"
+    },
+    {
+      "url": "https://collins.co.uk/products/9780008367534",
+      "finalUrl": "https://collins.co.uk/products/9780008367534",
+      "status": "reachable",
+      "http": 200,
+      "title": "Writing for IELTS (With Answers) by Anneli Williams &ndash; Collins"
+    },
+    {
+      "url": "https://collins.co.uk/products/9780008765439",
+      "finalUrl": "https://collins.co.uk/products/9780008765439",
+      "status": "reachable",
+      "http": 200,
+      "title": "Get Ready for IELTS Reading by Els Van Geyte &ndash; Collins"
+    },
+    {
+      "url": "https://collins.co.uk/products/9780008765453",
+      "finalUrl": "https://collins.co.uk/products/9780008765453",
+      "status": "reachable",
+      "http": 200,
+      "title": "Get Ready for IELTS Writing by Fiona Aish and Jo Tomlinson &ndash; Collins"
+    },
+    {
+      "url": "https://ielts.org/take-a-test/preparation-resources/sample-test-questions/academic-test",
+      "finalUrl": "https://ielts.org/take-a-test/preparation-resources/sample-test-questions/academic-test",
+      "status": "reachable",
+      "http": 200,
+      "title": "IELTS | IELTS Academic sample test questions"
+    },
+    {
+      "url": "https://takeielts.britishcouncil.org/prepare/ielts-free-practice-mock-tests/general-training",
+      "finalUrl": "https://takeielts.britishcouncil.org/prepare/ielts-free-practice-mock-tests/general-training",
+      "status": "reachable",
+      "http": 200,
+      "title": "Free IELTS General Training Practice &amp; Mock Tests – Listening, Reading, Writing, Speaking | British Council IELTS"
+    },
+    {
+      "url": "https://collins.co.uk/products/9780007499694",
+      "finalUrl": "https://collins.co.uk/products/9780007499694",
+      "status": "reachable",
+      "http": 200,
+      "title": "IELTS Practice Tests Volume 1: With Answers and Audio by &ndash; Collins"
+    },
+    {
+      "url": "https://ielts.org/take-a-test/preparation-resources",
+      "finalUrl": "https://ielts.org/take-a-test/preparation-resources",
+      "status": "reachable",
+      "http": 200,
+      "title": "IELTS | IELTS preparation resources and practice tests"
+    },
+    {
+      "url": "https://takeielts.britishcouncil.org/prepare/ielts-free-practice-mock-tests/ielts-familiarisation-test",
+      "finalUrl": "https://takeielts.britishcouncil.org/prepare/ielts-free-practice-mock-tests/ielts-familiarisation-test",
+      "status": "reachable",
+      "http": 200,
+      "title": "IELTS Familiarisation Test – Free Practice &amp; Format Guide | British Council IELTS"
+    },
+    {
+      "url": "https://collins.co.uk/pages/elt-elt-audio-resources",
+      "finalUrl": "https://collins.co.uk/pages/elt-elt-audio-resources",
+      "status": "reachable",
+      "http": 200,
+      "title": "ELT Audio Resources | Free Downloads with Collins ELT Books"
+    },
+    {
+      "url": "https://learnenglish.britishcouncil.org/skills/reading/b1-reading",
+      "finalUrl": "https://learnenglish.britishcouncil.org/free-resources/reading/b1",
+      "status": "reachable",
+      "http": 200,
+      "title": "B1 reading | LearnEnglish"
+    },
+    {
+      "url": "https://learnenglish.britishcouncil.org/skills/reading/b2-reading",
+      "finalUrl": "https://learnenglish.britishcouncil.org/free-resources/reading/b2",
+      "status": "reachable",
+      "http": 200,
+      "title": "B2 reading | LearnEnglish"
+    },
+    {
+      "url": "https://learnenglish.britishcouncil.org/skills/reading/c1-reading",
+      "finalUrl": "https://learnenglish.britishcouncil.org/free-resources/reading/c1",
+      "status": "reachable",
+      "http": 200,
+      "title": "C1 reading | LearnEnglish"
+    },
+    {
+      "url": "https://learnenglish.britishcouncil.org/skills/listening/b1-listening",
+      "finalUrl": "https://learnenglish.britishcouncil.org/free-resources/listening/b1",
+      "status": "reachable",
+      "http": 200,
+      "title": "B1 listening | LearnEnglish"
+    },
+    {
+      "url": "https://learnenglish.britishcouncil.org/skills/listening/b2-listening",
+      "finalUrl": "https://learnenglish.britishcouncil.org/free-resources/listening/b2",
+      "status": "reachable",
+      "http": 200,
+      "title": "B2 listening | LearnEnglish"
+    },
+    {
+      "url": "https://learnenglish.britishcouncil.org/skills/writing/b2-writing",
+      "finalUrl": "https://learnenglish.britishcouncil.org/free-resources/writing/b2",
+      "status": "reachable",
+      "http": 200,
+      "title": "B2 writing | LearnEnglish"
+    },
+    {
+      "url": "https://learnenglish.britishcouncil.org/skills/listening/c1-listening",
+      "finalUrl": "https://learnenglish.britishcouncil.org/free-resources/listening/c1",
+      "status": "reachable",
+      "http": 200,
+      "title": "C1 listening | LearnEnglish"
+    },
+    {
+      "url": "https://learnenglish.britishcouncil.org/skills/speaking/b2-speaking",
+      "finalUrl": "https://learnenglish.britishcouncil.org/free-resources/speaking/b2",
+      "status": "reachable",
+      "http": 200,
+      "title": "B2 speaking | LearnEnglish"
+    },
+    {
+      "url": "https://learnenglish.britishcouncil.org/skills/writing/c1-writing",
+      "finalUrl": "https://learnenglish.britishcouncil.org/free-resources/writing/c1",
+      "status": "reachable",
+      "http": 200,
+      "title": "C1 writing | LearnEnglish"
+    },
+    {
+      "url": "https://learnenglish.britishcouncil.org/vocabulary",
+      "finalUrl": "https://learnenglish.britishcouncil.org/free-resources/vocabulary",
+      "status": "reachable",
+      "http": 200,
+      "title": "Vocabulary | LearnEnglish"
+    },
+    {
+      "url": "https://learnenglish.britishcouncil.org/free-resources/grammar",
+      "finalUrl": "https://learnenglish.britishcouncil.org/free-resources/grammar",
+      "status": "reachable",
+      "http": 200,
+      "title": "Grammar | LearnEnglish"
+    }
+  ]
+}

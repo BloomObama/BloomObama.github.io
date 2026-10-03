@@ -1,3 +1,4 @@
+import './practice-state.js?v=2';
 const FIREBASE_VERSION = "12.19.0";
 const config = globalThis.FullRideFirebaseConfig || {};
 const requiredConfigFields = ["apiKey", "authDomain", "projectId", "appId"];
@@ -27,7 +28,8 @@ let currentUser = null;
 let syncQueue = Promise.resolve(true);
 let syncTimer = null;
 let lastFocusedElement = null;
-const accountDataKeys = ["fullride-shortlist-v1", "fullride-compare-v1", "fullride-flashcards-v1", "fullride-pack-learned-v1"];
+const practiceStateKey = "fullride-practice-state-v1";
+const accountDataKeys = ["fullride-shortlist-v1", "fullride-compare-v1", practiceStateKey];
 
 authTranslations.uk.savedSync = "Обране, порівняння та прогрес у словах синхронізуються автоматично.";
 authTranslations.ru.savedSync = "Избранное, сравнение и прогресс по словам синхронизируются автоматически.";
@@ -179,46 +181,6 @@ function localArray(key, max = 5002) {
   }
 }
 
-function localFlashcards() {
-  try {
-    const value = JSON.parse(localStorage.getItem("fullride-flashcards-v1") || "[]");
-    if (!Array.isArray(value)) return [];
-    return value.filter(card => card && typeof card === "object" && typeof card.id === "string" && typeof card.word === "string" && typeof card.translation === "string")
-      .map(card => ({
-        id:card.id.slice(0, 80),
-        word:card.word.trim().slice(0, 120),
-        translation:card.translation.trim().slice(0, 240),
-        translations:Object.fromEntries(["uk","ru","en"].filter(lang => typeof card.translations?.[lang] === "string").map(lang => [lang,card.translations[lang].slice(0,240)])),
-        language:"en",
-        definition:typeof card.definition === "string" ? card.definition.slice(0,300) : "",
-        examples:Array.isArray(card.examples) ? card.examples.filter(item => typeof item === "string").slice(0,3).map(item => item.slice(0,240)) : [],
-        synonyms:Array.isArray(card.synonyms) ? card.synonyms.filter(item => typeof item === "string").slice(0,8).map(item => item.slice(0,60)) : [],
-        source:typeof card.source === "string" ? card.source.slice(0,80) : "",
-        cefr:typeof card.cefr === "string" ? card.cefr.slice(0,8) : "",
-        metadataStatus:typeof card.metadataStatus === "string" ? card.metadataStatus.slice(0,24) : "pending",
-        srs:{
-          status:["new","learning","review","mastered"].includes(card.srs?.status) ? card.srs.status : card.learned ? "mastered" : "new",
-          step:Number.isInteger(card.srs?.step) ? Math.max(0,Math.min(12,card.srs.step)) : 0,
-          intervalDays:Number.isFinite(card.srs?.intervalDays) ? Math.max(0,Math.min(3650,card.srs.intervalDays)) : 0,
-          dueAt:Number.isFinite(card.srs?.dueAt) ? card.srs.dueAt : Date.now(),
-          firstReviewedAt:Number.isFinite(card.srs?.firstReviewedAt) ? card.srs.firstReviewedAt : null,
-          lastReviewedAt:Number.isFinite(card.srs?.lastReviewedAt) ? card.srs.lastReviewedAt : null,
-          history:Array.isArray(card.srs?.history) ? card.srs.history.slice(-12).filter(entry => entry && Number.isFinite(entry.at) && ["again","hard","good","easy"].includes(entry.rating)).map(entry => ({at:entry.at,rating:entry.rating,intervalDays:Number(entry.intervalDays) || 0})) : []
-        },
-        learned:Boolean(card.learned),
-        createdAt:typeof card.createdAt === "number" ? card.createdAt : Date.now(),
-        sentence:typeof card.sentence === "string" ? card.sentence.slice(0, 500) : "",
-        sentenceStatus:["idle", "correct", "needs-review"].includes(card.sentenceStatus) ? card.sentenceStatus : "idle",
-        sentenceCorrected:typeof card.sentenceCorrected === "string" ? card.sentenceCorrected.slice(0, 500) : "",
-        sentenceTranslation:typeof card.sentenceTranslation === "string" ? card.sentenceTranslation.slice(0, 700) : "",
-        sentenceTranslationLanguage:["uk", "ru", "en"].includes(card.sentenceTranslationLanguage) ? card.sentenceTranslationLanguage : ""
-      }))
-      .filter(card => card.word).slice(0, 500);
-  } catch {
-    return [];
-  }
-}
-
 function accountBackupKey(uid) { return `fullride-account-backup-v1:${uid}`; }
 
 function backupLocalData(uid) {
@@ -231,7 +193,22 @@ function restoreAccountBackup(uid) {
   try { data = JSON.parse(localStorage.getItem(accountBackupKey(uid)) || "null"); }
   catch { return; }
   if (!data || typeof data !== "object") return;
+  if (typeof data[practiceStateKey] === "string") {
+    try { globalThis.FullRidePracticeState?.mergeBackup(JSON.parse(data[practiceStateKey])); } catch {}
+  } else {
+    try {
+      const cards = JSON.parse(data["fullride-flashcards-v1"] || "[]");
+      const learned = JSON.parse(data["fullride-pack-learned-v1"] || "[]");
+      if (Array.isArray(cards) || Array.isArray(learned)) {
+        globalThis.FullRidePracticeState?.mergeBackup({
+          cards:Array.isArray(cards) ? cards.filter(card => card && typeof card.id === "string") : [],
+          learnedWords:Object.fromEntries((Array.isArray(learned) ? learned : []).filter(id => typeof id === "string").map(id => [id,true]))
+        });
+      }
+    } catch {}
+  }
   for (const key of accountDataKeys) {
+    if (key === practiceStateKey) continue;
     let saved;
     let current;
     try {
@@ -239,13 +216,8 @@ function restoreAccountBackup(uid) {
       current = JSON.parse(localStorage.getItem(key) || "[]");
     } catch { continue; }
     if (!Array.isArray(saved) || !Array.isArray(current)) continue;
-    if (key === "fullride-flashcards-v1") {
-      const cards = new Map([...saved, ...current].filter(card => card && typeof card.id === "string").map(card => [card.id, card]));
-      localStorage.setItem(key, JSON.stringify([...cards.values()].slice(0, 500)));
-    } else {
-      const limit = key === "fullride-compare-v1" ? 4 : key === "fullride-pack-learned-v1" ? 3000 : 5002;
-      localStorage.setItem(key, JSON.stringify([...new Set([...saved, ...current].filter(item => typeof item === "string"))].slice(0, limit)));
-    }
+    const limit = key === "fullride-compare-v1" ? 4 : 5002;
+    localStorage.setItem(key, JSON.stringify([...new Set([...saved, ...current].filter(item => typeof item === "string"))].slice(0, limit)));
   }
   window.dispatchEvent(new CustomEvent("fullride:cloud-data"));
 }
@@ -260,20 +232,16 @@ function syncUserData(user, mergeRemote = false) {
       const remote = snapshot.exists() ? snapshot.data() : {};
       const localShortlist = localArray("fullride-shortlist-v1");
       const localComparison = localArray("fullride-compare-v1", 4);
-      const localCards = localFlashcards();
-      const localPackLearned = localArray("fullride-pack-learned-v1", 3000);
       const shortlist = mergeRemote ? [...new Set([...(remote.shortlist || []), ...localShortlist])] : localShortlist;
       const comparison = mergeRemote ? [...new Set([...(remote.comparison || []), ...localComparison])].slice(0, 4) : localComparison;
-      const remoteCards = Array.isArray(remote.flashcards) ? remote.flashcards : [];
-      const cardsById = new Map((mergeRemote ? [...remoteCards, ...localCards] : localCards).map(card => [card.id, card]));
-      const flashcards = [...cardsById.values()].filter(card => card && typeof card.id === "string" && typeof card.word === "string" && typeof card.translation === "string").slice(0, 500);
-      const packLearned = mergeRemote ? [...new Set([...(Array.isArray(remote.packLearned) ? remote.packLearned : []), ...localPackLearned])].slice(0, 3000) : localPackLearned;
+      const practiceState = globalThis.FullRidePracticeState;
+      practiceState?.mergeCloud(remote.flashcards, remote.packLearned);
+      const flashcards = [practiceState.cloudRecord()];
+      const packLearned = practiceState.exportLearned();
 
       if (mergeRemote) {
         localStorage.setItem("fullride-shortlist-v1", JSON.stringify(shortlist));
         localStorage.setItem("fullride-compare-v1", JSON.stringify(comparison));
-        localStorage.setItem("fullride-flashcards-v1", JSON.stringify(flashcards));
-        localStorage.setItem("fullride-pack-learned-v1", JSON.stringify(packLearned));
       }
 
       await setDoc(reference, {
@@ -287,7 +255,7 @@ function syncUserData(user, mergeRemote = false) {
       }, { merge:true });
 
       localStorage.removeItem(accountBackupKey(user.uid));
-      if (mergeRemote) window.dispatchEvent(new CustomEvent("fullride:cloud-data"));
+      window.dispatchEvent(new CustomEvent("fullride:cloud-data"));
       return true;
     } catch (error) {
       console.error("FullRide cloud sync failed", error);
@@ -508,6 +476,7 @@ aq("auth-signout")?.addEventListener("click", async () => {
     }
     await authApi.signOut(auth);
     accountDataKeys.forEach(key => localStorage.removeItem(key));
+    globalThis.FullRidePracticeState?.clear();
     window.dispatchEvent(new CustomEvent("fullride:cloud-data"));
     closeDialog();
   }

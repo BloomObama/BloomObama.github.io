@@ -1,0 +1,36 @@
+import { createRequire } from 'node:module';
+const require=createRequire(import.meta.url);
+const {chromium}=require(process.env.PLAYWRIGHT_MODULE_PATH || 'playwright');
+const browser=await chromium.launch({executablePath:process.env.BROWSER_EXECUTABLE,headless:true});
+const assert=(value,message)=>{if(!value)throw new Error(message);};
+try{
+ const context=await browser.newContext({viewport:{width:1365,height:900}});
+ const page=await context.newPage();const errors=[];page.on('pageerror',error=>errors.push(error.message));
+ await page.goto('http://127.0.0.1:8765/index.html?lang=ru#finder');
+ await page.locator('#search').fill('Massachusetts technology');
+ await page.locator('.card').first().waitFor();
+ assert((await page.locator('.card h3').first().textContent()).includes('Massachusetts Institute'),'multi-term relevance search');
+ await page.locator('#reset').click();await page.locator('#filter-toggle').click();
+ await page.locator('#degree-filter').selectOption('3');await page.locator('#control-filter').selectOption('1');await page.locator('#budget-filter').selectOption('20000');await page.locator('#finder-sort').selectOption('tuition');
+ const matched=await page.evaluate(()=>colleges.filter(c=>FullRideFinder.factsMatch(c,{degree:'3',control:'1',budget:'20000'})));
+ assert(matched.length>10 && matched.every(c=>Number.isFinite(c.finderFacts.tuition)&&c.finderFacts.tuition<=20000),'known budget values only');
+ const before=await page.locator('.card h3').allTextContents();
+ assert(before[0]===await page.evaluate(()=>FullRideFinder.sorted(colleges.filter(c=>FullRideFinder.factsMatch(c,{degree:'3',control:'1',budget:'20000'})),'tuition','')[0].name),'tuition ordering');
+ await page.reload();assert(await page.locator('#budget-filter').inputValue()==='20000','URL restores budget');
+ assert(JSON.stringify(await page.locator('.card h3').allTextContents())===JSON.stringify(before),'URL restores results');
+ await page.setViewportSize({width:390,height:844});
+ assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2),'mobile finder does not overflow');
+ await page.goto('http://127.0.0.1:8765/practice-test.html?lang=ru');
+ await page.locator('#word-input').fill('sell');await page.locator('#translation-input').fill('продавать на аукционе');await page.locator('#card-form button').click();
+ assert((await page.locator('.flashcard-row__translation').textContent()).includes('продавать на аукционе'),'manual gloss overrides dictionary');
+ await page.reload();assert((await page.locator('.flashcard-row__translation').textContent()).includes('продавать на аукционе'),'manual gloss survives reload');
+ const second=await context.newPage();await second.goto('http://127.0.0.1:8765/practice-test.html?lang=ru');
+ await page.locator('[data-card-delete]').click();
+ await second.waitForFunction(()=>document.querySelectorAll('[data-card-delete]').length===0);
+ await page.reload();assert(await page.locator('[data-card-delete]').count()===0,'deletion persists and reaches another tab');
+ await page.locator('#practice-import-file').setInputFiles({name:'backup.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify({app:'FullRide UA',version:1,state:{schemaVersion:1,cards:[{id:'backup-word',word:'school',createdAt:10}],learnedWords:{'A1:school':{learned:true,updatedAt:10}},sessions:{'A1:0':{index:5,updatedAt:10}}}}))});
+ await page.waitForFunction(()=>document.querySelectorAll('[data-card-delete]').length===1);
+ await page.reload();assert(await page.locator('[data-card-delete]').count()===1,'restored backup survives reload');
+ assert(errors.length===0,errors.join(';'));
+ console.log('PASS: multi-term finder, budget exclusion, sorting, URL persistence, mobile layout, manual translation, multi-tab deletion, backup restoration');
+}finally{await browser.close();}

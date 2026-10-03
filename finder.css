@@ -1,0 +1,9 @@
+.finder-controls{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin:1rem 0 0;padding-top:1rem;border-top:1px solid #ffffff26}
+.finder-controls label{display:flex;align-items:center;gap:.7rem;color:#fff;font-size:.75rem}
+.finder-controls select,.finder-controls button{padding:.65rem .9rem;border:1px solid #ffffff40;border-radius:12px;background:#ffffff0d;color:#fff;font:600 .75rem var(--sans);cursor:pointer}
+.finder-controls option{background:#fff;color:#30141e}
+.finder-controls button:hover{background:#ffffff20}
+.finder-data-note{font:500 .72rem/1.6 var(--sans);color:#e9d1d7;max-width:85ch;margin:1rem 0 0}
+.finder-card-price{display:inline-block;align-self:flex-start;font:600 .75rem/1.5 var(--sans);border:1px solid #ffffff50;background:#14203488;border-radius:999px;padding:.45rem .8rem;color:#fff;margin:1rem 0 0}
+.finder-card-price small{display:block;font-size:.6rem;font-weight:500;opacity:.9}
+@media(max-width:600px){.finder-controls{align-items:stretch}.finder-controls label{flex:1;flex-wrap:wrap}.finder-controls select{max-width:100%;width:100%}.finder-controls button{align-self:flex-end}}

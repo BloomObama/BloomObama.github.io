@@ -12,7 +12,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css?v=14" />
-    <link rel="stylesheet" href="practice.css?v=9" />
+    <link rel="stylesheet" href="practice.css?v=11" />
     <link rel="stylesheet" href="auth.css?v=1" />
     <link rel="stylesheet" href="site-refresh.css?v=1" />
     <link rel="stylesheet" href="theme-accent.css?v=4" />
@@ -91,6 +91,7 @@
         <div class="practice-library__heading"><div><p class="practice-section-label"><span>04</span><span data-practice-key="libraryLabel">МОИ КАРТОЧКИ</span></p><h2 id="library-title" data-practice-key="libraryTitle">Повторяйте то, что важно</h2></div><div class="practice-review-actions"><button id="review-five" type="button" data-practice-key="reviewFive">5-Day Review</button><button id="review-month" type="button" data-practice-key="reviewMonth">Monthly Review</button><button id="start-practice" class="practice-primary practice-primary--compact" type="button" data-practice-key="startButton">Начать практику</button></div></div>
         <div class="practice-tools"><label class="practice-search"><span aria-hidden="true">⌕</span><input id="card-search" type="search" data-practice-placeholder="searchPlaceholder" placeholder="Поиск по словам и переводам" /></label><select id="card-filter" aria-label="Filter cards"><option value="all" data-practice-key="filterAll">Все карточки</option><option value="new" data-practice-key="filterNew">Нові</option><option value="learning" data-practice-key="filterLearning">В процессе</option><option value="due" data-practice-key="filterDue">На повтор сьогодні</option><option value="mastered" data-practice-key="filterMastered">Закріплено</option></select><span id="card-result-count" class="practice-result-count"></span></div>
         <div id="card-list" class="card-list"></div>
+        <div class="practice-backups"><button id="practice-export" type="button" data-practice-key="exportProgress">Завантажити резервну копію</button><button id="practice-import" type="button" data-practice-key="importProgress">Відновити копію</button><input id="practice-import-file" type="file" accept="application/json,.json" hidden /></div>
       </section>
     </main>
 
@@ -107,7 +108,9 @@
           <p class="session-setup__tip"><span aria-hidden="true">✦</span><span data-practice-key="setupTip">Отвечайте честно — процент блока обновляется после каждого слова.</span></p>
           <div class="session-setup__how"><b data-practice-key="setupHow">Как это работает</b><ol><li data-practice-key="setupStep1">Пройдите 20 слов в постоянном порядке.</li><li data-practice-key="setupStep2">Отмечайте «Знаю» или «Не знаю».</li><li data-practice-key="setupStep3">Вернитесь к блоку — прогресс останется сохранённым.</li></ol></div>
           <button id="session-start" class="session-start" type="button"><span data-practice-key="setupStart">Начать блок</span><span aria-hidden="true">→</span></button>
+          <button id="session-restart" class="session-restart" type="button" data-practice-key="restartSet" hidden>Почати спочатку</button>
         </div>
+        <div id="session-complete" class="session-complete" hidden><span aria-hidden="true">✓</span><h2 id="session-finish-title" data-practice-key="finishTitle">Блок завершено</h2><p id="session-finish-text" role="status"></p><button id="session-finish-close" class="session-start" type="button" data-practice-key="backToSets">До блоків</button></div>
         <div id="session-study" class="session-study" hidden>
         <div class="session-heading"><b id="session-counter"></b><span data-practice-key="learningMode">Изучение</span></div>
         <div class="session-progress"><span id="session-progress"></span></div>
@@ -135,9 +138,10 @@
     <script src="practice-translations.js?v=1"></script>
     <script src="practice-translation-corrections.js?v=1"></script>
     <script src="practice-core.js?v=1"></script>
-    <script src="practice.js?v=11"></script>
+    <script src="practice-state.js?v=2"></script>
+    <script src="practice.js?v=13"></script>
     <script src="firebase-config.js?v=1"></script>
-    <script type="module" src="auth.js?v=5"></script>
-    <script src="site-nav.js?v=3"></script>
+    <script type="module" src="auth.js?v=7"></script>
+    <script src="site-nav.js?v=4"></script>
   </body>
 </html>
