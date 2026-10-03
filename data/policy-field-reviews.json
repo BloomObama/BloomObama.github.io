@@ -882,6 +882,51 @@
             "hash": "69d7ce8757b1dc32a844f8b2d568e9eb2150c7d2a88679649dfe13dfa0516bd0",
             "quote": "embraced a test-free policy for applicants."
           }
+        },
+        "aid": {
+          "status": "verified",
+          "value": "Reed meets assessed full need for all admitted international students for four years; packages may contain grants, loans and campus work. Ordinary aid is need-based, not academic/athletic merit. The international page describes separate UWC Davis/Reed awards and a Continental full-tuition initiative, not universal full-cost scholarships. Request aid with admission. https://www.reed.edu/admission-aid/costs-and-financial-aid/financial-aid/international.html says international awards stay fixed despite later family/exchange-rate changes. CSS is preferred; hardship applicants may request Reed ISFAA instead, not CSS payment codes. International applicants do not need noncustodial CSS or foreign tax documents through IDOC. Confirm forms for the intended entry year: that page still labels 2026–27.",
+          "source": "https://www.reed.edu/admission-aid/costs-and-financial-aid/",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "aidShort": "Meets assessed full need; grants, loans/work; fixed international aid"
+          },
+          "evidence": {
+            "hash": "cbffe926a515df28465558a2682aba36da949cd688f3686de6ac08de7d4fbb87",
+            "quote": "demonstrated need of all admitted students, international or domestic, for all four years"
+          }
+        },
+        "english": {
+          "status": "verified",
+          "value": "The international page encourages rather than universally requires English exam results and accepts English-medium school/program documentation without testing. Its required-documents section lists tests or English-medium schooling as proficiency evidence; do not assume that no evidence is needed. TOEFL 5.0+ (older scale 110+), IELTS 7+ and DET 145+ are averages, not minimums; SAT 600+ reading/writing or ACT Reading/English 28+ are also listed as evidence. Confirm your individual evidence with international admissions.",
+          "source": "https://www.reed.edu/admission-aid/how-to-apply/international.html",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "englishStatus": "notRequired"
+          },
+          "evidence": {
+            "hash": "9c26c73636d6b799c2b32ab561f913aa150921b211addd39a48849062f7aac8d",
+            "quote": "encouraged but not required to submit results of English proficiency"
+          }
+        },
+        "deadline": {
+          "status": "verified",
+          "value": "First-year ED I and EA applications November 1; ED II and RD January 15. Optional interviews: ED I November 15, EA December 1, ED II January 31, RD February 1. CSS deadlines follow admission rounds. The general aid table has IDOC deadlines one week later, but international instructions exempt foreign tax submissions and noncustodial CSS, so those domestic requirements are not copied. No entry year is labelled in the application table; confirm the intended cycle and aid form year.",
+          "source": "https://www.reed.edu/admission-aid/how-to-apply/",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "f2584bf5f34bd1b10aeb234d2c200054046c67b16f62018378ae5a813680a51c",
+            "quote": "Applications Due November 1 January 15 November 1 January 15"
+          }
         }
       }
     },
@@ -1117,7 +1162,7 @@
       "fields": {
         "testing": {
           "status": "verified",
-          "value": "Beloit is test-optional. Applicants may send SAT/ACT scores if they want them considered; separate English-proficiency requirements still apply.",
+          "value": "Beloit remains SAT/ACT-optional and considers highest subscores if submitted. International English proficiency is separate; SAT/ACT may be one way to meet it. Recommendations, portfolios and interviews are not compulsory in the current review process.",
           "source": "https://www.beloit.edu/admission/apply/our-review-process/",
           "checkedAt": "2026-10-03",
           "cycle": "2026–27",
@@ -1127,8 +1172,66 @@
             "testFlexible": true
           },
           "evidence": {
-            "hash": "c26d13d3bdbc1141f7a1d2e44adbc6264dbdc1cd46ceacbcf2269c70bc839c0f",
+            "hash": "45bc43077c02cc046288c4fcef64a7f3f97db7e4b080092adccc8105c9d56a29",
             "quote": "Beloit is test-optional."
+          }
+        },
+        "aid": {
+          "status": "verified",
+          "value": "Beloit's new All-In guarantee applies to incoming full-time Fall 2027 international students who complete admission and aid applications by January 15, 2027. Gift aid caps 2027–28 tuition, double-room housing, meals and fees at $30,000; it does not promise full need or zero cost. International aid forms accepted: Beloit's form, CSS Profile or International ACAC form. Insurance, travel, books, personal expenses, summer courses and non-exchange study-away are excluded; single rooms cost extra. Scholarships/grants are guaranteed for eight semesters, but annual tuition increases of 2–5% may raise later costs above $30,000. Lower-income average net prices include loans and are not individual guarantees.",
+          "source": "https://www.beloit.edu/admission/tuition-aid/all-in-pricing-guarantee/",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "aidShort": "Fall 2027: direct costs capped at $30,000 for first year; conditions apply"
+          },
+          "evidence": {
+            "hash": "228ae57349019160e82304651e36dbda016b127d8c5a6245c404150215e718ce",
+            "quote": "does not include loans or work study"
+          }
+        },
+        "english": {
+          "status": "verified",
+          "value": "International applicants must demonstrate English proficiency. Published minimums: DET 115, IELTS 6.5, TOEFL iBT 80 before January 21, 2026 or 4.0 with every subscore at least 4.0 afterwards; confirm tests taken on the transition date. TOEFL Essentials is accepted without a numerical threshold on this page. SAT reading/writing 580 or ACT English/Writing 24 are alternatives. Native English or English-medium education can support a requested waiver; the page states at least three years of instruction. Requests are reviewed after application and transcripts, not automatically approved.",
+          "source": "https://www.beloit.edu/admission/apply/international-applicants/english-proficiency/",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "englishStatus": "required"
+          },
+          "evidence": {
+            "hash": "7702746d3f9241af76bea67f3eea8401e2e90a973c7a07be6913e07feb29f54c",
+            "quote": "All international applicants must demonstrate English proficiency to qualify for admission."
+          }
+        },
+        "fee": {
+          "status": "verified",
+          "value": "Beloit's own Common App profile lists no first-year application fee. Fees for external English exams, translation or CSS Profile are separate and must not be assumed waived.",
+          "source": "https://www.commonapp.org/explore/beloit-college/",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "572dcf2562aacc46967cf68e9f63436f0551eab1cc12428c006180a2f9579c09",
+            "quote": "Charges no application fee - First Year"
+          }
+        },
+        "deadline": {
+          "status": "verified",
+          "value": "First-year EA I November 1, EA II December 1, RD January 15; all rounds are non-binding and non-restrictive. The All-In guarantee explicitly requires both complete admission and aid applications by January 15, 2027 for Fall 2027 entrants. International aid uses an accepted international form, not the domestic FAFSA instruction in the general deadline table. Transfer dates are separate. Contact admissions about crisis-related deadline flexibility rather than assuming an extension.",
+          "source": "https://www.beloit.edu/admission/apply/application-deadlines/",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "567a1ad34044e0d3ed0f86c3ab234b9a49ed7a9ca00d58ce1a5690cceaf6522e",
+            "quote": "Beloit does not offer binding or restrictive application options"
           }
         }
       }

@@ -40,3 +40,10 @@ Coverage after batch 03: **62 complete profiles, 14 partial profiles, 352 verifi
 Coverage after batch 04: **66 complete profiles, 10 partial profiles, 363 verified fields**, across 76 institutions. Added 11 verified fields, improved one existing aid field, and recorded two deadline conflicts. Proposal: `data/policy-review-batches/2026-10-04-04.json`.
 
 Quality repair: the link checker now includes approved field-level overlays rather than counting only the original 58 profiles. This exposed Wooster's legacy general source URL returning 404; it was replaced with the current international admissions page. Browser comparison checks now use the approved aid value instead of a stale hard-coded sentence.
+
+## Batch 05
+
+- Reed (209922): completed aid, English and deadlines. Exam submissions are encouraged, not universally compulsory; English-medium documentation is accepted and averages are not minima. International aid is fixed for four years, cannot first be requested after admission, and uses hardship ISFAA rather than CSS payment codes. International noncustodial CSS/IDOC exemptions override generic domestic checklists. The old labelled form year needs confirmation for later entrants. Full assessed need may include loans/work; UWC and Continental awards are distinct.
+- Beloit (238333): completed four fields and refreshed the existing SAT/ACT review against a new capture. The newly announced 2027–28 All-In guarantee applies to international entrants and caps first-year direct costs through gift aid; insurance/indirect costs and subsequent tuition increases are outside the cap. Waivers are requested, not automatic. New TOEFL scale and SAT/ACT English alternatives are explicit. All admission rounds are non-binding.
+
+Coverage after batch 05: **68 complete profiles, 8 partial profiles, 370 verified fields**, across 76 institutions. Added seven verified fields and refreshed one existing testing field. Proposal: `data/policy-review-batches/2026-10-04-05.json`.
