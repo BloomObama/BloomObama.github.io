@@ -110,6 +110,9 @@ try {
  await page.evaluate(()=>FullRidePreferences.update({interface:{fontScale:1,reduceMotion:false},reminders:{practice:false,deadlines:false},admission:{degree:'3',focus:'stem',budget:80000}}));
  await page.goto(base+'index.html?lang=ru#finder');
  await page.locator('#search').fill('Harvard');await page.locator('.card .personal-fit').waitFor();
+ // Lazy details replace the compact result. Wait for that final render before
+ // scrolling so CI cannot capture an element while it is being detached.
+ await page.locator('.card--verified .details').first().waitFor();
  assert((await page.locator('.card .personal-fit').first().textContent()).includes('3/3'));
  await page.locator('.card').first().scrollIntoViewIfNeeded();await page.screenshot({path:'settings-catalog-dark-preview.png'});
  await page.goto(base+'practice-test.html?lang=ru');
