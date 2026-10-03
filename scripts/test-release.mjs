@@ -50,7 +50,7 @@ try {
   await cached.goto('http://127.0.0.1:8765/index.html?lang=ru');
   await cached.locator('#search').waitFor();
   await cached.waitForFunction(async()=>Boolean(await caches.match(location.href)));
-  await cached.waitForFunction(async()=>Boolean(await caches.match(new URL('/app.js?v=21',location.href).href)));
+  await cached.waitForFunction(async()=>Boolean(await caches.match(new URL('/app.js?v=22',location.href).href)));
   await offline.setOffline(true); await cached.reload();
   await cached.locator('#search').fill('Harvard');
   await cached.locator('.card h3').first().waitFor();
