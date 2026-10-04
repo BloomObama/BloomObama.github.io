@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "cycle": "2026–27",
+  "records": {
+    "123952": {
+      "fields": {
+        "aid": {
+          "status": "verified",
+          "value": "SCI-Arc admissions merit scholarships are available to international applicants and awarded based on the application, with automatic consideration when the complete file arrives by the priority deadline. The separate admissions need-based scholarships are expressly limited to admitted domestic students. The school does not state that an international applicant's full cost or demonstrated need will be covered. A full-tuition LAUSD award has its own Los Angeles school-district eligibility and is not a general international award; federal FAFSA aid is not presumed available.",
+          "source": "https://www.sciarc.edu/admissions/financial-aid/scholarships",
+          "checkedAt": "2026-10-04", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+          "attributes": { "aidShort": "International merit possible; admission need-based awards are domestic-only" },
+          "evidence": { "hash": "018f136c5c8cae4d18d38f645c5cd437a7cd846b66d27f28cde549c48e5a17a4", "quote": "Admissions Need-Based Scholarships are awarded to admitted domestic students only." }
+        },
+        "testing": {
+          "status": "verified",
+          "value": "SAT I or ACT scores are optional for first-year Bachelor of Architecture applicants, including those applying from abroad. An international applicant educated at a school whose primary language is not English must separately provide acceptable English-proficiency scores. A portfolio is also optional; required transcripts and other application items remain compulsory.",
+          "source": "https://www.sciarc.edu/admissions/apply/undergraduate-programs/first-year-applicants",
+          "checkedAt": "2026-10-04", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+          "attributes": { "testFlexible": true },
+          "evidence": { "hash": "7505d7f870723c063089db00670ab8333fded5c184c3ea98a6df9fa1d299a751", "quote": "Official SAT I or ACT Test Scores (optional)" }
+        },
+        "english": {
+          "status": "verified",
+          "value": "Applicants educated where English is not the primary language of instruction must send official TOEFL, IELTS or Duolingo English Test results. Published minimums are older-scale internet TOEFL 92, IELTS 7.0 or DET 115; results must be from the last two years. The international page also requires a NACES-equivalent evaluation of certain foreign transcripts; a plain English translation alone is insufficient. Ask about current TOEFL score-scale equivalence rather than inventing it.",
+          "source": "https://www.sciarc.edu/admissions/apply/international-applicants",
+          "checkedAt": "2026-10-04", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+          "attributes": { "englishStatus": "required" },
+          "evidence": { "hash": "2150e7246895e87358d6035063a20ba39c5fa2efc96c42c2abe79dd1259524ff", "quote": "The minimum score requirement is ninety-two (92) for the Internet-based TOEFL" }
+        },
+        "fee": {
+          "status": "verified",
+          "value": "The current SCI-Arc first-year application page charges a nonrefundable $85 application fee through either its own application or the Common Application. No international waiver is claimed from this source; graduate or transfer application terms are not substituted.",
+          "source": "https://www.sciarc.edu/admissions/apply/undergraduate-programs/first-year-applicants",
+          "checkedAt": "2026-10-04", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+          "evidence": { "hash": "7505d7f870723c063089db00670ab8333fded5c184c3ea98a6df9fa1d299a751", "quote": "Pay the nonrefundable $85 application fee." }
+        },
+        "deadline": {
+          "status": "verified",
+          "value": "First-year B.Arch admits new students for fall only. The Fall 2027 priority deadline is January 15, 2027, and all required documents must be complete then for both admission and scholarship consideration. After that date SCI-Arc considers applications case by case only if spaces remain. Spring and transfer application dates do not apply to first-year B.Arch.",
+          "source": "https://www.sciarc.edu/admissions/apply/undergraduate-programs/first-year-applicants",
+          "checkedAt": "2026-10-04", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+          "evidence": { "hash": "7505d7f870723c063089db00670ab8333fded5c184c3ea98a6df9fa1d299a751", "quote": "Priority Deadline: January 15, 2027" }
+        }
+      }
+    }
+  }
+}
