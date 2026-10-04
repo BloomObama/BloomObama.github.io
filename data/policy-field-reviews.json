@@ -1569,6 +1569,71 @@
         }
       }
     },
+    "167057": {
+      "fields": {
+        "aid": {
+          "status": "verified",
+          "value": "New England Conservatory's 2026–27 academic catalog says admissions decisions do not consider financial need. Scholarship review is separate: applicants who want NEC institutional scholarship must answer the financial-aid questions in their admission application, and award decisions are made for eligible admitted students. The catalog specifies FAFSA additionally for U.S. citizens and permanent residents, not as an application route for international applicants. It does not guarantee a scholarship or meeting full need for international students; an individual award is necessary before judging affordability. The amount and timing of the separate institutional aid application on NEC's main admissions site were not approved here because that site could not be captured under the collector's robots policy.",
+          "source": "https://necmusic.smartcatalogiq.com/en/2026-2027/nec-academic-catalog-2026-2027/nec-admissions-policies/required-testing",
+          "checkedAt": "2026-10-04",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "aidShort": "Need not considered in admission; institutional scholarship review is separate, no full-cost promise"
+          },
+          "evidence": {
+            "hash": "f39136ace977254d7bc9e42c039cb67f2d8c4fd335be620e1affb155a9b9325e",
+            "quote": "Applicants interested in NEC scholarship must complete the institutional financial aid application questions within the application for admission."
+          }
+        },
+        "testing": {
+          "status": "verified",
+          "value": "NEC's 2026–27 catalog explicitly says SAT and ACT scores are not required for admission. Applicants still must satisfy the conservatory's audition/prescreening process and any program-specific music-skill assessments; English-language proficiency is a separate condition for applicants whose native language is not English. Do not confuse program auditions or the graduate DMA exams with first-year SAT/ACT admission testing.",
+          "source": "https://necmusic.smartcatalogiq.com/en/2026-2027/nec-academic-catalog-2026-2027/nec-admissions-policies/required-testing",
+          "checkedAt": "2026-10-04",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "testFlexible": true
+          },
+          "evidence": {
+            "hash": "f39136ace977254d7bc9e42c039cb67f2d8c4fd335be620e1affb155a9b9325e",
+            "quote": "NEC does not require the submission of any standardized test (SAT, ACT, GRE) scores as part of the admissions process"
+          }
+        },
+        "english": {
+          "status": "verified",
+          "value": "The 2026–27 catalog requires an English-proficiency score for applicants whose native language is not English, with TOEFL described as the standard route. The dean may waive that requirement for four years at an English-speaking school or comparable demonstrated proficiency. Applicants near or below the institution's minimum may still face summer intensive English or ESL coursework. The current numerical minimum and whether IELTS/Duolingo substitutions are accepted on the main admissions page are not certified here because that page could not be captured; confirm the current test and score directly before paying for an exam.",
+          "source": "https://necmusic.smartcatalogiq.com/en/2026-2027/nec-academic-catalog-2026-2027/nec-admissions-policies/required-testing",
+          "checkedAt": "2026-10-04",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "englishStatus": "required"
+          },
+          "evidence": {
+            "hash": "f39136ace977254d7bc9e42c039cb67f2d8c4fd335be620e1affb155a9b9325e",
+            "quote": "A recent TOEFL score is required of all applicants whose native language is not English."
+          }
+        },
+        "deadline": {
+          "status": "verified",
+          "value": "NEC's live college-degree application portal explicitly states that the Fall 2027 application deadline is December 1, 2026. The same notice says Spring (January) 2027 availability depends on the department and applicants should contact an enrollment counselor. The 2026–27 preparatory-school notice on the portal is a different, non-college application and must not be used for a Bachelor of Music deadline. The separate dates for recommendations, proficiency results, audition and institutional aid require confirmation on the admissions checklist.",
+          "source": "https://apply.necmusic.edu/portal/college_app_management",
+          "checkedAt": "2026-10-04",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "c9034b3b9712ffea95acf2641ed0f6dc6518adb72fab32e670ced2a6bf17d147",
+            "quote": "The deadline for Fall 2027 is December 1, 2026."
+          }
+        }
+      }
+    },
     "167783": {
       "fields": {
         "aid": {
