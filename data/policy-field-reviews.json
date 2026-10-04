@@ -316,6 +316,84 @@
         }
       }
     },
+    "133669": {
+      "fields": {
+        "aid": {
+          "status": "verified",
+          "value": "Florida Atlantic University offers a limited, competitive President’s International Scholarship for admitted F-1/J-1 degree students. The stated freshman award is $6,000 per year, renewable for up to four years subject to qualification; applicants are considered automatically after admission, but awards are not guaranteed. The listed freshman criteria include at least a 3.5 U.S.-scale GPA, SAT/ACT/CLT scores and proof of English proficiency. This is not a full-cost scholarship. Other out-of-state tuition waivers on the page have separate narrow eligibility rules and should not be assumed for every international student. The scholarship application dates on this page do not resolve the conflicting first-year admission deadlines, which are flagged separately.",
+          "source": "https://www.fau.edu/admissions/international/scholarships/",
+          "checkedAt": "2026-10-04",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "aidShort": "Competitive $6,000/year international merit award; not full cost"
+          },
+          "evidence": {
+            "hash": "924ec445e24381c37b443623f9d9b735c5c4e4946cbf2b55835e6ed82d62b8e7",
+            "quote": "$6,000 awarded annually and renewable up to four years for qualified freshmen students on F-1 or J-1 visa."
+          }
+        },
+        "testing": {
+          "status": "verified",
+          "value": "International first-time-in-college applicants must submit an official SAT, ACT or CLT score for admission. FAU also applies this rule to transfer applicants with fewer than 60 transferable credits. Scores must be sent directly by the testing body and must be from a test date within the last five years. A qualifying SAT/ACT English subsection can separately satisfy part of the English-proficiency route, but test-optional admission is not offered here for this international first-year group.",
+          "source": "https://www.fau.edu/admissions/international/faq-international/",
+          "checkedAt": "2026-10-04",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "testFlexible": false
+          },
+          "evidence": {
+            "hash": "567ce43f0c450d9e81ed3062cae44c8f8962340b4f431ca37e394f49a2300a67",
+            "quote": "are required to submit an official SAT, ACT, or CLT test score."
+          }
+        },
+        "english": {
+          "status": "verified",
+          "value": "For a non-English-speaking applicant, FAU requires proof of English proficiency unless a listed exemption route is met. Examples include SAT Evidence-Based Reading and Writing 490, ACT Reading 19 plus English 17, qualifying English-medium schooling or post-secondary study, or an accepted exam. The current page lists TOEFL iBT 4.5 on its new scale, IELTS 6.5 and Duolingo 110 among accepted scores; an approved Intensive English Institute track is another route. A standardized-admission test remains separately required for international first-years even if English proficiency is shown another way.",
+          "source": "https://www.fau.edu/admissions/international/how-to-apply/english-proficiency-tests/",
+          "checkedAt": "2026-10-04",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "englishStatus": "required"
+          },
+          "evidence": {
+            "hash": "21c76e7770f55db47cf3e83e4c95ebb269513f19f3067e751d338d55e138882e",
+            "quote": "they are required to submit an English proficiency exam or complete the Intensive English Institute Academic Track as proof of English proficiency."
+          }
+        },
+        "fee": {
+          "status": "verified",
+          "value": "International applicants pay a $30 non-refundable admission application fee when submitting their application. FAU lists online credit-card payment; this is the application fee, not a post-admission deposit or the cost of external transcript evaluation. No automatic international fee waiver is claimed on this page.",
+          "source": "https://www.fau.edu/admissions/international/how-to-apply/application-fee/",
+          "checkedAt": "2026-10-04",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "679ffb5e4bf6138529af56991f173160f9707c2c71f16cb4e77d593a628b8479",
+            "quote": "The $30 non-refundable application fee can be paid online when you submit your application."
+          }
+        },
+        "deadline": {
+          "status": "conflict",
+          "value": "FAU's international-deadlines page links first-years to https://www.fau.edu/admissions/freshman/how-to-apply/deadlines/ , where the currently posted application cutoffs are October 15 for summer/fall Early Action, March 12 for summer/fall rolling, and September 15 for spring; the page does not specify an intake year. Yet FAU's international-scholarship page at https://www.fau.edu/admissions/international/scholarships/ says a complete application can qualify for the international award through March 15 (fall regular) or October 15 (spring regular), later than the first-year admission cutoffs. Do not assume those later scholarship dates extend first-year admission. Confirm the specific 2026–27 admission and award deadlines directly with FAU before applying; materials and test-score dates may differ again.",
+          "source": "https://www.fau.edu/admissions/freshman/how-to-apply/deadlines/",
+          "checkedAt": "2026-10-04",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "8442775a406fde84a87d27bdfa126a0d513319ceddedb72ebb41d5f9bcc717c7",
+            "quote": "Application Deadline October 15 March 12 September 15"
+          }
+        }
+      }
+    },
     "136950": {
       "fields": {
         "aid": {
