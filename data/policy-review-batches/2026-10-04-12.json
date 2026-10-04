@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1, "cycle": "2026–27",
+  "records": {
+    "156295": { "fields": {
+      "aid": {
+        "status": "verified", "value": "Berea says all admitted international students receive aid/scholarships covering 100% of tuition, housing, food and fees. This is not an admission guarantee: fewer than 40 new international students may enroll annually. Personal, travel and other incidental expenses may remain; work earnings help with them. The $2,200 enrollment deposit precedes I-20 issuance, though extra help may be available if the student cannot afford it. The school requires its own International Financial Questionnaire and considers financial circumstances. Its newer generic Fall 2027 Financial Freedom announcement mentions supplies for all students, but the international page has not specified how that changes this package; confirm individually. No domestic FAFSA requirement is inferred.",
+        "source": "https://www.berea.edu/admissions/admission-information/apply/checklist-items/international-faqs", "checkedAt": "2026-10-04", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "attributes": { "aidShort": "Admitted international students: direct costs covered; deposit/incidentals remain" },
+        "evidence": { "hash": "20f8ba68c26b30ef692c30852361be0d94e8fd8ba72c2ec331209dfaa17ed1c8", "quote": "cover 100% of tuition, housing, food, and fees" }
+      },
+      "testing": {
+        "status": "verified", "value": "Every international applicant must submit one recent result from TOEFL, IELTS, SAT, ACT or DET, including applicants from English-speaking countries. The international page explicitly allows no test-optional route. The domestic first-year checklist's optional score rule does not apply here. Scores older than two years are almost never considered; SAT minimum 980 and ACT 19 if those routes are chosen. An English test may be used instead of SAT/ACT. Nursing has additional proficiency thresholds.",
+        "source": "https://www.berea.edu/admissions/admission-information/apply/checklist-items/international-faqs", "checkedAt": "2026-10-04", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "evidence": { "hash": "20f8ba68c26b30ef692c30852361be0d94e8fd8ba72c2ec331209dfaa17ed1c8", "quote": "There are no exceptions to this requirement" }
+      },
+      "english": {
+        "status": "verified", "value": "A recent TOEFL, IELTS, SAT, ACT or DET result is required from all international applicants, including native English speakers. Listed minimums: older TOEFL iBT 68, IELTS 6 overall with at least 5 each component, SAT 980 combined, ACT 19 composite or DET 95. The page still uses old TOEFL numbers and even mentions retired paper/computer formats; ask about the new TOEFL scale. Nursing requires higher English scores (old iBT 83 with spoken 26), separate from general admission.",
+        "source": "https://www.berea.edu/admissions/admission-information/apply/checklist-items/international-faqs", "checkedAt": "2026-10-04", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "attributes": { "englishStatus": "required" },
+        "evidence": { "hash": "20f8ba68c26b30ef692c30852361be0d94e8fd8ba72c2ec331209dfaa17ed1c8", "quote": "All applicants must submit scores from either the TOEFL, IELTS, SAT, ACT, or Duolingo" }
+      },
+      "deadline": {
+        "status": "verified", "value": "All international application components are due November 30; decisions are announced by March 31. New international students enter only in fall. The page does not label the admission year; confirm the intended fall intake. The enrollment deposit deadline is communicated individually after admission and is not the application deadline. Domestic and transfer dates differ.",
+        "source": "https://www.berea.edu/admissions/admission-information/apply/checklist-items/international-faqs", "checkedAt": "2026-10-04", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "evidence": { "hash": "20f8ba68c26b30ef692c30852361be0d94e8fd8ba72c2ec331209dfaa17ed1c8", "quote": "International Deadline: November 30" }
+      }
+    } },
+    "153269": { "fields": {
+      "aid": {
+        "status": "verified", "value": "The renewable International Student Grant is partial. Even combined with other scholarships, official policy caps total support at 40% of full cost of attendance; expect a substantial family share. Apply to Drake first, then use the grant link in the admissions application. Undergraduate awards last at most four years and require full-time enrollment and academic progress. Pharm.D. aid beyond its fourth year is excluded; graduate/online programs have different rules. The Tuition Guarantee fixes tuition rate, not housing, food or other charges.",
+        "source": "https://www.drake.edu/admission-aid/financial-aid/scholarships/international-student-grant", "checkedAt": "2026-10-04", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "attributes": { "aidShort": "International combined aid limited to 40% of full cost" },
+        "evidence": { "hash": "e5151f2724c008d921e4f46ee484eab4b53b3bf4168ee92f85386d0c01b71978", "quote": "total combined aid will not exceed 40%" }
+      },
+      "testing": {
+        "status": "verified", "value": "International first-year SAT/ACT are optional. Drake also accepts South Korean CSAT and can superscore submitted SAT/ACT. Self-reports may support admission, with official verification if the student enrolls. English-proficiency evidence remains compulsory unless a separate exemption applies; transfer applicants with fewer than 24 credits have additional rules.",
+        "source": "https://www.drake.edu/admission-aid/international-students", "checkedAt": "2026-10-04", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "attributes": { "testFlexible": true },
+        "evidence": { "hash": "02ce286cdf45320e061573afa9d43f395bb88a543de6bb6822037f3f15024f9c", "quote": "Drake does not require either the SAT or ACT" }
+      },
+      "english": {
+        "status": "verified", "value": "Drake requires undergraduate English proficiency. Current page lists new TOEFL iBT 4.0 (older scale 71), IELTS 6.0, DET 105, PTE 48, SAT EBRW 500, ACT English 19, South Korean CSAT English 2 or IB HL English 5–7/A–B. Exemption requires at least two years of recent English-medium study in a country with English as an official language, within two years before starting. This is narrower than merely attending any English-medium school; official translated records still apply.",
+        "source": "https://www.drake.edu/admission-aid/international-students", "checkedAt": "2026-10-04", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "attributes": { "englishStatus": "required" },
+        "evidence": { "hash": "02ce286cdf45320e061573afa9d43f395bb88a543de6bb6822037f3f15024f9c", "quote": "TOEFL iBT: Minimum overall score of 4.0" }
+      },
+      "fee": {
+        "status": "conflict", "value": "Drake's 2026–27 tuition schedule lists an 'International Application Fee - Undergraduate Students' of $50 but labels its unit 'per semester', which is unclear for a one-time admission application. The general first-year admission page advertises a free application only for U.S. students. Confirm when and how an international undergraduate applicant is charged; do not assume the domestic waiver or graduate/online $100 fee applies. Sources: https://www.drake.edu/about/offices/accounts/tuitionfees and https://www.drake.edu/admission-aid/first-year-students .",
+        "source": "https://www.drake.edu/about/offices/accounts/tuitionfees", "checkedAt": "2026-10-04", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "evidence": { "hash": "10cec285de757e334439b722d61b57415ab9746a9be53d80dfc264ee3180de4d", "quote": "International Application Fee - Undergraduate Students $50 per semester" }
+      },
+      "deadline": {
+        "status": "verified", "value": "International first-year EA priority: December 1, for admission/scholarship/housing priority; regular decision: March 1, with later files considered only if space permits. These dates are undated by entry year and should be confirmed for the intended cycle. June 1 fall and November 1 spring priorities on the same page refer to international transfers, not first-year applicants. Specialized program scholarship/audition requirements may have separate dates.",
+        "source": "https://www.drake.edu/admission-aid/international-students", "checkedAt": "2026-10-04", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "evidence": { "hash": "02ce286cdf45320e061573afa9d43f395bb88a543de6bb6822037f3f15024f9c", "quote": "Regular Decision: March 1" }
+      }
+    } }
+  }
+}

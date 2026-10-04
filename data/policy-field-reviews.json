@@ -240,6 +240,39 @@
         }
       }
     },
+    "137546": {
+      "fields": {
+        "testing": {
+          "status": "verified",
+          "value": "Stetson's exact institution-owned Common App profile lists first-year SAT/ACT optional/flexible. This does not establish an English waiver or satisfy music/other program-specific requirements. International-specific English, aid and dates remain pending because those pages denied direct collection.",
+          "source": "https://www.commonapp.org/explore/stetson-university/",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "testFlexible": true
+          },
+          "evidence": {
+            "hash": "e3910eade3ca1fb76ff1e8305d100dd540712626160ea26cfcbcdfcf9cdbf23f",
+            "quote": "Test Optional/Flexible - First Year"
+          }
+        },
+        "fee": {
+          "status": "verified",
+          "value": "Stetson's exact Common App first-year route has no application fee. Testing, translations/evaluations, music auditions, visa and enrollment expenses are not automatically waived; graduate/law admission is separate.",
+          "source": "https://www.commonapp.org/explore/stetson-university/",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "e3910eade3ca1fb76ff1e8305d100dd540712626160ea26cfcbcdfcf9cdbf23f",
+            "quote": "Charges no application fee - First Year"
+          }
+        }
+      }
+    },
     "138600": {
       "fields": {
         "aid": {
@@ -552,6 +585,84 @@
         }
       }
     },
+    "146481": {
+      "fields": {
+        "aid": {
+          "status": "verified",
+          "value": "Lake Forest explicitly uses need-aware admission for international applicants. For 2026–27 entrants it says combined institutional scholarships and grants may reach $48,000, not that the full cost or demonstrated need is guaranteed. The separately quoted merit award reaches $37,000 annually. Need-based aid requires the CSS Profile or an arranged alternative where CSS payment is unavailable; the college says it cannot review the application until the aid form arrives. Work-study is contingent on need, visa status and an actual job, and the page gives differing possible annual figures ($3,500 and usually up to $2,000); neither is guaranteed. A U.S. co-signer may be needed for private loans, and a financial-support confirmation is required before I-20 issuance. The domestic FAFSA process is not applied to non-U.S. citizens.",
+          "source": "https://www.lakeforest.edu/admissions/financial-aid/financial-aid-for-international-students",
+          "checkedAt": "2026-10-04",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "aidShort": "Need-aware; combined international grants/scholarships up to $48,000 for 2026–27"
+          },
+          "evidence": {
+            "hash": "f82c2250d1ccc1cfc39bba513517fa939aa74dddfedb700b316d28384717bec3",
+            "quote": "A new student entering in the 2026-2027 academic year may receive up to $48,000"
+          }
+        },
+        "testing": {
+          "status": "verified",
+          "value": "International first-year SAT/ACT submission is optional. A student applying without SAT/ACT must have an admissions interview; it is not optional under the test-optional route. Submitted scores may be official or a screenshot sent to the counselor. English-proficiency evidence is a separate requirement, with possible proof/waiver routes, so optional SAT/ACT does not mean all testing can be skipped.",
+          "source": "https://www.lakeforest.edu/admissions/international-students",
+          "checkedAt": "2026-10-04",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "testFlexible": true
+          },
+          "evidence": {
+            "hash": "cd3184603be58afa1db155208754aa34996d597240f133db604df1f70b0a8fd9",
+            "quote": "SAT or ACT scores are optional."
+          }
+        },
+        "english": {
+          "status": "verified",
+          "value": "The international admissions page asks for an official English-proficiency result: TOEFL minimum 90, IELTS minimum 6.5 composite, or Duolingo English Test minimum 120. The separate current Apply page says international students may instead establish English proficiency, and lists SAT/ACT among possible proof; the first-year application also directs English-curriculum students to request an exemption. Therefore do not assume every English-medium applicant must take TOEFL/IELTS/DET, or that a waiver is automatic. Ask admissions to confirm the exemption before omitting a score. The TOEFL threshold is displayed in the older numeric format; confirm the current scale.",
+          "source": "https://www.lakeforest.edu/admissions/international-students",
+          "checkedAt": "2026-10-04",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "englishStatus": "required"
+          },
+          "evidence": {
+            "hash": "cd3184603be58afa1db155208754aa34996d597240f133db604df1f70b0a8fd9",
+            "quote": "Duolingo English Test (DET) score of a minimum 120"
+          }
+        },
+        "fee": {
+          "status": "verified",
+          "value": "Lake Forest's first-year admissions page says first-year students can apply for free through its own application or the Common Application. It does not carve out an international exception. This refers to the admission application, not a CSS Profile charge, enrollment deposit or later education/visa costs.",
+          "source": "https://www.lakeforest.edu/admissions/first-year-students/first-year-application-requirements",
+          "checkedAt": "2026-10-04",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "b7090d816bbb6ca433e0d2e7af139121ef096297558aea0e27e0c66c7898804f",
+            "quote": "First-year students can apply for free using the Lake Forest First-Year Application or the Common Application"
+          }
+        },
+        "deadline": {
+          "status": "verified",
+          "value": "The current Apply page accepts Spring 2027 and Fall 2027 applications. For international first-year applicants needing a new F-1 visa from outside the U.S., its Fall deadline is February 15; Spring is November 1. The international page says international students already attending school in the U.S. on F-1 may follow first-year rounds: EA/ED I November 1, EA/ED II January 15, regular February 15. Aid priority dates on the financial-aid page match those admission rounds. Dates on another first-year page are paired with stale Spring/Fall 2026 opening text; rely on the current Apply page and reconfirm cycle-specific details. Transfer dates differ and are not first-year deadlines.",
+          "source": "https://www.lakeforest.edu/admissions/apply/",
+          "checkedAt": "2026-10-04",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "1f128cb5c748fa0d55ba9cd3bb139b822c4f9718dbae8d4d38524ad37062509a",
+            "quote": "Fall First Year February 15"
+          }
+        }
+      }
+    },
     "148016": {
       "fields": {
         "aid": {
@@ -772,6 +883,84 @@
         }
       }
     },
+    "153269": {
+      "fields": {
+        "aid": {
+          "status": "verified",
+          "value": "The renewable International Student Grant is partial. Even combined with other scholarships, official policy caps total support at 40% of full cost of attendance; expect a substantial family share. Apply to Drake first, then use the grant link in the admissions application. Undergraduate awards last at most four years and require full-time enrollment and academic progress. Pharm.D. aid beyond its fourth year is excluded; graduate/online programs have different rules. The Tuition Guarantee fixes tuition rate, not housing, food or other charges.",
+          "source": "https://www.drake.edu/admission-aid/financial-aid/scholarships/international-student-grant",
+          "checkedAt": "2026-10-04",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "aidShort": "International combined aid limited to 40% of full cost"
+          },
+          "evidence": {
+            "hash": "e5151f2724c008d921e4f46ee484eab4b53b3bf4168ee92f85386d0c01b71978",
+            "quote": "total combined aid will not exceed 40%"
+          }
+        },
+        "testing": {
+          "status": "verified",
+          "value": "International first-year SAT/ACT are optional. Drake also accepts South Korean CSAT and can superscore submitted SAT/ACT. Self-reports may support admission, with official verification if the student enrolls. English-proficiency evidence remains compulsory unless a separate exemption applies; transfer applicants with fewer than 24 credits have additional rules.",
+          "source": "https://www.drake.edu/admission-aid/international-students",
+          "checkedAt": "2026-10-04",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "testFlexible": true
+          },
+          "evidence": {
+            "hash": "02ce286cdf45320e061573afa9d43f395bb88a543de6bb6822037f3f15024f9c",
+            "quote": "Drake does not require either the SAT or ACT"
+          }
+        },
+        "english": {
+          "status": "verified",
+          "value": "Drake requires undergraduate English proficiency. Current page lists new TOEFL iBT 4.0 (older scale 71), IELTS 6.0, DET 105, PTE 48, SAT EBRW 500, ACT English 19, South Korean CSAT English 2 or IB HL English 5–7/A–B. Exemption requires at least two years of recent English-medium study in a country with English as an official language, within two years before starting. This is narrower than merely attending any English-medium school; official translated records still apply.",
+          "source": "https://www.drake.edu/admission-aid/international-students",
+          "checkedAt": "2026-10-04",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "englishStatus": "required"
+          },
+          "evidence": {
+            "hash": "02ce286cdf45320e061573afa9d43f395bb88a543de6bb6822037f3f15024f9c",
+            "quote": "TOEFL iBT: Minimum overall score of 4.0"
+          }
+        },
+        "fee": {
+          "status": "conflict",
+          "value": "Drake's 2026–27 tuition schedule lists an 'International Application Fee - Undergraduate Students' of $50 but labels its unit 'per semester', which is unclear for a one-time admission application. The general first-year admission page advertises a free application only for U.S. students. Confirm when and how an international undergraduate applicant is charged; do not assume the domestic waiver or graduate/online $100 fee applies. Sources: https://www.drake.edu/about/offices/accounts/tuitionfees and https://www.drake.edu/admission-aid/first-year-students .",
+          "source": "https://www.drake.edu/about/offices/accounts/tuitionfees",
+          "checkedAt": "2026-10-04",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "10cec285de757e334439b722d61b57415ab9746a9be53d80dfc264ee3180de4d",
+            "quote": "International Application Fee - Undergraduate Students $50 per semester"
+          }
+        },
+        "deadline": {
+          "status": "verified",
+          "value": "International first-year EA priority: December 1, for admission/scholarship/housing priority; regular decision: March 1, with later files considered only if space permits. These dates are undated by entry year and should be confirmed for the intended cycle. June 1 fall and November 1 spring priorities on the same page refer to international transfers, not first-year applicants. Specialized program scholarship/audition requirements may have separate dates.",
+          "source": "https://www.drake.edu/admission-aid/international-students",
+          "checkedAt": "2026-10-04",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "02ce286cdf45320e061573afa9d43f395bb88a543de6bb6822037f3f15024f9c",
+            "quote": "Regular Decision: March 1"
+          }
+        }
+      }
+    },
     "153834": {
       "fields": {
         "aid": {
@@ -846,6 +1035,81 @@
           "evidence": {
             "hash": "5c1ea7e37113275fa5e6fda2270b747e8700cd78597fe93a666a14fa4acdae0d",
             "quote": "Early Action* : January 1 deadline"
+          }
+        }
+      }
+    },
+    "156295": {
+      "fields": {
+        "aid": {
+          "status": "verified",
+          "value": "Berea says all admitted international students receive aid/scholarships covering 100% of tuition, housing, food and fees. This is not an admission guarantee: fewer than 40 new international students may enroll annually. Personal, travel and other incidental expenses may remain; work earnings help with them. The $2,200 enrollment deposit precedes I-20 issuance, though extra help may be available if the student cannot afford it. The school requires its own International Financial Questionnaire and considers financial circumstances. Its newer generic Fall 2027 Financial Freedom announcement mentions supplies for all students, but the international page has not specified how that changes this package; confirm individually. No domestic FAFSA requirement is inferred.",
+          "source": "https://www.berea.edu/admissions/admission-information/apply/checklist-items/international-faqs",
+          "checkedAt": "2026-10-04",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "aidShort": "Admitted international students: direct costs covered; deposit/incidentals remain"
+          },
+          "evidence": {
+            "hash": "20f8ba68c26b30ef692c30852361be0d94e8fd8ba72c2ec331209dfaa17ed1c8",
+            "quote": "cover 100% of tuition, housing, food, and fees"
+          }
+        },
+        "testing": {
+          "status": "verified",
+          "value": "Every international applicant must submit one recent result from TOEFL, IELTS, SAT, ACT or DET, including applicants from English-speaking countries. The international page explicitly allows no test-optional route. The domestic first-year checklist's optional score rule does not apply here. Scores older than two years are almost never considered; SAT minimum 980 and ACT 19 if those routes are chosen. An English test may be used instead of SAT/ACT. Nursing has additional proficiency thresholds.",
+          "source": "https://www.berea.edu/admissions/admission-information/apply/checklist-items/international-faqs",
+          "checkedAt": "2026-10-04",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "20f8ba68c26b30ef692c30852361be0d94e8fd8ba72c2ec331209dfaa17ed1c8",
+            "quote": "There are no exceptions to this requirement"
+          }
+        },
+        "english": {
+          "status": "verified",
+          "value": "A recent TOEFL, IELTS, SAT, ACT or DET result is required from all international applicants, including native English speakers. Listed minimums: older TOEFL iBT 68, IELTS 6 overall with at least 5 each component, SAT 980 combined, ACT 19 composite or DET 95. The page still uses old TOEFL numbers and even mentions retired paper/computer formats; ask about the new TOEFL scale. Nursing requires higher English scores (old iBT 83 with spoken 26), separate from general admission.",
+          "source": "https://www.berea.edu/admissions/admission-information/apply/checklist-items/international-faqs",
+          "checkedAt": "2026-10-04",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "englishStatus": "required"
+          },
+          "evidence": {
+            "hash": "20f8ba68c26b30ef692c30852361be0d94e8fd8ba72c2ec331209dfaa17ed1c8",
+            "quote": "All applicants must submit scores from either the TOEFL, IELTS, SAT, ACT, or Duolingo"
+          }
+        },
+        "deadline": {
+          "status": "verified",
+          "value": "All international application components are due November 30; decisions are announced by March 31. New international students enter only in fall. The page does not label the admission year; confirm the intended fall intake. The enrollment deposit deadline is communicated individually after admission and is not the application deadline. Domestic and transfer dates differ.",
+          "source": "https://www.berea.edu/admissions/admission-information/apply/checklist-items/international-faqs",
+          "checkedAt": "2026-10-04",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "20f8ba68c26b30ef692c30852361be0d94e8fd8ba72c2ec331209dfaa17ed1c8",
+            "quote": "International Deadline: November 30"
+          }
+        },
+        "fee": {
+          "status": "verified",
+          "value": "Berea states that the application for admission for international students has no application fee. This is separate from the $2,200 enrollment deposit before I-20 issuance and possible testing, visa, travel and personal costs; the admissions page says deposit assistance may be available if a student cannot afford it.",
+          "source": "https://www.berea.edu/admissions/admission-information/apply/checklist-items/international-faqs",
+          "checkedAt": "2026-10-04",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "810dff28c12333e5431ff1b23870ba2ab43be3c944da7b9bcdfda88c2c1eb3e3",
+            "quote": "There is no application fee."
           }
         }
       }
@@ -2000,6 +2264,81 @@
           "evidence": {
             "hash": "ab04c3c4497cef85c1f01d788d55cb6799f173adee80c5aa35e7829d08a9c5bd",
             "quote": "Early Decision I Nov. 15 Nov. 19"
+          }
+        }
+      }
+    },
+    "232308": {
+      "fields": {
+        "aid": {
+          "status": "conflict",
+          "value": "The specific first-year international page lists academic merit of at least $23,000, while the international scholarship page advertises awards starting at $25,000: https://www.hollins.edu/admission-aid/financial-aid/undergraduate-financial-aid-scholarships/scholarships-and-cost-of-attendance-for-international-students/ . Confirm the applicable award and renewal; do not invent a guaranteed net cost. Its cost table is 2025–26, not the current intake. Additional friendship support and campus jobs are limited, not universal full-need coverage. Domestic FAFSA/net-price-calculator assumptions and named domestic restricted awards are not applied to international students.",
+          "source": "https://www.hollins.edu/admission-aid/international-students/first-year-international-students/",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "7d8d5c4cde069a9b650065ad7f723e03b545b1dcad617233343f284ebf664a88",
+            "quote": "Academic merit scholarship at least $23,000"
+          }
+        },
+        "testing": {
+          "status": "verified",
+          "value": "The international-specific checklist requires SAT or ACT, but permits a requested waiver using alternative Cambridge, IB or AP standardized results. Do not assume general first-year/Common App test-optional advertising is an unconditional international waiver. English-proficiency waivers are a different requirement.",
+          "source": "https://www.hollins.edu/admission-aid/international-students/first-year-international-students/",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "testFlexible": true
+          },
+          "evidence": {
+            "hash": "7d8d5c4cde069a9b650065ad7f723e03b545b1dcad617233343f284ebf664a88",
+            "quote": "students may apply for a waiver"
+          }
+        },
+        "english": {
+          "status": "verified",
+          "value": "Non-native speakers: old TOEFL iBT 80, IELTS 6.5 or DET 110. Waiver alternatives: three years of all-English secondary instruction, SAT EBRW 610 or ACT English 26. Supply the latest English instructor's recommendation describing coursework/proficiency. Older computer/paper TOEFL references do not establish currently available tests or a new-scale minimum; confirm newer exams. Admission proficiency does not necessarily satisfy the degree's language requirement.",
+          "source": "https://www.hollins.edu/admission-aid/international-students/first-year-international-students/",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "englishStatus": "required"
+          },
+          "evidence": {
+            "hash": "7d8d5c4cde069a9b650065ad7f723e03b545b1dcad617233343f284ebf664a88",
+            "quote": "Obtain a 110 or higher"
+          }
+        },
+        "fee": {
+          "status": "verified",
+          "value": "The international admission application is free. Document translations, tests, visa and enrollment costs remain separate. The women's undergraduate program has its own eligibility; adult Horizon, transfer and graduate admission are separate routes.",
+          "source": "https://www.hollins.edu/admission-aid/",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "33f4d6b405b95326318c7ab3975da684534671ebd906f9c0bf3fce461d225e31",
+            "quote": "There is no cost to submit your application"
+          }
+        },
+        "deadline": {
+          "status": "verified",
+          "value": "The current first-year table lists binding ED October 15, non-binding EA November 1 and RD February 1. No intake year is labelled; confirm applicability and international spring eligibility before applying. Preferred FAFSA dates in the adjacent column are not international admission dates; scholarship competitions have separate requirements. Do not substitute Horizon/adult or historical event dates.",
+          "source": "https://www.hollins.edu/admission-aid/",
+          "checkedAt": "2026-10-03",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "33f4d6b405b95326318c7ab3975da684534671ebd906f9c0bf3fce461d225e31",
+            "quote": "Early Decision October 15 Yes"
           }
         }
       }

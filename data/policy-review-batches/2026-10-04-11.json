@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1, "cycle": "2026–27",
+  "records": {
+    "232308": { "fields": {
+      "aid": {
+        "status": "conflict", "value": "The specific first-year international page lists academic merit of at least $23,000, while the international scholarship page advertises awards starting at $25,000: https://www.hollins.edu/admission-aid/financial-aid/undergraduate-financial-aid-scholarships/scholarships-and-cost-of-attendance-for-international-students/ . Confirm the applicable award and renewal; do not invent a guaranteed net cost. Its cost table is 2025–26, not the current intake. Additional friendship support and campus jobs are limited, not universal full-need coverage. Domestic FAFSA/net-price-calculator assumptions and named domestic restricted awards are not applied to international students.",
+        "source": "https://www.hollins.edu/admission-aid/international-students/first-year-international-students/", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "evidence": { "hash": "7d8d5c4cde069a9b650065ad7f723e03b545b1dcad617233343f284ebf664a88", "quote": "Academic merit scholarship at least $23,000" }
+      },
+      "testing": {
+        "status": "verified", "value": "The international-specific checklist requires SAT or ACT, but permits a requested waiver using alternative Cambridge, IB or AP standardized results. Do not assume general first-year/Common App test-optional advertising is an unconditional international waiver. English-proficiency waivers are a different requirement.",
+        "source": "https://www.hollins.edu/admission-aid/international-students/first-year-international-students/", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "attributes": { "testFlexible": true },
+        "evidence": { "hash": "7d8d5c4cde069a9b650065ad7f723e03b545b1dcad617233343f284ebf664a88", "quote": "students may apply for a waiver" }
+      },
+      "english": {
+        "status": "verified", "value": "Non-native speakers: old TOEFL iBT 80, IELTS 6.5 or DET 110. Waiver alternatives: three years of all-English secondary instruction, SAT EBRW 610 or ACT English 26. Supply the latest English instructor's recommendation describing coursework/proficiency. Older computer/paper TOEFL references do not establish currently available tests or a new-scale minimum; confirm newer exams. Admission proficiency does not necessarily satisfy the degree's language requirement.",
+        "source": "https://www.hollins.edu/admission-aid/international-students/first-year-international-students/", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "attributes": { "englishStatus": "required" },
+        "evidence": { "hash": "7d8d5c4cde069a9b650065ad7f723e03b545b1dcad617233343f284ebf664a88", "quote": "Obtain a 110 or higher" }
+      },
+      "fee": {
+        "status": "verified", "value": "The international admission application is free. Document translations, tests, visa and enrollment costs remain separate. The women's undergraduate program has its own eligibility; adult Horizon, transfer and graduate admission are separate routes.",
+        "source": "https://www.hollins.edu/admission-aid/", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "evidence": { "hash": "33f4d6b405b95326318c7ab3975da684534671ebd906f9c0bf3fce461d225e31", "quote": "There is no cost to submit your application" }
+      },
+      "deadline": {
+        "status": "verified", "value": "The current first-year table lists binding ED October 15, non-binding EA November 1 and RD February 1. No intake year is labelled; confirm applicability and international spring eligibility before applying. Preferred FAFSA dates in the adjacent column are not international admission dates; scholarship competitions have separate requirements. Do not substitute Horizon/adult or historical event dates.",
+        "source": "https://www.hollins.edu/admission-aid/", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "evidence": { "hash": "33f4d6b405b95326318c7ab3975da684534671ebd906f9c0bf3fce461d225e31", "quote": "Early Decision October 15 Yes" }
+      }
+    } },
+    "137546": { "fields": {
+      "testing": {
+        "status": "verified", "value": "Stetson's exact institution-owned Common App profile lists first-year SAT/ACT optional/flexible. This does not establish an English waiver or satisfy music/other program-specific requirements. International-specific English, aid and dates remain pending because those pages denied direct collection.",
+        "source": "https://www.commonapp.org/explore/stetson-university/", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "attributes": { "testFlexible": true },
+        "evidence": { "hash": "e3910eade3ca1fb76ff1e8305d100dd540712626160ea26cfcbcdfcf9cdbf23f", "quote": "Test Optional/Flexible - First Year" }
+      },
+      "fee": {
+        "status": "verified", "value": "Stetson's exact Common App first-year route has no application fee. Testing, translations/evaluations, music auditions, visa and enrollment expenses are not automatically waived; graduate/law admission is separate.",
+        "source": "https://www.commonapp.org/explore/stetson-university/", "checkedAt": "2026-10-03", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+        "evidence": { "hash": "e3910eade3ca1fb76ff1e8305d100dd540712626160ea26cfcbcdfcf9cdbf23f", "quote": "Charges no application fee - First Year" }
+      }
+    } }
+  }
+}

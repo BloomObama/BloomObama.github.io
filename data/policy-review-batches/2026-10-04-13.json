@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "cycle": "2026–27",
+  "records": {
+    "156295": {
+      "fields": {
+        "fee": {
+          "status": "verified",
+          "value": "Berea states that the application for admission for international students has no application fee. This is separate from the $2,200 enrollment deposit before I-20 issuance and possible testing, visa, travel and personal costs; the admissions page says deposit assistance may be available if a student cannot afford it.",
+          "source": "https://www.berea.edu/admissions/admission-information/apply/checklist-items/international-faqs",
+          "checkedAt": "2026-10-04",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "810dff28c12333e5431ff1b23870ba2ab43be3c944da7b9bcdfda88c2c1eb3e3",
+            "quote": "There is no application fee."
+          }
+        }
+      }
+    }
+  }
+}

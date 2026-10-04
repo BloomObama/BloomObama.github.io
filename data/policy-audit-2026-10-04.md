@@ -85,3 +85,29 @@ Coverage after batch 09: **74 complete profiles, 12 partial profiles, 413 verifi
 - Simmons (167783): four fields approved. SAT/ACT optional admission, English study/exam alternatives, first-year classification and deadlines are separate from transfer/adult/graduate rules. No application fee does not waive other costs. The international merit page contradicts itself on award ceilings, so aid remains a conflict rather than a guaranteed net-cost claim.
 
 Coverage after batch 10: **74 complete profiles, 14 partial profiles, 421 verified fields**, across 88 institutions. Added eight verified fields and two conflicts. Proposal: `data/policy-review-batches/2026-10-04-10.json`.
+
+## Batch 11
+
+- Hollins (232308): four fields approved. Its international first-year SAT/ACT rule permits an alternative-test waiver, narrower than generic test-optional advertising. English exemptions and first-year deadlines are distinct from domestic FAFSA, adult and graduate instructions. International scholarship pages advertise different starting amounts ($23,000 and $25,000), so aid is flagged for confirmation. The quoted cost table is for 2025–26.
+- Stetson (137546): first-year fee and testing rules approved from its exact institution-owned Common App profile. Official international admission and aid pages returned 403 during bounded collection; their policy fields remain pending rather than guessed.
+
+Coverage after batch 11: **74 complete profiles, 16 partial profiles, 427 verified fields**, across 90 institutions. Added six verified fields, one conflict. Proposal: `data/policy-review-batches/2026-10-04-11.json`.
+
+## Batch 12
+
+- Berea (156295): aid, testing, English and deadline approved. Admitted international students' direct costs are covered, but applicants compete for fewer than 40 places and must budget for personal expenses and a deposit, with deposit assistance potentially available. One of five recent exams is compulsory even for native English speakers; the domestic test-optional rule does not apply. The captured page's dynamically rendered application-fee statement was absent, so that field remains pending under the snapshot rule.
+- Drake (153269): aid, SAT/ACT, English and first-year deadlines approved. Its international grant plus other aid has an official 40% of total-cost ceiling. The account-services page lists a $50 international undergraduate application fee with the unexpected unit “per semester”; fee timing and scope remain a conflict until clarified. Domestic free-application wording and graduate charges are not applied to the international bachelor's pathway.
+
+Coverage after batch 12: **74 complete profiles, 18 partial profiles, 435 verified fields**, across 92 institutions. Added eight verified fields and one conflict. Proposal: `data/policy-review-batches/2026-10-04-12.json`.
+
+## Batch 13
+
+- Berea (156295): the international application-fee statement was verified from the same official page after its client-side content finished rendering. The rendered snapshot preserves the exact page text and hash; no 403 or robots restriction was bypassed. The application is free, but this does not remove the separately documented enrollment deposit or other applicant expenses.
+
+Coverage after batch 13: **75 complete profiles, 17 partial profiles, 436 verified fields**, across 92 institutions. Added one verified field. Proposal: `data/policy-review-batches/2026-10-04-13.json`.
+
+## Batch 14
+
+- Lake Forest (146481): all five first-year international fields approved. Need-aware admission and a $48,000 combined grant/scholarship ceiling for **2026–27 entrants** are not a full-cost guarantee for Fall 2027. Work-study has two inconsistent quoted possible amounts and neither is guaranteed. SAT/ACT are optional only with a required interview on the test-optional route; English evidence is separate, with individual proof/waiver possibilities. The 2027 Apply page distinguishes overseas new-F-1 first-years from those already studying in the U.S.; transfer dates are not copied. The first-year application itself is free, unlike possible CSS and post-admission expenses.
+
+Coverage after batch 14: **76 complete profiles, 17 partial profiles, 441 verified fields**, across 93 institutions. Added five verified fields. Proposal: `data/policy-review-batches/2026-10-04-14.json`.
