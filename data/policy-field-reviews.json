@@ -3019,6 +3019,52 @@
           }
         }
       }
+    },
+    "481058": {
+      "fields": {
+        "aid": {
+          "status": "verified",
+          "value": "Grace Mission University publishes a bachelor-level Grace Scholarship equal to 40% of per-unit tuition for students who are not federal-aid recipients, with an application after course registration. Its scholarship rules say awards apply to tuition units, not administrative fees, and normally are granted only after the semester is completed; this is not full-cost aid. The page does not expressly guarantee that every incoming F-1 applicant qualifies, so international eligibility and the first-term funding arrangement need direct confirmation. The university separately states that F-1/F-2 and J-1/J-2 visa holders are ineligible for U.S. federal aid; federal grants should not be counted as an international student's funding.",
+          "source": "https://gm.edu/tuition-financial-aid/financial-aid-information/",
+          "checkedAt": "2026-10-04",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "aidShort": "Published 40% per-unit BA tuition scholarship; confirm F-1 eligibility"
+          },
+          "evidence": {
+            "hash": "9b27c4133b56a56dbb67bb1064aace96dd13e6a9a2438c99a39f534e5146d7b6",
+            "quote": "Grace Scholarship 40% per unit (Excluding FSA recipients)"
+          }
+        },
+        "english": {
+          "status": "verified",
+          "value": "The university's admissions page says applicants who cannot yet speak English may apply without TOEFL or other English-proficiency proof through its English Language Studies Program (ELSP). It also says students below the English level needed for regular classes must complete ELSP coursework and pass an exit examination before starting those classes. Korean-language lectures are listed as another route for fluent Korean speakers. This is a conditional language pathway, not a blanket waiver of English for regular English-taught degree classes. The page quotes an older paper-TOEFL figure; applicants should confirm current placement rules instead of relying on that legacy number.",
+          "source": "https://gm.edu/admission/general_info/",
+          "checkedAt": "2026-10-04",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "b3b6f5ad1295bd81d8f3a589a02db6316a08c0d26e011cdfe726cf31bd2f130f",
+            "quote": "TOEFL and English Proficiency are not required for the students since the GMU offers ELSP programs."
+          }
+        },
+        "fee": {
+          "status": "conflict",
+          "value": "GMU's international-student procedures list a $50 non-refundable application fee, a possible $20 mailing fee, and a $150 foreign-transcript evaluation fee. Its separate financial-policy page at https://gm.edu/tuition-financial-aid/expence-policies/ lists a $100 application fee for all BA/MA/doctoral programs, plus a $60 admission fee. The pages do not explain whether the international amount supersedes the all-program amount or whether these are cumulative. Applicants should obtain a current itemized total from admissions before paying. Do not treat the visa/I-20 fee as the application fee.",
+          "source": "https://gm.edu/admission/international-student/",
+          "checkedAt": "2026-10-04",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "24e7a9aa6e7931c160fb4b7fe4e2f88c58a284e3545b67662f03157fcc5fa71c",
+            "quote": "$50 (non-refundable) application fee"
+          }
+        }
+      }
     }
   }
 }
