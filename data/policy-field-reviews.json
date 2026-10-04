@@ -82,6 +82,84 @@
         }
       }
     },
+    "109651": {
+      "fields": {
+        "aid": {
+          "status": "verified",
+          "value": "ArtCenter says international entrants may be considered for institutional scholarships by indicating interest in aid/scholarships on the admission application; a separate FAFSA is not required or available to them. Awards depend on portfolio/academic merit, available funds and committee review, and the college describes merit-only international awards as limited. It does not promise a full scholarship or full-cost coverage. Scholarship priority dates are February 1 for fall and October 1 for spring, but admission may continue on a rolling basis for majors with open places. Domestic federal/state grants and loan rules are not copied to international applicants.",
+          "source": "https://www.artcenter.edu/admissions/tuition-and-aid/financial-aid/scholarships.html",
+          "checkedAt": "2026-10-04",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "aidShort": "Limited competitive scholarships; no full-cost guarantee or FAFSA"
+          },
+          "evidence": {
+            "hash": "8884cc8a1c7f9146f6c1b180d77e450054f82dcd9198a51e1834ae0df0a82a97",
+            "quote": "International students do not need to complete the FAFSA to apply for scholarships."
+          }
+        },
+        "testing": {
+          "status": "verified",
+          "value": "SAT or ACT results are optional for undergraduate applicants, including students applying directly from high school. Portfolio and program-specific essays remain required, and English-language testing may be required separately for applicants without an English-medium high-school or bachelor's degree.",
+          "source": "https://www.artcenter.edu/admissions/undergraduate-admissions/application-requirements.html",
+          "checkedAt": "2026-10-04",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "testFlexible": true
+          },
+          "evidence": {
+            "hash": "749a7e064bcbd014b32aa63eac91aef0ee4cef530c795fa82807c5d7cbecec9b",
+            "quote": "submission of SAT or ACT scores is optional"
+          }
+        },
+        "english": {
+          "status": "verified",
+          "value": "Applicants without a high-school diploma or bachelor's degree taught in English must submit TOEFL iBT, Academic IELTS or Duolingo English Test results. Current posted minimums are new-scale TOEFL iBT 4, IELTS 6.5 or DET 115. Results must come directly from the test agency, be less than two years old, and not be an institutional test. ArtCenter may request testing/interview even after English-medium study if proficiency is in doubt or ESL coursework was taken. Older handbook values of TOEFL 80 and DET 105 are superseded by the current admissions page; no conversion is invented.",
+          "source": "https://www.artcenter.edu/admissions/undergraduate-admissions/application-requirements.html",
+          "checkedAt": "2026-10-04",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "englishStatus": "required"
+          },
+          "evidence": {
+            "hash": "749a7e064bcbd014b32aa63eac91aef0ee4cef530c795fa82807c5d7cbecec9b",
+            "quote": "a score of at least 4 is required on the iBT"
+          }
+        },
+        "fee": {
+          "status": "verified",
+          "value": "The current undergraduate online application has a nonrefundable $50 fee. Applicants may seek a College Board waiver or submit a guidance-counselor/teacher letter to admissions for consideration; approval is not automatic. The much older paper form's separate international fee is not applied to the current online process.",
+          "source": "https://www.artcenter.edu/admissions/undergraduate-admissions/application-requirements.html",
+          "checkedAt": "2026-10-04",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "749a7e064bcbd014b32aa63eac91aef0ee4cef530c795fa82807c5d7cbecec9b",
+            "quote": "A nonrefundable application fee of $50 is required"
+          }
+        },
+        "deadline": {
+          "status": "conflict",
+          "value": "ArtCenter's current Apply page expressly says the Fall 2027 undergraduate Early Action deadline is November 1, while its separate undergraduate Important Dates page still lists November 15 without an intake-year label: https://www.artcenter.edu/admissions/undergraduate-admissions/important-dates.html . Both pages indicate February 1 as the fall priority date, and most majors continue to review later applications until full. Entertainment Design has a special priority deadline and may stop accepting applications after it. Confirm the Fall 2027 Early Action date directly with admissions before relying on either date; domestic FAFSA dates on the Important Dates page do not apply to international applicants.",
+          "source": "https://www.artcenter.edu/apply.html",
+          "checkedAt": "2026-10-04",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "53c8cbd038e10d6042fe06b3624a3ecd1248041385a56e5e49b24bd9b42bef57",
+            "quote": "Early Action Deadline for Fall 2027 is November 1"
+          }
+        }
+      }
+    },
     "123952": {
       "fields": {
         "aid": {

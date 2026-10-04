@@ -126,3 +126,9 @@ Link-health note (October 4): the independent source reachability check reports 
 - Rhode Island School of Design / RISD (217493): all five first-year fields approved for 2027 entry. International students can apply for institutional need-based aid, but RISD explicitly warns that full need may not be met; the post-application institutional aid form is separate from domestic FAFSA. SAT/ACT are optional for international applicants, while English-as-second-language applicants need test evidence or an approved qualifying-school waiver. The $60 Common App fee and $10 SlideRoom portfolio fee are distinct, and the published waiver does not explicitly cover the latter. Admission deadlines (November 1/January 20) and aid deadlines (November 15/January 25) are kept separate.
 
 Coverage after batch 16: **78 complete profiles, 17 partial profiles, 451 verified fields**, across 95 institutions. Added five verified fields. Proposal: `data/policy-review-batches/2026-10-04-16.json`.
+
+## Batch 17
+
+- ArtCenter College of Design (109651): four fields approved from current undergraduate and scholarship pages. International applicants can compete for limited scholarships without FAFSA, while SAT/ACT remain optional, English-medium education affects proficiency testing, and the current online application lists a $50 fee with a possible requested waiver. Stale handbook and paper-application amounts were not substituted. The official Fall 2027 Apply page says November 1 for Early Action, but the separate undergraduate Important Dates page still says November 15 without a year; the deadline field remains a conflict. Both give February 1 as the fall priority date, and admission is generally rolling subject to major capacity.
+
+Coverage after batch 17: **78 complete profiles, 18 partial profiles, 455 verified fields**, across 96 institutions. Added four verified fields and one deadline conflict. Proposal: `data/policy-review-batches/2026-10-04-17.json`.
