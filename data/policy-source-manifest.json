@@ -1,6 +1,7 @@
 {
   "schemaVersion": 1,
   "records": {
+    "217493": { "domains": ["risd.edu"], "urls": ["https://www.risd.edu/admissions/first-year/apply-risd", "https://www.risd.edu/admissions/first-year/financing-your-education", "https://sfs.risd.edu/financial-aid/international/apply-for-aid"] },
     "123952": { "domains": ["sciarc.edu"], "urls": ["https://www.sciarc.edu/admissions/apply/undergraduate-programs/first-year-applicants", "https://www.sciarc.edu/admissions/apply/international-applicants", "https://www.sciarc.edu/admissions/financial-aid/scholarships", "https://www.sciarc.edu/admissions/financial-aid/scholarships/admissions-scholarship/admissions-merit-based-scholarships"] },
     "149781": { "domains": ["wheaton.edu", "commonapp.org"], "urls": ["https://www.wheaton.edu/admissions-cost-and-aid/undergraduate-admissions/apply-to-wheaton/apply-as-an-international-student", "https://www.wheaton.edu/admissions-cost-and-aid/undergraduate-admissions/apply-to-wheaton/apply-as-an-international-student/international-applicant-faqs", "https://www.wheaton.edu/admissions-cost-and-aid/undergraduate-admissions/apply-to-wheaton/admissions-faqs", "https://www.commonapp.org/explore/wheaton-college-il/"] },
     "146481": { "domains": ["lakeforest.edu"], "urls": ["https://www.lakeforest.edu/admissions/international-students", "https://www.lakeforest.edu/admissions/financial-aid/financial-aid-for-international-students", "https://www.lakeforest.edu/admissions/first-year-students/first-year-application-requirements", "https://www.lakeforest.edu/admissions/apply/"] },

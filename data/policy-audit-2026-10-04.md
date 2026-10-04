@@ -120,3 +120,9 @@ Coverage after batch 14: **76 complete profiles, 17 partial profiles, 441 verifi
 Coverage after batch 15: **77 complete profiles, 17 partial profiles, 446 verified fields**, across 94 institutions. Added five verified fields; Wheaton Illinois remains unreviewed. Proposal: `data/policy-review-batches/2026-10-04-15.json`.
 
 Link-health note (October 4): the independent source reachability check reports TLS certificate errors for four previously reviewed `skidmore.edu` admissions URLs. The site's externally hosted certificate cannot be repaired in this repository. GitHub Pages deployment succeeds, but the separate Site quality workflow remains red while those source links fail transport validation. Do not bypass TLS verification or treat this as evidence that the underlying Skidmore policies changed; recheck their official site when its certificate is repaired.
+
+## Batch 16
+
+- Rhode Island School of Design / RISD (217493): all five first-year fields approved for 2027 entry. International students can apply for institutional need-based aid, but RISD explicitly warns that full need may not be met; the post-application institutional aid form is separate from domestic FAFSA. SAT/ACT are optional for international applicants, while English-as-second-language applicants need test evidence or an approved qualifying-school waiver. The $60 Common App fee and $10 SlideRoom portfolio fee are distinct, and the published waiver does not explicitly cover the latter. Admission deadlines (November 1/January 20) and aid deadlines (November 15/January 25) are kept separate.
+
+Coverage after batch 16: **78 complete profiles, 17 partial profiles, 451 verified fields**, across 95 institutions. Added five verified fields. Proposal: `data/policy-review-batches/2026-10-04-16.json`.
