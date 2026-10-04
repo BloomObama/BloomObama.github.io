@@ -1039,6 +1039,84 @@
         }
       }
     },
+    "153241": {
+      "fields": {
+        "aid": {
+          "status": "verified",
+          "value": "Divine Word College says its financial-aid coordinator discusses funding plans with international students and that several scholarships are available; it does not state that every international degree applicant receives full-cost aid. The separate seminary scholarship and inability-to-pay promise in the college FAQ are specifically for Divine Word Missionary priest/brother candidates, not all international or lay students. Federal work-study on this page is limited to qualifying domestic students. The 2026–27 full-time tuition listed here is $8,400 per semester, before room, board and other fees; applicants should request an individual aid offer.",
+          "source": "https://www.dwci.edu/admissions/financial-aid/tuition-room-board-and-fees",
+          "checkedAt": "2026-10-04",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "aidShort": "Individual funding plan; scholarships possible, no universal full-cost promise"
+          },
+          "evidence": {
+            "hash": "3530c23031f1273b89bcdd6e119ba2412e6846704677b16e48c17409366b34af",
+            "quote": "whether you are a U.S. citizen, a Legal Permanent Resident or an international student."
+          }
+        },
+        "testing": {
+          "status": "verified",
+          "value": "The college's admissions FAQ says SAT/ACT scores are not required. Applicants who have taken either exam are asked to submit their results; the degree-seeking application checklist likewise requests results of any standardized tests taken. English-proficiency assessment is a separate requirement for non-native English speakers entering the undergraduate program.",
+          "source": "https://www.dwci.edu/about-dwc/frequently-asked-questions",
+          "checkedAt": "2026-10-04",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "testFlexible": true
+          },
+          "evidence": {
+            "hash": "26ac65f075a38661a3b103af476636b217e56bc1a11dcdbc48e86b6ad5b14c8a",
+            "quote": "SAT/ACT scores are not required, but any applicant who has taken either or both of these exams should submit the test results"
+          }
+        },
+        "english": {
+          "status": "verified",
+          "value": "For full-time undergraduate degree study, a non-native English speaker must provide TOEFL or an equivalent English-test score, or take Divine Word College's own English-proficiency test before placement. The published admissions criteria do not specify a numeric minimum on this page. Intensive English Language Institute applicants are a distinct non-degree route and should not be treated as automatically admitted to an undergraduate degree.",
+          "source": "https://www.dwci.edu/admissions/admission-criteria",
+          "checkedAt": "2026-10-04",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "englishStatus": "required"
+          },
+          "evidence": {
+            "hash": "fbb01e8809b5863bf0c7b29de2eb13983ca639fcb5b494191304366755947219",
+            "quote": "you must provide a TOEFL (Test of English as a Foreign Language) or equivalent test score or take an English language proficiency test"
+          }
+        },
+        "fee": {
+          "status": "verified",
+          "value": "The current degree-seeking application checklist requires a $25 application fee for full- or part-time degree applicants, including international applicants. The separate tuition-and-fees page calls this application fee non-refundable; no automatic fee waiver is stated. Do not confuse this with the additional SEVIS/I-20 administrative charge shown on the cost page.",
+          "source": "https://www.dwci.edu/admissions/application-process",
+          "checkedAt": "2026-10-04",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "3f6ce0f11535221db970c5dcf2ac49b256ed1cb0ac0673013299b5883fb1b4da",
+            "quote": "Immigration records if not a natural born citizen of the USA/copy of passport for international students $25 application fee"
+          }
+        },
+        "deadline": {
+          "status": "verified",
+          "value": "The college's live admissions FAQ says international applications are processed until June 15 for fall entry and November 1 for spring entry; domestic dates differ. The FAQ does not label those dates with a specific intake year, so applicants should confirm the applicable 2026–27 term and document-arrival timing with admissions before relying on them. Applications are encouraged as early as possible, and the committee normally reviews a complete file within two weeks.",
+          "source": "https://www.dwci.edu/about-dwc/frequently-asked-questions",
+          "checkedAt": "2026-10-04",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "26ac65f075a38661a3b103af476636b217e56bc1a11dcdbc48e86b6ad5b14c8a",
+            "quote": "Applications for international students will be processed until June 15 for the fall semester and until November 1 for the spring semester."
+          }
+        }
+      }
+    },
     "153269": {
       "fields": {
         "aid": {
