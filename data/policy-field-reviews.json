@@ -160,6 +160,68 @@
         }
       }
     },
+    "117557": {
+      "fields": {
+        "aid": {
+          "status": "verified",
+          "value": "Lincoln lists a competitive New Student merit scholarship, but its page does not explicitly confirm incoming international eligibility. Its international FAQ identifies the Board of Trustees award for continuing students with strong records, not a guaranteed first-year grant. Awards are term-specific, intended for tuition/fees rather than living costs, and may require reapplication; no universal full-cost guarantee is stated. The international page asks for proof of one-year funds of $29,065, while the FAQ still says $20,065: confirm the current I-20 amount and any award with admissions before paying.",
+          "source": "https://admissions.lincolnuca.edu/scholarships-and-discounts/",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "aidShort": "Competitive term-based awards; international first-year eligibility unconfirmed"
+          },
+          "evidence": {
+            "hash": "e9a51883e9736a49e20c337f40683aee2857820beb2d696f128034f9a7c42a75",
+            "quote": "Incoming students with good academic records are eligible to apply for a New Student Scholarship."
+          }
+        },
+        "english": {
+          "status": "verified",
+          "value": "International applicants educated in a language other than English must prove proficiency. The international admissions page lists TOEFL, IELTS, Duolingo and possible other accepted tests, or university placement evaluation when scores are unavailable. Published BA/BS examples are TOEFL iBT 59, IELTS 5.5 and DET 95; the page does not clarify the post-January-2026 TOEFL scale, so confirm the applicable score with admissions. A waiver/alternative may apply for prior English-medium education; do not assume a blanket waiver.",
+          "source": "https://admissions.lincolnuca.edu/international-students-admission/",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "englishStatus": "required"
+          },
+          "evidence": {
+            "hash": "94e49130f19ce91f3fb5eabe66d01c091d460d936d91949a3913c2c4194958a0",
+            "quote": "Proof of English proficiency is required for all students from schools where English is not the educational language."
+          }
+        },
+        "fee": {
+          "status": "verified",
+          "value": "The published non-refundable application fee is $95 for on-campus study or $50 for distant study. The fee schedule separately lists a $250 international transcript-evaluation fee with an application; applicants with foreign transcripts should confirm whether it applies to their case. Payment, housing, insurance and visa costs are not covered by the application fee.",
+          "source": "https://admissions.lincolnuca.edu/fees/",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "17b19cd28a4844fc850be154a98ffb0e6761c05c921f6373f3a83a51dd79fc19",
+            "quote": "APPLICATION FEE (non-refundable) on campus / Distant $95 / $50"
+          }
+        },
+        "deadline": {
+          "status": "verified",
+          "value": "The official admissions FAQ lists international application deadlines of November 22, 2026 for Spring 2027, May 10, 2027 for Summer 2027 and July 26, 2027 for Fall 2027. The application portal currently highlights only Spring 2027 and asks applicants for other terms to contact admissions; confirm Summer/Fall dates before relying on the FAQ table. Domestic/transfer dates in the adjacent column do not apply to new international applicants.",
+          "source": "https://admissions.lincolnuca.edu/faq/",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "da3952cb8b6f90843306b4586c06ceed61446d67f2079e8a3f50e2161b846448",
+            "quote": "Spring 2027 November 22, 2026 January 18, 2027"
+          }
+        }
+      }
+    },
     "123952": {
       "fields": {
         "aid": {

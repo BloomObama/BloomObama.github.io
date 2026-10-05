@@ -1,6 +1,7 @@
 {
   "schemaVersion": 1,
   "records": {
+    "117557": { "domains": ["lincolnuca.edu"], "urls": ["https://admissions.lincolnuca.edu/faq/", "https://admissions.lincolnuca.edu/undergraduate-admission/", "https://admissions.lincolnuca.edu/international-students-admission/", "https://admissions.lincolnuca.edu/scholarships-and-discounts/", "https://admissions.lincolnuca.edu/fees/", "https://apply.lincolnuca.edu/"] },
     "192712": { "domains": ["msmnyc.edu", "apply.msmnyc.edu"], "urls": ["https://www.msmnyc.edu/admission/international-applicants/", "https://www.msmnyc.edu/admission/admission-faq/", "https://www.msmnyc.edu/admission/scholarships-financial-aid/apply-for-financial-aid/", "https://www.msmnyc.edu/admission/dates-deadlines/college-dates-deadlines/", "https://apply.msmnyc.edu/apply/"] },
     "167057": { "domains": ["necmusic.edu", "necmusic.smartcatalogiq.com"], "urls": ["https://necmusic.edu/admissions/undergraduate-applicants/", "https://necmusic.edu/admissions/tuition-aid/", "https://necmusic.edu/admissions/application-faqs/", "https://apply.necmusic.edu/portal/college_app_management", "https://necmusic.smartcatalogiq.com/en/2026-2027/nec-academic-catalog-2026-2027/nec-admissions-policies/required-testing"] },
     "481058": { "domains": ["gm.edu"], "urls": ["https://gm.edu/admission/international-student/", "https://gm.edu/admission/general_info/", "https://gm.edu/tuition-financial-aid/financial-aid-information/", "https://gm.edu/tuition-financial-aid/expence-policies/"] },
