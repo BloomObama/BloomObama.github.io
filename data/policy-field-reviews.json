@@ -1948,6 +1948,84 @@
         }
       }
     },
+    "192712": {
+      "fields": {
+        "aid": {
+          "status": "verified",
+          "value": "International college applicants who audition are considered for institutional scholarships if they submit the CSS Profile and MSM Financial Aid Questionnaire. Awards depend on merit and demonstrated need; there is no published universal full-cost guarantee. International applicants cannot use FAFSA federal aid. Confirm the individual award and housing, insurance and visa costs before committing.",
+          "source": "https://www.msmnyc.edu/admission/international-applicants/",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "aidShort": "Competitive merit/need scholarships; no full-cost guarantee"
+          },
+          "evidence": {
+            "hash": "ed1fdfab4591e54126db08b261ba5191aa5b5f1014282dd34cafc0fb94415364",
+            "quote": "All applicants who audition are considered for institutional scholarships"
+          }
+        },
+        "testing": {
+          "status": "verified",
+          "value": "SAT and ACT scores are not required for undergraduate admission. Applicants still face program-specific prescreening and audition; home-schooled applicants need comprehensive transcripts and proof of secondary completion.",
+          "source": "https://www.msmnyc.edu/admission/admission-faq/",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "testFlexible": true
+          },
+          "evidence": {
+            "hash": "209211bd74d932e6a389822aa84a62782278132c962aa59faa05f46dabc461c4",
+            "quote": "SAT, ACT, or GRE scores are not required."
+          }
+        },
+        "english": {
+          "status": "verified",
+          "value": "Applicants whose native language is not English must submit an official Duolingo English Test score by December 1, 2026; TOEFL and IELTS are not accepted instead. The test must be taken after September 1, 2026. No minimum score is required merely to apply, but lower scores may trigger required Summer English Study or prevent admission. Updated scores may be sent until March 1, 2027.",
+          "source": "https://www.msmnyc.edu/admission/international-applicants/",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "englishStatus": "required"
+          },
+          "evidence": {
+            "hash": "ed1fdfab4591e54126db08b261ba5191aa5b5f1014282dd34cafc0fb94415364",
+            "quote": "TOEFL and IELTS scores are not accepted as an alternative to the DET requirement."
+          }
+        },
+        "fee": {
+          "status": "verified",
+          "value": "The standard college application fee is a non-refundable $130 per application. Current MSM/Precollege students, MSM alumni and Barnard/MSM Lesson Exchange applicants pay $80; partner-institution exchange applicants are exempt. An approved late application may incur an additional $50. Do not apply the separate MSM Summer program fee to college admission.",
+          "source": "https://www.msmnyc.edu/admission/admission-faq/",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "209211bd74d932e6a389822aa84a62782278132c962aa59faa05f46dabc461c4",
+            "quote": "The application fee is $130.00 USD."
+          }
+        },
+        "deadline": {
+          "status": "conflict",
+          "value": "The Fall 2027 college application portal gives December 1, 2026 as the application deadline, including applicable prescreen and English-test materials. However, official aid pages disagree: the international-admissions page says financial-aid documents are due February 1, while the international section of the aid application page says CSS Profile due January 15 and its introduction also says February 1. The dates page likewise lists January 15. Submit aid materials by January 15 unless admissions confirms a later date in writing; do not treat the conflicting aid deadline as settled.",
+          "source": "https://www.msmnyc.edu/admission/scholarships-financial-aid/apply-for-financial-aid/",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "087654f0338ab1aadf7c7f64f712455e8a23afdd89fcd5f27e6a9eadb3bb9e99",
+            "quote": "New Students: International Required Documents: Due January 15"
+          }
+        }
+      }
+    },
     "195216": {
       "fields": {
         "aid": {
