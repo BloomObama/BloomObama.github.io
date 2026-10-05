@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
-import { policy, loadColleges, readJSON, allowedURL, publicAddress, htmlText, robotsAllowed, robotsDelay, candidates, priority, digest, validateReview } from './policy-pipeline-core.mjs';
+import { policy, loadColleges, readJSON, allowedURL, defaultDomains, sourcePriority, publicAddress, htmlText, robotsAllowed, robotsDelay, candidates, priority, digest, validateReview } from './policy-pipeline-core.mjs';
 
 const colleges = loadColleges(); const manifest = readJSON('data/policy-source-manifest.json');
 assert.equal(new Set(colleges.map(c=>c.catalogId)).size,5002);
@@ -12,6 +12,11 @@ assert.equal(allowedURL('http://www.mtholyoke.edu/apply',['mtholyoke.edu']),fals
 assert.equal(allowedURL('https://user@www.mtholyoke.edu/apply',['mtholyoke.edu']),false);
 assert.equal(allowedURL('https://www.mtholyoke.edu:8443/apply',['mtholyoke.edu']),false);
 assert.equal(allowedURL('https://admission.mtholyoke.edu/apply',['mtholyoke.edu']),true);
+assert.deepEqual(defaultDomains({source:'https://admissions.richmond.edu/process/'}),['richmond.edu']);
+assert.deepEqual(defaultDomains({urls:['https://www.wfu.edu/']}),['wfu.edu']);
+assert.deepEqual(defaultDomains({source:'https://school.example.ac.uk/'}),['school.example.ac.uk']);
+assert.ok(sourcePriority('https://college.edu/admissions/undergraduate/international/') > sourcePriority('https://college.edu/admissions/graduate/international/'));
+assert.ok(sourcePriority('https://college.edu/admissions/international/requirements/') > sourcePriority('https://college.edu/admissions/international/visit/'));
 for (const address of ['127.0.0.1','10.0.0.1','192.168.1.1','172.16.1.1','169.254.169.254','100.64.0.1','::1','::ffff:127.0.0.1','fe80::1']) assert.equal(publicAddress(address),false,address);
 assert.equal(publicAddress('142.250.1.1'),true);
 assert.equal(robotsAllowed('User-agent: *\nDisallow: /private\nAllow: /private/public','/private/file'),false);

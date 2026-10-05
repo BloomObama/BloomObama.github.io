@@ -22,6 +22,19 @@ export function allowedURL(value, domains) {
   let url; try { url = new URL(value); } catch { return false; }
   return url.protocol === 'https:' && !url.username && !url.password && !url.port && !isIP(url.hostname) && domains.some(domain => url.hostname === domain || url.hostname.endsWith('.' + domain));
 }
+export function defaultDomains(college) {
+  const parts = new URL(college.source || college.urls?.[0]).hostname.toLowerCase().split('.');
+  while (parts.length > 2 && /^(www|admissions?|apply|undergraduate)$/.test(parts[0])) parts.shift();
+  return [parts.join('.')];
+}
+export function sourcePriority(value) {
+  const pathname = new URL(value).pathname;
+  return (/international/i.test(pathname)?200:0)
+    + (/financial.aid|scholarship|afford/i.test(pathname)?120:0)
+    + (/requirements|checklist|deadline|testing|apply|first.year|freshman/i.test(pathname)?70:0)
+    - (/(?:^|[\/-])graduate(?:[\/.-]|$)|transfer|study.abroad|alumni|current.student/i.test(pathname)?300:0)
+    - (/visit|request|admitted|staff|event|news|blog/i.test(pathname)?200:0);
+}
 export function publicAddress(address) {
   if (isIP(address) === 4) {
     const [a,b] = address.split('.').map(Number);
@@ -93,7 +106,7 @@ export function validateReview(id, record, colleges, manifest, snapshotLookup) {
   const college = colleges.find(c => String(c.catalogId) === String(id));
   if (!college) throw new Error('Unknown exact institution ID: ' + id);
   if (!record.fields || !Object.keys(record.fields).length) throw new Error('Empty review');
-  const domains = manifest.records[id]?.domains || [new URL(college.source).hostname.replace(/^www\./,'')];
+  const domains = manifest.records[id]?.domains || defaultDomains(college);
   for (const [key, field] of Object.entries(record.fields)) {
     if (!policy.fields.includes(key) || !['verified','conflict','pending'].includes(field.status)) throw new Error('Invalid field/status');
     if (field.status === 'pending') continue;

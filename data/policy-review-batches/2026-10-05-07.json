@@ -1,0 +1,744 @@
+{
+  "schemaVersion": 1,
+  "cycle": "2026–27",
+  "records": {
+    "110635": {
+      "fields": {
+        "aid": {
+          "status": "verified",
+          "value": "International students cannot receive federal, state or university need-based aid. Berkeley's admissions office points to scholarship and external funding resources, but does not promise full funding for international applicants.",
+          "source": "https://admissions.berkeley.edu/cost/apply-for-financial-aid/",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "aidCategory": "limited",
+            "aidShort": "Limited/no international aid; independent funding needed"
+          },
+          "evidence": {
+            "hash": "9d02afedaed990438b7e0fd0937b18b09258b7bf5dc8200a36736f5ad0a3a3a9",
+            "quote": "International students are ineligible for federal, state, and need-based university financial aid."
+          }
+        },
+        "testing": {
+          "status": "verified",
+          "value": "UC excludes SAT/ACT from admission and scholarship selection. Scores may still support minimum eligibility or course placement.",
+          "source": "https://admission.universityofcalifornia.edu/how-to-apply/applying-as-a-first-year/filling-out-the-application.html",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "testFlexible": true
+          },
+          "evidence": {
+            "hash": "df6f10c50137760bdac568f7a8da43ff885bd27b078152f3ec403a03bfa9d7cc",
+            "quote": "Test scores"
+          }
+        },
+        "fee": {
+          "status": "verified",
+          "value": "International fee: $95 per campus, non-refundable. UC waivers: US citizens, permanent residents or AB540 eligibility only.",
+          "source": "https://admission.universityofcalifornia.edu/apply-now.html",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "feeWaiver": false
+          },
+          "evidence": {
+            "hash": "f6c409e88c51f6679b3fbba4fab59bd8e675e96556b7ca7b339690e6a3ac799d",
+            "quote": "$95 for"
+          }
+        },
+        "deadline": {
+          "status": "verified",
+          "value": "Fall 2027: apply October 1–November 30, 2026. Admitted first-year students must accept by May 1, 2027.",
+          "source": "https://admission.universityofcalifornia.edu/how-to-apply/applying-as-a-first-year/dates-and-deadlines.html",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "873da3426c0dc93a4114174629969efccc235d8e0fd6994805044a9ef0662e7c",
+            "quote": "fall 2027"
+          }
+        },
+        "english": {
+          "status": "verified",
+          "value": "First-year English proof: TOEFL 90 on the old scale/4.5 on the new scale, IELTS 6.5 or DET 115. Qualifying AP/IB exams or at least three years of exclusively English instruction can also satisfy it. Mixed-language schooling does not qualify for that exemption. Berkeley lists January 31 as its proficiency completion deadline.",
+          "source": "https://admissions.berkeley.edu/apply-to-berkeley/international-students/requirements-for-international-students/",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "englishStatus": "required"
+          },
+          "evidence": {
+            "hash": "c07f003687898b2688867445afba70370e98ae48c3cd056241dabfdfb54b2354",
+            "quote": "minimum score of 90/4.5"
+          }
+        }
+      }
+    },
+    "110644": {
+      "fields": {
+        "aid": {
+          "status": "verified",
+          "value": "Most financial aid is unavailable for students on F, J, G or H visas. International undergraduates may qualify for institutional/outside scholarships or private and short-term loans. These are limited alternatives, not a commitment to meet full need.",
+          "source": "https://financialaid.ucdavis.edu/undergraduate/apply/international",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "aidCategory": "limited",
+            "aidShort": "Limited/no international aid; independent funding needed"
+          },
+          "evidence": {
+            "hash": "f54b9d700a00b660605872dec6ede2bcc929b3c28fef5063979f78d0d1628ff9",
+            "quote": "may, however, be eligible for scholarships"
+          }
+        },
+        "testing": {
+          "status": "verified",
+          "value": "UC excludes SAT/ACT from admission and scholarship selection. Scores may still support minimum eligibility or course placement.",
+          "source": "https://admission.universityofcalifornia.edu/how-to-apply/applying-as-a-first-year/filling-out-the-application.html",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "testFlexible": true
+          },
+          "evidence": {
+            "hash": "df6f10c50137760bdac568f7a8da43ff885bd27b078152f3ec403a03bfa9d7cc",
+            "quote": "Test scores"
+          }
+        },
+        "fee": {
+          "status": "verified",
+          "value": "International fee: $95 per campus, non-refundable. UC waivers: US citizens, permanent residents or AB540 eligibility only.",
+          "source": "https://admission.universityofcalifornia.edu/apply-now.html",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "feeWaiver": false
+          },
+          "evidence": {
+            "hash": "f6c409e88c51f6679b3fbba4fab59bd8e675e96556b7ca7b339690e6a3ac799d",
+            "quote": "$95 for"
+          }
+        },
+        "deadline": {
+          "status": "verified",
+          "value": "Fall 2027: apply October 1–November 30, 2026. Admitted first-year students must accept by May 1, 2027.",
+          "source": "https://admission.universityofcalifornia.edu/how-to-apply/applying-as-a-first-year/dates-and-deadlines.html",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "873da3426c0dc93a4114174629969efccc235d8e0fd6994805044a9ef0662e7c",
+            "quote": "fall 2027"
+          }
+        },
+        "english": {
+          "status": "verified",
+          "value": "English proof is required where prior schooling does not establish proficiency. Davis accepts TOEFL, IELTS, DET, specified AP/IB exams or qualifying transferable coursework. Its campus exam page refers applicants to the UC-wide English-proficiency rules; SAT/ACT admission policy does not remove this requirement.",
+          "source": "https://www.ucdavis.edu/admissions/undergraduate/international/exams-visas",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "englishStatus": "required"
+          },
+          "evidence": {
+            "hash": "963b58b74dcafd129f15829e1763af05ffa3b7e2913f345876bb1c67010f0da8",
+            "quote": "Provide proof of English proficiency"
+          }
+        }
+      }
+    },
+    "110653": {
+      "fields": {
+        "aid": {
+          "status": "verified",
+          "value": "UCI's international admissions FAQ states that it does not provide financial assistance to international students and directs applicants to external scholarships. Plan funding independently; domestic aid statistics are not an international aid offer.",
+          "source": "https://admissions.uci.edu/apply/international-students.php",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "aidCategory": "limited",
+            "aidShort": "Limited/no international aid; independent funding needed"
+          },
+          "evidence": {
+            "hash": "6bf85c1fd486bf7097b7cf55ebcd0707438283eb8fceee12e59d898d1408bd29",
+            "quote": "does not offer financial assistance for international students"
+          }
+        },
+        "testing": {
+          "status": "verified",
+          "value": "UC excludes SAT/ACT from admission and scholarship selection. Scores may still support minimum eligibility or course placement.",
+          "source": "https://admission.universityofcalifornia.edu/how-to-apply/applying-as-a-first-year/filling-out-the-application.html",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "testFlexible": true
+          },
+          "evidence": {
+            "hash": "df6f10c50137760bdac568f7a8da43ff885bd27b078152f3ec403a03bfa9d7cc",
+            "quote": "Test scores"
+          }
+        },
+        "fee": {
+          "status": "verified",
+          "value": "International fee: $95 per campus, non-refundable. UC waivers: US citizens, permanent residents or AB540 eligibility only.",
+          "source": "https://admission.universityofcalifornia.edu/apply-now.html",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "feeWaiver": false
+          },
+          "evidence": {
+            "hash": "f6c409e88c51f6679b3fbba4fab59bd8e675e96556b7ca7b339690e6a3ac799d",
+            "quote": "$95 for"
+          }
+        },
+        "deadline": {
+          "status": "verified",
+          "value": "Fall 2027: apply October 1–November 30, 2026. Admitted first-year students must accept by May 1, 2027.",
+          "source": "https://admission.universityofcalifornia.edu/how-to-apply/applying-as-a-first-year/dates-and-deadlines.html",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "873da3426c0dc93a4114174629969efccc235d8e0fd6994805044a9ef0662e7c",
+            "quote": "fall 2027"
+          }
+        },
+        "english": {
+          "status": "verified",
+          "value": "English testing is required without three years of fully English-medium secondary instruction; bilingual instruction does not qualify for this exemption. Accepted thresholds include IELTS 6.5, TOEFL 4.5 (80 before January 2026), or DET 115. Qualifying AP/IB exams and UC-transferable composition are alternatives. IELTS One Skill Retake and TOEFL MyBest are not accepted.",
+          "source": "https://admissions.uci.edu/apply/international-students.php",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "englishStatus": "required"
+          },
+          "evidence": {
+            "hash": "6bf85c1fd486bf7097b7cf55ebcd0707438283eb8fceee12e59d898d1408bd29",
+            "quote": "Minimum score of 4.5 or better"
+          }
+        }
+      }
+    },
+    "110662": {
+      "fields": {
+        "aid": {
+          "status": "verified",
+          "value": "UCLA does not offer institutional scholarships or financial aid to international undergraduates who are neither US citizens nor permanent residents. Applicants must arrange enough funding for education and living costs; external scholarships may be sought.",
+          "source": "https://admission.ucla.edu/apply/international-applicants",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "aidCategory": "limited",
+            "aidShort": "Limited/no international aid; independent funding needed"
+          },
+          "evidence": {
+            "hash": "176ceffc24403fb49506bdbd080b5ebd74521fc6e02744b96281fc4b7fed2f86",
+            "quote": "does not award scholarships or financial aid"
+          }
+        },
+        "testing": {
+          "status": "verified",
+          "value": "UC excludes SAT/ACT from admission and scholarship selection. Scores may still support minimum eligibility or course placement.",
+          "source": "https://admission.universityofcalifornia.edu/how-to-apply/applying-as-a-first-year/filling-out-the-application.html",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "testFlexible": true
+          },
+          "evidence": {
+            "hash": "df6f10c50137760bdac568f7a8da43ff885bd27b078152f3ec403a03bfa9d7cc",
+            "quote": "Test scores"
+          }
+        },
+        "fee": {
+          "status": "verified",
+          "value": "International fee: $95 per campus, non-refundable. UC waivers: US citizens, permanent residents or AB540 eligibility only.",
+          "source": "https://admission.universityofcalifornia.edu/apply-now.html",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "feeWaiver": false
+          },
+          "evidence": {
+            "hash": "f6c409e88c51f6679b3fbba4fab59bd8e675e96556b7ca7b339690e6a3ac799d",
+            "quote": "$95 for"
+          }
+        },
+        "deadline": {
+          "status": "verified",
+          "value": "Fall 2027: apply October 1–November 30, 2026. Admitted first-year students must accept by May 1, 2027.",
+          "source": "https://admission.universityofcalifornia.edu/how-to-apply/applying-as-a-first-year/dates-and-deadlines.html",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "873da3426c0dc93a4114174629969efccc235d8e0fd6994805044a9ef0662e7c",
+            "quote": "fall 2027"
+          }
+        },
+        "english": {
+          "status": "verified",
+          "value": "English proof is required with fewer than three years of English instruction, unless all secondary schooling was in English. Competitive guidance: TOEFL 5 with each component 5 (old scale above 100, components above 24), IELTS 7.5, or DET 135. UCLA calls these competitive scores, not guaranteed admission cutoffs; self-report results by January.",
+          "source": "https://admission.ucla.edu/apply/international-applicants",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "englishStatus": "required"
+          },
+          "evidence": {
+            "hash": "176ceffc24403fb49506bdbd080b5ebd74521fc6e02744b96281fc4b7fed2f86",
+            "quote": "7.5 or above on the IELTS"
+          }
+        }
+      }
+    },
+    "110671": {
+      "fields": {
+        "aid": {
+          "status": "verified",
+          "value": "International first-year applicants receive automatic consideration for the nonresident Achievement Scholarship with admission: up to $89,100 over four years, not a guaranteed full ride. Recipients must meet UC eligibility, confirm nonresident status, submit their enrollment intent and maintain a 3.0 GPA each quarter.",
+          "source": "https://admissions.ucr.edu/international",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "aidCategory": "merit",
+            "aidShort": "Limited nonresident scholarship; not guaranteed full costs"
+          },
+          "evidence": {
+            "hash": "d59f6556ccdc0c4bb81cd6d3ceec9b296074bf2a4d43933f3c85c4d31a374819",
+            "quote": "up to $89,100 for four years"
+          }
+        },
+        "testing": {
+          "status": "verified",
+          "value": "UC excludes SAT/ACT from admission and scholarship selection. Scores may still support minimum eligibility or course placement.",
+          "source": "https://admission.universityofcalifornia.edu/how-to-apply/applying-as-a-first-year/filling-out-the-application.html",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "testFlexible": true
+          },
+          "evidence": {
+            "hash": "df6f10c50137760bdac568f7a8da43ff885bd27b078152f3ec403a03bfa9d7cc",
+            "quote": "Test scores"
+          }
+        },
+        "fee": {
+          "status": "verified",
+          "value": "International fee: $95 per campus, non-refundable. UC waivers: US citizens, permanent residents or AB540 eligibility only.",
+          "source": "https://admission.universityofcalifornia.edu/apply-now.html",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "feeWaiver": false
+          },
+          "evidence": {
+            "hash": "f6c409e88c51f6679b3fbba4fab59bd8e675e96556b7ca7b339690e6a3ac799d",
+            "quote": "$95 for"
+          }
+        },
+        "deadline": {
+          "status": "verified",
+          "value": "Fall 2027: apply October 1–November 30, 2026. Admitted first-year students must accept by May 1, 2027.",
+          "source": "https://admission.universityofcalifornia.edu/how-to-apply/applying-as-a-first-year/dates-and-deadlines.html",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "873da3426c0dc93a4114174629969efccc235d8e0fd6994805044a9ef0662e7c",
+            "quote": "fall 2027"
+          }
+        },
+        "english": {
+          "status": "verified",
+          "value": "Published English benchmarks: IELTS 6.5, TOEFL 4.5 (80 on the pre-January-2026 scale), or DET 115; specified AP/IB English results or qualifying composition coursework also apply. Complete the exam by December of the final secondary-school year. IELTS One Skill Retake, TOEFL MyBest and digital SAT Reading/Writing do not satisfy this requirement.",
+          "source": "https://admissions.ucr.edu/international",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "englishStatus": "required"
+          },
+          "evidence": {
+            "hash": "d59f6556ccdc0c4bb81cd6d3ceec9b296074bf2a4d43933f3c85c4d31a374819",
+            "quote": "minimum score of 4.5"
+          }
+        }
+      }
+    },
+    "110680": {
+      "fields": {
+        "aid": {
+          "status": "verified",
+          "value": "International undergraduates are not eligible for federal aid. UC San Diego directs them to international-student funding resources, outside scholarships and private loans; eligibility is award/lender-specific, with no general full-need funding commitment.",
+          "source": "https://fas.ucsd.edu/applying/undergraduates/index.html",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "aidCategory": "limited",
+            "aidShort": "Limited/no international aid; independent funding needed"
+          },
+          "evidence": {
+            "hash": "e581044a09db2873d1bb3846cb64069f15b427ec10d768fbde9eba9f6ddb63ee",
+            "quote": "International undergraduate students are not eligible for federal aid"
+          }
+        },
+        "testing": {
+          "status": "verified",
+          "value": "UC excludes SAT/ACT from admission and scholarship selection. Scores may still support minimum eligibility or course placement.",
+          "source": "https://admission.universityofcalifornia.edu/how-to-apply/applying-as-a-first-year/filling-out-the-application.html",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "testFlexible": true
+          },
+          "evidence": {
+            "hash": "df6f10c50137760bdac568f7a8da43ff885bd27b078152f3ec403a03bfa9d7cc",
+            "quote": "Test scores"
+          }
+        },
+        "fee": {
+          "status": "verified",
+          "value": "International fee: $95 per campus, non-refundable. UC waivers: US citizens, permanent residents or AB540 eligibility only.",
+          "source": "https://admission.universityofcalifornia.edu/apply-now.html",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "feeWaiver": false
+          },
+          "evidence": {
+            "hash": "f6c409e88c51f6679b3fbba4fab59bd8e675e96556b7ca7b339690e6a3ac799d",
+            "quote": "$95 for"
+          }
+        },
+        "deadline": {
+          "status": "verified",
+          "value": "Fall 2027: apply October 1–November 30, 2026. Admitted first-year students must accept by May 1, 2027.",
+          "source": "https://admission.universityofcalifornia.edu/how-to-apply/applying-as-a-first-year/dates-and-deadlines.html",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "873da3426c0dc93a4114174629969efccc235d8e0fd6994805044a9ef0662e7c",
+            "quote": "fall 2027"
+          }
+        },
+        "english": {
+          "status": "verified",
+          "value": "First-year English minimums: TOEFL 4.5 (83 before January 2026), IELTS Academic 7 or DET 115. Accepted alternatives include AP English 3–5, IB English A Higher Level 5–7 or Standard Level 6–7. These are campus-specific minimums; meeting them does not guarantee admission.",
+          "source": "https://admissions.ucsd.edu/international/index.html",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "englishStatus": "required"
+          },
+          "evidence": {
+            "hash": "e83b4ac5a1d8cc5fe6e9c44b8b295b64a253effcab1d9d1634815178a340f934",
+            "quote": "IELTS minimum score of 7"
+          }
+        }
+      }
+    },
+    "110705": {
+      "fields": {
+        "aid": {
+          "status": "verified",
+          "value": "UCSB describes international undergraduate aid and scholarships as very limited. Students must arrange private funding for the cost of attendance and show first-year resources after admission and enrollment intent. Domestic need-based aid rules should not be treated as an international funding promise.",
+          "source": "https://admissions.sa.ucsb.edu/international",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "aidCategory": "limited",
+            "aidShort": "Limited/no international aid; independent funding needed"
+          },
+          "evidence": {
+            "hash": "cbcc15b4f9dae2f0e4b77b1062d42933fb50e03c05c54b0807d5fe49b1fb641d",
+            "quote": "Financial aid and scholarships for international students are very limited."
+          }
+        },
+        "testing": {
+          "status": "verified",
+          "value": "UC excludes SAT/ACT from admission and scholarship selection. Scores may still support minimum eligibility or course placement.",
+          "source": "https://admission.universityofcalifornia.edu/how-to-apply/applying-as-a-first-year/filling-out-the-application.html",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "testFlexible": true
+          },
+          "evidence": {
+            "hash": "df6f10c50137760bdac568f7a8da43ff885bd27b078152f3ec403a03bfa9d7cc",
+            "quote": "Test scores"
+          }
+        },
+        "fee": {
+          "status": "verified",
+          "value": "International fee: $95 per campus, non-refundable. UC waivers: US citizens, permanent residents or AB540 eligibility only.",
+          "source": "https://admission.universityofcalifornia.edu/apply-now.html",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "feeWaiver": false
+          },
+          "evidence": {
+            "hash": "f6c409e88c51f6679b3fbba4fab59bd8e675e96556b7ca7b339690e6a3ac799d",
+            "quote": "$95 for"
+          }
+        },
+        "deadline": {
+          "status": "verified",
+          "value": "Fall 2027: apply October 1–November 30, 2026. Admitted first-year students must accept by May 1, 2027.",
+          "source": "https://admission.universityofcalifornia.edu/how-to-apply/applying-as-a-first-year/dates-and-deadlines.html",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "873da3426c0dc93a4114174629969efccc235d8e0fd6994805044a9ef0662e7c",
+            "quote": "fall 2027"
+          }
+        },
+        "english": {
+          "status": "verified",
+          "value": "Applicants educated in a language other than English must demonstrate proficiency. UCSB lists TOEFL 4.5 (80 before January 2026), IELTS 6.5 or DET 115. Self-report in the application; admitted students accepting a place must send valid official results.",
+          "source": "https://admissions.sa.ucsb.edu/international-freshman-eligibility-selection",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "englishStatus": "required"
+          },
+          "evidence": {
+            "hash": "576e3a23cc5670ce7e0eef8c2199be563a5fb403e8ce9a80f18100a548331dd3",
+            "quote": "minimum score of 4.5"
+          }
+        }
+      }
+    },
+    "110714": {
+      "fields": {
+        "aid": {
+          "status": "verified",
+          "value": "UCSC advertises the Undergraduate Dean's Award for nonresident first-year students, ranging from $12,000 to $100,000 in total across four years. This offsets nonresident tuition rather than guaranteeing full costs and ends if California residency is established. The amount is not an annual award.",
+          "source": "https://admissions.ucsc.edu/international-students",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "aidCategory": "merit",
+            "aidShort": "Limited nonresident scholarship; not guaranteed full costs"
+          },
+          "evidence": {
+            "hash": "d654f3bc4ae29de67a657a47d3f2ac72502ffba4a4d6d838ff176542f7585f71",
+            "quote": "split over four years for first-year students"
+          }
+        },
+        "testing": {
+          "status": "verified",
+          "value": "UC excludes SAT/ACT from admission and scholarship selection. Scores may still support minimum eligibility or course placement.",
+          "source": "https://admission.universityofcalifornia.edu/how-to-apply/applying-as-a-first-year/filling-out-the-application.html",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "testFlexible": true
+          },
+          "evidence": {
+            "hash": "df6f10c50137760bdac568f7a8da43ff885bd27b078152f3ec403a03bfa9d7cc",
+            "quote": "Test scores"
+          }
+        },
+        "fee": {
+          "status": "verified",
+          "value": "International fee: $95 per campus, non-refundable. UC waivers: US citizens, permanent residents or AB540 eligibility only.",
+          "source": "https://admission.universityofcalifornia.edu/apply-now.html",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "feeWaiver": false
+          },
+          "evidence": {
+            "hash": "f6c409e88c51f6679b3fbba4fab59bd8e675e96556b7ca7b339690e6a3ac799d",
+            "quote": "$95 for"
+          }
+        },
+        "deadline": {
+          "status": "verified",
+          "value": "Fall 2027: apply October 1–November 30, 2026. Admitted first-year students must accept by May 1, 2027.",
+          "source": "https://admission.universityofcalifornia.edu/how-to-apply/applying-as-a-first-year/dates-and-deadlines.html",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "873da3426c0dc93a4114174629969efccc235d8e0fd6994805044a9ef0662e7c",
+            "quote": "fall 2027"
+          }
+        },
+        "english": {
+          "status": "verified",
+          "value": "English proof is normally required with fewer than three years of English-medium secondary study. First-year options include IELTS 6.5, TOEFL iBT/Home 4.5, DET 115, qualifying AP/IB English or UC-transferable composition. IELTS results must be sent electronically by the test center; paper reports are not accepted.",
+          "source": "https://admissions.ucsc.edu/posts/english-proficiency-requirement",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "englishStatus": "required"
+          },
+          "evidence": {
+            "hash": "b3aa4ee6369076ce53f0d3e92c3b1cdd2fe7cce2b37d6d9c3c02b535b4c61f0b",
+            "quote": "Minimum score of 4.5"
+          }
+        }
+      }
+    },
+    "445188": {
+      "fields": {
+        "aid": {
+          "status": "verified",
+          "value": "The Global Access scholarship offers $25,000 annually for up to four years to eligible incoming F-1/nonresident first-year students with entry GPA 3.25+. Consideration is automatic with admission. Renewal needs full-time study, satisfactory progress, GPA 3.0 and nonresident status. Students with a nonresident tuition waiver are ineligible; continuing-student awards are a separate competition.",
+          "source": "https://admissions.ucmerced.edu/apply/international-requirements/undergraduate-admissions-international-students-scholarship",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "aidCategory": "merit",
+            "aidShort": "Limited nonresident scholarship; not guaranteed full costs"
+          },
+          "evidence": {
+            "hash": "1bb68b11d7f0952ddebf60351f650260964c6b159b80a8a55b9fe8c2a791bfd9",
+            "quote": "provides $25,000 a year"
+          }
+        },
+        "testing": {
+          "status": "verified",
+          "value": "UC excludes SAT/ACT from admission and scholarship selection. Scores may still support minimum eligibility or course placement.",
+          "source": "https://admission.universityofcalifornia.edu/how-to-apply/applying-as-a-first-year/filling-out-the-application.html",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "testFlexible": true
+          },
+          "evidence": {
+            "hash": "df6f10c50137760bdac568f7a8da43ff885bd27b078152f3ec403a03bfa9d7cc",
+            "quote": "Test scores"
+          }
+        },
+        "fee": {
+          "status": "verified",
+          "value": "International fee: $95 per campus, non-refundable. UC waivers: US citizens, permanent residents or AB540 eligibility only.",
+          "source": "https://admission.universityofcalifornia.edu/apply-now.html",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "feeWaiver": false
+          },
+          "evidence": {
+            "hash": "f6c409e88c51f6679b3fbba4fab59bd8e675e96556b7ca7b339690e6a3ac799d",
+            "quote": "$95 for"
+          }
+        },
+        "deadline": {
+          "status": "verified",
+          "value": "Fall 2027: apply October 1–November 30, 2026. Admitted first-year students must accept by May 1, 2027.",
+          "source": "https://admission.universityofcalifornia.edu/how-to-apply/applying-as-a-first-year/dates-and-deadlines.html",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "873da3426c0dc93a4114174629969efccc235d8e0fd6994805044a9ef0662e7c",
+            "quote": "fall 2027"
+          }
+        },
+        "english": {
+          "status": "verified",
+          "value": "Merced publishes IELTS Academic 6.5, DET 115 or TOEFL 80 on the legacy scale. Scores must be at most two years old and arrive by January for fall admission. Qualifying AP/IB English exams are alternatives for mixed-record first-year applicants. This campus page does not state a new six-point TOEFL threshold; confirm that version directly rather than interpreting 80 as a current-scale score.",
+          "source": "https://admissions.ucmerced.edu/international/english-language-proficiency",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "englishStatus": "required"
+          },
+          "evidence": {
+            "hash": "2fe545d9bec3c2401ac3868ca090d6e2a0e1597f47afab5efe7a1a40a4dc78a7",
+            "quote": "Score of 6.5 or better"
+          }
+        }
+      }
+    }
+  }
+}

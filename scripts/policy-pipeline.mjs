@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { root, readJSON, loadColleges, policy, priority, safeFetch, limitedText, htmlText, robotsAllowed, robotsDelay, candidates, digest, allowedURL, validateReview } from './policy-pipeline-core.mjs';
+import { root, readJSON, loadColleges, policy, priority, safeFetch, limitedText, htmlText, robotsAllowed, robotsDelay, candidates, digest, allowedURL, defaultDomains, sourcePriority, validateReview } from './policy-pipeline-core.mjs';
 
 const args = process.argv.slice(2); const command = args.shift() || 'summary';
 const option = (name, fallback) => args.includes(name) ? args[args.indexOf(name)+1] : fallback;
@@ -20,15 +20,24 @@ if (command === 'summary' || command === 'queue') {
   if (command === 'queue') { writeJSON(path.join(cache,'queue.json'),queue); console.log(JSON.stringify({summary,next:queue.slice(0,Number(option('--limit',20)))},null,2)); }
   else console.log(JSON.stringify(summary,null,2));
 } else if (command === 'collect') {
-  const limit = Math.min(100,Math.max(1,Number(option('--limit',10))));
+  const limit = Math.min(500,Math.max(1,Number(option('--limit',10))));
   const pages = Math.min(8,Math.max(1,Number(option('--pages',3))));
-  if (!Number.isInteger(limit) || !Number.isInteger(pages)) throw new Error('Invalid batch size');
+  const parallel = Math.min(8,Math.max(1,Number(option('--parallel',4))));
+  if (!Number.isInteger(limit) || !Number.isInteger(pages) || !Number.isInteger(parallel)) throw new Error('Invalid batch size');
   const ids = option('--ids','').split(',').filter(Boolean).map(Number);
-  const resumable = queue.filter(c=>!args.includes('--resume') || c.urls.some(url=>state[c.catalogId+'|'+url]?.status!=='captured' || state[c.catalogId+'|'+url]?.changed));
+  const attemptedIDs = new Set(Object.values(state).map(item=>item.catalogId));
+  const resumable = queue.filter(c=>(!args.includes('--unseen') || !attemptedIDs.has(c.catalogId)) && (!args.includes('--resume') || c.urls.some(url=>state[c.catalogId+'|'+url]?.status!=='captured' || state[c.catalogId+'|'+url]?.changed)));
   const selected = ids.length ? colleges.filter(c=>ids.includes(c.catalogId)).map(c=>({...c,urls:manifest.records[c.catalogId]?.urls||[c.source]})).slice(0,limit) : resumable.slice(0,limit);
   const robotsCache = new Map(); const results = [];
+  const groups = new Map();
   for (const college of selected) {
-    const domains = manifest.records[college.catalogId]?.domains || [new URL(college.urls[0]).hostname.replace(/^www\./,'')];
+    const domain = manifest.records[college.catalogId]?.domains?.[0] || defaultDomains(college)[0];
+    if (!groups.has(domain)) groups.set(domain,[]);
+    groups.get(domain).push(college);
+  }
+  const pendingGroups = [...groups.values()];
+  async function collectCollege(college) {
+    const domains = manifest.records[college.catalogId]?.domains || defaultDomains(college);
     const visited = new Set(); const urls = [...college.urls]; let processed = 0;
     while (urls.length && processed < pages) {
       const url = urls.shift(); if (visited.has(url) || !allowedURL(url,domains)) continue; visited.add(url); processed++;
@@ -61,22 +70,30 @@ if (command === 'summary' || command === 'queue') {
         const discovered = new Map();
         for (const match of html.matchAll(/href\s*=\s*["']([^"']+)["']/gi)) {
           let next; try { next = new URL(match[1].replace(/&amp;/g,'&'),response.url); } catch { continue; }
-          next.hash=''; if (next.search || !/admission|international|financial.aid|apply|deadline|testing/i.test(next.pathname) || /\.(pdf|css|js|png|jpg|jpeg|svg|webp|woff2?)$/i.test(next.pathname) || /\/(assets|academics)\//i.test(next.pathname)) continue;
+          next.hash=''; if (next.search || !/admission|international|financial.aid|scholarship|afford|apply|deadline|testing|first.year|freshman/i.test(next.pathname) || /\.(pdf|css|js|png|jpg|jpeg|svg|webp|woff2?)$/i.test(next.pathname) || /\/(assets|academics)\//i.test(next.pathname)) continue;
           if (allowedURL(next.href,domains) && !visited.has(next.href)) {
-            const score = (/international/i.test(next.pathname)?100:0)+(/financial.aid|scholarship|afford/i.test(next.pathname)?80:0)+(/requirements|checklist|deadline|testing|apply/i.test(next.pathname)?50:0)-(/visit|request|admitted|staff|event/i.test(next.pathname)?150:0);
+            const score = sourcePriority(next.href);
             discovered.set(next.href,score);
           }
         }
         for (const [next] of [...discovered].sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0]))) if (!urls.includes(next)&&urls.length<30) urls.push(next);
+        if (!manifest.records[college.catalogId]) urls.sort((a,b)=>sourcePriority(b)-sourcePriority(a)||a.localeCompare(b));
       } catch (error) {
         const key = college.catalogId+'|'+url;
         state[key] = {...state[key],catalogId:college.catalogId,url,lastAttemptAt:stamp,lastError:error.message,status:'unavailable'};
         results.push({catalogId:college.catalogId,url,status:'unavailable',reason:error.message});
+        if (processed === 1 && !manifest.records[college.catalogId]) {
+          const home = new URL('/',url).href;
+          if (allowedURL(home,domains) && !visited.has(home)) urls.unshift(home);
+        }
       }
       writeJSON(statePath,state);
     }
     console.log(JSON.stringify({institution:college.name,catalogId:college.catalogId,pages:processed}));
   }
+  await Promise.all(Array.from({length:Math.min(parallel,pendingGroups.length)},async()=>{
+    while (pendingGroups.length) for (const college of pendingGroups.shift()) await collectCollege(college);
+  }));
   writeJSON(path.join(cache,'last-batch.json'),results);
   console.log(JSON.stringify({pages:results.length,captured:results.filter(r=>r.hash).length,unavailable:results.filter(r=>!r.hash),note:'Candidate snippets only. No automatic policy verification.'},null,2));
 } else if (command === 'approve') {

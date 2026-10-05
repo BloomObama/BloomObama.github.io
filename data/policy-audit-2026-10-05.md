@@ -33,3 +33,15 @@ The complete count is 80 of 5,002 institutions. A college enters this count only
 | 144883 | [East-West University](https://www.eastwest.edu/admissions/international-admissions/) | Four fields are verified, including its 2026–27 international tuition scholarship cap and rolling admissions. Its [general admissions page](https://www.eastwest.edu/admissions/) calls SAT/ACT “recommended” but also lists scores among required documents. The testing field is marked `conflict`; this institution is excluded from the complete count until Admissions clarifies it. |
 
 The exact-ID editorial decisions, dates, URLs, short quotations and matching local snapshot hashes are in `policy-review-batches/2026-10-05-03.json`, `policy-review-batches/2026-10-05-04.json` and the merged `policy-field-reviews.json`. Crawl candidates never become “verified” solely because a URL resolves or contains a keyword. The unreviewed crawl snapshots are local and not published.
+
+## Batches 5–7 — release update
+
+Coverage: **95 complete profiles, 25 partial profiles, 566 verified fields**, across 120 institutions. Only all-five-verified profiles count toward the complete total; this release adds 15 complete profiles to the previous published total of 80.
+
+- Batch 5: Washington University in St. Louis (179867), Wake Forest (199847), and Richmond (233374), all five fields.
+- Batch 6: Drew (184348), Pitzer (121257), and Bennington (230816), all five fields. Claremont McKenna (112260) has four verified fields; inconsistent international-aid documentation deadlines remain a conflict, excluded from the complete count.
+- Batch 7: the nine undergraduate University of California campuses: Berkeley (110635), Davis (110644), Irvine (110653), Los Angeles (110662), Merced (445188), Riverside (110671), San Diego (110680), Santa Barbara (110705), and Santa Cruz (110714). Shared system-wide application fee, testing and application-period rules are paired with campus-specific international English and aid requirements. Graduate-only campuses are not included.
+
+UC qualifications are retained in each record: recommended English scores are not silently converted into required minimums, legacy TOEFL scores are identified where applicable, and competitive scholarships are not full-need guarantees. Santa Cruz's international award range is a four-year total, not an annual award; Riverside's maximum likewise covers four years. English requirements and exemptions must be read for the applicant's circumstances.
+
+Proposals: `policy-review-batches/2026-10-05-05.json`, `policy-review-batches/2026-10-05-06.json`, and `policy-review-batches/2026-10-05-07.json`. Five official pages unavailable to the bounded collector were retrieved and inspected through the web reader; their captured excerpts are explicitly labelled `retrieved-excerpt`, not full HTML snapshots. Original collector failures remain recorded. No failed fetch, keyword match, or imported excerpt automatically approves a policy.

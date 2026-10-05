@@ -1,0 +1,321 @@
+{
+  "schemaVersion": 1,
+  "cycle": "2026–27",
+  "records": {
+    "112260": {
+      "fields": {
+        "aid": {
+          "status": "verified",
+          "value": "International admission is need-aware. CMC commits to meeting need established at admission using grants, scholarships, work and potentially loans. Request aid with the admission application and submit the CMC international financial-aid form in the portal, not CSS Profile or ISFAA. No later aid eligibility if aid was not requested or awarded initially.",
+          "source": "https://www.cmc.edu/admission/international",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "aidCategory": "need-aware",
+            "needBlind": false,
+            "aidShort": "Need-aware; demonstrated need assessed at admission"
+          },
+          "evidence": {
+            "hash": "69ca9559d8d6679ed72cd8491f4f7405cff5bbdfd16210469bb76b0fa58afa78",
+            "quote": "need-aware in its admission process for all international students"
+          }
+        },
+        "testing": {
+          "status": "verified",
+          "value": "SAT/ACT are optional through Fall 2027 entry, without disadvantage for admission or merit scholarships. CMC announces a return to required testing for Fall 2028. English proficiency is separate; enrolling score-submitters must provide official results.",
+          "source": "https://www.cmc.edu/admission/first-year-application-instructions",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "testFlexible": true
+          },
+          "evidence": {
+            "hash": "e8c8c2a22661a840b4482d6335195ac8fd764cc5586b9a39990dea23d5ee7636",
+            "quote": "through the Fall 2027 entry term"
+          }
+        },
+        "english": {
+          "status": "verified",
+          "value": "English proof is required unless an exemption applies, including native English or at least three years of English-medium schooling. Recommended scores: TOEFL iBT 100 on the old scale/5.5 on the new scale, IELTS 7.5, Cambridge C1/C2 190 or DET 130. DET must be official; other listed results may be self-reported through the portal if official reporting is unaffordable.",
+          "source": "https://www.cmc.edu/admission/international",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "englishStatus": "required"
+          },
+          "evidence": {
+            "hash": "69ca9559d8d6679ed72cd8491f4f7405cff5bbdfd16210469bb76b0fa58afa78",
+            "quote": "IELTS) – 7.5 minimum recommended score"
+          }
+        },
+        "fee": {
+          "status": "verified",
+          "value": "The first-year application fee is $70. Fee-waiver requests are available through Common Application and Coalition Application.",
+          "source": "https://www.cmc.edu/admission/first-year-application-instructions",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "feeWaiver": true
+          },
+          "evidence": {
+            "hash": "e8c8c2a22661a840b4482d6335195ac8fd764cc5586b9a39990dea23d5ee7636",
+            "quote": "$70 application fee or fee waiver"
+          }
+        },
+        "deadline": {
+          "status": "conflict",
+          "value": "Admission dates agree: ED I November 1; ED II/RD January 10. However, merit-priority supporting-document dates conflict: this general first-year page permits credentials through January 10 after a December 1 application, while the international page requires both application and credentials by December 1. Confirm the international merit cutoff with Admissions; this field is not counted as verified.",
+          "source": "https://www.cmc.edu/admission/first-year-application-instructions",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "e8c8c2a22661a840b4482d6335195ac8fd764cc5586b9a39990dea23d5ee7636",
+            "quote": "no later than January 10"
+          }
+        }
+      }
+    },
+    "121257": {
+      "fields": {
+        "aid": {
+          "status": "verified",
+          "value": "International applicants seeking need-based assistance submit Pitzer's PIFAA after the Common Application, not CSS Profile or FAFSA. The international page says the 2027–28 form is being updated and applicants will be contacted. Published aid priority dates: ED I November 15; ED II/RD January 12. These differ from admission deadlines.",
+          "source": "https://www.pitzer.edu/admission-aid/financial-aid-information",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "f6603a04a532ef57252f77ea408f084311059eb601f367fa11508d69e5b6a1f8",
+            "quote": "Pitzer International Financial Aid Application (PIFAA)"
+          }
+        },
+        "testing": {
+          "status": "verified",
+          "value": "Pitzer does not accept SAT/ACT for admission through the 2026–27 application cycle: this is test-free, not merely optional. English-language testing remains a separate requirement.",
+          "source": "https://www.pitzer.edu/admission-aid/how-apply/international-applicants",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "testFlexible": true
+          },
+          "evidence": {
+            "hash": "0e512155ccf1326ddf67decf61cfef94ddd9c3459d7b4279e2dbe611edd4464f",
+            "quote": "SAT or ACT Scores Not Accepted"
+          }
+        },
+        "english": {
+          "status": "verified",
+          "value": "Non-native speakers submit official TOEFL iBT, IELTS or Duolingo results, or receive a waiver. Standard thresholds: TOEFL 5.5 (105 on the pre-January-2026 scale), IELTS 7.5 or DET 135. Lower qualifying bands require extra English coursework; the separate International Scholars pathway has different thresholds.",
+          "source": "https://www.pitzer.edu/admission-aid/how-apply/international-applicants",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "englishStatus": "required"
+          },
+          "evidence": {
+            "hash": "0e512155ccf1326ddf67decf61cfef94ddd9c3459d7b4279e2dbe611edd4464f",
+            "quote": "7.5 IELTS, or 135 DET"
+          }
+        },
+        "fee": {
+          "status": "verified",
+          "value": "Application fee: $70, with a fee-waiver request option explicitly included in the international application checklist.",
+          "source": "https://www.pitzer.edu/admission-aid/how-apply/international-applicants",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "feeWaiver": true
+          },
+          "evidence": {
+            "hash": "0e512155ccf1326ddf67decf61cfef94ddd9c3459d7b4279e2dbe611edd4464f",
+            "quote": "$70 App Fee or Fee Waiver Request"
+          }
+        },
+        "deadline": {
+          "status": "verified",
+          "value": "Current international first-year admission table: ED I November 15; ED II/RD January 6. Optional interview deadlines: ED I November 15, ED II/RD December 19. The table does not label the entry year. Aid priority deadlines are listed separately under financial aid.",
+          "source": "https://www.pitzer.edu/admission-aid/how-apply/international-applicants",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "0e512155ccf1326ddf67decf61cfef94ddd9c3459d7b4279e2dbe611edd4464f",
+            "quote": "Regular Decision January 6"
+          }
+        }
+      }
+    },
+    "184348": {
+      "fields": {
+        "aid": {
+          "status": "verified",
+          "value": "International first-year applicants are automatically considered for academic merit scholarships. Limited need-based support requires the International Student Financial Aid Application; applying early is encouraged. Drew Action Scholars and arts awards require additional applications. Full-cost funding is not promised.",
+          "source": "https://drew.edu/admissions-and-aid/undergraduate-admissions/international-admissions/",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "aidShort": "Automatic merit consideration; limited need-based funds",
+            "aidCategory": "limited"
+          },
+          "evidence": {
+            "hash": "a701d71d6843599dd059903e2e769a6a32af1d97d476aae2b65fdeb4341a481f",
+            "quote": "Limited need-based funds are available"
+          }
+        },
+        "testing": {
+          "status": "verified",
+          "value": "SAT/ACT submission is optional, including for merit scholarship consideration. Applicants choose on their application. Drew superscores SAT but uses the highest single ACT composite rather than an ACT superscore.",
+          "source": "https://drew.edu/admissions-and-aid/undergraduate-admissions/test-optional-policy/",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "testFlexible": true
+          },
+          "evidence": {
+            "hash": "99d0394954cfb0689a327e338c9e156fe2f115239909572a4d2954a25161f007",
+            "quote": "Students choosing not to submit standardized test scores will still be considered for merit scholarships."
+          }
+        },
+        "english": {
+          "status": "verified",
+          "value": "Non-native English speakers need proof of proficiency. Accepted exams include TOEFL iBT/Essentials, IELTS, Duolingo, PTE Academic and English GaoKao. Individual waivers may be granted for SAT/ACT results or previous study in an English-speaking country. The pathway program is separate from direct admission.",
+          "source": "https://drew.edu/admissions-and-aid/undergraduate-admissions/international-admissions/",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "englishStatus": "required"
+          },
+          "evidence": {
+            "hash": "a701d71d6843599dd059903e2e769a6a32af1d97d476aae2b65fdeb4341a481f",
+            "quote": "Language requirement may be waived on an individual basis"
+          }
+        },
+        "fee": {
+          "status": "verified",
+          "value": "The regular undergraduate application has a $40 non-refundable fee. The separate Tilghman International Center pathway advertises no application fee; that offer is not the regular undergraduate fee policy.",
+          "source": "https://drew.edu/admissions-and-aid/undergraduate-admissions/",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "6a390eb109a0969a37f51c207cff4c5f30e056c723c7f29909495a1fbb907ca0",
+            "quote": "$40 Non-refundable Application Fee"
+          }
+        },
+        "deadline": {
+          "status": "verified",
+          "value": "Published first-year deadlines: ED I November 1; EA December 1; ED II January 15; RD February 1, then space-available review. Spring deadline January 2. These are the current general deadlines; the table does not specify an entry year. Apply early for limited need-based aid.",
+          "source": "https://drew.edu/admissions-and-aid/undergraduate-admissions/international-admissions/",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "a701d71d6843599dd059903e2e769a6a32af1d97d476aae2b65fdeb4341a481f",
+            "quote": "Regular Decision: February 1"
+          }
+        }
+      }
+    },
+    "230816": {
+      "fields": {
+        "aid": {
+          "status": "verified",
+          "value": "International applicants can receive both need-based and merit aid. Need-based support requires a separate financial-aid application by the admission deadline. Enrolling students must certify resources for costs not covered by aid before an I-20 is issued. No automatic full-funding promise is made here.",
+          "source": "https://www.bennington.edu/admissions/apply/applying-international-student",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "7ce7317fb310e3407eb9f1b861221d7de4fef5e2483d9cd600623b2ce8dfdc25",
+            "quote": "need-based and/or merit-based financial aid"
+          }
+        },
+        "testing": {
+          "status": "verified",
+          "value": "SAT/ACT are optional for all undergraduate applicants, including international students. Under Bennington's no-harm policy submitted results are used only when they strengthen admission chances. Self-reported scores are accepted during application; official copies are requested on enrollment.",
+          "source": "https://www.bennington.edu/admissions/apply/application-requirements",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "testFlexible": true
+          },
+          "evidence": {
+            "hash": "4d4a77e16bfdf09a5d8444c90af46a78c932ceb64e4180ad24a62de605cdf413",
+            "quote": "No-Harm Testing policy"
+          }
+        },
+        "english": {
+          "status": "verified",
+          "value": "English testing is required unless English is native or at least three secondary-school years were taught fully in English. TOEFL, IELTS, DET and PTE Academic are accepted. There is no fixed minimum; typical successful results are TOEFL 100/5.0, IELTS 7, DET 130 or PTE 70. These are guidance, not guaranteed admission thresholds.",
+          "source": "https://www.bennington.edu/admissions/apply/applying-international-student",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "englishStatus": "required"
+          },
+          "evidence": {
+            "hash": "7ce7317fb310e3407eb9f1b861221d7de4fef5e2483d9cd600623b2ce8dfdc25",
+            "quote": "does not have a minimum score"
+          }
+        },
+        "fee": {
+          "status": "verified",
+          "value": "There is no application fee for undergraduate applicants, including international first-year applicants. This does not describe graduate-program fees.",
+          "source": "https://www.bennington.edu/admissions/apply/application-requirements",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "4d4a77e16bfdf09a5d8444c90af46a78c932ceb64e4180ad24a62de605cdf413",
+            "quote": "Undergraduate applicants pay no application fee"
+          }
+        },
+        "deadline": {
+          "status": "verified",
+          "value": "The current undergraduate deadline page, updated July 29, 2026, lists admission and financial-aid applications together: ED I/EA November 1; RD January 10. It does not list an ED II date or label the entry year; confirm another round with Admissions rather than assuming an old deadline.",
+          "source": "https://www.bennington.edu/admissions/apply/admissions-application-financial-aid-deadlines",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "378c7ab8cbcf915984e4ef8b9ec67a9c89c81192081be5f029ab216487985f71",
+            "quote": "Admissions & Financial Aid applications due January 10"
+          }
+        }
+      }
+    }
+  }
+}
