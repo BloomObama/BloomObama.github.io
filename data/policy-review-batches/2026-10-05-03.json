@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "cycle": "2026–27",
+  "records": {
+    "202073": {
+      "fields": {
+        "aid": {
+          "status": "verified",
+          "value": "International undergraduate applicants seeking CIM need-based aid must submit the CSS Profile by February 15. CIM scholarships consider merit and financial need, but the institute explicitly says it cannot guarantee to meet every student's need. A CIM scholarship may renew at the same dollar amount when academic/artistic progress and registration conditions are met. Newly admitted international students must still document their ability to pay the first year before confirming enrollment; do not treat aid consideration as a full-cost promise.",
+          "source": "https://www.cim.edu/admissions/financialaid/basics",
+          "checkedAt": "2026-10-05", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+          "attributes": { "aidShort": "Merit/need scholarships; full need not guaranteed" },
+          "evidence": { "hash": "e57d93f8c23b06fb1da0ceec941b8d7f4e2c395cf2b8bf3e3608843bb382c4c0", "quote": "CIM cannot guarantee to meet the financial need of every student." }
+        },
+        "testing": {
+          "status": "verified",
+          "value": "CIM explicitly makes SAT and ACT optional for undergraduate applicants. Scores are highly recommended for homeschooled applicants, but the school still calls its policy fully test-optional. Audition/prescreen requirements are separate and may be mandatory by instrument.",
+          "source": "https://www.cim.edu/admissions/apply",
+          "checkedAt": "2026-10-05", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+          "attributes": { "testFlexible": true },
+          "evidence": { "hash": "2bed19b8e0c3df389c8a3c3a488b00472962777777d52f8cad1bfda164be945b", "quote": "CIM is a fully test-optional school for SAT and ACT scores." }
+        },
+        "english": {
+          "status": "verified",
+          "value": "Applicants from countries where English is not an official language must submit an accepted English-proficiency exam score with the application by December 1. CIM's international page says exams older than two years are not accepted; TOEFL MyBest scores are not accepted. Applicants with at least three consecutive years at an English-speaking institution may request, but are not guaranteed, a waiver. The page includes a summer-English pathway for some admitted students; confirm current score thresholds directly rather than relying on its dated 2025 summer-program example.",
+          "source": "https://www.cim.edu/admissions/apply/international",
+          "checkedAt": "2026-10-05", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+          "attributes": { "englishStatus": "required" },
+          "evidence": { "hash": "e46e5f6973bab37d3bb3a754087e25a9368d2880d981e23b148fa82429e25818", "quote": "If English is not an official language in your home country, you must complete one of the accepted English language proficiency exams." }
+        },
+        "fee": {
+          "status": "verified",
+          "value": "The Fall 2027 application page lists a $125 non-refundable fee, rising to $175 starting December 2. Eligible first-time freshmen and undergraduate transfers can request a need-based waiver through the CIM portal/NACAC process; approval is not automatic. Other audition, credential-evaluation and travel costs are separate.",
+          "source": "https://www.cim.edu/admissions/apply",
+          "checkedAt": "2026-10-05", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+          "attributes": { "feeWaiver": true },
+          "evidence": { "hash": "2bed19b8e0c3df389c8a3c3a488b00472962777777d52f8cad1bfda164be945b", "quote": "A $125 nonrefundable application fee is submitted online with the application." }
+        },
+        "deadline": {
+          "status": "verified",
+          "value": "For Fall 2027 entry, the application and required prescreen video are due December 1, 2026. The site lists in-person auditions in February 2027 and an undergraduate response deadline of May 1, 2027. English scores for affected international applicants are due with the application by December 1; the separate CSS Profile deadline for need-based aid is February 15. Check instrument-specific audition details before travel.",
+          "source": "https://www.cim.edu/admissions/apply",
+          "checkedAt": "2026-10-05", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+          "evidence": { "hash": "2bed19b8e0c3df389c8a3c3a488b00472962777777d52f8cad1bfda164be945b", "quote": "December 1, 2026 | Application & prescreening video deadline" }
+        }
+      }
+    }
+  }
+}

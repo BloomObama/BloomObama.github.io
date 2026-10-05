@@ -725,6 +725,81 @@
         }
       }
     },
+    "144883": {
+      "fields": {
+        "aid": {
+          "status": "verified",
+          "value": "For 2026–27, East-West University says international students may receive an institutional scholarship of up to 30% of tuition. Its listed international tuition and fees are $8,465 per quarter. This is not a full-need or full-cost commitment; the international admissions page separately requires proof of funds for F-1 students.",
+          "source": "https://www.eastwest.edu/admissions/international-admissions/",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "aidShort": "International scholarship up to 30% of tuition; no full-cost promise"
+          },
+          "evidence": {
+            "hash": "df55db2efef995a9b80d610f5e89ee84c7545566013666c6d90e0933b99a86d9",
+            "quote": "International Students are eligible to receive an institutional scholarship of up to 30% of tuition."
+          }
+        },
+        "testing": {
+          "status": "conflict",
+          "value": "The general admissions requirements label SAT/ACT as recommended, but the same page's mandatory-document checklist lists ACT or SAT results. Do not infer a test-optional policy until admissions resolves this contradiction. English and math placement tests are separate.",
+          "source": "https://www.eastwest.edu/admissions/",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "02b1b45de1a94ac3344446fd5658d1c4a0ec231623bf9c25db0cb86ed998ace8",
+            "quote": "SAT/ACT Recommended."
+          }
+        },
+        "english": {
+          "status": "verified",
+          "value": "For first-year international applicants, TOEFL is recommended but explicitly not required; all incoming students take East-West's English and math placement tests. International transfer applicants must demonstrate English proficiency if applicable, using an accepted TOEFL, IELTS, Pearson, SAT/ACT, Duolingo score or qualifying U.S. English-composition coursework. The first-year policy must not be applied to transfers.",
+          "source": "https://www.eastwest.edu/admissions/international-admissions/",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "englishStatus": "notRequired"
+          },
+          "evidence": {
+            "hash": "df55db2efef995a9b80d610f5e89ee84c7545566013666c6d90e0933b99a86d9",
+            "quote": "The TOEFL is not required for admissions at East-West University."
+          }
+        },
+        "fee": {
+          "status": "verified",
+          "value": "The published international-admissions instructions require a non-refundable $300 USD application processing fee for applicants from abroad. East-West's tuition page distinguishes this from the $40 admission fee for domestic applicants and foreign students already residing in the United States. Applicants should confirm which category applies before paying; the SEVIS charge is separate.",
+          "source": "https://www.eastwest.edu/admissions/international-admissions/",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "df55db2efef995a9b80d610f5e89ee84c7545566013666c6d90e0933b99a86d9",
+            "quote": "International applicants are required to pay a nonrefundable $300 USD application processing fee."
+          }
+        },
+        "deadline": {
+          "status": "verified",
+          "value": "East-West University states that it accepts admissions and enrollment on a rolling basis in each Fall, Winter and Spring quarter. No single fixed 2026–27 application deadline is published on the international-admissions page; applicants needing an F-1 visa should confirm timing with admissions well before their intended quarter.",
+          "source": "https://www.eastwest.edu/admissions/international-admissions/",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "df55db2efef995a9b80d610f5e89ee84c7545566013666c6d90e0933b99a86d9",
+            "quote": "We accept admissions and enrollments on a rolling basis every quarter."
+          }
+        }
+      }
+    },
     "145646": {
       "fields": {
         "aid": {
@@ -2242,6 +2317,87 @@
           "evidence": {
             "hash": "087bc4a7e7efe054539b70c8ecd9a7ab6006ab320156a32d2724b3e30e583816",
             "quote": "Early Decision II January 15 Common Application due"
+          }
+        }
+      }
+    },
+    "202073": {
+      "fields": {
+        "aid": {
+          "status": "verified",
+          "value": "International undergraduate applicants seeking CIM need-based aid must submit the CSS Profile by February 15. CIM scholarships consider merit and financial need, but the institute explicitly says it cannot guarantee to meet every student's need. A CIM scholarship may renew at the same dollar amount when academic/artistic progress and registration conditions are met. Newly admitted international students must still document their ability to pay the first year before confirming enrollment; do not treat aid consideration as a full-cost promise.",
+          "source": "https://www.cim.edu/admissions/financialaid/basics",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "aidShort": "Merit/need scholarships; full need not guaranteed"
+          },
+          "evidence": {
+            "hash": "e57d93f8c23b06fb1da0ceec941b8d7f4e2c395cf2b8bf3e3608843bb382c4c0",
+            "quote": "CIM cannot guarantee to meet the financial need of every student."
+          }
+        },
+        "testing": {
+          "status": "verified",
+          "value": "CIM explicitly makes SAT and ACT optional for undergraduate applicants. Scores are highly recommended for homeschooled applicants, but the school still calls its policy fully test-optional. Audition/prescreen requirements are separate and may be mandatory by instrument.",
+          "source": "https://www.cim.edu/admissions/apply",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "testFlexible": true
+          },
+          "evidence": {
+            "hash": "2bed19b8e0c3df389c8a3c3a488b00472962777777d52f8cad1bfda164be945b",
+            "quote": "CIM is a fully test-optional school for SAT and ACT scores."
+          }
+        },
+        "english": {
+          "status": "verified",
+          "value": "Applicants from countries where English is not an official language must submit an accepted English-proficiency exam score with the application by December 1. CIM's international page says exams older than two years are not accepted; TOEFL MyBest scores are not accepted. Applicants with at least three consecutive years at an English-speaking institution may request, but are not guaranteed, a waiver. The page includes a summer-English pathway for some admitted students; confirm current score thresholds directly rather than relying on its dated 2025 summer-program example.",
+          "source": "https://www.cim.edu/admissions/apply/international",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "englishStatus": "required"
+          },
+          "evidence": {
+            "hash": "e46e5f6973bab37d3bb3a754087e25a9368d2880d981e23b148fa82429e25818",
+            "quote": "If English is not an official language in your home country, you must complete one of the accepted English language proficiency exams."
+          }
+        },
+        "fee": {
+          "status": "verified",
+          "value": "The Fall 2027 application page lists a $125 non-refundable fee, rising to $175 starting December 2. Eligible first-time freshmen and undergraduate transfers can request a need-based waiver through the CIM portal/NACAC process; approval is not automatic. Other audition, credential-evaluation and travel costs are separate.",
+          "source": "https://www.cim.edu/admissions/apply",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "feeWaiver": true
+          },
+          "evidence": {
+            "hash": "2bed19b8e0c3df389c8a3c3a488b00472962777777d52f8cad1bfda164be945b",
+            "quote": "A $125 nonrefundable application fee is submitted online with the application."
+          }
+        },
+        "deadline": {
+          "status": "verified",
+          "value": "For Fall 2027 entry, the application and required prescreen video are due December 1, 2026. The site lists in-person auditions in February 2027 and an undergraduate response deadline of May 1, 2027. English scores for affected international applicants are due with the application by December 1; the separate CSS Profile deadline for need-based aid is February 15. Check instrument-specific audition details before travel.",
+          "source": "https://www.cim.edu/admissions/apply",
+          "checkedAt": "2026-10-05",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "2bed19b8e0c3df389c8a3c3a488b00472962777777d52f8cad1bfda164be945b",
+            "quote": "December 1, 2026 | Application & prescreening video deadline"
           }
         }
       }

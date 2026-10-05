@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "cycle": "2026–27",
+  "records": {
+    "144883": {
+      "fields": {
+        "aid": {
+          "status": "verified",
+          "value": "For 2026–27, East-West University says international students may receive an institutional scholarship of up to 30% of tuition. Its listed international tuition and fees are $8,465 per quarter. This is not a full-need or full-cost commitment; the international admissions page separately requires proof of funds for F-1 students.",
+          "source": "https://www.eastwest.edu/admissions/international-admissions/",
+          "checkedAt": "2026-10-05", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+          "attributes": { "aidShort": "International scholarship up to 30% of tuition; no full-cost promise" },
+          "evidence": { "hash": "df55db2efef995a9b80d610f5e89ee84c7545566013666c6d90e0933b99a86d9", "quote": "International Students are eligible to receive an institutional scholarship of up to 30% of tuition." }
+        },
+        "testing": {
+          "status": "conflict",
+          "value": "The general admissions requirements label SAT/ACT as recommended, but the same page's mandatory-document checklist lists ACT or SAT results. Do not infer a test-optional policy until admissions resolves this contradiction. English and math placement tests are separate.",
+          "source": "https://www.eastwest.edu/admissions/",
+          "checkedAt": "2026-10-05", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+          "evidence": { "hash": "02b1b45de1a94ac3344446fd5658d1c4a0ec231623bf9c25db0cb86ed998ace8", "quote": "SAT/ACT Recommended." }
+        },
+        "english": {
+          "status": "verified",
+          "value": "For first-year international applicants, TOEFL is recommended but explicitly not required; all incoming students take East-West's English and math placement tests. International transfer applicants must demonstrate English proficiency if applicable, using an accepted TOEFL, IELTS, Pearson, SAT/ACT, Duolingo score or qualifying U.S. English-composition coursework. The first-year policy must not be applied to transfers.",
+          "source": "https://www.eastwest.edu/admissions/international-admissions/",
+          "checkedAt": "2026-10-05", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+          "attributes": { "englishStatus": "notRequired" },
+          "evidence": { "hash": "df55db2efef995a9b80d610f5e89ee84c7545566013666c6d90e0933b99a86d9", "quote": "The TOEFL is not required for admissions at East-West University." }
+        },
+        "fee": {
+          "status": "verified",
+          "value": "The published international-admissions instructions require a non-refundable $300 USD application processing fee for applicants from abroad. East-West's tuition page distinguishes this from the $40 admission fee for domestic applicants and foreign students already residing in the United States. Applicants should confirm which category applies before paying; the SEVIS charge is separate.",
+          "source": "https://www.eastwest.edu/admissions/international-admissions/",
+          "checkedAt": "2026-10-05", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+          "evidence": { "hash": "df55db2efef995a9b80d610f5e89ee84c7545566013666c6d90e0933b99a86d9", "quote": "International applicants are required to pay a nonrefundable $300 USD application processing fee." }
+        },
+        "deadline": {
+          "status": "verified",
+          "value": "East-West University states that it accepts admissions and enrollment on a rolling basis in each Fall, Winter and Spring quarter. No single fixed 2026–27 application deadline is published on the international-admissions page; applicants needing an F-1 visa should confirm timing with admissions well before their intended quarter.",
+          "source": "https://www.eastwest.edu/admissions/international-admissions/",
+          "checkedAt": "2026-10-05", "cycle": "2026–27", "method": "editorial", "reviewer": "FullRide editorial",
+          "evidence": { "hash": "df55db2efef995a9b80d610f5e89ee84c7545566013666c6d90e0933b99a86d9", "quote": "We accept admissions and enrollments on a rolling basis every quarter." }
+        }
+      }
+    }
+  }
+}
