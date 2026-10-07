@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /compare.html
 
 Sitemap: https://www.admitvector.com/sitemap.xml
