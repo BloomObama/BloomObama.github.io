@@ -1,4 +1,4 @@
-# FullRide UA
+# AdmitVector
 
 ## College directory data
 
@@ -20,7 +20,7 @@ An independent pilot resource for Ukrainian students researching need-based fina
 
 The first release includes a multilingual College Finder with verified links to official university admissions and financial-aid pages. Requirements and deadlines change regularly, so applicants should always confirm details with the university before applying.
 
-Live site: https://bloomobama.github.io/
+Live site: https://www.admitvector.com/
 
 ## Account system
 

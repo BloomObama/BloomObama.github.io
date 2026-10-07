@@ -1,6 +1,6 @@
 {
-  "name": "FullRide UA",
-  "short_name": "FullRide",
+  "name": "AdmitVector",
+  "short_name": "AdmitVector",
   "description": "Пошук університетів США, підготовка до вступу та IELTS.",
   "start_url": "./index.html",
   "scope": "./",

@@ -98,7 +98,7 @@
         ' class="fr-rail__link">' + icon(key) + '<span>' + t[key] + '</span><span class="fr-rail__arrow" aria-hidden="true">↗</span></' + (isButton ? "button" : "a") + '>';
     };
     rail.innerHTML =
-      '<div class="fr-rail__brand"><a href="' + href("home",lang) + '" aria-label="FullRide UA"><span class="fr-rail__mark">FR</span><strong>FullRide <i>UA</i></strong></a><button class="fr-rail__close" type="button" aria-label="' + t.close + '">×</button></div>' +
+      '<div class="fr-rail__brand"><a href="' + href("home",lang) + '" aria-label="AdmitVector"><span class="fr-rail__mark">AV</span><strong>Admit<i>Vector</i></strong></a><button class="fr-rail__close" type="button" aria-label="' + t.close + '">×</button></div>' +
       '<p class="fr-rail__caption">' + t.navigation + '</p><nav aria-label="' + t.navigation + '">' + route.slice(0,6).map(link).join("") + '</nav>' +
       '<p class="fr-rail__caption fr-rail__caption--tools">' + t.tools + '</p><nav aria-label="' + t.tools + '">' + route.slice(6).map(link).join("") + '</nav>' +
       '<div class="fr-rail__footer"><button class="fr-rail__account" type="button" data-rail-account>' + icon("account") + '<span>' + t.account + '</span></button><small>' + t.tagline + '</small></div>';

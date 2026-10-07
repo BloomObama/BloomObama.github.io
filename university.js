@@ -168,8 +168,8 @@ function updateProfileMetadata() {
     canonical.rel = "canonical";
     document.head.append(canonical);
   }
-  canonical.href = `https://bloomobama.github.io/university.html?id=${encodeURIComponent(college.slug)}`;
-  [["og:title",`${college.name} — FullRide UA`],["og:description",description],["og:type","website"],["og:url",canonical.href],["og:image",college.photo]].forEach(([property,content]) => {
+  canonical.href = `https://www.admitvector.com/university.html?id=${encodeURIComponent(college.slug)}`;
+  [["og:title",`${college.name} — AdmitVector`],["og:description",description],["og:type","website"],["og:url",canonical.href],["og:image",college.photo]].forEach(([property,content]) => {
     let meta = document.querySelector(`meta[property="${property}"]`);
     if (!meta) {
       meta = document.createElement("meta");
@@ -185,12 +185,12 @@ function renderProfile() {
   document.querySelectorAll("[data-profile-i18n]").forEach(element => { element.textContent = profileT(element.dataset.profileI18n); });
   document.querySelectorAll("[data-profile-lang]").forEach(button => button.classList.toggle("active", button.dataset.profileLang === profileLanguage));
   if (!college) {
-    document.title = `${profileT("unavailable")} — FullRide UA`;
+    document.title = `${profileT("unavailable")} — AdmitVector`;
     document.getElementById("profile-root").innerHTML = `<section class="profile-missing"><span>404</span><h1>${profileT("unavailable")}</h1><p>${profileT("unavailableText")}</p><a href="index.html#finder">${profileT("back")}</a></section>`;
     return;
   }
 
-  document.title = `${college.name} — FullRide UA`;
+  document.title = `${college.name} — AdmitVector`;
   updateProfileMetadata();
   const facts = college.facts || {};
   const hasFederalFacts = Object.values(facts).some(hasValue);

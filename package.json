@@ -1,5 +1,5 @@
 {
-  "name": "fullride-ua",
+  "name": "admitvector",
   "private": true,
   "scripts": {
     "build:data": "node scripts/build-runtime-data.mjs",

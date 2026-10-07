@@ -8,7 +8,7 @@
       const detail = (await response.json())[selected.slug];
       if (detail) Object.assign(selected, detail);
     } catch (error) {
-      console.warn("FullRide UA could not load the detailed college record.", error);
+      console.warn("AdmitVector could not load the detailed college record.", error);
     }
   }
 

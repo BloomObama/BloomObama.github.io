@@ -680,7 +680,7 @@ pq("session-start").addEventListener("click", beginSession);
 pq('session-restart').addEventListener('click',()=>{practiceIndex=0;saveSessionPosition();beginSession();});
 pq('session-finish-close').addEventListener('click',closePractice);
 pq('practice-export').addEventListener('click',()=>{
-  const blob=new Blob([JSON.stringify({app:'FullRide UA',version:1,exportedAt:new Date().toISOString(),state:practiceState.state})],{type:'application/json'});
+  const blob=new Blob([JSON.stringify({app:'AdmitVector',version:1,exportedAt:new Date().toISOString(),state:practiceState.state})],{type:'application/json'});
   const url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download='fullride-practice-backup.json';link.click();window.setTimeout(()=>URL.revokeObjectURL(url),1000);
 });
 pq('practice-import').addEventListener('click',()=>pq('practice-import-file').click());
@@ -689,7 +689,7 @@ pq('practice-import-file').addEventListener('change',async event=>{
   try {
     if(file.size>5000000) throw new Error('size');
     const backup=JSON.parse(await file.text());
-    if(backup.app!=='FullRide UA'||backup.version!==1||backup.state?.schemaVersion!==1||!Array.isArray(backup.state.cards))throw new Error('format');
+    if(!['AdmitVector','FullRide UA'].includes(backup.app)||backup.version!==1||backup.state?.schemaVersion!==1||!Array.isArray(backup.state.cards))throw new Error('format');
     practiceState.mergeBackup(backup.state);window.dispatchEvent(new CustomEvent('fullride:cloud-data'));window.dispatchEvent(new CustomEvent('fullride:local-data-changed'));setStatus(pc('backupDone'));
   }catch{setStatus(pc('backupError'),true);}finally{event.target.value='';}
 });

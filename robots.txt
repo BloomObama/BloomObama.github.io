@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /compare.html
 
-Sitemap: https://bloomobama.github.io/sitemap.xml
+Sitemap: https://www.admitvector.com/sitemap.xml
