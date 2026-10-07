@@ -248,6 +248,8 @@ function updateLanguage() {
   document.querySelectorAll("[data-i18n-aria]").forEach(element => { element.setAttribute("aria-label", t(element.dataset.i18nAria)); });
   const directoryLabel = {uk:"Переглянути університети з повністю перевіреними умовами",ru:"Смотреть университеты с полностью проверенными условиями",en:"Browse universities with fully verified admissions policies"}[language];
   document.querySelectorAll(".seo-directory-entry__label").forEach(element => { element.textContent = directoryLabel; });
+  const guideLabel = {uk:"Як обрати університет США та перевірити фінансову допомогу",ru:"Как выбрать университет США и проверить финансовую помощь",en:"How to choose a U.S. university and verify financial aid"}[language];
+  document.querySelectorAll(".seo-guide-entry__label").forEach(element => { element.textContent = guideLabel; });
   document.querySelectorAll("[data-lang]").forEach(button => button.classList.toggle("active", button.dataset.lang === language));
   q("practice-nav-link")?.setAttribute("href", `practice.html?lang=${language}`);
   if (q("record-label")) q("record-label").textContent = recordLabels[language];

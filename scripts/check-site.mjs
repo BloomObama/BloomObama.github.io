@@ -51,7 +51,8 @@ for (const file of seoFiles) {
     if (!html.includes("../" + asset)) failures.push(file + " is missing " + asset);
   }
 }
-if (sitemapUrls.length !== seoFiles.length + 3) failures.push("Sitemap contains unexpected or duplicate URLs");
+if (sitemapUrls.length !== seoFiles.length + 4) failures.push("Sitemap contains unexpected or duplicate URLs");
+if (!sitemapUrls.includes("https://www.admitvector.com/guide")) failures.push("Sitemap omits the admissions guide");
 
 if (failures.length) {
   console.error(failures.join("\n"));

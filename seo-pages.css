@@ -81,10 +81,23 @@ h1 { max-width: 15ch; margin-bottom: .65rem; font-size: clamp(2.3rem,5vw,4.5rem)
 .seo-directory-list small { color: var(--seo-wine); font-weight: 700; }
 .seo-footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; padding: 2rem clamp(1.2rem,5vw,5rem); border-top: 1px solid var(--seo-line); color: var(--seo-muted); font-size: .78rem; }
 .seo-footer a { color: var(--seo-wine); font-weight: 700; }
+.seo-guide-hero h1 { max-width: 19ch; }
+.seo-guide-hero .seo-actions { position: relative; }
+.seo-guide-bottom { display: grid; grid-template-columns: minmax(0,1.7fr) minmax(14rem,1fr); gap: clamp(1.5rem,4vw,3rem); align-items: center; margin: 3rem 0; padding: clamp(1.5rem,4vw,3rem); border-radius: 1.4rem; background: #7d1e33; color: #fff8f2; }
+.seo-guide-bottom .seo-eyebrow { color: #f1c776; }
+.seo-guide-bottom h2 { max-width: 18ch; margin-bottom: .6rem; font-size: clamp(1.9rem,3.5vw,3rem); line-height: 1.1; letter-spacing: -.04em; }
+.seo-guide-bottom p { max-width: 65ch; color: #f5dfe4; }
+.seo-guide-bottom .seo-button { background: #f1c776; color: #3c1720; }
+.seo-guide-bottom .seo-button:hover,.seo-guide-bottom .seo-button:focus-visible { background: #ffdb92; }
+.seo-guide-bottom .seo-text-link { color: #ffdc96; }
+.seo-guide-bottom aside { padding: 1.35rem; border: 1px solid #c9808e; border-radius: 1rem; }
+.seo-guide-bottom aside strong { color: #ffdc96; }
+.seo-guide-bottom aside p { margin: .5rem 0 0; }
 @media (max-width: 760px) {
   .seo-hero { grid-template-columns: 1fr; }
   .seo-stamp { max-width: 18rem; }
   .seo-directory-list { grid-template-columns: 1fr; }
+  .seo-guide-bottom { grid-template-columns: 1fr; }
 }
 @media (max-width: 480px) {
   .seo-header { align-items: flex-start; flex-direction: column; }

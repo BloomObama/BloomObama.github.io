@@ -38,10 +38,10 @@ function documentHtml({ title, description, canonical, body, assetPrefix, escape
     '<meta property="og:description" content="' + safeDescription + '">',
     '<meta property="og:url" content="' + safeCanonical + '">',
     '<script src="' + assetPrefix + 'preferences.js?v=1"></script>',
-    '<link rel="stylesheet" href="' + assetPrefix + 'seo-pages.css?v=1">',
+    '<link rel="stylesheet" href="' + assetPrefix + 'seo-pages.css?v=2">',
     "</head>",
     '<body class="seo-page">',
-    '<header class="seo-header"><a class="seo-brand" href="' + assetPrefix + 'index.html"><span>AV</span>Admit<i>Vector</i></a><nav aria-label="Навігація"><a href="' + assetPrefix + 'index.html#finder">Пошук</a><a href="' + assetPrefix + 'ielts-resources.html">IELTS</a></nav></header>',
+    '<header class="seo-header"><a class="seo-brand" href="' + assetPrefix + 'index.html"><span>AV</span>Admit<i>Vector</i></a><nav aria-label="Навігація"><a href="' + assetPrefix + 'index.html#finder">Пошук</a><a href="' + assetPrefix + 'guide.html">Як обрати</a><a href="' + assetPrefix + 'ielts-resources.html">IELTS</a></nav></header>',
     body,
     '<footer class="seo-footer"><span>AdmitVector · Перевіряйте умови перед подачею</span><a href="mailto:admitvector@gmail.com">Повідомити про неточність</a></footer>',
     "</body>",
@@ -103,7 +103,7 @@ export function buildSeoPages({ root, colleges, policy }) {
     '<main class="seo-main">',
     '<section class="seo-directory-hero"><p class="seo-eyebrow">ADMITVECTOR / 2026–27</p><h1>Університети з перевіреними умовами вступу</h1><p>Кожен профіль нижче має п’ять перевірених пунктів: фінансову допомогу, тести, англійську мову, application fee та дедлайни. Біля кожного пункту є посилання на офіційне джерело.</p><div class="seo-directory-count"><strong>' + verified.length + '</strong><span>повних профілів</span></div></section>',
     '<section class="seo-section"><div class="seo-section-heading"><p class="seo-eyebrow">ЗНАЙДІТЬ ЗАКЛАД</p><h2>Перегляньте профілі</h2></div><label class="seo-search"><span>Пошук за назвою або містом</span><input type="search" id="seo-search" placeholder="Наприклад, Amherst або Boston"></label><ul class="seo-directory-list" id="seo-directory-list">' + cards + '</ul></section>',
-    '<p class="seo-disclaimer">Повний каталог містить іще заклади, що очікують перевірки. <a href="../index.html#finder">Відкрити весь каталог ↗</a></p>',
+    '<p class="seo-disclaimer">Повний каталог містить іще заклади, що очікують перевірки. <a href="../index.html#finder">Відкрити весь каталог ↗</a> · <a href="../guide.html">Як скласти свій короткий список ↗</a></p>',
     "</main>",
     '<script>const search=document.getElementById("seo-search");search.addEventListener("input",()=>{const value=search.value.trim().toLocaleLowerCase();document.querySelectorAll("#seo-directory-list li").forEach(item=>{item.hidden=!item.textContent.toLocaleLowerCase().includes(value);});});</script>'
   ].join("\n");
