@@ -168,7 +168,13 @@ function updateProfileMetadata() {
     canonical.rel = "canonical";
     document.head.append(canonical);
   }
-  canonical.href = `https://www.admitvector.com/university.html?id=${encodeURIComponent(college.slug)}`;
+  const hasStaticProfile = college.verified && FullRidePolicy.fields.every(key => {
+    const field = FullRidePolicy.field(college,key);
+    return field.status === "verified" && String(field.value || "").trim() && /^https?:\/\//i.test(field.source || "");
+  });
+  canonical.href = hasStaticProfile
+    ? `https://www.admitvector.com/universities/${encodeURIComponent(college.slug)}.html`
+    : `https://www.admitvector.com/university.html?id=${encodeURIComponent(college.slug)}`;
   [["og:title",`${college.name} — AdmitVector`],["og:description",description],["og:type","website"],["og:url",canonical.href],["og:image",college.photo]].forEach(([property,content]) => {
     let meta = document.querySelector(`meta[property="${property}"]`);
     if (!meta) {

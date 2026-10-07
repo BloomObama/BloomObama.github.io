@@ -3,6 +3,7 @@ import path from "node:path";
 import vm from "node:vm";
 import policy from "../policy-core.js";
 import { validateReview, readJSON } from "./policy-pipeline-core.mjs";
+import { buildSeoPages } from "./build-seo-pages.mjs";
 
 const root = path.resolve(import.meta.dirname, "..");
 const sources = ["college-catalog.js", "college-directory.js", "college-media.js", "college-policies.js", "data.js"];
@@ -95,10 +96,11 @@ details.forEach((shard, index) => {
   fs.writeFileSync(path.join(outputDirectory, `${name}.json`), JSON.stringify(shard));
 });
 
-const siteRoot = "https://bloomobama.github.io/";
-const sitemapUrls = ["", "practice.html", "ielts-resources.html"]
+const siteRoot = "https://www.admitvector.com/";
+const seoProfiles = buildSeoPages({root,colleges,policy});
+const sitemapUrls = ["", "practice.html", "ielts-resources.html", "universities/"]
   .map(page => `${siteRoot}${page}`)
-  .concat(colleges.filter(college => college.verified).map(college => `${siteRoot}university.html?id=${encodeURIComponent(college.slug)}`));
+  .concat(seoProfiles.map(profile => `${siteRoot}universities/${profile.slug}.html`));
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemapUrls.map(url => `  <url><loc>${url.replace(/&/g, "&amp;")}</loc></url>`).join("\n")}\n</urlset>\n`;
 fs.writeFileSync(path.join(root, "sitemap.xml"), sitemap);
 

@@ -246,6 +246,8 @@ function updateLanguage() {
   document.querySelectorAll("[data-i18n-html]").forEach(element => { element.innerHTML = t(element.dataset.i18nHtml); });
   document.querySelectorAll("[data-i18n-placeholder]").forEach(element => { element.placeholder = t(element.dataset.i18nPlaceholder); });
   document.querySelectorAll("[data-i18n-aria]").forEach(element => { element.setAttribute("aria-label", t(element.dataset.i18nAria)); });
+  const directoryLabel = {uk:"Переглянути університети з повністю перевіреними умовами",ru:"Смотреть университеты с полностью проверенными условиями",en:"Browse universities with fully verified admissions policies"}[language];
+  document.querySelectorAll(".seo-directory-entry__label").forEach(element => { element.textContent = directoryLabel; });
   document.querySelectorAll("[data-lang]").forEach(button => button.classList.toggle("active", button.dataset.lang === language));
   q("practice-nav-link")?.setAttribute("href", `practice.html?lang=${language}`);
   if (q("record-label")) q("record-label").textContent = recordLabels[language];

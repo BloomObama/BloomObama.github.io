@@ -33,6 +33,26 @@ if (indexBytes > 1_500_000) failures.push(`college-index.js exceeds the 1.5 MB p
 const shards = fs.readdirSync(path.join(root,"data","college-details")).filter(name => name.endsWith(".json"));
 if (shards.length !== 128) failures.push(`Expected 128 college detail shards, found ${shards.length}`);
 
+const sitemap = fs.readFileSync(path.join(root,"sitemap.xml"),"utf8");
+const sitemapUrls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(match => match[1]);
+if (!sitemapUrls.length || sitemapUrls.some(url => !url.startsWith("https://www.admitvector.com/"))) {
+  failures.push("Sitemap must contain only canonical www.admitvector.com URLs");
+}
+const seoDirectory = path.join(root,"universities");
+const seoFiles = fs.readdirSync(seoDirectory).filter(name => name.endsWith(".html"));
+if (seoFiles.length < 2) failures.push("Verified university pages were not generated");
+for (const file of seoFiles) {
+  const url = file === "index.html" ? "https://www.admitvector.com/universities/" : "https://www.admitvector.com/universities/" + file;
+  if (!sitemapUrls.includes(url)) failures.push("Sitemap omits " + url);
+  const html = fs.readFileSync(path.join(seoDirectory,file),"utf8");
+  if (!html.includes('<link rel="canonical" href="' + url + '">')) failures.push(file + " has an incorrect canonical URL");
+  if (file !== "index.html" && (html.match(/class="seo-policy"/g) || []).length !== 5) failures.push(file + " must show five verified policy fields");
+  for (const asset of ["seo-pages.css","preferences.js"]) {
+    if (!html.includes("../" + asset)) failures.push(file + " is missing " + asset);
+  }
+}
+if (sitemapUrls.length !== seoFiles.length + 3) failures.push("Sitemap contains unexpected or duplicate URLs");
+
 if (failures.length) {
   console.error(failures.join("\n"));
   process.exit(1);
