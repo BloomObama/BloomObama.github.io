@@ -173,8 +173,8 @@ function updateProfileMetadata() {
     return field.status === "verified" && String(field.value || "").trim() && /^https?:\/\//i.test(field.source || "");
   });
   canonical.href = hasStaticProfile
-    ? `https://www.admitvector.com/universities/${encodeURIComponent(college.slug)}.html`
-    : `https://www.admitvector.com/university.html?id=${encodeURIComponent(college.slug)}`;
+    ? `https://www.admitvector.com/universities/${encodeURIComponent(college.slug)}`
+    : `https://www.admitvector.com/university?id=${encodeURIComponent(college.slug)}`;
   [["og:title",`${college.name} — AdmitVector`],["og:description",description],["og:type","website"],["og:url",canonical.href],["og:image",college.photo]].forEach(([property,content]) => {
     let meta = document.querySelector(`meta[property="${property}"]`);
     if (!meta) {

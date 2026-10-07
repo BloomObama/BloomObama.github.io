@@ -66,7 +66,7 @@ export function buildSeoPages({ root, colleges, policy }) {
   }).sort((a,b) => a.name.localeCompare(b.name, "en"));
 
   for (const college of verified) {
-    const url = baseUrl + "universities/" + college.slug + ".html";
+    const url = baseUrl + "universities/" + college.slug;
     const title = college.name + " — вступ і фінансова допомога 2026–27 | AdmitVector";
     const description = college.name + " (" + college.location + "): перевірені умови фінансової допомоги, тестів, англійської, application fee та дедлайнів з посиланнями на офіційні джерела.";
     const policyCards = policy.fields.map((key,index) => {
@@ -97,7 +97,7 @@ export function buildSeoPages({ root, colleges, policy }) {
   }
 
   const cards = verified.map(college => {
-    return '<li><a href="' + escape(college.slug) + '.html"><strong>' + escape(college.name) + '</strong><span>' + escape(college.location) + '</span><small>Перевірено ' + escape(college.checkedAt || "—") + ' ↗</small></a></li>';
+    return '<li><a href="' + escape(college.slug) + '"><strong>' + escape(college.name) + '</strong><span>' + escape(college.location) + '</span><small>Перевірено ' + escape(college.checkedAt || "—") + ' ↗</small></a></li>';
   }).join("\n");
   const directoryBody = [
     '<main class="seo-main">',

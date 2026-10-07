@@ -42,7 +42,7 @@ const seoDirectory = path.join(root,"universities");
 const seoFiles = fs.readdirSync(seoDirectory).filter(name => name.endsWith(".html"));
 if (seoFiles.length < 2) failures.push("Verified university pages were not generated");
 for (const file of seoFiles) {
-  const url = file === "index.html" ? "https://www.admitvector.com/universities/" : "https://www.admitvector.com/universities/" + file;
+  const url = file === "index.html" ? "https://www.admitvector.com/universities/" : "https://www.admitvector.com/universities/" + file.replace(/\.html$/, "");
   if (!sitemapUrls.includes(url)) failures.push("Sitemap omits " + url);
   const html = fs.readFileSync(path.join(seoDirectory,file),"utf8");
   if (!html.includes('<link rel="canonical" href="' + url + '">')) failures.push(file + " has an incorrect canonical URL");
