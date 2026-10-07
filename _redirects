@@ -1,1 +1,2 @@
-https://admitvector.com/* https://www.admitvector.com/:splat 301
+# The apex-to-www redirect is managed by Spaceship DNS.
+# Cloudflare Pages only accepts relative source paths in this file.
