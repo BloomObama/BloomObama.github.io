@@ -55,7 +55,7 @@ if (sitemapUrls.length !== seoFiles.length + 5) failures.push("Sitemap contains 
 if (!sitemapUrls.includes("https://www.admitvector.com/guide")) failures.push("Sitemap omits the admissions guide");
 if (!sitemapUrls.includes("https://www.admitvector.com/sat-resources")) failures.push("Sitemap omits SAT resources");
 const satPage = fs.readFileSync(path.join(root,"sat-resources.html"),"utf8");
-if ((satPage.match(/data-sat-kind=/g) || []).length !== 10) failures.push("SAT library must contain 10 curated resources");
+if ((satPage.match(/data-sat-kind=/g) || []).length !== 12) failures.push("SAT library must contain 12 curated resources");
 if (!satPage.includes("data-sat-key=\"rightsText\"")) failures.push("SAT library is missing the ownership note");
 
 if (failures.length) {
