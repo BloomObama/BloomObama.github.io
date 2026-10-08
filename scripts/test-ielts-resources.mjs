@@ -9,6 +9,8 @@ try {
   const pageErrors = [];
   page.on("pageerror",error => pageErrors.push(error.message));
   await page.goto("http://127.0.0.1:8765/ielts-resources.html?lang=ru", { waitUntil:"domcontentloaded" });
+  await page.locator('.resource-card__visual img[src^="assets/"]').evaluateAll(images => images.forEach(image => { image.loading = 'eager'; }));
+  await page.waitForFunction(() => [...document.querySelectorAll('.resource-card__visual img[src^="assets/"]')].every(image => image.complete), { timeout:10000 });
   const passed = [];
   passed.push(check("33 curated resources render",await page.locator(".resource-card").count() === 33));
   passed.push(check("original local book covers decode",await page.locator('.resource-card__visual img[src^="assets/"]').evaluateAll(images => images.every(image => image.complete && image.naturalWidth > 0))));

@@ -163,3 +163,10 @@ html[data-theme="dark"] body.has-side-rail .auth-google:hover { background:#3d2a
 html[data-theme="dark"] body.has-side-rail .auth-verification { background:#3c2e22; color:#f4d2a0; border-color:#b58b51; }
 html[data-theme="dark"] body.has-side-rail .auth-verification.is-verified { background:#21372b; color:#b8e5c6; border-color:#73947d; }
 html[data-theme="dark"] body.has-side-rail .auth-status.is-error { color:#ffafba; }
+
+/* Readability floor for informative microcopy. Decorative lettering keeps its own scale. */
+html body.has-side-rail :is(.eyebrow-label,.resources-eyebrow,.sat-kicker,.sat-section-label,.resources-section-label,.roi-results-label,.fr-rail__caption) { font-size:.7rem; font-weight:700; }
+html body.has-side-rail :is(.sat-route__steps small,.sat-workspace__storage,.sat-card__body>span:nth-last-child(2),.resource-path small,.resource-card__summary,.resource-note p,.resource-detail li,.roi-method,.roi-disclaimer,.roi-fee-sources,.practice-stats small,.resource-results-line,.sat-count) { font-size:.74rem; line-height:1.55; font-weight:550; }
+html body.has-side-rail :is(.resource-card__source,.sat-card__source,.sat-card__badge,.resource-filters button,.sat-filters button,.resource-detail__kicker) { font-size:.68rem; font-weight:650; }
+html[data-theme="light"] body.has-side-rail :is(.sat-route__steps small,.sat-card__body>span:nth-last-child(2),.resource-path small,.resource-card__summary,.resource-note p,.resource-detail li) { color:#69575f; }
+html[data-theme="dark"] body.has-side-rail :is(.sat-route__steps small,.sat-card__body>span:nth-last-child(2),.resource-path small,.resource-card__summary,.resource-note p,.resource-detail li) { color:#decbd1; }

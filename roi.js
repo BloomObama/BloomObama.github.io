@@ -38,6 +38,16 @@ const roiElement = id => document.getElementById(id);
 const roiLocale = lang => ({ uk:"uk-UA", ru:"ru-RU", en:"en-US" }[lang] || "en-US");
 const roiCurrency = (value, lang) => new Intl.NumberFormat(roiLocale(lang), { style:"currency", currency:"USD", maximumFractionDigits:0 }).format(value);
 const roiNumber = id => Math.max(0, Number(roiElement(id)?.value) || 0);
+function roiResult(id, value) {
+  const element=roiElement(id);
+  if(!element || element.textContent===value)return;
+  element.textContent=value;
+  if(id==='roi-break-even'||id==='roi-move-total'){
+    element.classList.remove('is-recalculating');
+    void element.offsetWidth;
+    element.classList.add('is-recalculating');
+  }
+}
 
 function getRoiLanguage() {
   return typeof language === "string" && roiTranslations[language] ? language : "uk";
@@ -80,10 +90,10 @@ function calculateEducationRoi() {
   roiElement("roi-aid").style.setProperty("--range-value", `${aid}%`);
   roiElement("roi-repayment-value").textContent = `${repayment}%`;
   roiElement("roi-repayment").style.setProperty("--range-value", `${((repayment - 10) / 40) * 100}%`);
-  roiElement("roi-total").textContent = roiCurrency(total, lang);
-  roiElement("roi-annual").textContent = roiCurrency(annual, lang);
-  roiElement("roi-salary").textContent = roiCurrency(major.salary, lang);
-  roiElement("roi-break-even").textContent = `${breakEven.toFixed(1)} ${roiTranslations[lang].years}`;
+  roiResult("roi-total",roiCurrency(total, lang));
+  roiResult("roi-annual",roiCurrency(annual, lang));
+  roiResult("roi-salary",roiCurrency(major.salary, lang));
+  roiResult("roi-break-even",`${breakEven.toFixed(1)} ${roiTranslations[lang].years}`);
 }
 
 function syncCountryEstimate(type) {
@@ -106,7 +116,7 @@ function calculateMoveBudget() {
   const travel = roiNumber("roi-flight") + roiNumber("roi-insurance") + roiNumber("roi-setup");
   const total = applications + documents + visaTotal + travel;
 
-  roiElement("roi-move-total").textContent = roiCurrency(total, lang);
+  roiResult("roi-move-total",roiCurrency(total, lang));
   roiElement("roi-applications-total").textContent = roiCurrency(applications, lang);
   roiElement("roi-documents-total").textContent = roiCurrency(documents, lang);
   roiElement("roi-visa-total").textContent = roiCurrency(visaTotal, lang);
@@ -118,6 +128,7 @@ function setRoiMode(mode) {
     const active = button.dataset.roiMode === mode;
     button.classList.toggle("active", active);
     button.setAttribute("aria-selected", String(active));
+    button.tabIndex=active?0:-1;
   });
   document.querySelectorAll("[data-roi-view]").forEach(view => { view.hidden = view.dataset.roiView !== mode; });
 }
@@ -154,6 +165,14 @@ window.updateRoiLanguage = function updateRoiLanguage(nextLanguage = getRoiLangu
 roiElement("roi-residence")?.addEventListener("change", () => syncCountryEstimate("residence"));
 roiElement("roi-citizenship")?.addEventListener("change", () => syncCountryEstimate("citizenship"));
 document.querySelectorAll("[data-roi-mode]").forEach(button => button.addEventListener("click", () => setRoiMode(button.dataset.roiMode)));
+document.querySelector('.roi-mode-switch')?.addEventListener('keydown',event=>{
+  if(!['ArrowLeft','ArrowRight','Home','End'].includes(event.key))return;
+  event.preventDefault();
+  const current=document.querySelector('[data-roi-mode].active')?.dataset.roiMode||'education';
+  const next=event.key==='Home'?'education':event.key==='End'?'arrival':current==='education'?'arrival':'education';
+  setRoiMode(next);
+  document.querySelector(`[data-roi-mode="${next}"]`)?.focus();
+});
 roiElement("roi-toggle")?.addEventListener("click", () => setRoiOpen(roiElement("roi-panel").hidden));
 document.querySelector("a[href='#roi']")?.addEventListener("click", () => setRoiOpen(true));
 

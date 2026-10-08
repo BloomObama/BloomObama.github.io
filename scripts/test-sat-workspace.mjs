@@ -23,6 +23,9 @@ try{
   await page.locator('#sat-test-form [name="score"]').fill('1250');
   await page.locator('#sat-test-form button[type="submit"]').click();
   assert((await page.locator('.sat-score-list').textContent()).includes('1250'),'practice score recorded');
+  await page.locator('#sat-test-form [name="score"]').fill('1350');
+  await page.locator('#sat-test-form button[type="submit"]').click();
+  assert(await page.locator('#sat-score-chart circle').count()===2,'SAT score chart shows both tests');
   await page.locator('[data-sat-step="skills"]').click();
   assert(await page.locator('#sat-workspace-title').textContent()==='Weaker skills','skill panel opens separately');
   await page.locator('[data-sat-skill="algebra"]').click();

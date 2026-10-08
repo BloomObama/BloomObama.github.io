@@ -20,7 +20,7 @@ for (const file of htmlFiles) {
   const html = fs.readFileSync(path.join(root,file), "utf8");
   const references = [...html.matchAll(/(?:src|href)="([^"#?]+)(?:[?#][^"]*)?"/g)].map(match => match[1]);
   references.filter(reference => !/^(?:https?:|mailto:|data:|#)/.test(reference)).forEach(reference => {
-    const target = path.resolve(root, reference);
+    const target = path.resolve(root, reference.replace(/^\//,""));
     if (!target.startsWith(root) || !fs.existsSync(target)) failures.push(`${file} references missing asset: ${reference}`);
   });
   const unsafeBlank = [...html.matchAll(/<a\b[^>]*target="_blank"[^>]*>/g)].filter(match => !/rel="[^"]*noopener/.test(match[0]));
@@ -58,6 +58,12 @@ const satPage = fs.readFileSync(path.join(root,"sat-resources.html"),"utf8");
 if ((satPage.match(/data-sat-kind=/g) || []).length !== 12) failures.push("SAT library must contain 12 curated resources");
 if (!satPage.includes("data-sat-key=\"rightsText\"")) failures.push("SAT library is missing the ownership note");
 if ((satPage.match(/data-sat-step=/g)||[]).length!==4 || !satPage.includes('id="sat-progress-percent"')) failures.push("SAT route must expose four interactive panels and progress tracking");
+for(const file of ['practice.html','ielts-resources.html','sat-resources.html'])if(fs.readFileSync(path.join(root,file),'utf8').includes('class="exam-switch"'))failures.push(`${file} still shows the redundant exam selector`);
+if(!satPage.includes('score-chart.js'))failures.push('SAT score trend is missing');
+if(!fs.readFileSync(path.join(root,'ielts-resources.html'),'utf8').includes('id="ielts-score-chart"'))failures.push('IELTS score trend is missing');
+const favicon=fs.readFileSync(path.join(root,'favicon.png'));
+if(favicon.toString('hex',0,8)!=='89504e470d0a1a0a'||favicon.readUInt32BE(16)<48||favicon.readUInt32BE(16)!==favicon.readUInt32BE(20))failures.push('Favicon must be a square PNG at least 48px wide');
+if(!fs.readFileSync(path.join(root,'index.html'),'utf8').includes('href="/favicon.png"'))failures.push('Home page must advertise the site favicon');
 
 if (failures.length) {
   console.error(failures.join("\n"));
