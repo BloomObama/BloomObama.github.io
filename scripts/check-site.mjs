@@ -46,7 +46,7 @@ for (const file of seoFiles) {
   if (!sitemapUrls.includes(url)) failures.push("Sitemap omits " + url);
   const html = fs.readFileSync(path.join(seoDirectory,file),"utf8");
   if (!html.includes('<link rel="canonical" href="' + url + '">')) failures.push(file + " has an incorrect canonical URL");
-  if (!html.includes('rel="icon" type="image/png" sizes="96x96" href="/favicon-av.png"')) failures.push(file + " is missing the site favicon");
+  if (!html.includes('rel="icon" type="image/png" sizes="96x96" href="/favicon-mark.png"')) failures.push(file + " is missing the site favicon");
   if (file !== "index.html" && (html.match(/class="seo-policy"/g) || []).length !== 5) failures.push(file + " must show five verified policy fields");
   for (const asset of ["seo-pages.css","preferences.js"]) {
     if (!html.includes("../" + asset)) failures.push(file + " is missing " + asset);
@@ -62,9 +62,9 @@ if ((satPage.match(/data-sat-step=/g)||[]).length!==4 || !satPage.includes('id="
 for(const file of ['practice.html','ielts-resources.html','sat-resources.html'])if(fs.readFileSync(path.join(root,file),'utf8').includes('class="exam-switch"'))failures.push(`${file} still shows the redundant exam selector`);
 if(!satPage.includes('score-chart.js'))failures.push('SAT score trend is missing');
 if(!fs.readFileSync(path.join(root,'ielts-resources.html'),'utf8').includes('id="ielts-score-chart"'))failures.push('IELTS score trend is missing');
-const favicon=fs.readFileSync(path.join(root,'favicon-av.png'));
+const favicon=fs.readFileSync(path.join(root,'favicon-mark.png'));
 if(favicon.toString('hex',0,8)!=='89504e470d0a1a0a'||favicon.readUInt32BE(16)!==96||favicon.readUInt32BE(20)!==96)failures.push('AdmitVector favicon must be a 96×96 PNG');
-if(!fs.readFileSync(path.join(root,'index.html'),'utf8').includes('href="/favicon-av.png"'))failures.push('Home page must advertise the site favicon');
+if(!fs.readFileSync(path.join(root,'index.html'),'utf8').includes('href="/favicon-mark.png"'))failures.push('Home page must advertise the site favicon');
 
 if (failures.length) {
   console.error(failures.join("\n"));

@@ -14,7 +14,7 @@ try {
   for (const route of routes) {
     await page.goto(`http://127.0.0.1:8765/${route}?lang=uk`, { waitUntil:'domcontentloaded' });
     await page.waitForTimeout(180);
-    check(await page.locator('link[rel="icon"][href="/favicon-av.png"]').count()===1,`${route}: favicon link`);
+    check(await page.locator('link[rel="icon"][href="/favicon-mark.png"]').count()===1,`${route}: favicon link`);
     if (!route.includes('guide') && !route.startsWith('universities/')) {
       check(await page.locator('link[href="editorial-type.css?v=1"]').count()===1,`${route}: editorial stylesheet`);
     }

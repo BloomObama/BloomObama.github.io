@@ -9,7 +9,7 @@ try{
   const context=await browser.newContext({viewport:{width:1440,height:900}});
   const page=await context.newPage(),errors=[];page.on('pageerror',error=>errors.push(error.message));
   await page.goto('http://127.0.0.1:8765/index.html?lang=en',{waitUntil:'domcontentloaded'});
-  check(await page.locator('link[rel="icon"][href="/favicon-av.png"]').count()===1,'home advertises AdmitVector favicon');
+  check(await page.locator('link[rel="icon"][href="/favicon-mark.png"]').count()===1,'home advertises AdmitVector favicon');
   check(await page.locator('.admission-orientation article').count()===3,'useful admission guidance is in HTML');
   check((await page.locator('#orientation-title').textContent()).includes('Which U.S. university'),'admission guidance localizes');
   await page.locator('#roi-toggle').click();
