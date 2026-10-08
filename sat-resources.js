@@ -46,6 +46,5 @@
   };
   document.querySelectorAll("[data-sat-lang]").forEach(button => button.addEventListener("click",() => {lang = button.dataset.satLang;globalThis.FullRidePreferences?.update({interface:{language:lang}});history.replaceState({},"",`sat-resources.html?lang=${lang}`);render();}));
   document.querySelectorAll("[data-sat-filter]").forEach(button => button.addEventListener("click",() => {filter = button.dataset.satFilter;render();}));
-  document.querySelectorAll(".sat-route__steps a").forEach(link => link.addEventListener("click",() => {if (filter !== "all") {filter = "all";render();}}));
   render();
 })();

@@ -57,6 +57,7 @@ if (!sitemapUrls.includes("https://www.admitvector.com/sat-resources")) failures
 const satPage = fs.readFileSync(path.join(root,"sat-resources.html"),"utf8");
 if ((satPage.match(/data-sat-kind=/g) || []).length !== 12) failures.push("SAT library must contain 12 curated resources");
 if (!satPage.includes("data-sat-key=\"rightsText\"")) failures.push("SAT library is missing the ownership note");
+if ((satPage.match(/data-sat-step=/g)||[]).length!==4 || !satPage.includes('id="sat-progress-percent"')) failures.push("SAT route must expose four interactive panels and progress tracking");
 
 if (failures.length) {
   console.error(failures.join("\n"));
