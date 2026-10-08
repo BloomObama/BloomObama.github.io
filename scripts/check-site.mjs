@@ -46,6 +46,7 @@ for (const file of seoFiles) {
   if (!sitemapUrls.includes(url)) failures.push("Sitemap omits " + url);
   const html = fs.readFileSync(path.join(seoDirectory,file),"utf8");
   if (!html.includes('<link rel="canonical" href="' + url + '">')) failures.push(file + " has an incorrect canonical URL");
+  if (!html.includes('rel="icon" type="image/png" sizes="60x60" href="/favicon.png"')) failures.push(file + " is missing the site favicon");
   if (file !== "index.html" && (html.match(/class="seo-policy"/g) || []).length !== 5) failures.push(file + " must show five verified policy fields");
   for (const asset of ["seo-pages.css","preferences.js"]) {
     if (!html.includes("../" + asset)) failures.push(file + " is missing " + asset);

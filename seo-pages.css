@@ -110,3 +110,10 @@ h1 { max-width: 15ch; margin-bottom: .65rem; font-size: clamp(2.3rem,5vw,4.5rem)
   *,*::before,*::after { animation: none !important; transition: none !important; }
 }
 html[data-motion="reduce"] *,html[data-motion="reduce"] *::before,html[data-motion="reduce"] *::after { animation: none !important; transition: none !important; }
+
+/* Match the main site's calmer editorial typography on search landing pages. */
+.seo-eyebrow { font:700 .78rem/1.45 "Manrope",Arial,sans-serif; letter-spacing:.015em; }
+.seo-stamp > span,.seo-stamp small { font:600 .78rem/1.5 "Manrope",Arial,sans-serif; }
+.seo-policy-number { font:750 .78rem "Manrope",Arial,sans-serif; }
+.seo-policy-meta,.seo-breadcrumb,.seo-footer { font-size:.83rem; line-height:1.55; }
+.seo-directory-list small { font-size:.78rem; }

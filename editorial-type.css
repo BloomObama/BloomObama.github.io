@@ -1,0 +1,66 @@
+/* Editorial typography pass: leave the layout and display headings alone.
+   Small interface copy should read like guidance, not like a terminal status line. */
+html body.has-side-rail .fr-rail__link { font-size:.81rem; font-weight:650; letter-spacing:-.01em; }
+html body.has-side-rail .fr-rail__account { font-size:.76rem; }
+html body.has-side-rail .fr-rail__caption { font:650 .72rem/1.35 var(--sans); letter-spacing:.015em; text-transform:none; }
+html body.has-side-rail .fr-rail__footer small { font:550 .72rem/1.45 var(--sans); letter-spacing:0; }
+html body.has-side-rail .language-switch button { font-size:.73rem; }
+body.has-side-rail :is(.header-shortlist,.topbar-actions>a,.topbar-actions>button) { font-size:.75rem; }
+
+/* Section names are useful signposts; keep the accent but lose the tiny mono treatment. */
+html body.has-side-rail :is(.eyebrow,.eyebrow-label,.resources-eyebrow,.sat-kicker,.sat-section-label,.resources-section-label,.settings-hero small,.profile-section-heading>div>p,.roi-results-label) {
+  font-family:var(--sans);
+  font-size:.77rem;
+  font-weight:700;
+  letter-spacing:.015em;
+  line-height:1.45;
+}
+html body.has-side-rail :is(.results-line,.resource-results-line,.sat-count,.practice-status,.contact-status) {
+  font-family:var(--sans);
+  font-size:.79rem;
+  font-weight:550;
+  letter-spacing:0;
+  line-height:1.5;
+}
+
+/* Finder and university cards: readable evidence, not microprint. */
+html body.has-side-rail :is(.intro-meta,.mosaic-caption,.data-audit p,.data-audit-count,.filter-check,.filter-toolbar p,.filter-select-grid label,.search-prompt>span,.discovery-routes>span,.random-teaser>span,.random-reveal__copy p) { font-family:var(--sans); font-size:.76rem; line-height:1.5; letter-spacing:0; }
+html body.has-side-rail :is(.card .place,.badge,.card-audit-status,.detail dt,.detail dd,.detail-source,.card-footer .save-college,.card-footer .compare-college,.card-footer .profile-link,.pending-card-note p,.card-availability) { font-size:.75rem; line-height:1.45; letter-spacing:0; }
+html body.has-side-rail :is(.card .place,.badge,.card-audit-status,.detail-source) { font-family:var(--sans); font-weight:650; }
+html body.has-side-rail :is(.roi-disclaimer,.roi-fee-sources,.roi-result-grid span,.roi-method) { font-family:var(--sans); font-size:.77rem; line-height:1.55; }
+html body.has-side-rail .admission-orientation article :is(p,a) { font-size:.81rem; line-height:1.55; }
+html[data-theme] body.catalog-page :is(.shortlist-toggle,.filter-toggle,.random-teaser p,.discovery-routes button) { font-family:var(--sans); font-size:.75rem; line-height:1.4; }
+html[data-theme] body.catalog-page :is(.shortlist-toggle b,.discovery-routes button b) { font-family:var(--sans); font-size:.7rem; }
+html[data-theme] body.catalog-page :is(.random-lever__heading>span,.random-lever__count) { font-family:var(--sans); font-size:.65rem; letter-spacing:0; }
+html[data-theme] body.catalog-page .random-lever__heading strong { font-size:.77rem; }
+html[data-theme] body.catalog-page .random-lever>p { font-family:var(--sans); font-size:.68rem; line-height:1.35; }
+
+/* Practice: increase labels and hints without enlarging the flashcards themselves. */
+html body.practice-page.has-side-rail :is(.practice-dashboard span,.practice-stats,.practice-stats small,.practice-decks__heading p,.practice-deck p,.practice-deck__count,.practice-deck__bottom small,.card-form label,.bulk-form>label,.bulk-form__bottom label,.session-meaning p,.session-meaning li,.sentence-form label,.flashcard-row__sentence p,.session-next-row>span) { font-family:var(--sans); font-size:.77rem; line-height:1.5; letter-spacing:0; }
+html body.practice-page.has-side-rail :is(.practice-deck__bottom button,.practice-review-actions>button,.flashcard-row__actions button,.flashcard-row__edit button,.session-next-row button) { font-size:.76rem; }
+html body.practice-page.has-side-rail :is(.flashcard-row__word small,.flashcard-row__translation small,.flashcard-row__sentence small) { font-family:var(--sans); font-size:.72rem; font-weight:650; letter-spacing:.01em; }
+html body.practice-page.has-side-rail :is(.practice-deck__identity small,.practice-deck__summary small,.practice-module__number small,.practice-module__body>small,.practice-module__percent small) { font-family:var(--sans); font-size:.73rem; line-height:1.35; letter-spacing:0; }
+html body.practice-page.has-side-rail .practice-module__body>strong { font-size:.84rem; line-height:1.35; }
+html body.practice-page.has-side-rail .practice-module__percent { font-size:.9rem; }
+html body.practice-page.has-side-rail .practice-section-label { font-family:var(--sans); font-size:.75rem; font-weight:700; letter-spacing:.015em; }
+
+/* Resource libraries and learning panels: retain hierarchy, remove unreadable badges. */
+html body.resources-page.has-side-rail :is(.resources-back,.resource-path span,.resource-path b,.resource-path small,.resource-filters button,.resource-card__source,.resource-card__summary,.resource-card__kind,.resource-card__action,.resource-note p,.resource-detail__kicker,.resource-detail li,.resource-card__badge,.resource-results-line,.resources-hero__meta>span,.ielts-score__note) { font-family:var(--sans); font-size:.77rem; line-height:1.5; letter-spacing:0; }
+html body.resources-page.has-side-rail :is(.resource-card__source,.resource-card__kind,.resource-detail__kicker) { font-weight:700; }
+html body.resources-page.has-side-rail :is(.resource-card__badges span,.resource-card__open,.resource-results-line button,.ielts-score__form label,.ielts-score__form button,.ielts-score__latest span) { font-family:var(--sans); font-size:.76rem; line-height:1.4; letter-spacing:0; }
+html body.sat-page.has-side-rail :is(.sat-back,.sat-hero__facts span,.sat-hero__line,.sat-hero__number,.sat-route__steps button span,.sat-route__steps button small,.sat-filters button,.sat-count,.sat-card__source,.sat-card__badge,.sat-card__kind,.sat-card__body>span:nth-last-child(2),.sat-card__action,.sat-disclaimer p,.sat-workspace__storage,.sat-workspace__top p:last-child,.sat-field,.sat-workspace__primary,.sat-plan-summary span,.sat-workspace__introline span,.sat-task-list span,.sat-task-list small,.sat-score-list>div,.sat-skills small,.sat-skills span,.sat-workspace__link) { font-family:var(--sans); font-size:.77rem; line-height:1.5; letter-spacing:0; }
+html body.sat-page.has-side-rail :is(.sat-card__source,.sat-card__kind,.sat-skills small) { font-weight:700; }
+html body.sat-page.has-side-rail :is(.sat-tracker p:last-child,.sat-tracker__meter>span,.sat-tracker__markers span) { font-family:var(--sans); font-size:.77rem; line-height:1.45; }
+html body.sat-page.has-side-rail .sat-tracker__markers i { font-size:.65rem; }
+html body.has-side-rail .score-chart__ticks text { font-size:12px; font-weight:600; }
+
+/* Account, comparison and detail pages use the same reading scale. */
+html body.settings-page.has-side-rail :is(.settings-tabs a,.settings-section header p,.settings-help,.settings-field,.settings-group legend,.settings-toggle,.settings-choice legend,.settings-choice-grid button,.settings-hero small) { font-family:var(--sans); font-size:.79rem; line-height:1.5; letter-spacing:0; }
+html body.compare-page.has-side-rail :is(.compare-back,.difference-switch b,.compare-toolbar>p,.compare-toolbar a,.compare-toolbar button,.comparison-label-cell span,.comparison-college-head>span,.comparison-college-head p,.comparison-college-head a) { font-family:var(--sans); font-size:.77rem; line-height:1.45; letter-spacing:0; }
+html body.compare-page.has-side-rail :is(.compare-empty>p,.compare-empty>a,.compare-empty>span) { font-family:var(--sans); font-size:.8rem; line-height:1.5; letter-spacing:0; }
+html body.profile-page.has-side-rail :is(.profile-jump-nav a span,.profile-section-heading>a,.profile-stat-index,.profile-stat-label,.profile-aid-note span,.profile-fact-grid span,.profile-fineprint,.profile-policy-grid article>a,.profile-checklist-note) { font-family:var(--sans); font-size:.77rem; line-height:1.55; letter-spacing:0; }
+
+@media (max-width:560px) {
+  html body.has-side-rail .fr-rail__link { font-size:.85rem; }
+  html body.sat-page.has-side-rail :is(.sat-hero__facts span,.sat-card__body>span:nth-last-child(2)) { font-size:.79rem; }
+}
