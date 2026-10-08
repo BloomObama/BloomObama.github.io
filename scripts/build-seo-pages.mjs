@@ -33,7 +33,7 @@ function documentHtml({ title, description, canonical, body, assetPrefix, escape
     '<meta name="description" content="' + safeDescription + '">',
     '<meta name="theme-color" content="#7d1e33">',
     '<link rel="canonical" href="' + safeCanonical + '">',
-    '<link rel="icon" type="image/png" sizes="60x60" href="/favicon.png">',
+    '<link rel="icon" type="image/png" sizes="96x96" href="/favicon-av.png">',
     '<meta property="og:type" content="website">',
     '<meta property="og:title" content="' + safeTitle + '">',
     '<meta property="og:description" content="' + safeDescription + '">',
