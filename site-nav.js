@@ -28,6 +28,7 @@
     finder:'<circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/>',
     practice:'<path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v18H6.5A2.5 2.5 0 0 0 4 22z"/><path d="M4 4.5V22m5-14h7m-7 4h5"/>',
     resources:'<path d="M5 3h12a2 2 0 0 1 2 2v16H7a2 2 0 0 1-2-2z"/><path d="M5 18a3 3 0 0 1 3-3h11M9 7h6m-6 4h5"/>',
+    sat:'<rect x="3" y="3" width="18" height="18" rx="3"/><path d="M7 9h10m-10 5h4m3 0h3m-7 3h4"/>',
     compare:'<path d="M4 7h16m-4-4 4 4-4 4M20 17H4m4-4-4 4 4 4"/>',
     saved:'<path d="m12 2 3 6.3 7 .9-5.1 4.9 1.3 7L12 17.8 5.8 21l1.3-7L2 9.2l7-.9z"/>',
     roi:'<path d="M4 20h16M6 16v-5m4 5V7m4 9V9m4 7V4"/>',
@@ -38,7 +39,7 @@
     settings:'<path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="3"/><circle cx="15" cy="17" r="3"/>'
   };
   const route = [
-    ["home","home"], ["finder","finder"], ["practice","practice"], ["resources","resources"], ["sat","resources"], ["compare","compare"],
+    ["home","home"], ["finder","finder"], ["practice","practice"], ["resources","resources"], ["sat","sat"], ["compare","compare"],
     ["saved","saved"], ["roi","roi"], ["method","method"], ["about","about"], ["contact","contact"], ["settings","settings"]
   ];
   const icon = key => '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' + icons[key] + '</svg>';
@@ -46,7 +47,8 @@
     const value = document.documentElement.lang.slice(0,2).toLowerCase();
     return copy[value] ? value : "uk";
   };
-  const file = location.pathname.split("/").pop() || "index.html";
+  const pathTail = location.pathname.split("/").pop() || "index.html";
+  const file = pathTail.includes(".") ? pathTail : pathTail + ".html";
   const onHome = file === "index.html";
   const href = (key, lang) => {
     if (key === "practice" || key === "compare" || key === "settings") return key + ".html?lang=" + lang;
