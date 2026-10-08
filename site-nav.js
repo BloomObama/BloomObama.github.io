@@ -6,19 +6,19 @@
   const copy = {
     uk: {
       menu:"Відкрити меню", close:"Закрити меню", navigation:"Навігація", tools:"Інструменти",
-      home:"Головна", finder:"Університети", practice:"Практика", resources:"Ресурси IELTS", compare:"Порівняння",
+      home:"Головна", finder:"Університети", practice:"Практика", resources:"IELTS", sat:"SAT", compare:"Порівняння",
       saved:"Обране", roi:"Калькулятор ROI", method:"Як користуватися", about:"Про проєкт",
       contact:"Контакти", settings:"Налаштування", account:"Мій акаунт", tagline:"Ваш шлях до вступу"
     },
     ru: {
       menu:"Открыть меню", close:"Закрыть меню", navigation:"Навигация", tools:"Инструменты",
-      home:"Главная", finder:"Университеты", practice:"Практика", resources:"Ресурсы IELTS", compare:"Сравнение",
+      home:"Главная", finder:"Университеты", practice:"Практика", resources:"IELTS", sat:"SAT", compare:"Сравнение",
       saved:"Избранное", roi:"Калькулятор ROI", method:"Как пользоваться", about:"О проекте",
       contact:"Контакты", settings:"Настройки", account:"Мой аккаунт", tagline:"Ваш путь к поступлению"
     },
     en: {
       menu:"Open menu", close:"Close menu", navigation:"Explore", tools:"Tools",
-      home:"Home", finder:"Universities", practice:"Practice", resources:"IELTS resources", compare:"Compare",
+      home:"Home", finder:"Universities", practice:"Practice", resources:"IELTS", sat:"SAT", compare:"Compare",
       saved:"Saved", roi:"ROI calculator", method:"How it works", about:"About",
       contact:"Contact", settings:"Settings", account:"My account", tagline:"Your path to admission"
     }
@@ -38,7 +38,7 @@
     settings:'<path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="3"/><circle cx="15" cy="17" r="3"/>'
   };
   const route = [
-    ["home","home"], ["finder","finder"], ["practice","practice"], ["resources","resources"], ["compare","compare"],
+    ["home","home"], ["finder","finder"], ["practice","practice"], ["resources","resources"], ["sat","resources"], ["compare","compare"],
     ["saved","saved"], ["roi","roi"], ["method","method"], ["about","about"], ["contact","contact"], ["settings","settings"]
   ];
   const icon = key => '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' + icons[key] + '</svg>';
@@ -51,6 +51,7 @@
   const href = (key, lang) => {
     if (key === "practice" || key === "compare" || key === "settings") return key + ".html?lang=" + lang;
     if (key === "resources") return "ielts-resources.html?lang=" + lang;
+    if (key === "sat") return "sat-resources.html?lang=" + lang;
     const section = key === "home" ? "top" : key;
     return (onHome ? "" : "index.html?lang=" + lang) + "#" + section;
   };
@@ -76,6 +77,7 @@
     if (file === "settings.html") return "settings";
     if (file === "practice.html") return "practice";
     if (file === "ielts-resources.html") return "resources";
+    if (file === "sat-resources.html") return "sat";
     if (file === "compare.html") return "compare";
     if (file === "university.html") return "finder";
     const section = location.hash.slice(1);
@@ -99,15 +101,15 @@
     };
     rail.innerHTML =
       '<div class="fr-rail__brand"><a href="' + href("home",lang) + '" aria-label="AdmitVector"><span class="fr-rail__mark">AV</span><strong>Admit<i>Vector</i></strong></a><button class="fr-rail__close" type="button" aria-label="' + t.close + '">×</button></div>' +
-      '<p class="fr-rail__caption">' + t.navigation + '</p><nav aria-label="' + t.navigation + '">' + route.slice(0,6).map(link).join("") + '</nav>' +
-      '<p class="fr-rail__caption fr-rail__caption--tools">' + t.tools + '</p><nav aria-label="' + t.tools + '">' + route.slice(6).map(link).join("") + '</nav>' +
+      '<p class="fr-rail__caption">' + t.navigation + '</p><nav aria-label="' + t.navigation + '">' + route.slice(0,7).map(link).join("") + '</nav>' +
+      '<p class="fr-rail__caption fr-rail__caption--tools">' + t.tools + '</p><nav aria-label="' + t.tools + '">' + route.slice(7).map(link).join("") + '</nav>' +
       '<div class="fr-rail__footer"><button class="fr-rail__account" type="button" data-rail-account>' + icon("account") + '<span>' + t.account + '</span></button><small>' + t.tagline + '</small></div>';
     rail.setAttribute("aria-label", t.navigation);
     toggle.setAttribute("aria-label", document.body.classList.contains("fr-rail-open") ? t.close : t.menu);
     if (!onHome) {
       const brand = topbar.querySelector(".brand");
       if (brand) brand.href = href("home", lang);
-      topbar.querySelectorAll(".practice-back,.compare-back,.profile-back").forEach(back => {
+      topbar.querySelectorAll(".practice-back,.compare-back,.profile-back,.resources-back,.sat-back").forEach(back => {
         back.href = href("finder", lang);
       });
     }

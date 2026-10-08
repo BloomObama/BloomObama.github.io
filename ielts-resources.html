@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="site-refresh.css?v=1" />
     <link rel="stylesheet" href="theme-accent.css?v=5" />
     <link rel="stylesheet" href="preferences.css?v=2" />
+    <link rel="stylesheet" href="exam-switch.css?v=1" />
   </head>
   <body class="resources-page has-side-rail">
     <header class="topbar resources-topbar">
@@ -30,6 +31,11 @@
     </header>
 
     <main class="resources-main">
+      <nav class="exam-switch" aria-label="IELTS або SAT">
+        <div class="exam-switch__intro"><span>ADMITVECTOR / PRACTICE</span><strong data-exam-copy="intro">Оберіть напрям підготовки</strong></div>
+        <a class="exam-switch__item" href="practice.html?lang=uk" data-exam-target="ielts" aria-current="page"><span class="exam-switch__mark">I</span><span class="exam-switch__text"><b data-exam-copy="ielts">IELTS</b><small data-exam-copy="ieltsHint">Англійська та практика слів</small></span><span class="exam-switch__arrow" aria-hidden="true">↗</span></a>
+        <a class="exam-switch__item" href="sat-resources.html?lang=uk" data-exam-target="sat"><span class="exam-switch__mark">S</span><span class="exam-switch__text"><b data-exam-copy="sat">SAT</b><small data-exam-copy="satHint">Математика, читання й письмо</small></span><span class="exam-switch__arrow" aria-hidden="true">↗</span></a>
+      </nav>
       <section class="resources-hero" aria-labelledby="resources-title">
         <div class="resources-hero__copy">
           <p class="resources-eyebrow" data-resource-key="eyebrow">IELTS / ПЕРЕВІРЕНІ ДЖЕРЕЛА</p>
@@ -76,11 +82,12 @@
     </dialog>
 
     <footer><div><strong>AdmitVector</strong><span data-resource-key="footer">Офіційні матеріали для впевненої підготовки.</span></div><div class="footer-meta"><a class="footer-contact" href="mailto:admitvector@gmail.com">admitvector@gmail.com</a><span>© 2026</span></div></footer>
-  <script src="ielts-library-data.js?v=1"></script>
-  <script src="ielts-resources.js?v=5"></script>
-    <script src="firebase-config.js?v=1"></script>
+  <script src="ielts-library-data.js?v=1" defer></script>
+  <script src="ielts-resources.js?v=5" defer></script>
+    <script src="firebase-config.js?v=1" defer></script>
     <script type="module" src="auth.js?v=8"></script>
-    <script src="site-nav.js?v=5"></script>
-    <script src="reminders.js?v=1"></script>
+    <script src="site-nav.js?v=6" defer></script>
+    <script src="exam-switch.js?v=1" defer></script>
+    <script src="reminders.js?v=1" defer></script>
   </body>
 </html>
