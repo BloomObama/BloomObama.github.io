@@ -3,7 +3,7 @@ import { readFile } from "node:fs/promises";
 import { extname, resolve, sep } from "node:path";
 
 const root = resolve(import.meta.dirname, "..");
-const types = { ".html":"text/html", ".js":"text/javascript", ".css":"text/css", ".json":"application/json", ".svg":"image/svg+xml" };
+const types = { ".html":"text/html", ".js":"text/javascript", ".mjs":"text/javascript", ".css":"text/css", ".json":"application/json", ".svg":"image/svg+xml", ".png":"image/png", ".webmanifest":"application/manifest+json" };
 createServer(async (request, response) => {
   const pathname = decodeURIComponent(new URL(request.url, "http://localhost").pathname);
   if (pathname === "/practice-test.html" || pathname === "/settings-test.html") {

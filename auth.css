@@ -53,6 +53,7 @@ body.auth-open .auth-dialog { visibility:visible; transform:none; }
 .auth-form button:disabled,.auth-google:disabled { cursor:wait; opacity:.55; }
 .auth-link { width:fit-content; align-self:center; border:0; padding:.2rem; background:transparent; color:#76591f; cursor:pointer; font:700 .62rem var(--sans); text-decoration:underline; text-underline-offset:3px; }
 .auth-privacy { margin:1.2rem 0 0; padding-top:1rem; border-top:1px solid #c7d1dc; color:#7b8998; font:500 .52rem/1.5 var(--mono); }
+.auth-privacy a { color:#76591f; text-decoration:underline; text-underline-offset:3px; }
 .auth-user__identity { min-height:110px; padding:1.25rem; display:flex; align-items:center; gap:1rem; border:1px solid #9fb0c0; background:#fff; box-shadow:6px 6px 0 #d5dfe8; }
 .auth-user__avatar { width:58px; height:58px; flex:0 0 auto; display:grid; place-items:center; border-radius:50%; background:var(--forest); color:var(--acid); font:800 1.1rem var(--sans); }
 .auth-user__identity span { color:#9b7225; font:500 .52rem var(--mono); text-transform:uppercase; }
@@ -67,6 +68,11 @@ body.auth-open .auth-dialog { visibility:visible; transform:none; }
 .auth-profile-form { margin-top:1rem; padding:1rem; border:1px solid #b7c4d0; background:#fff; }
 .auth-sync-note { margin:1rem 0; padding:.9rem 1rem; display:flex; gap:.65rem; border:1px solid #bac7d3; color:#5d6f82; background:#e5ebf2; font-size:.65rem; }
 .auth-sync-note>span:first-child { color:#9b7225; font:500 .8rem var(--mono); }
+.auth-activity-choice { margin:0 0 1rem; padding:.9rem 1rem; display:flex; align-items:flex-start; gap:.75rem; border:1px solid #bac7d3; background:#fff; color:#24374d; cursor:pointer; }
+.auth-activity-choice input { width:18px; height:18px; flex:0 0 auto; margin:.1rem 0 0; accent-color:#8f243c; }
+.auth-activity-choice strong,.auth-activity-choice small { display:block; font-family:var(--sans); line-height:1.45; }
+.auth-activity-choice strong { font-size:.78rem; }
+.auth-activity-choice small { margin-top:.2rem; color:#607087; font-size:.71rem; }
 .auth-account-actions { display:grid; grid-template-columns:1fr 1fr; gap:.55rem; }
 .auth-account-actions button { min-height:45px; border:1px solid #71849a; background:transparent; color:#425972; cursor:pointer; font:800 .62rem var(--sans); }
 .auth-account-actions button:hover { border-color:#9b7225; background:var(--acid); color:var(--forest); }

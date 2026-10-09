@@ -1,4 +1,5 @@
 import './practice-state.js?v=3';
+import { createMemberMetrics } from './member-metrics.mjs?v=1';
 const FIREBASE_VERSION = "12.19.0";
 const config = globalThis.FullRideFirebaseConfig || {};
 const requiredConfigFields = ["apiKey", "authDomain", "projectId", "appId"];
@@ -25,6 +26,7 @@ let db = null;
 let authApi = null;
 let firestoreApi = null;
 let currentUser = null;
+let memberMetrics = null;
 let syncState = 'loading';
 function accountStatus(state) { syncState=state;window.dispatchEvent(new CustomEvent('fullride:account')); }
 let syncQueue = Promise.resolve(true);
@@ -36,6 +38,9 @@ const accountDataKeys = ["fullride-shortlist-v1", "fullride-compare-v1", practic
 authTranslations.uk.savedSync = "Обране, порівняння та прогрес у словах синхронізуються автоматично.";
 authTranslations.ru.savedSync = "Избранное, сравнение и прогресс по словам синхронизируются автоматически.";
 authTranslations.en.savedSync = "Saved universities, comparisons, and vocabulary progress sync automatically.";
+Object.assign(authTranslations.uk, { activityChoice:"Дозволити підрахунок активного часу", activityHint:"Лише коли ця вкладка відкрита й у фокусі. Можна вимкнути будь-коли.", privacyLink:"Як обробляються дані" });
+Object.assign(authTranslations.ru, { activityChoice:"Разрешить подсчёт активного времени", activityHint:"Только когда эта вкладка открыта и в фокусе. Можно выключить в любой момент.", privacyLink:"Как обрабатываются данные" });
+Object.assign(authTranslations.en, { activityChoice:"Allow active-time measurement", activityHint:"Only while this tab is visible and focused. You can turn it off at any time.", privacyLink:"How data is handled" });
 
 function getLanguage() {
   const params = new URLSearchParams(location.search);
@@ -99,13 +104,14 @@ function injectAuthInterface() {
             <button class="auth-primary" type="submit" data-auth-key="resetSubmit">${at("resetSubmit")}</button>
             <button class="auth-link" type="button" data-auth-view="signin" data-auth-key="back">${at("back")}</button>
           </form>
-          <p class="auth-privacy" data-auth-key="privacy">${at("privacy")}</p>
+          <p class="auth-privacy"><span data-auth-key="privacy">${at("privacy")}</span> <a href="privacy.html" data-auth-key="privacyLink">${at("privacyLink")}</a></p>
         </section>
         <section id="auth-user" class="auth-user" hidden>
           <div class="auth-user__identity"><div id="auth-user-avatar" class="auth-user__avatar">FR</div><div><span data-auth-key="memberSince">${at("memberSince")}</span><h3 id="auth-user-name"></h3><p id="auth-user-email"></p></div></div>
           <div id="auth-verification" class="auth-verification"><span id="auth-verification-label"></span><div><button id="auth-send-verification" type="button" data-auth-key="verifyEmail">${at("verifyEmail")}</button><button id="auth-refresh-user" type="button" data-auth-key="refresh">${at("refresh")}</button></div></div>
           <form id="auth-profile-form" class="auth-form auth-profile-form"><label><span data-auth-key="profile">${at("profile")}</span><input name="name" type="text" autocomplete="name" maxlength="80" /></label><button class="auth-primary" type="submit" data-auth-key="saveName">${at("saveName")}</button></form>
           <p class="auth-sync-note"><span aria-hidden="true">↻</span><span data-auth-key="savedSync">${at("savedSync")}</span></p>
+          <label class="auth-activity-choice"><input id="auth-activity-consent" type="checkbox"><span><strong data-auth-key="activityChoice">${at("activityChoice")}</strong><small data-auth-key="activityHint">${at("activityHint")}</small></span></label>
           <div class="auth-account-actions"><button id="auth-password-email" type="button" data-auth-key="passwordResetAccount">${at("passwordResetAccount")}</button><button id="auth-signout" type="button" data-auth-key="signOut">${at("signOut")}</button></div>
         </section>
         <p id="auth-status" class="auth-status" role="status" aria-live="polite"></p>
@@ -299,7 +305,7 @@ function renderUser(user) {
   const privateName = globalThis.FullRidePreferences?.value.profile.hideName;
   trigger.querySelector("[data-auth-key='account']").textContent = privateName ? at('account') : user?.displayName || user?.email?.split("@")[0] || at("account");
   trigger.querySelector(".account-trigger__avatar").textContent = user && !privateName ? globalThis.FullRidePreferences?.avatar() || (user.displayName || user.email || "U").trim().charAt(0).toUpperCase() : "◎";
-  if (!user) return;
+  if (!user) { updateActivityChoice(null); return; }
 
   const displayName = user.displayName || user.email?.split("@")[0] || at("account");
   aq("auth-user-name").textContent = displayName;
@@ -311,6 +317,23 @@ function renderUser(user) {
   aq("auth-send-verification").hidden = user.emailVerified;
   aq("auth-refresh-user").hidden = user.emailVerified;
   aq("auth-password-email").hidden = !user.providerData.some(provider => provider.providerId === "password");
+  updateActivityChoice(user);
+  if (user.emailVerified) void memberMetrics?.refreshIdentity(user);
+}
+
+function activityConsentKey(uid) { return `admitvector-activity-consent:${uid}`; }
+function hasActivityConsent(uid) {
+  try { return localStorage.getItem(activityConsentKey(uid)) === 'yes'; }
+  catch { return false; }
+}
+function updateActivityChoice(user) {
+  const input = aq('auth-activity-consent');
+  if (input) {
+    input.checked = Boolean(user?.emailVerified && hasActivityConsent(user.uid));
+    input.disabled = !user?.emailVerified;
+  }
+  if (user?.emailVerified && hasActivityConsent(user.uid)) memberMetrics?.start(user);
+  else void memberMetrics?.stop();
 }
 
 function emailActionUrl() {
@@ -339,6 +362,7 @@ async function initializeFirebase() {
     const app = appModule.initializeApp(config);
     auth = authModule.getAuth(app);
     db = firestoreModule.getFirestore(app);
+    memberMetrics = createMemberMetrics({ db, firestore: firestoreModule });
     auth.languageCode = language;
     await authModule.setPersistence(auth, authModule.browserLocalPersistence);
     authModule.onAuthStateChanged(auth, async user => {
@@ -384,6 +408,15 @@ document.addEventListener("click", event => {
 });
 aq("auth-dialog")?.addEventListener("input", event => {
   if (event.target.closest(".auth-form")) showStatus("");
+});
+
+aq('auth-activity-consent')?.addEventListener('change', event => {
+  if (!currentUser?.emailVerified) { event.target.checked = false; return; }
+  try {
+    if (event.target.checked) localStorage.setItem(activityConsentKey(currentUser.uid), 'yes');
+    else localStorage.removeItem(activityConsentKey(currentUser.uid));
+  } catch { event.target.checked = false; }
+  updateActivityChoice(currentUser);
 });
 
 aq("auth-signin-form")?.addEventListener("submit", async event => {
@@ -482,6 +515,7 @@ aq("auth-signout")?.addEventListener("click", async () => {
   try {
     const user = auth.currentUser;
     if (user) {
+      await memberMetrics?.stop();
       let backedUp = false;
       try { backupLocalData(user.uid); backedUp = true; }
       catch (error) { console.error("FullRide local backup failed", error); }

@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#7d1e33">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-mark.png">
+  <title>Панель власника — AdmitVector</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css?v=1">
+  <script src="firebase-config.js?v=1" defer></script>
+  <script type="module" src="admin.js?v=1"></script>
+</head>
+<body>
+  <header class="admin-topbar"><a class="admin-brand" href="index.html"><img src="favicon-mark.png" width="36" height="36" alt="">Admit<span>Vector</span></a><span class="admin-topbar__tag">Приватна панель</span></header>
+  <main class="admin-shell">
+    <div class="admin-intro"><p class="admin-kicker">АДМІНІСТРУВАННЯ / УЧАСНИКИ</p><h1>Люди та активність</h1><p>Лише підсумки, потрібні для роботи проєкту. Паролі, приватні нотатки та прогрес у словах сюди не потрапляють.</p></div>
+    <section id="admin-gate" class="admin-gate" aria-live="polite"><div class="admin-gate__mark">↗</div><h2>Увійдіть як власник</h2><p>Доступ до списку захищають правила Firebase. Посилання на цю сторінку саме по собі нічого не відкриває.</p><button id="admin-signin" type="button">Увійти через Google</button><p id="admin-gate-status" class="admin-status"></p></section>
+    <section id="admin-dashboard" hidden>
+      <div class="admin-actions"><span id="admin-identity"></span><div><button id="admin-refresh" type="button">Оновити</button><button id="admin-signout" type="button">Вийти</button></div></div>
+      <div class="admin-stat-grid">
+        <article><span>Профілі з підтвердженою поштою</span><strong id="admin-members">—</strong><small>З'являються після входу на сайт.</small></article>
+        <article><span>Дозволили облік часу</span><strong id="admin-tracked">—</strong><small>Рахується лише видима вкладка у фокусі.</small></article>
+        <article><span>Сумарний активний час</span><strong id="admin-time">—</strong><small>Оціночний показник, не точний секундомір.</small></article>
+        <article class="admin-stat-grid__console"><span>Усі зареєстровані акаунти</span><a href="https://console.firebase.google.com/project/fullrideua/authentication/users" target="_blank" rel="noopener noreferrer">Відкрити Firebase Console ↗</a><small>Точне число, включно з непідтвердженими, доступне тільки власнику проєкту.</small></article>
+      </div>
+      <section class="admin-list"><div class="admin-list__heading"><div><p class="admin-kicker">ПЕРЕЛІК</p><h2>Учасники</h2></div><label>Пошук <input id="admin-search" type="search" placeholder="Ім'я або email" autocomplete="off"></label></div><p id="admin-list-note" class="admin-list__note"></p><div class="admin-table-wrap"><table><thead><tr><th>Учасник</th><th>Email</th><th>Активний час</th><th>Остання активність</th></tr></thead><tbody id="admin-rows"></tbody></table></div><div class="admin-pagination"><button id="admin-prev" type="button">← Назад</button><span id="admin-page"></span><button id="admin-next" type="button">Далі →</button></div></section>
+    </section>
+  </main>
+</body>
+</html>

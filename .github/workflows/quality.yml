@@ -47,3 +47,4 @@ jobs:
           node scripts/test-catalog-theme.mjs
           node scripts/test-hover-states.mjs
           node scripts/test-release.mjs
+          node scripts/test-owner-pages.mjs

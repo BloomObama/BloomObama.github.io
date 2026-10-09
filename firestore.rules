@@ -2,11 +2,21 @@ rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
+    function isVerifiedOwner(userId) {
+      return request.auth != null
+        && request.auth.uid == userId
+        && request.auth.token.email_verified == true;
+    }
+
+    function isSiteAdmin() {
+      return request.auth != null
+        && request.auth.token.email_verified == true
+        && request.auth.token.email == 'admitvector@gmail.com';
+    }
+
     match /users/{userId} {
       function isOwner() {
-        return request.auth != null
-          && request.auth.uid == userId
-          && request.auth.token.email_verified == true;
+        return isVerifiedOwner(userId);
       }
 
       function validProfile() {
@@ -27,6 +37,44 @@ service cloud.firestore {
 
       allow read, delete: if isOwner();
       allow create, update: if isOwner() && validProfile();
+    }
+
+    // A deliberately small directory. Private notes, saved colleges and flashcards
+    // remain in /users and are never queried by the owner dashboard.
+    match /memberSummaries/{userId} {
+      function validSummary() {
+        return request.resource.data.keys().hasAll(['email', 'displayName', 'updatedAt'])
+          && request.resource.data.keys().hasOnly(['email', 'displayName', 'updatedAt'])
+          && request.resource.data.email == request.auth.token.email
+          && request.resource.data.displayName is string
+          && request.resource.data.displayName.size() <= 80
+          && request.resource.data.updatedAt == request.time;
+      }
+      allow get: if isVerifiedOwner(userId) || isSiteAdmin();
+      allow list: if isSiteAdmin();
+      allow create, update: if isVerifiedOwner(userId) && validSummary();
+      allow delete: if isVerifiedOwner(userId);
+    }
+
+    match /memberActivity/{userId} {
+      function validActivity() {
+        return request.resource.data.keys().hasAll(['activeSeconds', 'updatedAt'])
+          && request.resource.data.keys().hasOnly(['activeSeconds', 'updatedAt'])
+          && request.resource.data.activeSeconds is int
+          && request.resource.data.activeSeconds >= 0
+          && request.resource.data.activeSeconds <= 1000000000
+          && request.resource.data.updatedAt == request.time;
+      }
+      allow get: if isVerifiedOwner(userId) || isSiteAdmin();
+      allow list: if isSiteAdmin();
+      allow create: if isVerifiedOwner(userId)
+        && validActivity()
+        && request.resource.data.activeSeconds <= 60;
+      allow update: if isVerifiedOwner(userId)
+        && validActivity()
+        && request.resource.data.activeSeconds >= resource.data.activeSeconds
+        && request.resource.data.activeSeconds <= resource.data.activeSeconds + 60;
+      allow delete: if isVerifiedOwner(userId);
     }
 
     match /{document=**} {

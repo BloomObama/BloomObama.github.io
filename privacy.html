@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#7d1e33">
+  <link rel="canonical" href="https://www.admitvector.com/privacy.html">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-mark.png">
+  <title>Конфіденційність — AdmitVector</title>
+  <meta name="description" content="Які дані збирає AdmitVector для акаунтів і як працює необов’язковий облік активного часу.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css?v=1">
+  <style>.privacy-content{max-width:780px}.privacy-content section{padding:24px 0;border-top:1px solid #e5d2c5}.privacy-content h2{font-size:1.25rem;letter-spacing:-.04em}.privacy-content p,.privacy-content li{color:#624e59;line-height:1.7}.privacy-content a{color:#8f243c;font-weight:700}</style>
+</head>
+<body>
+  <header class="admin-topbar"><a class="admin-brand" href="index.html"><img src="favicon-mark.png" width="36" height="36" alt="">Admit<span>Vector</span></a><a href="index.html" style="color:#8f243c;font-weight:700;text-decoration:none">На сайт ↗</a></header>
+  <main class="admin-shell privacy-content">
+    <div class="admin-intro"><p class="admin-kicker">ДАНІ / ПРОЗОРО</p><h1>Ваші дані</h1><p>Оновлено 9 жовтня 2026 року. Коротко про те, що відбувається з інформацією, коли ви створюєте акаунт на AdmitVector.</p></div>
+    <section><h2>Акаунт і навчальний прогрес</h2><p>Firebase Authentication обробляє адресу email, спосіб входу й пароль, якщо ви обрали вхід через email. AdmitVector не зберігає і не показує пароль у відкритому вигляді. У Firebase Cloud Firestore зберігаються ім'я профілю та синхронізований вами список університетів, порівняння і прогрес практики. Звичайний користувач може читати й змінювати лише свої дані; адміністратори Firebase-проєкту мають технічний доступ для обслуговування.</p></section>
+    <section><h2>Необов'язковий облік часу</h2><p>Лише після вашого дозволу в налаштуваннях акаунта сайт оцінює час, коли вкладка видима й перебуває у фокусі. Зберігаються сумарні секунди активності та час останнього оновлення, пов'язані з вашим акаунтом. Якщо вимкнути перемикач, новий час не збирається; уже записані підсумки зберігаються до видалення. Це приблизна метрика, а не точний журнал кожної дії чи відкритої сторінки.</p></section>
+    <section><h2>Хто бачить підсумки</h2><p>Закрита панель власника показує підтверджені email-адреси, імена профілів та добровільно зібраний активний час. Вона не завантажує ваші приватні нотатки, збережені університети, картки чи паролі. Доступ до панелі перевіряється правилами Firestore для підтвердженого акаунта власника; сама адреса сторінки доступу не дає.</p></section>
+    <section><h2>Зберігання і ваш вибір</h2><p>Акаунт і пов'язані записи зберігаються, доки ви користуєтеся сервісом або не попросите їх видалити. Автоматичного строку видалення зараз немає. Вимкнути облік часу можна у вікні акаунта на будь-якій основній сторінці. Щоб попросити копію або видалення даних, напишіть на <a href="mailto:admitvector@gmail.com">admitvector@gmail.com</a>. Для захисту акаунта ми можемо попросити підтвердити, що адреса належить вам.</p></section>
+    <section><h2>Сервіси</h2><p>Для входу й зберігання даних використовується Google Firebase; сайт публікується через Cloudflare Pages. Доступ до цих платформ мають лише власники й уповноважені учасники відповідних проєктів. Це не означає, що технічний провайдер ніколи не обробляє дані.</p></section>
+  </main>
+</body>
+</html>

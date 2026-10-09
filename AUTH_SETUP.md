@@ -13,4 +13,12 @@ The website code contains the account interface and Firebase integration. The pu
 7. Test registration, email verification, password reset, Google sign-in, sign-out, and cross-device shortlist, comparison, flashcard, and deck-progress synchronization before publishing.
 8. After monitoring normal traffic, consider Firebase App Check for additional abuse protection.
 
+## Private owner panel and optional activity measurement
+
+The owner panel is at `https://www.admitvector.com/admin.html`. It is deliberately absent from the public navigation and search sitemap, but the URL is **not** a security boundary. Firestore rules grant directory and activity-list reads only to a Firebase user whose token has a verified `admitvector@gmail.com` address. Sign in with that Google account and keep its two-step verification enabled. Check Firebase/Google Cloud IAM so no unneeded account has project access.
+
+Deploy the updated `firestore.rules` **before** relying on the dashboard or expecting activity writes. The new `memberSummaries` records contain only verified email and display name; `memberActivity` contains cumulative focused seconds and the last update time. Existing profiles appear in the owner panel only after their next verified sign-in. An account must opt in through the account dialog on each browser before active time is recorded. Switching it off stops new measurements but does not erase earlier totals; deletion requests go to `admitvector@gmail.com`. The public `privacy.html` page explains this behavior.
+
+The panel's numeric account count is the number of synced verified `memberSummaries`, **not** the exact number of Firebase Authentication users. Open Authentication → Users in Firebase Console for the authoritative total, including unverified accounts. Getting that exact total into a custom page would require a privileged server endpoint with the Admin SDK; never expose its service-account credentials in browser code, Cloudflare Pages assets, or Git.
+
 Never add a service-account JSON file, private key, mailbox password, or OAuth client secret to this repository.
