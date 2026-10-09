@@ -1,11 +1,11 @@
 {
   "name": "AdmitVector",
   "short_name": "AdmitVector",
-  "description": "Пошук університетів США, підготовка до вступу та IELTS.",
+  "description": "Пошук університетів США, підготовка до вступу, IELTS та SAT.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#f4f7fb",
+  "background_color": "#fffaf5",
   "theme_color": "#7d1e33",
   "icons": [
     { "src":"assets/app-icon-192.png", "sizes":"192x192", "type":"image/png", "purpose":"any" }

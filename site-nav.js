@@ -185,6 +185,6 @@
 
 if ("serviceWorker" in navigator && location.protocol === "https:") {
   window.addEventListener("load", () => {
-    navigator.serviceWorker.register("sw.js?v=3",{updateViaCache:'none'}).catch(() => {});
+    navigator.serviceWorker.register("sw.js?v=5",{updateViaCache:'none'}).catch(() => {});
   });
 }

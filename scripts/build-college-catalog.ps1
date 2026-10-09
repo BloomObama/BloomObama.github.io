@@ -106,6 +106,11 @@ $schools = Import-Csv -LiteralPath $InputCsv |
     } elseif ($website -notmatch "^https?://") {
       $website = "https://$website"
     }
+    # The Scorecard snapshot has an apex URL that currently times out; the
+    # institution's official www host is reachable and serves the same campus.
+    if ($unitId -eq 445188 -and $website -eq "https://ucmerced.edu/") {
+      $website = "https://www.ucmerced.edu/"
+    }
 
     $facts = [ordered]@{
       control = Convert-NullableNumber $_.CONTROL "integer"

@@ -48,3 +48,6 @@ jobs:
           node scripts/test-hover-states.mjs
           node scripts/test-release.mjs
           node scripts/test-owner-pages.mjs
+          node scripts/test-sat-workspace.mjs
+          node scripts/test-preparation-polish.mjs
+          node scripts/test-editorial-type.mjs

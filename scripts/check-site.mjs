@@ -4,6 +4,9 @@ import path from "node:path";
 const root = path.resolve(import.meta.dirname, "..");
 const failures = [];
 const htmlFiles = fs.readdirSync(root).filter(name => name.endsWith(".html"));
+const nestedHtmlFiles = fs.readdirSync(path.join(root, "universities"))
+  .filter(name => name.endsWith(".html"))
+  .map(name => path.join("universities", name));
 const required = ["manifest.webmanifest", "sw.js", "robots.txt", "sitemap.xml", "college-index.js", "college-data.js", "offline.html", "404.html"];
 
 required.forEach(file => {
@@ -16,12 +19,15 @@ for (const file of ["index.html", "compare.html", "university.html"]) {
   if (legacyPattern.test(html)) failures.push(`${file} still loads a legacy full-data bundle`);
 }
 
-for (const file of htmlFiles) {
+for (const file of [...htmlFiles, ...nestedHtmlFiles]) {
   const html = fs.readFileSync(path.join(root,file), "utf8");
   const references = [...html.matchAll(/(?:src|href)="([^"#?]+)(?:[?#][^"]*)?"/g)].map(match => match[1]);
   references.filter(reference => !/^(?:https?:|mailto:|data:|#)/.test(reference)).forEach(reference => {
-    const target = path.resolve(root, reference.replace(/^\//,""));
-    if (!target.startsWith(root) || !fs.existsSync(target)) failures.push(`${file} references missing asset: ${reference}`);
+    const target = reference.startsWith("/")
+      ? path.resolve(root, "." + reference)
+      : path.resolve(root, path.dirname(file), reference);
+    const cleanHtmlTarget = !path.extname(target) && fs.existsSync(target + ".html");
+    if (!target.startsWith(root) || (!fs.existsSync(target) && !cleanHtmlTarget)) failures.push(`${file} references missing asset: ${reference}`);
   });
   const unsafeBlank = [...html.matchAll(/<a\b[^>]*target="_blank"[^>]*>/g)].filter(match => !/rel="[^"]*noopener/.test(match[0]));
   if (unsafeBlank.length) failures.push(`${file} has ${unsafeBlank.length} target=_blank link(s) without noopener`);
@@ -70,4 +76,4 @@ if (failures.length) {
   console.error(failures.join("\n"));
   process.exit(1);
 }
-console.log(`PASS: ${htmlFiles.length} pages, ${shards.length} detail shards, ${(indexBytes / 1024).toFixed(1)} KB search index`);
+console.log(`PASS: ${htmlFiles.length + nestedHtmlFiles.length} pages, ${shards.length} detail shards, ${(indexBytes / 1024).toFixed(1)} KB search index`);

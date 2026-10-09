@@ -69,7 +69,8 @@ try {
  assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2),'large text does not overflow mobile settings');
  await page.screenshot({path:'settings-mobile-preview.png'});
  await page.setViewportSize({width:320,height:800});
- assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2),'settings fits 320px with large font');
+ const narrowOverflow=await page.evaluate(()=>({width:document.documentElement.scrollWidth,offenders:[...document.querySelectorAll('body *')].filter(el=>{const r=el.getBoundingClientRect();return r.width&&r.right>innerWidth+2&&getComputedStyle(el).visibility!=='hidden';}).slice(0,8).map(el=>({tag:el.tagName.toLowerCase(),parent:el.parentElement?.className,text:el.textContent?.trim().slice(0,60),right:Math.round(el.getBoundingClientRect().right)}))}));
+ assert(narrowOverflow.width<=322,'settings fits 320px with large font: '+JSON.stringify(narrowOverflow));
  await page.setViewportSize({width:1440,height:950});
  // Calendar files and backup export are real downloadable artifacts.
  await page.locator('[name="reminders.practice"]').check();await page.locator('[name="reminders.deadlines"]').check();

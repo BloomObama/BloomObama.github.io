@@ -1,4 +1,4 @@
-const CACHE_VERSION = "fullride-v4";
+const CACHE_VERSION = "fullride-v5";
 const CORE = [
   "./offline.html", "./assets/app-icon.svg", "./assets/campus-placeholder.svg"
 ];
@@ -25,8 +25,11 @@ self.addEventListener("fetch", event => {
   const url = new URL(request.url);
   if (url.origin !== self.location.origin) return;
 
-  if (request.mode === "navigate") {
-    event.respondWith(fetch(request).then(response => cacheResponse(request, response)).catch(async () => (await caches.match(request)) || caches.match("./offline.html")));
+  if (request.mode === "navigate" || ["script", "style", "worker"].includes(request.destination) || /\.(?:json|webmanifest)$/.test(url.pathname)) {
+    event.respondWith(fetch(request).then(response => cacheResponse(request, response)).catch(async () => {
+      const cached = await caches.match(request);
+      return cached || (request.mode === "navigate" ? caches.match("./offline.html") : Response.error());
+    }));
     return;
   }
 

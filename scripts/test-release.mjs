@@ -1,4 +1,6 @@
 import { createRequire } from 'node:module';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 const require=createRequire(import.meta.url);
 const {chromium}=require(process.env.PLAYWRIGHT_MODULE_PATH || 'playwright');
 const browser=await chromium.launch({executablePath:process.env.BROWSER_EXECUTABLE,headless:true});
@@ -11,22 +13,22 @@ try {
   await page.locator('#control-filter').selectOption('1');
   await page.locator('#budget-filter').selectOption('20000');
   await page.locator('.finder-controls').scrollIntoViewIfNeeded();
-  await page.screenshot({path:'finder-desktop-preview.png'});
+  await page.screenshot({path:join(tmpdir(),'admitvector-finder-desktop-preview.png')});
   await page.setViewportSize({width:390,height:844});
   await page.waitForTimeout(350);
   assert(await page.locator('.fr-rail').evaluate(el=>el.getBoundingClientRect().right<=0),'closed mobile rail stays outside viewport');
   await page.locator('.finder-controls').scrollIntoViewIfNeeded();
-  await page.screenshot({path:'finder-mobile-preview.png'});
+  await page.screenshot({path:join(tmpdir(),'admitvector-finder-mobile-preview.png')});
   await page.setViewportSize({width:1440,height:1000});
   await page.goto('http://127.0.0.1:8765/practice-test.html?lang=ru');
   await page.locator('#practice-deck-list').scrollIntoViewIfNeeded();
-  await page.screenshot({path:'practice-decks-preview.png'});
+  await page.screenshot({path:join(tmpdir(),'admitvector-practice-decks-preview.png')});
   await page.locator('#practice-deck-list [data-deck="A1"] summary').click();
   await page.locator('[data-start-deck="A1"][data-module="0"]').click();
   assert(await page.locator('#setup-title').evaluate(el=>getComputedStyle(el).color)==='rgb(255, 255, 255)','setup heading contrast');
-  await page.screenshot({path:'practice-setup-preview.png'});
+  await page.screenshot({path:join(tmpdir(),'admitvector-practice-setup-preview.png')});
   await page.locator('#session-start').click();
-  await page.screenshot({path:'practice-session-preview.png'});
+  await page.screenshot({path:join(tmpdir(),'admitvector-practice-session-preview.png')});
   // Tab remains in the dialog even when the last focused element is an input.
   const focused=await page.evaluate(()=>{
     const elements=[...document.querySelectorAll('#practice-modal button,#practice-modal input,#practice-modal textarea')].filter(el=>!el.disabled&&el.getClientRects().length);
@@ -38,19 +40,19 @@ try {
   await page.locator('[data-resource-filter="book"]').click();
   await page.locator('#library-title').scrollIntoViewIfNeeded();
   await page.waitForTimeout(500);
-  await page.screenshot({path:'resources-books-preview.png'});
+  await page.screenshot({path:join(tmpdir(),'admitvector-resources-books-preview.png')});
   await context.close();
 
   const offline=await browser.newContext(); const cached=await offline.newPage();
   await cached.goto('http://127.0.0.1:8765/offline.html');
-  await cached.evaluate(async()=>{await navigator.serviceWorker.register('/sw.js?v=3');await navigator.serviceWorker.ready;});
+  await cached.evaluate(async()=>{await navigator.serviceWorker.register('/sw.js?v=5');await navigator.serviceWorker.ready;});
   await cached.waitForFunction(()=>navigator.serviceWorker.controller);
-  const paths=await cached.evaluate(async()=>{const c=await caches.open('fullride-v3');return(await c.keys()).map(request=>new URL(request.url).pathname);});
+  const paths=await cached.evaluate(async()=>{const c=await caches.open('fullride-v5');return(await c.keys()).map(request=>new URL(request.url).pathname);});
   assert(paths.length===3&&!paths.includes('/index.html'),'only small offline core is eagerly cached');
   await cached.goto('http://127.0.0.1:8765/index.html?lang=ru');
   await cached.locator('#search').waitFor();
   await cached.waitForFunction(async()=>Boolean(await caches.match(location.href)));
-  await cached.waitForFunction(async()=>Boolean(await caches.match(new URL('/app.js?v=25',location.href).href)));
+  await cached.waitForFunction(async()=>Boolean(await caches.match(new URL('/app.js?v=26',location.href).href)));
   await offline.setOffline(true); await cached.reload();
   await cached.locator('#search').fill('Harvard');
   await cached.locator('.card h3').first().waitFor();
