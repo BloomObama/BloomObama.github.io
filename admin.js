@@ -127,7 +127,11 @@ $('admin-signin').addEventListener('click', async () => {
     provider.setCustomParameters({ prompt:'select_account' });
     await authApi.signInWithPopup(auth, provider);
   } catch (error) {
-    $('admin-gate-status').textContent = 'Вхід не відбувся. Перевірте Google-акаунт і дозволені домени Firebase.';
+    $('admin-gate-status').textContent = error?.code === 'auth/unauthorized-domain'
+      ? 'Google-вхід заблоковано: додайте www.admitvector.com у Firebase → Authentication → Settings → Authorized domains.'
+      : error?.code === 'auth/popup-blocked'
+        ? 'Браузер заблокував вікно Google. Дозвольте спливаючі вікна та повторіть.'
+        : 'Вхід не відбувся. Перевірте Google-акаунт і налаштування Firebase.';
     console.warn('AdmitVector admin sign-in failed', error);
   } finally { $('admin-signin').disabled = false; }
 });
