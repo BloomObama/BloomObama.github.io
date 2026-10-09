@@ -15,6 +15,7 @@ assert.ok(!csp.includes("script-src 'unsafe-inline'"), 'Inline executable JavaSc
 assert.match(globalRule, /Strict-Transport-Security: max-age=\d+/);
 assert.match(globalRule, /X-Frame-Options: DENY/);
 assert.match(headers, /\/admin\.html\s+Cache-Control: no-store\s+X-Robots-Tag: noindex, nofollow/);
+assert.match(headers, /\/admin\s+Cache-Control: no-store\s+X-Robots-Tag: noindex, nofollow/);
 
 const rules = read('firestore.rules');
 assert.match(rules, /request\.auth\.token\.email_verified == true/);
