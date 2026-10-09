@@ -92,7 +92,7 @@ document.getElementById("site").addEventListener("load", async () => {
     check("set percentage updates", doc.querySelector('#practice-deck-list [data-start-deck="A1"][data-module="1"] .practice-module__percent').textContent.trim().startsWith("5%"));
     const frame = document.getElementById("site");
     const reloaded = new Promise(resolve => frame.addEventListener("load", resolve, { once:true }));
-    frame.contentWindow.location.reload();
+    frame.contentWindow.location.assign(frame.src);
     await reloaded;
     const reloadedDoc = frame.contentDocument;
     const savedSet = reloadedDoc.querySelector('#practice-deck-list [data-start-deck="A1"][data-module="1"]');

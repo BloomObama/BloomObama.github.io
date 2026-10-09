@@ -7,7 +7,9 @@ const browser = await chromium.launch({
   headless:true
 });
 try {
-  const page = await browser.newPage();
+  // This isolated fixture reloads an embeddable test alias, not the production page.
+  const context = await browser.newContext({ serviceWorkers:'block' });
+  const page = await context.newPage();
   await page.goto("http://127.0.0.1:8765/scripts/test-practice-browser.html");
   await page.waitForFunction(() => /^(PASS|FAIL):/.test(document.getElementById("result").textContent), null, { timeout:10000 });
   const result = await page.locator("#result").textContent();
