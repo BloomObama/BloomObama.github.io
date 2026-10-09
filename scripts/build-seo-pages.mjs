@@ -39,6 +39,7 @@ function documentHtml({ title, description, canonical, body, assetPrefix, escape
     '<meta property="og:description" content="' + safeDescription + '">',
     '<meta property="og:url" content="' + safeCanonical + '">',
     '<script src="' + assetPrefix + 'preferences.js?v=1"></script>',
+    '<script src="' + assetPrefix + 'analytics-consent.js?v=1" defer></script>',
     '<link rel="stylesheet" href="' + assetPrefix + 'seo-pages.css?v=3">',
     "</head>",
     '<body class="seo-page">',
