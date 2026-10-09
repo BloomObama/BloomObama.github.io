@@ -10,6 +10,7 @@ assert.ok(csp, 'Cloudflare Pages must publish a CSP');
 for (const directive of ["script-src 'self'", "object-src 'none'", "base-uri 'self'", "frame-ancestors 'none'", "upgrade-insecure-requests"]) {
   assert.ok(csp.includes(directive), `Missing CSP protection: ${directive}`);
 }
+assert.ok(csp.includes('https://static.cloudflareinsights.com'), 'Cloudflare-injected analytics must be compatible with the CSP');
 assert.ok(!csp.includes("script-src 'unsafe-inline'"), 'Inline executable JavaScript must stay blocked');
 assert.match(globalRule, /Strict-Transport-Security: max-age=\d+/);
 assert.match(globalRule, /X-Frame-Options: DENY/);
