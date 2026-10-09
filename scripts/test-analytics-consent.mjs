@@ -5,7 +5,7 @@ import vm from 'node:vm';
 
 const root = path.resolve(import.meta.dirname, '..');
 const source = fs.readFileSync(path.join(root, 'analytics-consent.js'), 'utf8');
-assert.match(source, /const measurementId = '';/, 'analytics stays inert until a real GA4 ID is configured');
+assert.match(source, /const measurementId = 'G-XR6QWB4BDZ';/, 'the linked Firebase web stream is configured');
 
 function run(consent) {
   const storage = new Map(consent ? [['admitvector-analytics-consent-v1', consent]] : []);
@@ -34,7 +34,7 @@ function run(consent) {
   context.globalThis = context;
   context.window = context;
   context.addEventListener = () => {};
-  vm.runInNewContext(source.replace("const measurementId = '';", "const measurementId = 'G-TEST123';"), context);
+  vm.runInNewContext(source, context);
   return { requests, elements, storage, context };
 }
 
@@ -47,6 +47,6 @@ assert.equal(undecided.storage.get('admitvector-analytics-consent-v1'), 'denied'
 
 const granted = run('granted');
 assert.equal(granted.requests.length, 1, 'prior consent loads one GA4 script');
-assert.match(granted.requests[0], /G-TEST123/);
+assert.match(granted.requests[0], /G-XR6QWB4BDZ/);
 assert.equal(granted.elements.size, 0, 'prior consent does not show the prompt');
 console.log('PASS: GA4 requires consent, rejection sends no request, prior consent loads once');

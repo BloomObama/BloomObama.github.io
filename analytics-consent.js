@@ -1,6 +1,6 @@
 /* GA4 is deliberately loaded only after an explicit, browser-local choice. */
 (() => {
-  const measurementId = '';
+  const measurementId = 'G-XR6QWB4BDZ';
   if (!/^G-[A-Z0-9]+$/.test(measurementId)) return;
 
   const storageKey = 'admitvector-analytics-consent-v1';

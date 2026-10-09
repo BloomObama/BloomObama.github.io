@@ -1,4 +1,4 @@
-const CACHE_VERSION = "fullride-v3";
+const CACHE_VERSION = "fullride-v4";
 const CORE = [
   "./offline.html", "./assets/app-icon.svg", "./assets/campus-placeholder.svg"
 ];
