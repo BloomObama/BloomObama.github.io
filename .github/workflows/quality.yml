@@ -51,3 +51,4 @@ jobs:
           node scripts/test-sat-workspace.mjs
           node scripts/test-preparation-polish.mjs
           node scripts/test-editorial-type.mjs
+          node scripts/test-security-browser.mjs

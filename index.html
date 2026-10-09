@@ -213,7 +213,7 @@
           </div>
 
           <div class="roi-calculator" id="roi-education" role="tabpanel" data-roi-view="education">
-            <form class="roi-inputs" onsubmit="return false">
+            <form class="roi-inputs">
               <label class="roi-field"><span data-roi-i18n="major">Спеціальність / Major</span><select id="roi-major"></select></label>
               <label class="roi-field"><span data-roi-i18n="tuition">Вартість навчання на рік</span><span class="money-input"><span aria-hidden="true">$</span><input id="roi-tuition" type="number" min="0" max="200000" step="500" value="60000" inputmode="numeric" /></span></label>
               <label class="roi-field roi-range-field"><span><span data-roi-i18n="aid">Фінансова допомога</span><output id="roi-aid-value" for="roi-aid">60%</output></span><input id="roi-aid" type="range" min="0" max="100" step="1" value="60" /><span class="range-scale" aria-hidden="true"><span>0%</span><span>100%</span></span></label>
@@ -235,7 +235,7 @@
           </div>
 
           <div class="roi-calculator" id="roi-arrival" role="tabpanel" data-roi-view="arrival" hidden>
-            <form class="roi-inputs roi-inputs--move" onsubmit="return false">
+            <form class="roi-inputs roi-inputs--move">
               <label class="roi-field"><span data-roi-i18n="residence">Країна вильоту</span><select id="roi-residence"></select></label>
               <label class="roi-field"><span data-roi-i18n="citizenship">Країна громадянства</span><select id="roi-citizenship"></select></label>
               <label class="roi-field roi-field--wide"><span data-roi-i18n="visaStatus">Візова ситуація</span><select id="roi-visa"></select></label>
@@ -354,7 +354,7 @@
     <script src="compare-store.js?v=1" defer></script>
     <script src="app.js?v=26" defer></script>
     <script src="roi-data.js?v=9" defer></script>
-    <script src="roi.js?v=11" defer></script>
+    <script src="roi.js?v=12" defer></script>
     <script src="firebase-config.js?v=1" defer></script>
     <script type="module" src="auth.js?v=9"></script>
     <script src="site-nav.js?v=9" defer></script>

@@ -161,6 +161,7 @@ window.updateRoiLanguage = function updateRoiLanguage(nextLanguage = getRoiLangu
 };
 
 ["roi-major", "roi-tuition", "roi-aid", "roi-living", "roi-duration", "roi-repayment"].forEach(id => roiElement(id)?.addEventListener("input", calculateEducationRoi));
+document.querySelectorAll('.roi-inputs').forEach(form => form.addEventListener('submit', event => event.preventDefault()));
 ["roi-visa", "roi-applications", "roi-application-fee", "roi-documents", "roi-flight", "roi-insurance", "roi-setup"].forEach(id => roiElement(id)?.addEventListener("input", calculateMoveBudget));
 roiElement("roi-residence")?.addEventListener("change", () => syncCountryEstimate("residence"));
 roiElement("roi-citizenship")?.addEventListener("change", () => syncCountryEstimate("citizenship"));

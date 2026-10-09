@@ -50,7 +50,7 @@ export async function safeFetch(value, domains, beforeRequest) {
     const addresses = await lookup(new URL(current).hostname, { all:true });
     if (!addresses.length || addresses.some(item => !publicAddress(item.address))) throw new Error('Non-public source address');
     if (beforeRequest) await beforeRequest(current);
-    const response = await fetch(current, { redirect:'manual', signal:AbortSignal.timeout(18000), headers:{ 'User-Agent':'FullRidePolicyBot/1.0 (+https://bloomobama.github.io/)' } });
+    const response = await fetch(current, { redirect:'manual', signal:AbortSignal.timeout(18000), headers:{ 'User-Agent':'AdmitVectorPolicyBot/1.0 (+https://www.admitvector.com/)' } });
     if ([301,302,303,307,308].includes(response.status)) {
       const next = response.headers.get('location'); await response.body?.cancel();
       if (!next) throw new Error('Missing redirect location');

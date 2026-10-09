@@ -107,7 +107,7 @@ export function buildSeoPages({ root, colleges, policy }) {
     '<section class="seo-section"><div class="seo-section-heading"><p class="seo-eyebrow">ЗНАЙДІТЬ ЗАКЛАД</p><h2>Перегляньте профілі</h2></div><label class="seo-search"><span>Пошук за назвою або містом</span><input type="search" id="seo-search" placeholder="Наприклад, Amherst або Boston"></label><ul class="seo-directory-list" id="seo-directory-list">' + cards + '</ul></section>',
     '<p class="seo-disclaimer">Повний каталог містить іще заклади, що очікують перевірки. <a href="../index.html#finder">Відкрити весь каталог ↗</a> · <a href="../guide.html">Як скласти свій короткий список ↗</a></p>',
     "</main>",
-    '<script>const search=document.getElementById("seo-search");search.addEventListener("input",()=>{const value=search.value.trim().toLocaleLowerCase();document.querySelectorAll("#seo-directory-list li").forEach(item=>{item.hidden=!item.textContent.toLocaleLowerCase().includes(value);});});</script>'
+    '<script src="../university-directory.js?v=1" defer></script>'
   ].join("\n");
   fs.writeFileSync(path.join(directory,"index.html"), documentHtml({
     title:"Перевірені університети США — вступ і фінансова допомога | AdmitVector",
