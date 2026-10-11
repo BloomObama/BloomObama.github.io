@@ -170,3 +170,16 @@ html body.has-side-rail :is(.sat-route__steps small,.sat-workspace__storage,.sat
 html body.has-side-rail :is(.resource-card__source,.sat-card__source,.sat-card__badge,.resource-filters button,.sat-filters button,.resource-detail__kicker) { font-size:.68rem; font-weight:650; }
 html[data-theme="light"] body.has-side-rail :is(.sat-route__steps small,.sat-card__body>span:nth-last-child(2),.resource-path small,.resource-card__summary,.resource-note p,.resource-detail li) { color:#69575f; }
 html[data-theme="dark"] body.has-side-rail :is(.sat-route__steps small,.sat-card__body>span:nth-last-child(2),.resource-path small,.resource-card__summary,.resource-note p,.resource-detail li) { color:#decbd1; }
+
+/* The account drawer keeps its quiet structure in dark mode. */
+html[data-theme="dark"] body.has-side-rail .auth-dialog { border-color:#684650; background:#271c27; color:#f4e6e0; }
+html[data-theme="dark"] body.has-side-rail .auth-dialog__header { border-top-color:#d6a761; background:linear-gradient(145deg,#672239,#3e1b2b); }
+html[data-theme="dark"] body.has-side-rail :is(.auth-user__identity,.auth-profile-form,.auth-sync-note) { border-color:#59404b; background:transparent; box-shadow:none; }
+html[data-theme="dark"] body.has-side-rail .auth-activity-choice { border-color:#59404b; background:transparent; color:#f1e2e0; }
+html[data-theme="dark"] body.has-side-rail .auth-activity-choice small { color:#cbb5bd; }
+html[data-theme="dark"] body.has-side-rail .auth-user__identity h3 { color:#fff1e9; }
+html[data-theme="dark"] body.has-side-rail .auth-user__identity p { color:#cbb5bd; }
+html[data-theme="dark"] body.has-side-rail .auth-account-actions button { border-color:#775363; background:#382735; color:#f0dce0; }
+html[data-theme="dark"] body.has-side-rail .auth-account-actions #auth-signout { border-color:#bb5268; background:#9d2e47; color:#fff; }
+html[data-theme="dark"] body.has-side-rail .auth-account-actions button:hover { border-color:#d6a761; background:#59303e; color:#fff; }
+html[data-theme="dark"] body.has-side-rail .auth-profile-form .auth-primary { border-color:#be536a; background:#a9364f; color:#fff; }

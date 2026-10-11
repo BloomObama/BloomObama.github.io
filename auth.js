@@ -35,6 +35,9 @@ let lastFocusedElement = null;
 const practiceStateKey = "fullride-practice-state-v1";
 const accountDataKeys = ["fullride-shortlist-v1", "fullride-compare-v1", practiceStateKey];
 
+authTranslations.uk.welcome = "Ваш акаунт";
+authTranslations.ru.welcome = "Ваш аккаунт";
+authTranslations.en.welcome = "Your account";
 authTranslations.uk.savedSync = "Обране, порівняння та прогрес у словах синхронізуються автоматично.";
 authTranslations.ru.savedSync = "Избранное, сравнение и прогресс по словам синхронизируются автоматически.";
 authTranslations.en.savedSync = "Saved universities, comparisons, and vocabulary progress sync automatically.";
@@ -70,7 +73,7 @@ function injectAuthInterface() {
     <div id="auth-backdrop" class="auth-backdrop" aria-hidden="true"></div>
     <aside id="auth-dialog" class="auth-dialog" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="auth-title">
       <header class="auth-dialog__header">
-        <div><span>FULLRIDE / ID</span><h2 id="auth-title" data-auth-key="welcome">${at("welcome")}</h2></div>
+        <div><span>ADMITVECTOR / ACCOUNT</span><h2 id="auth-title" data-auth-key="welcome">${at("welcome")}</h2></div>
         <button id="auth-close" type="button" data-auth-aria="close" aria-label="${at("close")}">×</button>
       </header>
       <div class="auth-dialog__body">
