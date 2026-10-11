@@ -49,8 +49,17 @@
 .fr-rail__link.is-active svg { color:var(--acid); }
 .fr-rail__link.is-active .fr-rail__arrow { color:var(--acid); }
 .fr-rail__link.is-active:hover { transform:translateX(2px); background:#23415f; }
+.fr-rail__practice-toggle .fr-rail__chevron { margin-left:auto; font-size:1rem; transition:transform .2s ease; }
+.fr-rail__practice-toggle[aria-expanded="true"] .fr-rail__chevron { transform:rotate(180deg); }
+.fr-rail__subnav { display:grid; gap:.18rem; margin:.15rem 0 .35rem 2.15rem; padding-left:.65rem; border-left:1px solid #dcc6b1; }
+.fr-rail__subnav[hidden] { display:none; }
+.fr-rail__sublink { min-height:36px; padding:.45rem .65rem; display:flex; align-items:center; justify-content:space-between; border-radius:9px; color:#66545b; font:700 .69rem var(--sans); text-decoration:none; transition:background .18s ease,color .18s ease,transform .18s ease; }
+.fr-rail__sublink i { color:#b77b42; font-style:normal; opacity:.55; }
+.fr-rail__sublink:hover,.fr-rail__sublink:focus-visible { background:#fff0ed; color:#78202f; transform:translateX(2px); }
+.fr-rail__sublink.is-active { background:#f5dfdc; color:#8c2236; }
 .fr-rail__footer { margin-top:auto; padding:1.3rem .3rem .25rem; }
 .fr-rail__account { width:100%; min-height:42px; padding:.6rem .75rem; display:flex; align-items:center; gap:.8rem; border:1px solid #d7e1eb; border-radius:12px; background:#fff; color:var(--forest); cursor:pointer; font:700 .7rem var(--sans); text-align:left; transition:border-color .2s,background .2s,transform .2s; }
+.fr-rail__account-avatar{width:25px;height:25px;display:grid;place-items:center;flex:none;border-radius:8px;background:#f7eee3;background-size:cover;background-position:center}.fr-rail__account-avatar svg{width:16px;height:16px}.fr-rail__account-avatar.has-photo{border-radius:50%}
 .fr-rail__account:hover { border-color:#a8894c; background:#fff9ec; transform:translateY(-2px); }
 .fr-rail__footer small { display:block; padding:.8rem .75rem 0; color:#9aa9b8; font:500 .53rem var(--mono); }
 .fr-rail-backdrop { display:none; }

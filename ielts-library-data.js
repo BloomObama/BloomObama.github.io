@@ -1123,6 +1123,24 @@ globalThis.FullRideResourceExtras = [
       "ru": "Развитию общего английского между пробниками IELTS.",
       "en": "Building general English between IELTS mocks."
     }
+  },
+  {
+    "id":"ielts-speaking-resources","title":"Official IELTS Speaking Resources","type":"free","source":"IELTS.org","formats":["academic","general"],"skills":["speaking"],"mark":"SPEAK",
+    "url":"https://ielts.org/take-a-test/preparation-resources/speaking-test-resources",
+    "summary":{"uk":"Офіційні відео, критерії та приклади для трьох частин Speaking.","ru":"Официальные видео, критерии и примеры для трёх частей Speaking.","en":"Official videos, assessment criteria and examples for all three Speaking parts."},
+    "description":{"uk":"Матеріали пояснюють формат інтерв’ю, критерії екзаменатора та типові завдання без неофіційних шаблонів.","ru":"Материалы объясняют формат интервью, критерии экзаменатора и типовые задания без неофициальных шаблонов.","en":"The materials explain the interview format, examiner criteria and common tasks without unofficial scripts."},
+    "facts":["Free","Academic + General","Speaking","Official"],
+    "bullets":{"uk":["Формат усіх трьох частин","Критерії оцінювання","Відеоприклади"],"ru":["Формат всех трёх частей","Критерии оценивания","Видеопримеры"],"en":["All three test parts","Assessment criteria","Video examples"]},
+    "best":{"uk":"Розумінню формату й самоперевірці відповідей.","ru":"Пониманию формата и самопроверке ответов.","en":"Understanding the format and reviewing your own answers."}
+  },
+  {
+    "id":"ielts-reading-resources","title":"Official IELTS Reading Resources","type":"free","source":"IELTS.org","formats":["academic","general"],"skills":["reading"],"mark":"READ",
+    "url":"https://ielts.org/take-a-test/preparation-resources/reading-test-resources",
+    "summary":{"uk":"Офіційні пояснення типів запитань, стратегії та практика Reading.","ru":"Официальные объяснения типов вопросов, стратегии и практика Reading.","en":"Official explanations of question types, strategies and Reading practice."},
+    "description":{"uk":"Сторінка допомагає розібрати типи завдань і тренувати точність без випадкових сторонніх збірників.","ru":"Страница помогает разобрать типы заданий и тренировать точность без случайных сторонних сборников.","en":"This page helps break down task types and build accuracy without relying on random third-party worksheets."},
+    "facts":["Free","Academic + General","Reading","Official"],
+    "bullets":{"uk":["Типи запитань","Робота з часом","Офіційні поради"],"ru":["Типы вопросов","Работа со временем","Официальные советы"],"en":["Question types","Time management","Official guidance"]},
+    "best":{"uk":"Точковій роботі над помилками Reading.","ru":"Точечной работе над ошибками Reading.","en":"Targeted work on recurring Reading mistakes."}
   }
 ];
 

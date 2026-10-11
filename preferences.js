@@ -3,7 +3,7 @@
   const KEY = 'fullride-preferences-v1';
   const defaults = {
     interface:{language:'uk',theme:'light',fontScale:1,reduceMotion:false},
-    profile:{name:'',avatar:'initial',hideName:false,country:'',gpa:null,notes:''},
+    profile:{name:'',avatar:'initial',avatarImage:'',hideName:false,country:'',gpa:null,notes:''},
     admission:{year:new Date().getFullYear()+1,degree:'',focus:'',region:'',budget:null,scholarship:false},
     preparation:{ielts:null,sat:null,examDate:'',dailyWords:20},
     cards:{newWords:20,reviewLimit:20,direction:'recognition',autoSpeak:false,speechRepeats:1},
@@ -19,7 +19,8 @@
     if(!value||typeof value!=='object'||Array.isArray(value))value={};
     const d = clone(defaults), i=value.interface||{}, p=value.profile||{}, a=value.admission||{}, prep=value.preparation||{}, c=value.cards||{}, r=value.reminders||{};
     d.interface = {language:choice(i.language,['uk','ru','en'],'uk'),theme:choice(i.theme,['light','dark'],'light'),fontScale:choice(Number(i.fontScale),[1,1.125,1.25],1),reduceMotion:i.reduceMotion===true};
-    d.profile = {name:text(p.name,80),avatar:choice(p.avatar,['initial','sun','leaf','star'],'initial'),hideName:p.hideName===true,country:text(p.country,80),gpa:number(p.gpa,0,4),notes:text(p.notes,2000)};
+    const avatarImage=typeof p.avatarImage==='string'&&/^data:image\/(?:png|jpeg|webp);base64,[a-z0-9+/=]+$/i.test(p.avatarImage)&&p.avatarImage.length<=140000?p.avatarImage:'';
+    d.profile = {name:text(p.name,80),avatar:choice(p.avatar,['initial','sun','leaf','star'],'initial'),avatarImage,hideName:p.hideName===true,country:text(p.country,80),gpa:number(p.gpa,0,4),notes:text(p.notes,2000)};
     d.admission = {year:integer(a.year,2026,2040,defaults.admission.year),degree:choice(a.degree,['','3','4'],''),focus:choice(a.focus,['','stem','arts','social-sciences','business'],''),region:choice(a.region,['','northeast','south','midwest','west'],''),budget:number(a.budget,0,300000),scholarship:a.scholarship===true};
     d.preparation = {ielts:number(prep.ielts,0,9),sat:integer(prep.sat,400,1600),examDate:date(prep.examDate),dailyWords:integer(prep.dailyWords,1,200,20)};
     d.cards = {newWords:integer(c.newWords,0,100,20),reviewLimit:integer(c.reviewLimit,1,100,20),direction:choice(c.direction,['recognition','reproduction'],'recognition'),autoSpeak:c.autoSpeak===true,speechRepeats:choice(Number(c.speechRepeats),[1,2,3],1)};
@@ -92,6 +93,7 @@
       if(guest.updatedAt)write(guest.value,'cloud');
     },
     avatar:()=>({initial:record.value.profile.name.charAt(0).toUpperCase()||'FR',sun:'☀',leaf:'❧',star:'✦'}[record.value.profile.avatar]),
+    avatarImage:()=>record.value.profile.avatarImage,
     reset:()=>write(clone(defaults)),
     backup:()=>clone(record),
     key:KEY

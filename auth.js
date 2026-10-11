@@ -307,13 +307,20 @@ function renderUser(user) {
   trigger.classList.toggle("is-signed-in", Boolean(user));
   const privateName = globalThis.FullRidePreferences?.value.profile.hideName;
   trigger.querySelector("[data-auth-key='account']").textContent = privateName ? at('account') : user?.displayName || user?.email?.split("@")[0] || at("account");
-  trigger.querySelector(".account-trigger__avatar").textContent = user && !privateName ? globalThis.FullRidePreferences?.avatar() || (user.displayName || user.email || "U").trim().charAt(0).toUpperCase() : "◎";
+  const triggerAvatar=trigger.querySelector(".account-trigger__avatar");
+  const customAvatar=user&&!privateName?globalThis.FullRidePreferences?.avatarImage?.():'';
+  triggerAvatar.textContent = customAvatar ? "" : user && !privateName ? globalThis.FullRidePreferences?.avatar() || (user.displayName || user.email || "U").trim().charAt(0).toUpperCase() : "◎";
+  triggerAvatar.classList.toggle('has-photo',Boolean(customAvatar));
+  triggerAvatar.style.backgroundImage=customAvatar?`url("${customAvatar}")`:'';
   if (!user) { updateActivityChoice(null); return; }
 
   const displayName = user.displayName || user.email?.split("@")[0] || at("account");
   aq("auth-user-name").textContent = displayName;
   aq("auth-user-email").textContent = user.email || "";
-  aq("auth-user-avatar").textContent = displayName.trim().charAt(0).toUpperCase();
+  const userAvatar=aq("auth-user-avatar"),profilePhoto=globalThis.FullRidePreferences?.avatarImage?.();
+  userAvatar.textContent = profilePhoto ? "" : displayName.trim().charAt(0).toUpperCase();
+  userAvatar.classList.toggle('has-photo',Boolean(profilePhoto));
+  userAvatar.style.backgroundImage=profilePhoto?`url("${profilePhoto}")`:'';
   aq("auth-profile-form").elements.name.value = user.displayName || "";
   aq("auth-verification-label").textContent = at(user.emailVerified ? "verified" : "unverified");
   aq("auth-verification").classList.toggle("is-verified", user.emailVerified);
@@ -554,6 +561,7 @@ window.addEventListener('fullride:preferences',()=>{
   const name=aq('account-trigger')?.querySelector("[data-auth-key='account']");
   if(name)name.textContent=globalThis.FullRidePreferences?.value.profile.hideName?at('account'):currentUser?.displayName||at('account');
   const avatar=aq('account-trigger')?.querySelector('.account-trigger__avatar');
-  if(avatar)avatar.textContent=currentUser&&!globalThis.FullRidePreferences?.value.profile.hideName?globalThis.FullRidePreferences.avatar():'◎';
+  if(avatar){const visible=currentUser&&!globalThis.FullRidePreferences?.value.profile.hideName,image=visible?globalThis.FullRidePreferences?.avatarImage?.():'';avatar.textContent=image?'':visible?globalThis.FullRidePreferences.avatar():'◎';avatar.classList.toggle('has-photo',Boolean(image));avatar.style.backgroundImage=image?`url("${image}")`:'';}
+  if(currentUser)renderUser(currentUser);
 });
 initializeFirebase();

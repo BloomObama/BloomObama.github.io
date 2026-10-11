@@ -77,7 +77,7 @@
 
   function activeRoute() {
     if (file === "settings.html") return "settings";
-    if (file === "practice.html") return "practice";
+    if (file === "practice.html") return "resources";
     if (file === "ielts-resources.html") return "resources";
     if (file === "sat-resources.html") return "sat";
     if (file === "compare.html") return "compare";
@@ -101,11 +101,18 @@
       return '<' + (isButton ? 'button type="button" data-rail-saved' : 'a href="' + href(key,lang) + '" data-rail-route="' + key + '"') +
         ' class="fr-rail__link">' + icon(key) + '<span>' + t[key] + '</span><span class="fr-rail__arrow" aria-hidden="true">↗</span></' + (isButton ? "button" : "a") + '>';
     };
+    const practiceOpen = ["practice","resources","sat"].includes(activeRoute());
+    const primaryLinks = route.slice(0,2).map(link).join("") +
+      '<button type="button" class="fr-rail__link fr-rail__practice-toggle ' + (practiceOpen ? 'is-active' : '') + '" data-rail-practice-toggle aria-expanded="' + practiceOpen + '">' + icon('practice') + '<span>' + t.practice + '</span><span class="fr-rail__chevron" aria-hidden="true">⌄</span></button>' +
+      '<div class="fr-rail__subnav" data-rail-practice-menu ' + (practiceOpen ? '' : 'hidden') + '>' +
+        '<a href="' + href('resources',lang) + '" data-rail-route="resources" class="fr-rail__sublink"><span>IELTS</span><i aria-hidden="true">↗</i></a>' +
+        '<a href="' + href('sat',lang) + '" data-rail-route="sat" class="fr-rail__sublink"><span>SAT</span><i aria-hidden="true">↗</i></a>' +
+      '</div>' + route.slice(5,7).map(link).join("");
     rail.innerHTML =
       '<div class="fr-rail__brand"><a href="' + href("home",lang) + '" aria-label="AdmitVector"><span class="fr-rail__mark">AV</span><strong>Admit<i>Vector</i></strong></a><button class="fr-rail__close" type="button" aria-label="' + t.close + '">×</button></div>' +
-      '<p class="fr-rail__caption">' + t.navigation + '</p><nav aria-label="' + t.navigation + '">' + route.slice(0,7).map(link).join("") + '</nav>' +
+      '<p class="fr-rail__caption">' + t.navigation + '</p><nav aria-label="' + t.navigation + '">' + primaryLinks + '</nav>' +
       '<p class="fr-rail__caption fr-rail__caption--tools">' + t.tools + '</p><nav aria-label="' + t.tools + '">' + route.slice(7).map(link).join("") + '</nav>' +
-      '<div class="fr-rail__footer"><button class="fr-rail__account" type="button" data-rail-account>' + icon("account") + '<span>' + t.account + '</span></button><small>' + t.tagline + '</small></div>';
+      '<div class="fr-rail__footer"><button class="fr-rail__account" type="button" data-rail-account><span class="fr-rail__account-avatar">' + icon("account") + '</span><span>' + t.account + '</span></button><small>' + t.tagline + '</small></div>';
     rail.setAttribute("aria-label", t.navigation);
     toggle.setAttribute("aria-label", document.body.classList.contains("fr-rail-open") ? t.close : t.menu);
     if (!onHome) {
@@ -116,6 +123,14 @@
       });
     }
     setActive(activeRoute());
+    syncRailAvatar();
+  }
+  function syncRailAvatar() {
+    const avatar=rail.querySelector('.fr-rail__account-avatar'),image=globalThis.FullRidePreferences?.avatarImage?.();
+    if(!avatar)return;
+    avatar.classList.toggle('has-photo',Boolean(image));
+    avatar.style.backgroundImage=image?`url("${image}")`:'';
+    avatar.innerHTML=image?'':icon('account');
   }
   function setOpen(open) {
     document.body.classList.toggle("fr-rail-open", open);
@@ -134,6 +149,14 @@
   backdrop.addEventListener("click", () => setOpen(false));
   rail.addEventListener("click", event => {
     if (event.target.closest(".fr-rail__close")) { setOpen(false); toggle.focus(); return; }
+    const practiceToggle = event.target.closest("[data-rail-practice-toggle]");
+    if (practiceToggle) {
+      const menu = rail.querySelector("[data-rail-practice-menu]");
+      const open = practiceToggle.getAttribute("aria-expanded") !== "true";
+      practiceToggle.setAttribute("aria-expanded", String(open));
+      menu.hidden = !open;
+      return;
+    }
     if (event.target.closest("[data-rail-account]")) {
       setOpen(false);
       document.getElementById("account-trigger")?.click();
@@ -162,6 +185,8 @@
     syncAccessibility();
   });
   new MutationObserver(() => render()).observe(document.documentElement, { attributes:true, attributeFilter:["lang"] });
+  window.addEventListener('fullride:preferences',syncRailAvatar);
+  window.addEventListener('fullride:account',syncRailAvatar);
   render();
   syncAccessibility();
   if (onHome && sessionStorage.getItem("fullride-open-saved") === "1") {
@@ -185,6 +210,6 @@
 
 if ("serviceWorker" in navigator && location.protocol === "https:") {
   window.addEventListener("load", () => {
-    navigator.serviceWorker.register("sw.js?v=5",{updateViaCache:'none'}).catch(() => {});
+    navigator.serviceWorker.register("sw.js?v=6",{updateViaCache:'none'}).catch(() => {});
   });
 }

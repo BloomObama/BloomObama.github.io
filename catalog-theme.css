@@ -133,8 +133,10 @@ html[data-theme] body.catalog-page .seo-directory-entry > span:last-child { colo
   html[data-theme] body.catalog-page .filter-panel { padding:1rem; }
 }
 @media(max-width:420px) {
-  html[data-theme] body.catalog-page .college-randomizer { grid-template-columns:minmax(0,1fr); }
-  html[data-theme] body.catalog-page .random-lever { width:112px; justify-self:center; }
+  html[data-theme] body.catalog-page .college-randomizer { grid-template-columns:minmax(0,1fr) 96px; gap:.45rem; align-items:stretch; }
+  html[data-theme] body.catalog-page .random-lever { width:96px; justify-self:end; padding-inline:.2rem; }
+  html[data-theme] body.catalog-page .random-teaser { padding:.9rem; }
+  html[data-theme] body.catalog-page .random-teaser p { font-size:.68rem; }
 }
 /* Respect both the stored accessibility setting and the operating system. */
 html[data-motion="reduce"] body.catalog-page *,html[data-motion="reduce"] body.catalog-page *::before,html[data-motion="reduce"] body.catalog-page *::after { animation:none!important; transition:none!important; }

@@ -16,11 +16,37 @@ body.has-side-rail { background:#faf7f2; }
 .fr-rail__link.is-active { border-color:var(--fr-red-dark); background:var(--fr-red); color:#fff; box-shadow:0 9px 20px rgba(120,32,47,.2); }
 .fr-rail__link.is-active svg,.fr-rail__link.is-active .fr-rail__arrow { color:#ffe1a1; }
 .fr-rail__link.is-active:hover { background:#921e30; }
+.fr-rail__practice-toggle.is-active { border-color:#e5c8c2; background:#fff2ed; color:var(--fr-red-dark); box-shadow:none; }
+.fr-rail__practice-toggle.is-active svg,.fr-rail__practice-toggle.is-active .fr-rail__chevron { color:var(--fr-red); }
 .fr-rail__account:hover { border-color:var(--fr-red); background:#fff3ed; }
 .has-side-rail .topbar { border-bottom-color:#e9dccc; background:rgba(255,252,248,.94); }
 .has-side-rail .topbar .brand-mark { background:var(--fr-red); color:#fff; }
 .has-side-rail .topbar .brand i { color:var(--fr-red); }
 .has-side-rail .topbar nav a:hover,.has-side-rail .practice-topbar nav a:hover { color:var(--fr-red); }
+
+/* Saved universities: the same wine, cream and gold system as the rest of AdmitVector. */
+.has-side-rail .shortlist-drawer { border-left-color:#d3aa70; background:#fbf7f1; box-shadow:-24px 0 60px rgba(55,25,37,.25); }
+.has-side-rail .shortlist-drawer__header { min-height:148px; background:linear-gradient(132deg,#511d30,#7f2338); }
+.has-side-rail .shortlist-drawer__header::after { color:rgba(255,216,139,.1); }
+.has-side-rail .shortlist-drawer__header span { color:#f3c979; }
+.has-side-rail .shortlist-drawer__header button { border-color:rgba(255,226,179,.48); border-radius:10px; }
+.has-side-rail .shortlist-drawer__summary { border-color:#ead7bf; background:#fffaf3; }
+.has-side-rail .shortlist-drawer__summary>strong { background:#d7a34f; color:#421c2c; }
+.has-side-rail .shortlist-drawer__summary span { color:#4e2230; }
+.has-side-rail .shortlist-drawer__summary small { color:#77676a; }
+.has-side-rail .shortlist-drawer__list { background:linear-gradient(#fbf7f1,#f7efe6); }
+.has-side-rail .saved-drawer-card { overflow:hidden; border-color:#e2cdb6; border-radius:16px; background:#fffdf9; box-shadow:0 8px 22px rgba(77,34,44,.08); }
+.has-side-rail .saved-drawer-card__photo { background:#eadfd3; }
+.has-side-rail .saved-drawer-card__copy>span { color:#a46930; }
+.has-side-rail .saved-drawer-card__copy h3 { color:#421c2c; }
+.has-side-rail .saved-drawer-card__copy a { color:#a1263f; }
+.has-side-rail .saved-drawer-card__copy button { color:#856f70; }
+.has-side-rail .shortlist-empty { color:#4d2733; }
+.has-side-rail .shortlist-empty>div { color:#b17c2f; }
+.has-side-rail .shortlist-drawer__footer { border-color:#ead7bf; background:#fffaf3; }
+.has-side-rail .shortlist-drawer__footer button { border-color:#792239; border-radius:11px; background:#9f2841; }
+.has-side-rail .shortlist-drawer__footer button+button { background:#fffdf9; color:#682034; }
+.has-side-rail .shortlist-drawer__footer button:hover { border-color:#d39a46; background:#f2c86f; color:#421c2c; }
 
 /* Keep the comparison introduction in proportion to the actual table. */
 .compare-page.has-side-rail .compare-hero {
@@ -70,6 +96,11 @@ body.has-side-rail { background:#faf7f2; }
   border-color:#5a2430;
   background:linear-gradient(135deg,#6e1e31 0%,#431c2d 78%);
   box-shadow:0 18px 40px rgba(96,30,43,.16);
+}
+.has-side-rail main#top > .intro { margin-inline:-5vw; padding-top:0; }
+.has-side-rail main#top > .intro .intro-shell { border-radius:0 0 18px 18px; }
+@media(max-width:700px) {
+  .has-side-rail main#top > .intro { margin-inline:-1.1rem; }
 }
 .has-side-rail .intro-copy-block { border-right-color:rgba(236,190,105,.38); }
 

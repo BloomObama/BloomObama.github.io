@@ -90,6 +90,10 @@ let selectedRandomCollege = null;
 let shortlistMode = false;
 let activeDiscoveryRoute = "";
 const q = id => document.getElementById(id);
+const campusPhoto = college => String(college.photoThumb || college.photo || "")
+  .replace(/\/\d{3,4}px-/,"/720px-")
+  .replace(/([?&])w=\d+/,"$1w=720")
+  .replace(/([?&])width=\d+/,"$1width=720");
 const t = key => translations[language][key] || key;
 const formatCount = value => value.toLocaleString(language === "en" ? "en-US" : language === "ru" ? "ru-RU" : "uk-UA");
 const formatAuditDate = value => value ? new Intl.DateTimeFormat(language === "en" ? "en-US" : language === "ru" ? "ru-RU" : "uk-UA", { year:"numeric", month:"short", day:"numeric" }).format(new Date(`${value}T12:00:00`)) : "";
@@ -157,7 +161,7 @@ function renderShortlistDrawer() {
   q("show-saved-results").disabled = !saved.length;
   q("shortlist-drawer-list").innerHTML = saved.length ? saved.map((college, index) => `
     <article class="saved-drawer-card">
-      <a class="saved-drawer-card__photo" href="university.html?id=${encodeURIComponent(college.slug)}&lang=${language}"><img src="${college.photoThumb || college.photo}" alt="${t("randomImageAlt").replace("{name}", college.name)}" loading="lazy" decoding="async" /></a>
+      <a class="saved-drawer-card__photo" href="university.html?id=${encodeURIComponent(college.slug)}&lang=${language}"><img src="${campusPhoto(college)}" alt="${t("randomImageAlt").replace("{name}", college.name)}" loading="lazy" decoding="async" fetchpriority="low" /></a>
       <div class="saved-drawer-card__copy">
         <span>${String(index + 1).padStart(2, "0")} · ${t(college.verified ? "collectionVerified" : "collectionPending")}</span>
         <h3>${college.name}</h3>
@@ -193,7 +197,7 @@ function renderComparisonUI() {
   q("open-comparison").href = destination;
   q("comparison-tray").hidden = !selected.length || compareTrayDismissed;
   q("comparison-chips").innerHTML = selected.map(college => `
-    <span class="comparison-chip"><img src="${college.photoThumb || college.photo}" alt="" loading="lazy" decoding="async" /><b>${college.short}</b><button type="button" data-compare-remove="${college.slug}" aria-label="${t("compareRemove")}: ${college.name}">×</button></span>`).join("");
+    <span class="comparison-chip"><img src="${campusPhoto(college)}" alt="" loading="lazy" decoding="async" fetchpriority="low" /><b>${college.short}</b><button type="button" data-compare-remove="${college.slug}" aria-label="${t("compareRemove")}: ${college.name}">×</button></span>`).join("");
 }
 
 function toggleComparison(slug) {
@@ -324,7 +328,7 @@ function render() {
     window.FullRideCollegeData.load(pendingDetails).then(render).catch(() => {});
   }
   const cards = matches.length ? visibleMatches.map(college => `
-    <article class="card card--photo ${college.verified ? "card--verified" : "card--pending"}" style="--campus:url('${college.photoThumb || college.photo}')">
+    <article class="card card--photo ${college.verified ? "card--verified" : "card--pending"}" data-campus="${encodeURIComponent(campusPhoto(college))}">
       <a class="card-hit-area" href="university.html?id=${encodeURIComponent(college.slug)}&lang=${language}" aria-label="${t("viewProfile")}: ${college.name}"></a>
       <div class="card-audit-status ${college.verified ? "is-verified" : "is-pending"}">${college.verified ? `${t("verifiedBadge")} · ${formatAuditDate(college.checkedAt)}` : FullRidePolicy.count(college)>0 ? t('partialBadge').replace('{count}',FullRidePolicy.count(college)) : t("pendingBadge")}</div>
       <div class="card-top"><div><h3>${college.name}</h3><p class="place">${college.location}</p></div>${FullRidePolicy.known(college,'aid')&&college.aidShort ? '<span class="badge">'+FullRidePolicy.escape(college.aidShort)+'</span>' : ''}</div>
@@ -350,6 +354,20 @@ function render() {
       <small>${t("savedLocal")}</small>
     </aside>` : "";
   q("results").innerHTML = cards + singleMatchPanel;
+  const campusCards = q("results").querySelectorAll("[data-campus]");
+  const revealCampus = card => {
+    const url = decodeURIComponent(card.dataset.campus || "");
+    if (url) card.style.setProperty("--campus", `url("${url.replace(/["\\]/g, "\\$&")}")`);
+    card.removeAttribute("data-campus");
+  };
+  if ("IntersectionObserver" in window) {
+    const imageObserver = new IntersectionObserver(entries => entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      revealCampus(entry.target);
+      imageObserver.unobserve(entry.target);
+    }), { rootMargin:"500px 0px" });
+    campusCards.forEach(card => imageObserver.observe(card));
+  } else campusCards.forEach(revealCampus);
   q("show-more").textContent = `${showMoreLabels[language]} · ${Math.max(0, Math.min(10, matches.length - visibleCount))}`;
   q("show-more").hidden = matches.length <= visibleCount || !resultsExpanded;
 }
@@ -523,7 +541,7 @@ function pickRandomCollege() {
 function updateRandomReveal(college) {
   const image = q("random-reveal-image");
   if (!college || !image) return;
-  image.src = college.photoThumb || college.photo;
+  image.src = campusPhoto(college);
   image.alt = t("randomImageAlt").replace("{name}", college.name);
   q("random-reveal-name").textContent = college.name;
   q("random-reveal-location").textContent = college.location;

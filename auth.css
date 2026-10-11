@@ -150,3 +150,4 @@ body.auth-open .auth-dialog { visibility:visible; transform:none; }
   .auth-dialog__header h2 { font-size:1.8rem; }
   .auth-dialog__body { padding:1.35rem 1.3rem 2rem; }
 }
+.account-trigger__avatar.has-photo,.auth-user__avatar.has-photo{background-size:cover!important;background-position:center!important;background-repeat:no-repeat!important;color:transparent!important}

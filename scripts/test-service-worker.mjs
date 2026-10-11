@@ -6,8 +6,8 @@ import vm from 'node:vm';
 const root = path.resolve(import.meta.dirname, '..');
 const source = fs.readFileSync(path.join(root, 'sw.js'), 'utf8');
 const navigation = fs.readFileSync(path.join(root, 'site-nav.js'), 'utf8');
-assert.match(source, /CACHE_VERSION = "fullride-v5"/);
-assert.match(navigation, /register\("sw\.js\?v=5"/);
+assert.match(source, /CACHE_VERSION = "fullride-v6"/);
+assert.match(navigation, /register\("sw\.js\?v=6"/);
 
 async function requestFor({ destination, mode = 'same-origin', offline = false }) {
   const listeners = new Map();
