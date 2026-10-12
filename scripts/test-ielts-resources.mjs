@@ -12,7 +12,7 @@ try {
   await page.locator('.resource-card__visual img[src^="assets/"]').evaluateAll(images => images.forEach(image => { image.loading = 'eager'; }));
   await page.waitForFunction(() => [...document.querySelectorAll('.resource-card__visual img[src^="assets/"]')].every(image => image.complete), { timeout:10000 });
   const passed = [];
-  passed.push(check("33 curated resources render",await page.locator(".resource-card").count() === 33));
+  passed.push(check("35 curated resources render",await page.locator(".resource-card").count() === 35));
   passed.push(check("original local book covers decode",await page.locator('.resource-card__visual img[src^="assets/"]').evaluateAll(images => images.every(image => image.complete && image.naturalWidth > 0))));
   await page.locator('[data-resource-filter="book"]').click();
   passed.push(check("book filter shows eleven books",await page.locator(".resource-card").count() === 11));
@@ -20,7 +20,7 @@ try {
   passed.push(check('combined book and vocabulary filters work',await page.locator('.resource-card').count() === 1));
   await page.locator("#resource-reset").click();
   await page.locator("#resource-search").fill("Writing");
-  passed.push(check("search narrows the library",await page.locator(".resource-card").count() > 0 && await page.locator(".resource-card").count() < 33));
+  passed.push(check("search narrows the library",await page.locator(".resource-card").count() > 0 && await page.locator(".resource-card").count() < 35));
   await page.locator("#resource-reset").click();
   await page.locator('[data-resource-id="ielts-21-academic"]').click();
   passed.push(check("card opens an information dialog",await page.locator("#resource-dialog").evaluate(dialog => dialog.open)));

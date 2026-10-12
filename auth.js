@@ -282,22 +282,33 @@ function syncUserData(user, mergeRemote = false) {
       const packLearned = practiceState.exportLearned();
       globalThis.AdmitVectorStudent?.merge(remote.studentData);
       const studentData = globalThis.AdmitVectorStudent?.export?.() || {version:1,profile:{},categories:{},applications:[]};
+      const displayName = String(user.displayName || remote.displayName || "").slice(0, 80);
 
       if (mergeRemote) {
         localStorage.setItem("fullride-shortlist-v1", JSON.stringify(shortlist));
         localStorage.setItem("fullride-compare-v1", JSON.stringify(comparison));
       }
 
-      await setDoc(reference, {
-        displayName: String(user.displayName || remote.displayName || "").slice(0, 80),
-        shortlist,
-        comparison,
-        flashcards,
-        packLearned,
-        studentData,
-        createdAt: remote.createdAt || serverTimestamp(),
-        updatedAt: serverTimestamp()
-      }, { merge:true });
+      const same = (left, right) => JSON.stringify(left) === JSON.stringify(right);
+      const changed = !snapshot.exists()
+        || remote.displayName !== displayName
+        || !same(remote.shortlist, shortlist)
+        || !same(remote.comparison, comparison)
+        || !same(remote.flashcards, flashcards)
+        || !same(remote.packLearned, packLearned)
+        || !same(remote.studentData, studentData);
+      if (changed) {
+        await setDoc(reference, {
+          displayName,
+          shortlist,
+          comparison,
+          flashcards,
+          packLearned,
+          studentData,
+          createdAt: remote.createdAt || serverTimestamp(),
+          updatedAt: serverTimestamp()
+        }, { merge:true });
+      }
 
       if (auth.currentUser?.uid !== user.uid) return false;
       localStorage.removeItem(accountBackupKey(user.uid));

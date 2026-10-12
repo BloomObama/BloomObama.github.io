@@ -10,6 +10,7 @@ assert.match(source, /const measurementId = 'G-XR6QWB4BDZ';/, 'the linked Fireba
 function run(consent) {
   const storage = new Map(consent ? [['admitvector-analytics-consent-v1', consent]] : []);
   const requests = [];
+  const handlers = {};
   const elements = new Map();
   const makeElement = tag => ({
     tag, style:{}, children:[], textContent:'',
@@ -33,9 +34,9 @@ function run(consent) {
   };
   context.globalThis = context;
   context.window = context;
-  context.addEventListener = () => {};
+  context.addEventListener = (name, handler) => { handlers[name] = handler; };
   vm.runInNewContext(source, context);
-  return { requests, elements, storage, context };
+  return { requests, elements, storage, context, handlers };
 }
 
 const undecided = run(null);
@@ -49,4 +50,9 @@ const granted = run('granted');
 assert.equal(granted.requests.length, 1, 'prior consent loads one GA4 script');
 assert.match(granted.requests[0], /G-XR6QWB4BDZ/);
 assert.equal(granted.elements.size, 0, 'prior consent does not show the prompt');
+granted.handlers.error();
+const errorEvent = granted.context.dataLayer.find(entry => entry[0] === 'event' && entry[1] === 'client_error');
+assert.equal(errorEvent[2].error_type, 'runtime');
+assert.equal(errorEvent[2].page_path, '/practice');
+assert.ok(!('message' in errorEvent[2]) && !('stack' in errorEvent[2]), 'monitoring sends no error text or stack');
 console.log('PASS: GA4 requires consent, rejection sends no request, prior consent loads once');

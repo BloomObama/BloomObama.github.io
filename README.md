@@ -1,5 +1,43 @@
 # AdmitVector
 
+AdmitVector is a static, multilingual university-search and application-planning site for Ukrainian applicants researching U.S. institutions. The public catalogue is generated from repository data; Firebase Authentication and Cloud Firestore are used only for optional accounts and private user progress. Production is served by Cloudflare Pages at <https://www.admitvector.com/>.
+
+## Quick start
+
+Requirements: Node.js 22 or newer. The production site has no server process and no bundled npm runtime dependencies.
+
+```text
+npm install
+npm run build:data
+npm test
+node scripts/serve-test.mjs
+```
+
+Open <http://127.0.0.1:8765/> after starting the local server. `npm run build:data` regenerates the compact search index, 128 detail shards, verified SEO pages and `sitemap.xml`; it is the production build step. Cloudflare publishes the repository root, so there is no separate `dist` directory.
+
+Browser tests require Playwright and a running local server. CI installs Chromium automatically. Firestore rule tests additionally require Java 21:
+
+```text
+npm install --no-save playwright
+npx playwright install chromium
+npm run test:security:rules
+```
+
+## Project map
+
+- `index.html`, `app.js`, `styles.css` — home page and finder.
+- `university.html`, `university.js` — interactive university profile.
+- `planner.html`, `planner.js`, `student-data.js` — applicant profile, shortlist, applications and deadlines.
+- `practice.html`, `practice*.js` — vocabulary practice.
+- `ielts-resources.html`, `sat-resources.html` — preparation libraries.
+- `auth.js`, `firestore.rules`, `member-metrics.mjs` — accounts, authorization and opt-in activity totals.
+- `college-catalog.js`, `college-directory.js`, `college-media.js`, `college-policies.js` — source datasets kept in Git.
+- `college-index.js`, `data/college-details/`, `universities/`, `sitemap.xml` — generated runtime files; do not edit them directly.
+- `scripts/` — generators, validation and browser regression tests.
+- `_headers`, `_redirects`, `sw.js` — Cloudflare security, caching and offline behavior.
+
+Operational documentation: [deployment and rollback](DEPLOYMENT.md), [Firebase](FIREBASE.md), [security](SECURITY.md), [university data](DATA.md), [troubleshooting](TROUBLESHOOTING.md), and the [current launch baseline](LAUNCH.md).
+
 ## College directory data
 
 The directory is generated from the [U.S. Department of Education College Scorecard](https://catalog.data.gov/dataset/college-scorecard) institution-level release dated May 19, 2025. It contains all 5,002 operating main campuses in that release: 1,793 bachelor's-predominant institutions in `college-catalog.js` and 3,209 additional institutions in `college-directory.js`.
@@ -50,4 +88,4 @@ Practice uses `practice-state.js` to migrate legacy storage, merge timestamped k
 
 The finder supports multi-term queries, predominant degree, ownership, nonresident tuition ceilings, enrollment size, and sorting. Search/filter state is shareable in the URL. Financial filters exclude unreported values rather than treating them as zero. Tuition is an historical Scorecard measure before aid and living expenses, not the student's net cost or a current-cycle quote. Predominant degree describes the institution's main award level, not every offered program.
 
-The preparation library contains 33 official-source resources, including 11 books, with combined skill, IELTS-format, and resource-type filters. General-English practice is labelled separately from IELTS mock tests. Publisher outages and access restrictions are not silently treated as working product links: Cambridge books retain ISBN catalogue fallbacks. Run `node scripts/check-resources.mjs` to regenerate `data/resource-link-check.json`; the broader directory's reachability audit is in `data/official-website-check.json` and does not certify admissions policies.
+The preparation library contains 35 official-source resources, including 11 books, with combined skill, IELTS-format, and resource-type filters. General-English practice is labelled separately from IELTS mock tests. Publisher outages and access restrictions are not silently treated as working product links: Cambridge books retain ISBN catalogue fallbacks. Run `node scripts/check-resources.mjs` to regenerate `data/resource-link-check.json`; the broader directory's reachability audit is in `data/official-website-check.json` and does not certify admissions policies.

@@ -19,11 +19,11 @@ export async function sendEmailVerification(user){window.__verificationEmail=use
 export const GoogleAuthProvider=class{};
 `;
 const firestoreStub=`
-window.__docs={};
+window.__docs={};window.__writeCount=0;
 export const getFirestore=()=>({});
 export const doc=(db,collection,uid)=>uid;
 export const getDoc=async uid=>({exists:()=>Boolean(window.__docs[uid]),data:()=>window.__docs[uid]});
-export const setDoc=async(uid,data)=>{window.__docs[uid]=JSON.parse(JSON.stringify(data));};
+export const setDoc=async(uid,data)=>{window.__writeCount++;window.__docs[uid]=JSON.parse(JSON.stringify(data));};
 export const serverTimestamp=()=>123;
 `;
 try {
@@ -102,6 +102,9 @@ try {
  await page.locator('#settings-form [type="submit"]').click();await page.waitForFunction(()=>FullRideAuth.state.user.displayName==='Алиса');
  await page.locator('#settings-sync').click();await page.waitForFunction(()=>FullRideAuth.state.status==='synced');
  assert.equal(await page.evaluate(()=>__docs['user-A'].flashcards[0].state.preferences.value.profile.notes),'Private A');
+ const settledWrites=await page.evaluate(()=>__writeCount);
+ await page.locator('#settings-sync').click();await page.waitForFunction(()=>FullRideAuth.state.status==='synced');
+ assert.equal(await page.evaluate(()=>__writeCount),settledWrites,'an unchanged manual sync does not create a redundant Firestore write');
  await page.locator('#settings-password').click();await page.waitForFunction(()=>window.__resetEmail==='user-A@example.com');
  await page.locator('[name="profile.hideName"]').check();await page.locator('#settings-form [type="submit"]').click();
  assert.equal(await page.locator('#account-trigger [data-auth-key="account"]').textContent(),'Аккаунт');

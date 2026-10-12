@@ -108,7 +108,7 @@ try {
   await page.addInitScript(() => {
     const write = Storage.prototype.setItem;
     Storage.prototype.setItem = function(key,value) {
-      if (String(key).startsWith('fullride-profile-checklist-v1:')) throw new Error('Storage blocked');
+      if (String(key).startsWith('fullride-profile-checklist-v2:')) throw new Error('Storage blocked');
       return write.call(this,key,value);
     };
   });

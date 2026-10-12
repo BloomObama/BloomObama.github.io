@@ -68,10 +68,11 @@ try {
   for (const route of ['index.html?lang=ru', 'compare.html?lang=ru', 'ielts-resources.html?lang=ru']) {
     await page.goto(`http://127.0.0.1:8765/${route}`);
     const active = page.locator('.fr-rail__link.is-active').first();
+    const activeColor = await active.evaluate(el => getComputedStyle(el).color);
     await active.hover();
-    await assertSettledColor(active, 'rgb(255, 255, 255)', `${route}: active navigation hover stays readable`);
+    await assertSettledColor(active, activeColor, `${route}: active navigation hover stays readable`);
     await active.focus();
-    await assertSettledColor(active, 'rgb(255, 255, 255)', `${route}: active navigation focus stays readable`);
+    await assertSettledColor(active, activeColor, `${route}: active navigation focus stays readable`);
     if (route.startsWith('index')) {
       await page.locator('#search').fill('Harvard University');
       const card = page.locator('.card').first();

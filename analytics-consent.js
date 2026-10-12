@@ -12,6 +12,17 @@
   const language = () => labels[globalThis.FullRidePreferences?.language?.()] || labels.uk;
   const read = () => { try { return localStorage.getItem(storageKey); } catch { return null; } };
   let loaded = false;
+  const reportedErrors = new Set();
+
+  function reportError(kind) {
+    if (!loaded || read() !== 'granted' || typeof globalThis.gtag !== 'function' || reportedErrors.has(kind)) return;
+    reportedErrors.add(kind);
+    globalThis.gtag('event', 'client_error', {
+      error_type: kind,
+      page_path: location.pathname.slice(0, 80),
+      non_interaction: true
+    });
+  }
 
   function loadAnalytics() {
     if (loaded) return;
@@ -89,6 +100,8 @@
 
   function start() {
     refreshStatus();
+    window.addEventListener('error', () => reportError('runtime'));
+    window.addEventListener('unhandledrejection', () => reportError('promise'));
     window.addEventListener('storage', event => {
       if (event.key !== storageKey) return;
       if (event.newValue === 'granted') {
