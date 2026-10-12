@@ -123,14 +123,28 @@ const profileDesignTranslations = {
 Object.entries(profileDesignTranslations).forEach(([language,labels]) => Object.assign(profileTranslations[language],labels));
 
 const checklistKeys = ['checkApplication','checkTranscript','checkRecommendations','checkTests','checkEnglish','checkAid','checkFee','checkDeadlines'];
-const checklistStorageKey = `fullride-profile-checklist-v1:${college?.catalogId || college?.slug || 'missing'}`;
+const checklistCollegeKey = college?.catalogId || college?.slug || 'missing';
+const legacyChecklistStorageKey = `fullride-profile-checklist-v1:${checklistCollegeKey}`;
+let checklistScope = '';
 let checklistChecked = new Set();
 let checklistCanSave = true;
 let profileObserver;
-try {
-  const stored = JSON.parse(localStorage.getItem(checklistStorageKey) || '[]');
-  if (Array.isArray(stored)) checklistChecked = new Set(stored.filter(key => checklistKeys.includes(key)));
-} catch { /* A malformed or unavailable local record must never prevent the profile from opening. */ }
+const checklistStorageKey = () => checklistScope ? `fullride-profile-checklist-v2:${checklistScope}:${checklistCollegeKey}` : '';
+function loadChecklist(scope) {
+  checklistScope = scope || '';
+  checklistChecked = new Set();
+  checklistCanSave = Boolean(checklistScope);
+  if (!checklistScope) return;
+  try {
+    const key = checklistStorageKey();
+    let stored = JSON.parse(localStorage.getItem(key) || 'null');
+    if (!Array.isArray(stored) && checklistScope === 'guest') {
+      stored = JSON.parse(localStorage.getItem(legacyChecklistStorageKey) || '[]');
+      if (Array.isArray(stored)) localStorage.setItem(key, JSON.stringify(stored.filter(item => checklistKeys.includes(item))));
+    }
+    if (Array.isArray(stored)) checklistChecked = new Set(stored.filter(item => checklistKeys.includes(item)));
+  } catch { checklistCanSave = false; }
+}
 
 function policyIcon(key) {
   const paths = {
@@ -156,7 +170,11 @@ function bindProfileInteractions() {
     const key = input.dataset.profileCheck;
     if (input.checked) checklistChecked.add(key); else checklistChecked.delete(key);
     input.closest('li').classList.toggle('is-complete',input.checked);
-    try { localStorage.setItem(checklistStorageKey,JSON.stringify([...checklistChecked])); checklistCanSave = true; }
+    try {
+      const key = checklistStorageKey();
+      if (!key) throw new Error('auth-pending');
+      localStorage.setItem(key,JSON.stringify([...checklistChecked])); checklistCanSave = true;
+    }
     catch { checklistCanSave = false; }
     updateChecklist();
   }));
@@ -291,4 +309,14 @@ function renderProfile() {
 }
 
 document.querySelectorAll("[data-profile-lang]").forEach(button => button.addEventListener("click", () => { profileLanguage = button.dataset.profileLang; globalThis.FullRidePreferences?.update({interface:{language:profileLanguage}});const url=new URL(location.href);url.searchParams.set('lang',profileLanguage);history.replaceState({},'',url);renderProfile(); }));
+function refreshChecklistScope() {
+  const status = globalThis.FullRideAuth?.state?.status;
+  if (!status || status === 'loading') return;
+  const scope = globalThis.FullRidePreferences?.account || 'guest';
+  if (scope === checklistScope) return;
+  loadChecklist(scope);
+  renderProfile();
+}
+window.addEventListener('fullride:account', refreshChecklistScope);
+refreshChecklistScope();
 renderProfile();

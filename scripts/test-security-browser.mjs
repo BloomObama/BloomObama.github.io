@@ -29,6 +29,16 @@ try {
   if (await queryPage.locator('#security-xss').count() || await queryPage.evaluate(() => window.__queryXss)) throw new Error('university id payload executed');
   await queryPage.goto(`http://127.0.0.1:8765/planner.html?view=${encodeURIComponent(payload)}`, { waitUntil:'domcontentloaded' });
   if (await queryPage.locator('[data-panel="profile"][class*="is-active"]').count() !== 1) throw new Error('invalid planner view was not reduced to the safe default');
+  await queryPage.evaluate(value => {
+    localStorage.setItem('admitvector-student-data-v1', JSON.stringify({ profile:{ major:value } }));
+    localStorage.setItem('fullride-preferences-v1', JSON.stringify({
+      updatedAt:Date.now(), value:{ profile:{ name:value, avatarImage:`x');background:url(javascript:window.__storedXss=1);/*` } }
+    }));
+  }, payload);
+  await queryPage.goto('http://127.0.0.1:8765/planner.html?view=profile', { waitUntil:'domcontentloaded' });
+  await queryPage.locator('[name="major"]').waitFor();
+  if (await queryPage.locator('[name="major"]').inputValue() !== payload) throw new Error('stored profile text was not preserved as inert input text');
+  if (await queryPage.locator('#security-xss').count() || await queryPage.evaluate(() => window.__storedXss)) throw new Error('stored profile/avatar payload executed');
   await queryPage.close();
   console.log('PASS: primary pages run with enforced CSP; query parameters, stored text and returnUrl remain inert');
 } finally {

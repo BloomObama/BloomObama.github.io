@@ -123,6 +123,24 @@ try {
  assert.equal(await page.locator('#auth-user-name').textContent(),'<img src=x onerror="window.__storedXss=1">','display name is rendered as text');
  assert.equal(await page.evaluate(()=>window.__storedXss),undefined,'stored display-name payload is not executed');
  await page.locator('#settings-signout').click();await page.waitForFunction(()=>FullRideAuth.state.status==='guest');
+ // University checklist state is private browser state and must be scoped to the active account.
+ await page.evaluate(()=>localStorage.setItem('fullride-profile-checklist-v1:166027',JSON.stringify(['checkAid'])));
+ await page.goto(base+'university.html?id=harvard&lang=ru');
+ await page.locator('.profile-checklist').waitFor();
+ await page.waitForFunction(()=>FullRideAuth.state.status==='guest');
+ assert.equal(await page.locator('[data-profile-check="checkAid"]').isChecked(),true,'legacy checklist migrates only into guest scope');
+ await page.evaluate(()=>__signIn('checklist-A'));
+ await page.waitForFunction(()=>FullRidePreferences.account==='checklist-A');
+ assert.equal(await page.locator('[data-profile-check]:checked').count(),0,'signed-in account cannot inherit guest checklist');
+ await page.locator('[data-profile-check="checkTranscript"]').check();
+ assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem('fullride-profile-checklist-v2:checklist-A:166027'))?.[0]),'checkTranscript');
+ await page.evaluate(()=>__signIn('checklist-B'));
+ await page.waitForFunction(()=>FullRidePreferences.account==='checklist-B');
+ assert.equal(await page.locator('[data-profile-check]:checked').count(),0,'User B cannot see User A checklist');
+ await page.evaluate(()=>__signIn('checklist-A'));
+ await page.waitForFunction(()=>FullRidePreferences.account==='checklist-A');
+ assert.equal(await page.locator('[data-profile-check="checkTranscript"]').isChecked(),true,'User A checklist is restored only for User A');
+ await page.evaluate(()=>__externalSignOut());await page.waitForFunction(()=>FullRideAuth.state.status==='guest');
  await page.evaluate(()=>FullRidePreferences.update({interface:{fontScale:1,reduceMotion:false},reminders:{practice:false,deadlines:false},admission:{degree:'3',focus:'stem',budget:80000}}));
  await page.goto(base+'index.html?lang=ru#finder');
  await page.locator('#search').fill('Harvard');await page.locator('.card .personal-fit').waitFor();

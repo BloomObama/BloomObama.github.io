@@ -15,7 +15,7 @@
   }
 
   const script = document.createElement("script");
-  script.src = "university.js?v=12";
+  script.src = "university.js?v=13";
   script.addEventListener("error", () => {
     const root = document.getElementById("profile-root");
     if (root) root.textContent = "The university profile could not be loaded. Please refresh the page.";
