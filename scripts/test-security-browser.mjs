@@ -18,7 +18,19 @@ try {
     if (violations.length) throw new Error(`${path}: CSP blocked ${violations.join(', ')}`);
     await page.close();
   }
-  console.log('PASS: primary pages run with enforced CSP');
+  const payload = '<img id="security-xss" src=x onerror="window.__queryXss=1">';
+  const queryPage = await context.newPage();
+  await queryPage.goto(`http://127.0.0.1:8765/index.html?q=${encodeURIComponent(payload)}&lang=${encodeURIComponent(payload)}&returnUrl=${encodeURIComponent('https://evil.example')}`, { waitUntil:'domcontentloaded' });
+  if (await queryPage.locator('#search').inputValue() !== payload) throw new Error('search query was not preserved as inert input text');
+  if (await queryPage.locator('#security-xss').count() || await queryPage.evaluate(() => window.__queryXss)) throw new Error('query-string payload executed');
+  if (new URL(queryPage.url()).origin !== 'http://127.0.0.1:8765') throw new Error('external returnUrl caused a redirect');
+  await queryPage.goto(`http://127.0.0.1:8765/university.html?id=${encodeURIComponent(payload)}`, { waitUntil:'domcontentloaded' });
+  if (!await queryPage.locator('.profile-missing').count()) throw new Error('invalid university id must render the missing state');
+  if (await queryPage.locator('#security-xss').count() || await queryPage.evaluate(() => window.__queryXss)) throw new Error('university id payload executed');
+  await queryPage.goto(`http://127.0.0.1:8765/planner.html?view=${encodeURIComponent(payload)}`, { waitUntil:'domcontentloaded' });
+  if (await queryPage.locator('[data-panel="profile"][class*="is-active"]').count() !== 1) throw new Error('invalid planner view was not reduced to the safe default');
+  await queryPage.close();
+  console.log('PASS: primary pages run with enforced CSP; query parameters, stored text and returnUrl remain inert');
 } finally {
   await browser.close();
 }

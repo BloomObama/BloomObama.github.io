@@ -1,5 +1,5 @@
 import './practice-state.js?v=3';
-import './student-data.js?v=1';
+import './student-data.js?v=2';
 import { createMemberMetrics } from './member-metrics.mjs?v=1';
 const FIREBASE_VERSION = "12.19.0";
 const config = globalThis.FullRideFirebaseConfig || {};
@@ -33,8 +33,10 @@ function accountStatus(state) { syncState=state;window.dispatchEvent(new CustomE
 let syncQueue = Promise.resolve(true);
 let syncTimer = null;
 let lastFocusedElement = null;
+let skipTransitionBackupUid = "";
 const practiceStateKey = "fullride-practice-state-v1";
 const accountDataKeys = ["fullride-shortlist-v1", "fullride-compare-v1", practiceStateKey, "admitvector-student-data-v1"];
+const activeAccountKey = "admitvector-active-account-v1";
 
 authTranslations.uk.welcome = "Ваш акаунт";
 authTranslations.ru.welcome = "Ваш аккаунт";
@@ -237,6 +239,26 @@ function restoreAccountBackup(uid) {
   window.dispatchEvent(new CustomEvent("fullride:cloud-data"));
 }
 
+function clearActiveAccountData() {
+  window.clearTimeout(syncTimer);
+  accountDataKeys.forEach(key => localStorage.removeItem(key));
+  globalThis.FullRidePracticeState?.clear();
+  globalThis.AdmitVectorStudent?.clear?.();
+  window.dispatchEvent(new CustomEvent("fullride:cloud-data"));
+}
+
+function activeAccountUid() {
+  try { return localStorage.getItem(activeAccountKey) || ""; }
+  catch { return ""; }
+}
+
+function setActiveAccountUid(uid) {
+  try {
+    if (uid) localStorage.setItem(activeAccountKey, uid);
+    else localStorage.removeItem(activeAccountKey);
+  } catch {}
+}
+
 function syncUserData(user, mergeRemote = false) {
   if (!user || !user.emailVerified || !db) return Promise.resolve(false);
   const operation = syncQueue.catch(() => false).then(async () => {
@@ -383,9 +405,23 @@ async function initializeFirebase() {
     auth.languageCode = language;
     await authModule.setPersistence(auth, authModule.browserLocalPersistence);
     authModule.onAuthStateChanged(auth, async user => {
+      const previousUid = currentUser?.uid || activeAccountUid();
+      if (previousUid && previousUid !== user?.uid) {
+        if (previousUid !== skipTransitionBackupUid) {
+          try { backupLocalData(previousUid); }
+          catch (error) { console.warn("AdmitVector could not preserve the outgoing local account data", error); }
+        }
+        skipTransitionBackupUid = "";
+        clearActiveAccountData();
+      }
       if (user) {
         try { await user.reload(); user = auth.currentUser; } catch {}
-        if (user) restoreAccountBackup(user.uid);
+        if (user) {
+          restoreAccountBackup(user.uid);
+          setActiveAccountUid(user.uid);
+        }
+      } else {
+        setActiveAccountUid("");
       }
       renderUser(user);
       showStatus("");
@@ -540,10 +576,9 @@ aq("auth-signout")?.addEventListener("click", async () => {
       const synced = await syncUserData(user);
       if (!synced && !backedUp) { showStatus(at("syncError"), true); return; }
     }
+    skipTransitionBackupUid = user?.uid || "";
     await authApi.signOut(auth);
-    accountDataKeys.forEach(key => localStorage.removeItem(key));
-    globalThis.FullRidePracticeState?.clear();
-    window.dispatchEvent(new CustomEvent("fullride:cloud-data"));
+    clearActiveAccountData();
     closeDialog();
   }
   catch (error) { showStatus(errorMessage(error), true); }
@@ -568,10 +603,10 @@ globalThis.FullRideAuth = {
     await memberMetrics?.stop();
     const {doc,deleteDoc}=firestoreApi;
     await Promise.all([deleteDoc(doc(db,'users',user.uid)),deleteDoc(doc(db,'memberSummaries',user.uid)),deleteDoc(doc(db,'memberActivity',user.uid))]);
+    skipTransitionBackupUid=user.uid;
     await authApi.deleteUser(user);
-    accountDataKeys.forEach(key=>localStorage.removeItem(key));
-    globalThis.FullRidePracticeState?.clear();
-    window.dispatchEvent(new CustomEvent('fullride:cloud-data'));
+    setActiveAccountUid('');
+    clearActiveAccountData();
   },
   sync:()=>syncUserData(currentUser,true),
   signOut:()=>aq('auth-signout').click(),

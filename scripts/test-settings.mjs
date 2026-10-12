@@ -10,7 +10,8 @@ export const browserLocalPersistence={};
 export const getAuth=()=>auth;
 export const setPersistence=async()=>{};
 export function onAuthStateChanged(a,fn){callbacks.push(fn);Promise.resolve().then(()=>fn(a.currentUser));}
-window.__signIn=async(uid,password=true)=>{auth.currentUser={uid,email:uid+'@example.com',emailVerified:true,displayName:uid,providerData:[{providerId:password?'password':'google.com'}],reload:async()=>{}};for(const fn of callbacks)await fn(auth.currentUser);};
+window.__signIn=async(uid,password=true,displayName=uid)=>{auth.currentUser={uid,email:uid+'@example.com',emailVerified:true,displayName,providerData:[{providerId:password?'password':'google.com'}],reload:async()=>{}};for(const fn of callbacks)await fn(auth.currentUser);};
+window.__externalSignOut=async()=>{auth.currentUser=null;for(const fn of callbacks)await fn(null);};
 export async function signOut(){auth.currentUser=null;for(const fn of callbacks)await fn(null);}
 export async function updateProfile(user,profile){Object.assign(user,profile);}
 export async function sendPasswordResetEmail(a,email){window.__resetEmail=email;}
@@ -108,6 +109,19 @@ try {
  assert.notEqual(await page.locator('[name="profile.notes"]').inputValue(),'Unsaved A','logout does not leave private draft visible');
  await page.evaluate(()=>__signIn('user-B',false));assert.notEqual(await page.locator('[name="profile.notes"]').inputValue(),'Private A');
  assert(await page.locator('#settings-password').isHidden(),'Google account has no fake site password');
+ await page.locator('#settings-signout').click();await page.waitForFunction(()=>FullRideAuth.state.status==='guest');
+ // A logout initiated in another tab must clear in-memory and generic local account state.
+ await page.evaluate(()=>__signIn('user-C'));
+ await page.evaluate(()=>AdmitVectorStudent.updateProfile({major:'Private major C'}));
+ await page.evaluate(()=>__externalSignOut());await page.waitForFunction(()=>FullRideAuth.state.status==='guest');
+ assert.equal(await page.evaluate(()=>AdmitVectorStudent.value.profile.major),'','external logout clears private runtime student data');
+ assert.equal(await page.evaluate(()=>localStorage.getItem('admitvector-student-data-v1')),null,'external logout clears generic private storage');
+ await page.evaluate(()=>__signIn('user-D'));
+ assert.equal(await page.evaluate(()=>AdmitVectorStudent.value.profile.major),'','next account cannot inherit prior account data');
+ await page.locator('#settings-signout').click();await page.waitForFunction(()=>FullRideAuth.state.status==='guest');
+ await page.evaluate(()=>__signIn('xss-user',true,'<img src=x onerror="window.__storedXss=1">'));
+ assert.equal(await page.locator('#auth-user-name').textContent(),'<img src=x onerror="window.__storedXss=1">','display name is rendered as text');
+ assert.equal(await page.evaluate(()=>window.__storedXss),undefined,'stored display-name payload is not executed');
  await page.locator('#settings-signout').click();await page.waitForFunction(()=>FullRideAuth.state.status==='guest');
  await page.evaluate(()=>FullRidePreferences.update({interface:{fontScale:1,reduceMotion:false},reminders:{practice:false,deadlines:false},admission:{degree:'3',focus:'stem',budget:80000}}));
  await page.goto(base+'index.html?lang=ru#finder');

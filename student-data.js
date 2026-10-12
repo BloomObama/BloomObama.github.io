@@ -140,6 +140,12 @@
     setCategory(slug,category){const categories={...state.categories};if(categoriesByValue(category))categories[slug]=category;else delete categories[slug];return save({...state,categories});},
     upsertApplication(value){const item=normalizeApplication(value),applications=state.applications.filter(existing=>existing.collegeSlug!==item.collegeSlug);applications.push(item);return save({...state,applications});},
     removeApplication(slug){return save({...state,applications:state.applications.filter(item=>item.collegeSlug!==slug)});},
+    clear(){
+      state=normalize();
+      try{localStorage.removeItem(KEY);}catch{}
+      window.dispatchEvent(new CustomEvent('fullride:student-data',{detail:{source:'account-clear'}}));
+      return clone(state);
+    },
     merge(remote){
       if(!remote||typeof remote!=='object')return clone(state);
       const incoming=normalize(remote);
