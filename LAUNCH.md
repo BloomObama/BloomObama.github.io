@@ -55,6 +55,17 @@ The dominant confirmed issue was the decorative hero imagery, addressed above. T
 
 Lighthouse is environment-sensitive; compare multiple runs rather than treating a single score as a release gate. Functional regressions, missing data, console exceptions and layout overflow remain hard gates.
 
+The same mobile profile was rerun against deployed commit `953eefd` after Cloudflare served the new cache versions:
+
+- Performance score: 68
+- First Contentful Paint: 3.1 s
+- Largest Contentful Paint: 5.3 s
+- Total Blocking Time: 306 ms
+- Cumulative Layout Shift: 0.003
+- Transfer: about 1,148 KiB across 51 requests
+
+Compared with the baseline run, transfer fell by about 34% and LCP by about 52%. The higher single-run Total Blocking Time is within the kind of Lighthouse variance that requires trend monitoring; the production browser sweep found no functional error or frozen interaction.
+
 ## Firebase capacity summary
 
 Guest catalogue use makes no Firestore calls. A verified account normally reads its profile once per page and writes only after an actual saved change. Optional active-time measurement writes once per accumulated 30 focused seconds.
