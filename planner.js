@@ -23,12 +23,20 @@
     en:{application:'Application','common-app':'Common App / platform','personal-essay':'Personal essay','supplemental-essays':'Supplemental essays',transcript:'Transcript','school-report':'School report','recommendation-1':'Recommendation #1','recommendation-2':'Recommendation #2','sat-act':'SAT / ACT','english-test':'English test','financial-documents':'CSS Profile / ISFAA / financial documents',fee:'Application fee / waiver',submitted:'Submitted'}
   };
   const checklistLabels=new Proxy({}, {get:(_target,key)=>checklistLabelsByLanguage[lang()]?.[key]||checklistLabelsByLanguage.en[key]||key});
+  const optionLabels={
+    uk:{none:'Без допомоги',partial:'Часткова','full-tuition':'Повна оплата навчання','near-full':'Майже повне фінансування','full-ride':'Повне фінансування',research:'Дослідницький','liberal-arts':'Коледж вільних мистецтв',specialized:'Спеціалізований',urban:'Велике місто',suburban:'Передмістя',town:'Невелике місто',rural:'Сільська місцевість'},
+    ru:{none:'Без помощи',partial:'Частичная','full-tuition':'Полная оплата обучения','near-full':'Почти полное финансирование','full-ride':'Полное финансирование',research:'Исследовательский','liberal-arts':'Колледж свободных искусств',specialized:'Специализированный',urban:'Большой город',suburban:'Пригород',town:'Небольшой город',rural:'Сельская местность'},
+    en:{none:'No aid',partial:'Partial','full-tuition':'Full tuition','near-full':'Near full','full-ride':'Full ride',research:'Research','liberal-arts':'Liberal arts',specialized:'Specialized',urban:'Urban',suburban:'Suburban',town:'Town',rural:'Rural'}
+  };
+  const financialLabels={uk:{unknown:'Невідомо',strong:'Сильна',possible:'Можливо',difficult:'Складно','very difficult':'Дуже складно'},ru:{unknown:'Неизвестно',strong:'Сильное',possible:'Возможно',difficult:'Сложно','very difficult':'Очень сложно'},en:{unknown:'Unknown',strong:'Strong',possible:'Possible',difficult:'Difficult','very difficult':'Very difficult'}};
+  function localizeRenderedOptions(){document.querySelectorAll('select[name="aidLevel"] option,select[name="types"] option,select[name="settings"] option').forEach(option=>{option.textContent=optionLabels[lang()]?.[option.value]||optionLabels.en[option.value]||option.textContent});if(document.querySelector('.planner-tabs .is-active')?.dataset.panel==='shortlist')document.querySelectorAll('.application-progress').forEach(row=>{const label=row.querySelector('span'),value=row.querySelector('b');if(label)label.textContent=t('financial');if(value)value.textContent=financialLabels[lang()]?.[value.textContent.trim().toLowerCase()]||value.textContent});}
   function renderShell(active='profile'){
     updateMetadata();
     const percent=profilePercent();
     root.innerHTML=`<section class="planner-hero"><div><span class="planner-hero__eyebrow">ADMITVECTOR / ROUTE</span><h1>${t('title')}</h1><p>${t('intro')}</p></div><div class="planner-progress"><strong>${percent}%</strong><span>${t('complete')}</span></div></section><nav class="planner-tabs" aria-label="${t('title')}">${['profile','shortlist','applications','deadlines'].map(key=>`<button type="button" data-panel="${key}" class="${active===key?'is-active':''}">${t(key)}</button>`).join('')}</nav><div id="planner-panel"></div>`;
     root.querySelectorAll('[data-panel]').forEach(button=>button.addEventListener('click',()=>renderShell(button.dataset.panel)));
     renderPanel(active);
+    localizeRenderedOptions();
   }
   function renderPanel(panel){if(panel==='profile')renderProfile();if(panel==='shortlist')renderShortlist();if(panel==='applications')renderApplications();if(panel==='deadlines')renderDeadlines();}
   const field=(name,label,type='text',attrs='')=>{const value=api.value.profile[name]??'';return `<label class="planner-field"><span>${label}</span><input name="${name}" type="${type}" value="${escape(value)}" ${attrs}></label>`};
