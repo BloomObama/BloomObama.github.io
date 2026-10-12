@@ -1,4 +1,5 @@
 (async () => {
+  globalThis.AdmitVectorProfileLoadError = false;
   const params = new URLSearchParams(window.location.search);
   const selected = colleges.find(item => item.slug === params.get("id"));
   if (selected?._detailShard) {
@@ -8,12 +9,13 @@
       const detail = (await response.json())[selected.slug];
       if (detail) Object.assign(selected, detail);
     } catch (error) {
+      globalThis.AdmitVectorProfileLoadError = true;
       console.warn("AdmitVector could not load the detailed college record.", error);
     }
   }
 
   const script = document.createElement("script");
-  script.src = "university.js?v=11";
+  script.src = "university.js?v=12";
   script.addEventListener("error", () => {
     const root = document.getElementById("profile-root");
     if (root) root.textContent = "The university profile could not be loaded. Please refresh the page.";

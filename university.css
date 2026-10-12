@@ -23,6 +23,9 @@
 .profile-jump-nav a:hover { background:#fff0eb; border-color:#dcadb0; color:var(--fr-red); transform:translateY(-2px); }
 .profile-fit{background:linear-gradient(135deg,#fffaf3,#f9ebe7)}.profile-fit-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.8rem}.profile-fit-grid article{padding:1rem;border:1px solid var(--profile-border);border-radius:14px;background:#fff}.profile-fit-grid span{display:block;margin-bottom:.55rem;color:#755b65;font-size:.75rem;font-weight:700}.fit-tone{display:inline-flex;padding:.35rem .65rem;border-radius:999px;font-size:.83rem}.fit-tone--good{background:#e7f1dd;color:#43601f}.fit-tone--warn{background:#fff0c7;color:#7a5300}.fit-tone--bad{background:#f7dfe4;color:#8d1f39}.fit-tone--unknown{background:#eee8e3;color:#665860}.profile-fit-actions{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1rem}.profile-fit-actions a,.profile-fit-actions button{min-height:44px;padding:.72rem 1rem;border:1px solid #7d1e33;border-radius:10px;background:#fff;color:#7d1e33;font:700 .82rem var(--sans);text-decoration:none}.profile-fit-actions button{background:#7d1e33;color:#fff}
 .profile-notice { margin:1rem 0; padding:1rem 1.2rem; border:1px solid #ecd6ae; border-left:3px solid var(--fr-gold); border-radius:14px; color:#795523; background:#fff7e8; font-size:.8rem; line-height:1.6; }
+.profile-notice--error { display:flex; align-items:center; justify-content:space-between; gap:1rem; border-color:#e2a4aa; border-left-color:var(--fr-red); color:#7d2638; background:#fff2f1; }
+.profile-notice--error button { flex-shrink:0; min-height:40px; padding:.55rem .8rem; border:1px solid var(--fr-red); border-radius:9px; background:#fff; color:var(--fr-red); font:700 .72rem var(--sans); cursor:pointer; }
+.profile-notice--error button:hover,.profile-notice--error button:focus-visible { background:var(--fr-red); color:#fff; }
 .profile-page.has-side-rail .profile-section { margin-top:1.4rem; padding:clamp(1.2rem,2.8vw,2.3rem); border:1px solid var(--profile-border); border-radius:22px; background:#fffdfa; box-shadow:0 6px 24px #62332806; scroll-margin-top:96px; }
 .profile-section-heading { display:flex; justify-content:space-between; align-items:center; gap:1.5rem; margin-bottom:1.6rem; }
 .profile-section-heading>div { min-width:0; }
@@ -140,6 +143,7 @@
 @media (max-width:480px) {
   .profile-fit-grid { grid-template-columns:1fr; }
   .profile-fit-grid article { min-width:0; }
+  .profile-notice--error { align-items:flex-start; flex-direction:column; }
 }
 @media (prefers-reduced-motion:reduce) {
   html:has(.profile-page) { scroll-behavior:auto; }

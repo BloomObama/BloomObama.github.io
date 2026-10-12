@@ -115,6 +115,11 @@ try {
   await visit(openAdmissionSlug);
   await check.check();
   assert.match(await page.locator('[data-checklist-note]').textContent(),/не позволяет/);
+  await page.route('**/data/college-details/*.json*',route=>route.abort());
+  await page.goto(`${base}/university.html?id=harvard&lang=ru`,{waitUntil:'domcontentloaded'});
+  await page.locator('.profile-notice--error').waitFor();
+  assert.match(await page.locator('.profile-notice--error').textContent(),/не загрузились/);
+  assert.equal(await page.locator('[data-profile-retry]').count(),1,'failed detail request offers retry');
   assert.deepEqual(errors,[],'no page errors');
-  console.log('PASS: profile design, 3 languages, 5 widths, text-stat overlap, hover contrast, anchor navigation, saved/isolated checklist, keyboard, reduced motion and blocked storage');
+  console.log('PASS: profile design, 3 languages, 5 widths, text-stat overlap, hover contrast, anchor navigation, persistence, detail-load error and retry');
 } finally { await browser.close(); }

@@ -58,10 +58,10 @@ for (const file of seoFiles) {
     if (!html.includes("../" + asset)) failures.push(file + " is missing " + asset);
   }
 }
-if (sitemapUrls.length !== seoFiles.length + 6) failures.push("Sitemap contains unexpected or duplicate URLs");
+if (sitemapUrls.length !== seoFiles.length + 5) failures.push("Sitemap contains unexpected or duplicate URLs");
 if (!sitemapUrls.includes("https://www.admitvector.com/guide")) failures.push("Sitemap omits the admissions guide");
 if (!sitemapUrls.includes("https://www.admitvector.com/sat-resources")) failures.push("Sitemap omits SAT resources");
-if (!sitemapUrls.includes("https://www.admitvector.com/planner")) failures.push("Sitemap omits application planner");
+if (sitemapUrls.includes("https://www.admitvector.com/planner")) failures.push("Sitemap must not include the private application planner");
 const satPage = fs.readFileSync(path.join(root,"sat-resources.html"),"utf8");
 if ((satPage.match(/data-sat-kind=/g) || []).length !== 14) failures.push("SAT library must contain 14 curated resources");
 if (!satPage.includes("data-sat-key=\"rightsText\"")) failures.push("SAT library is missing the ownership note");

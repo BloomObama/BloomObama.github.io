@@ -45,14 +45,14 @@ try {
 
   const offline=await browser.newContext(); const cached=await offline.newPage();
   await cached.goto('http://127.0.0.1:8765/offline.html');
-  await cached.evaluate(async()=>{await navigator.serviceWorker.register('/sw.js?v=5');await navigator.serviceWorker.ready;});
+  await cached.evaluate(async()=>{await navigator.serviceWorker.register('/sw.js?v=8');await navigator.serviceWorker.ready;});
   await cached.waitForFunction(()=>navigator.serviceWorker.controller);
-  const paths=await cached.evaluate(async()=>{const c=await caches.open('fullride-v5');return(await c.keys()).map(request=>new URL(request.url).pathname);});
+  const paths=await cached.evaluate(async()=>{const c=await caches.open('fullride-v8');return(await c.keys()).map(request=>new URL(request.url).pathname);});
   assert(paths.length===3&&!paths.includes('/index.html'),'only small offline core is eagerly cached');
   await cached.goto('http://127.0.0.1:8765/index.html?lang=ru');
   await cached.locator('#search').waitFor();
   await cached.waitForFunction(async()=>Boolean(await caches.match(location.href)));
-  await cached.waitForFunction(async()=>Boolean(await caches.match(new URL('/app.js?v=26',location.href).href)));
+  await cached.waitForFunction(async()=>Boolean(await caches.match(new URL('/app.js?v=28',location.href).href)));
   await offline.setOffline(true); await cached.reload();
   await cached.locator('#search').fill('Harvard');
   await cached.locator('.card h3').first().waitFor();

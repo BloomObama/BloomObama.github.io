@@ -18,11 +18,17 @@ try{
   const before=await page.locator('#roi-total').textContent();
   await page.locator('#roi-tuition').fill('70000');
   check(await page.locator('#roi-total').textContent()!==before,'education math responds to input');
+  await page.locator('#roi-tuition').fill('-100');
+  const guardedEducation=await page.locator('#roi-education .roi-results').textContent();
+  check(!/NaN|Infinity|-\$|−\$/.test(guardedEducation),'education calculator guards invalid and negative values');
   await page.locator('[data-roi-mode="arrival"]').click();
   check(await page.locator('#roi-arrival').isVisible() && await page.locator('#roi-education').isHidden(),'arrival calculator is independent');
   const moveBefore=await page.locator('#roi-move-total').textContent();
   await page.locator('#roi-flight').fill('1200');
   check(await page.locator('#roi-move-total').textContent()!==moveBefore,'arrival math responds to input');
+  await page.locator('#roi-flight').fill('-500');
+  const guardedArrival=await page.locator('#roi-arrival').textContent();
+  check(!/NaN|Infinity|-\$|−\$/.test(guardedArrival),'arrival calculator guards invalid and negative values');
   await page.locator('[data-roi-mode="arrival"]').press('ArrowLeft');
   check(await page.locator('#roi-education').isVisible(),'calculator tabs support keyboard');
   await page.waitForTimeout(500);

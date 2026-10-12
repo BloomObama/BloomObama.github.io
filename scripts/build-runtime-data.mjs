@@ -98,11 +98,26 @@ details.forEach((shard, index) => {
 
 const siteRoot = "https://www.admitvector.com/";
 const seoProfiles = buildSeoPages({root,colleges,policy});
-const sitemapUrls = ["", "practice", "ielts-resources", "sat-resources", "guide", "planner", "universities/"]
+const completeProfiles = colleges.filter(college => college.verified).length;
+const partialProfiles = colleges.filter(college => !college.verified && policy.count(college) > 0).length;
+const verifiedFields = colleges.reduce((total,college) => total + policy.count(college),0);
+const latestReview = colleges.map(college => college.checkedAt).filter(Boolean).sort().at(-1);
+const formatCount = value => String(value).replace(/\B(?=(\d{3})+(?!\d))/g," ");
+const formatReviewDate = value => value ? new Intl.DateTimeFormat("uk-UA", { day:"numeric",month:"long",year:"numeric",timeZone:"UTC" }).format(new Date(`${value}T12:00:00Z`)) : "—";
+const replaceElementText = (html,id,value) => html.replace(new RegExp(`(<[^>]+id=["']${id}["'][^>]*>)[\\s\\S]*?(<\\/[^>]+>)`),`$1${value}$2`);
+const homePath = path.join(root,"index.html");
+let homeHtml = fs.readFileSync(homePath,"utf8");
+homeHtml = replaceElementText(homeHtml,"college-count",formatCount(colleges.length));
+homeHtml = replaceElementText(homeHtml,"data-updated",`Остання перевірка джерел: ${formatReviewDate(latestReview)}`);
+homeHtml = replaceElementText(homeHtml,"audit-coverage",`Повністю: ${formatCount(completeProfiles)} · Частково: ${formatCount(partialProfiles)} · Підтверджених вимог: ${formatCount(verifiedFields)} / ${formatCount(colleges.length * policy.fields.length)}`);
+homeHtml = replaceElementText(homeHtml,"audit-count",`${formatCount(completeProfiles)} / ${formatCount(colleges.length)}`);
+fs.writeFileSync(homePath,homeHtml);
+
+const sitemapUrls = ["", "practice", "ielts-resources", "sat-resources", "guide", "universities/"]
   .map(page => `${siteRoot}${page}`)
   .concat(seoProfiles.map(profile => `${siteRoot}universities/${profile.slug}`));
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemapUrls.map(url => `  <url><loc>${url.replace(/&/g, "&amp;")}</loc></url>`).join("\n")}\n</urlset>\n`;
 fs.writeFileSync(path.join(root, "sitemap.xml"), sitemap);
 
 const totalDetailBytes = fs.readdirSync(outputDirectory).reduce((sum, name) => sum + fs.statSync(path.join(outputDirectory, name)).size, 0);
-console.log(JSON.stringify({ colleges:colleges.length, indexBytes:Buffer.byteLength(indexSource), detailShards:shardCount, detailBytes:totalDetailBytes, sitemapUrls:sitemapUrls.length }, null, 2));
+console.log(JSON.stringify({ colleges:colleges.length, completeProfiles, partialProfiles, verifiedFields, latestReview, indexBytes:Buffer.byteLength(indexSource), detailShards:shardCount, detailBytes:totalDetailBytes, sitemapUrls:sitemapUrls.length }, null, 2));
