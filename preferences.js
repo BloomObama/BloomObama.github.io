@@ -31,11 +31,14 @@
   const storageKey = () => account ? KEY+':'+account : KEY;
   const read = key => { try { const record=JSON.parse(localStorage.getItem(key)||'null');return {updatedAt:number(record?.updatedAt,0,Date.now()+60000,0),value:normalize(record?.value)}; } catch {persisted=false;return {updatedAt:0,value:clone(defaults)};} };
   let record = read(KEY);
+  const requestedLanguage=new URLSearchParams(location.search).get('lang');
+  if(['uk','ru','en'].includes(requestedLanguage))record.value.interface.language=requestedLanguage;
   // Appearance is shared across pages; personal fields remain account-scoped.
   try {const appearance=JSON.parse(localStorage.getItem(KEY+'-appearance'));if(appearance)record.value.interface=normalize({interface:appearance}).interface;}catch{}
   const announce = source => window.dispatchEvent(new CustomEvent('fullride:preferences',{detail:{source,persisted}}));
   function apply() {
     const i=record.value.interface, root=document.documentElement;
+    root.lang=i.language;
     root.dataset.theme=i.theme;
     root.dataset.motion=i.reduceMotion?'reduce':'normal';
     root.style.fontSize=(16*i.fontScale)+'px';
@@ -100,10 +103,27 @@
   };
   globalThis.FullRidePreferences=api;
   apply();
+  function preserveLanguageLinks(scope=document) {
+    const lang=api.language();
+    scope.querySelectorAll?.('a[href]').forEach(anchor=>{
+      const raw=anchor.getAttribute('href');
+      if(!raw||raw.startsWith('#')||/^(?:mailto:|tel:|javascript:|data:)/i.test(raw)||anchor.hasAttribute('download'))return;
+      try{const url=new URL(raw,location.href);if(url.origin!==location.origin)return;url.searchParams.set('lang',lang);anchor.href=url.href;}catch{}
+    });
+    document.querySelectorAll?.('link[rel="alternate"][hreflang]')?.forEach(link=>{
+      const target=link.hreflang==='x-default'?'uk':link.hreflang;
+      if(!['uk','ru','en'].includes(target))return;
+      try{const url=new URL(link.href,location.href);url.searchParams.set('lang',target);link.href=url.href;}catch{}
+    });
+  }
+  const syncDocumentLanguage=()=>{document.documentElement.lang=api.language();preserveLanguageLinks();};
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',syncDocumentLanguage,{once:true});else syncDocumentLanguage();
+  if(globalThis.MutationObserver)new MutationObserver(records=>records.forEach(record=>record.addedNodes.forEach(node=>{if(node.nodeType===1)preserveLanguageLinks(node)}))).observe(document.documentElement,{childList:true,subtree:true});
   window.addEventListener('storage',event=>{if(event.key===storageKey()){record=read(storageKey());apply();announce('storage');}});
   document.addEventListener('click',event=>{
     const button=event.target.closest('[data-lang],[data-profile-lang],[data-compare-lang],[data-practice-lang],[data-resource-lang]');
     const lang=button?.dataset.lang||button?.dataset.profileLang||button?.dataset.compareLang||button?.dataset.practiceLang||button?.dataset.resourceLang;
     if(lang&&lang!==record.value.interface.language)update({interface:{language:lang}});
+    if(lang)setTimeout(syncDocumentLanguage,0);
   });
 })();

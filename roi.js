@@ -178,4 +178,10 @@ roiElement("roi-toggle")?.addEventListener("click", () => setRoiOpen(roiElement(
 document.querySelector("a[href='#roi']")?.addEventListener("click", () => setRoiOpen(true));
 
 window.updateRoiLanguage(getRoiLanguage());
+const roiParams=new URLSearchParams(location.search);
+if(roiParams.has('roiCollege')){
+  const tuition=Number(roiParams.get('roiTuition'));
+  if(Number.isFinite(tuition)&&tuition>=0&&roiElement('roi-tuition'))roiElement('roi-tuition').value=tuition;
+  setRoiOpen(true);calculateEducationRoi();
+}
 setRoiMode("education");

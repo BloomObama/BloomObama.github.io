@@ -204,7 +204,7 @@ byId('resource-format').addEventListener('change',renderResources);
 byId('resource-grid').addEventListener('error',event=>{if(event.target.tagName==='IMG'){const img=event.target;img.outerHTML='<span class="resource-card__monogram"><b>BOOK</b><small>'+escapeHtml(img.alt)+'</small></span>';}},true);
 byId("resource-grid").addEventListener("click", event => { const button = event.target.closest("[data-resource-id]"); const resource = resources.find(item => item.id === button?.dataset.resourceId); if (resource) openResource(resource,button); });
 document.querySelector(".resource-path").addEventListener("click", event => { const button = event.target.closest("[data-path-resource]"); const resource = resources.find(item => item.id === button?.dataset.pathResource); if (resource) openResource(resource,button); });
-document.querySelectorAll("[data-resource-lang]").forEach(button => button.addEventListener("click", () => { resourceLanguage = button.dataset.resourceLang; history.replaceState({},"",`ielts-resources.html?lang=${resourceLanguage}`); renderLanguage(); }));
+document.querySelectorAll("[data-resource-lang]").forEach(button => button.addEventListener("click", () => { resourceLanguage = button.dataset.resourceLang; globalThis.FullRidePreferences?.update({interface:{language:resourceLanguage}}); history.replaceState({},"",`ielts-resources.html?lang=${resourceLanguage}`); renderLanguage(); }));
 document.querySelector("[data-resource-close]").addEventListener("click",closeDialog);
 byId("resource-dialog").addEventListener("click",event => { if (event.target === byId("resource-dialog")) closeDialog(); });
 byId("resource-dialog").addEventListener("cancel",event => { event.preventDefault(); closeDialog(); });

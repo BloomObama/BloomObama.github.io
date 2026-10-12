@@ -21,7 +21,7 @@ service cloud.firestore {
 
       function validProfile() {
         return request.resource.data.keys().hasOnly([
-          'displayName', 'shortlist', 'comparison', 'flashcards', 'packLearned', 'createdAt', 'updatedAt'
+          'displayName', 'shortlist', 'comparison', 'flashcards', 'packLearned', 'studentData', 'createdAt', 'updatedAt'
         ])
         && request.resource.data.displayName is string
         && request.resource.data.displayName.size() <= 80
@@ -32,7 +32,43 @@ service cloud.firestore {
         && request.resource.data.flashcards is list
         && request.resource.data.flashcards.size() <= 500
         && request.resource.data.packLearned is list
-        && request.resource.data.packLearned.size() <= 3000;
+        && request.resource.data.packLearned.size() <= 3000
+        && (!request.resource.data.keys().hasAny(['studentData']) || (
+          request.resource.data.studentData is map
+          && request.resource.data.studentData.keys().hasOnly(['version', 'profile', 'categories', 'applications'])
+          && request.resource.data.studentData.version == 1
+          && request.resource.data.studentData.profile is map
+          && request.resource.data.studentData.profile.keys().hasAll([
+            'citizenship', 'country', 'graduationYear', 'gpa', 'sat', 'act', 'ielts', 'toefl', 'duolingo',
+            'major', 'annualBudget', 'needsAid', 'aidLevel', 'states', 'types', 'sizes', 'settings', 'applicationYear', 'plans'
+          ])
+          && request.resource.data.studentData.profile.keys().hasOnly([
+            'citizenship', 'country', 'graduationYear', 'gpa', 'sat', 'act', 'ielts', 'toefl', 'duolingo',
+            'major', 'annualBudget', 'needsAid', 'aidLevel', 'states', 'types', 'sizes', 'settings', 'applicationYear', 'plans'
+          ])
+          && request.resource.data.studentData.profile.citizenship is string
+          && request.resource.data.studentData.profile.citizenship.size() <= 80
+          && request.resource.data.studentData.profile.country is string
+          && request.resource.data.studentData.profile.country.size() <= 80
+          && request.resource.data.studentData.profile.major is string
+          && request.resource.data.studentData.profile.major.size() <= 120
+          && request.resource.data.studentData.profile.needsAid is bool
+          && request.resource.data.studentData.profile.aidLevel in ['none', 'partial', 'full-tuition', 'near-full', 'full-ride']
+          && request.resource.data.studentData.profile.states is list
+          && request.resource.data.studentData.profile.states.size() <= 60
+          && request.resource.data.studentData.profile.types is list
+          && request.resource.data.studentData.profile.types.size() <= 3
+          && request.resource.data.studentData.profile.sizes is list
+          && request.resource.data.studentData.profile.sizes.size() <= 3
+          && request.resource.data.studentData.profile.settings is list
+          && request.resource.data.studentData.profile.settings.size() <= 4
+          && request.resource.data.studentData.profile.plans is list
+          && request.resource.data.studentData.profile.plans.size() <= 6
+          && request.resource.data.studentData.categories is map
+          && request.resource.data.studentData.categories.size() <= 500
+          && request.resource.data.studentData.applications is list
+          && request.resource.data.studentData.applications.size() <= 100
+        ));
       }
 
       allow read, delete: if isOwner();

@@ -1,4 +1,5 @@
 import './practice-state.js?v=3';
+import './student-data.js?v=1';
 import { createMemberMetrics } from './member-metrics.mjs?v=1';
 const FIREBASE_VERSION = "12.19.0";
 const config = globalThis.FullRideFirebaseConfig || {};
@@ -33,7 +34,7 @@ let syncQueue = Promise.resolve(true);
 let syncTimer = null;
 let lastFocusedElement = null;
 const practiceStateKey = "fullride-practice-state-v1";
-const accountDataKeys = ["fullride-shortlist-v1", "fullride-compare-v1", practiceStateKey];
+const accountDataKeys = ["fullride-shortlist-v1", "fullride-compare-v1", practiceStateKey, "admitvector-student-data-v1"];
 
 authTranslations.uk.welcome = "Ваш акаунт";
 authTranslations.ru.welcome = "Ваш аккаунт";
@@ -204,6 +205,9 @@ function restoreAccountBackup(uid) {
   try { data = JSON.parse(localStorage.getItem(accountBackupKey(uid)) || "null"); }
   catch { return; }
   if (!data || typeof data !== "object") return;
+  if (typeof data["admitvector-student-data-v1"] === "string") {
+    try { globalThis.AdmitVectorStudent?.merge(JSON.parse(data["admitvector-student-data-v1"])); } catch {}
+  }
   if (typeof data[practiceStateKey] === "string") {
     try { globalThis.FullRidePracticeState?.mergeBackup(JSON.parse(data[practiceStateKey])); } catch {}
   } else {
@@ -219,7 +223,7 @@ function restoreAccountBackup(uid) {
     } catch {}
   }
   for (const key of accountDataKeys) {
-    if (key === practiceStateKey) continue;
+    if (key === practiceStateKey || key === "admitvector-student-data-v1") continue;
     let saved;
     let current;
     try {
@@ -254,6 +258,8 @@ function syncUserData(user, mergeRemote = false) {
       practiceState?.mergeCloud(remote.flashcards, remote.packLearned);
       const flashcards = [practiceState.cloudRecord()];
       const packLearned = practiceState.exportLearned();
+      globalThis.AdmitVectorStudent?.merge(remote.studentData);
+      const studentData = globalThis.AdmitVectorStudent?.export?.() || {version:1,profile:{},categories:{},applications:[]};
 
       if (mergeRemote) {
         localStorage.setItem("fullride-shortlist-v1", JSON.stringify(shortlist));
@@ -266,6 +272,7 @@ function syncUserData(user, mergeRemote = false) {
         comparison,
         flashcards,
         packLearned,
+        studentData,
         createdAt: remote.createdAt || serverTimestamp(),
         updatedAt: serverTimestamp()
       }, { merge:true });
@@ -553,6 +560,19 @@ globalThis.FullRideAuth = {
   get state(){return {status:syncState,user:currentUser?{displayName:currentUser.displayName||'',email:currentUser.email||'',verified:currentUser.emailVerified,password:currentUser.providerData.some(p=>p.providerId==='password')}:null};},
   async saveProfile(displayName){if(!currentUser)throw new Error(at('signIn'));await authApi.updateProfile(currentUser,{displayName:String(displayName).trim().slice(0,80)});renderUser(currentUser);await syncUserData(currentUser);},
   async resetPassword(){if(!currentUser?.providerData.some(p=>p.providerId==='password'))throw new Error(at('signIn'));await authApi.sendPasswordResetEmail(auth,currentUser.email,{url:emailActionUrl()});},
+  async deleteAccount(){
+    if(!currentUser)throw new Error(at('signIn'));
+    const user=currentUser,google=user.providerData.some(p=>p.providerId==='google.com');
+    if(google){const provider=new authApi.GoogleAuthProvider();provider.setCustomParameters({prompt:'select_account'});await authApi.reauthenticateWithPopup(user,provider);}
+    else{const password=window.prompt(language==='ru'?'Введите текущий пароль для подтверждения удаления':language==='uk'?'Введіть поточний пароль для підтвердження видалення':'Enter your current password to confirm deletion');if(!password)throw new Error('cancelled');await authApi.reauthenticateWithCredential(user,authApi.EmailAuthProvider.credential(user.email,password));}
+    await memberMetrics?.stop();
+    const {doc,deleteDoc}=firestoreApi;
+    await Promise.all([deleteDoc(doc(db,'users',user.uid)),deleteDoc(doc(db,'memberSummaries',user.uid)),deleteDoc(doc(db,'memberActivity',user.uid))]);
+    await authApi.deleteUser(user);
+    accountDataKeys.forEach(key=>localStorage.removeItem(key));
+    globalThis.FullRidePracticeState?.clear();
+    window.dispatchEvent(new CustomEvent('fullride:cloud-data'));
+  },
   sync:()=>syncUserData(currentUser,true),
   signOut:()=>aq('auth-signout').click(),
   verify:()=>aq('auth-send-verification').click()

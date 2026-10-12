@@ -27,6 +27,22 @@ function showGate(message = '') {
   $('admin-gate-status').textContent = message;
 }
 
+function renderFreshness() {
+  const list = $('admin-stale-profiles');
+  const summary = $('admin-freshness-summary');
+  const catalog = typeof colleges === 'undefined' ? [] : colleges;
+  if (!list || !summary || !Array.isArray(catalog)) return;
+  const today = Date.now();
+  const verified = catalog.filter(college => college.verified && /^\d{4}-\d{2}-\d{2}$/.test(college.checkedAt || ''));
+  const profiles = verified.map(college => ({college, days:Math.max(0, Math.floor((today - new Date(`${college.checkedAt}T12:00:00Z`).getTime()) / 86400000))})).sort((a,b) => b.days - a.days);
+  const stale = profiles.filter(item => item.days > 90);
+  const soon = profiles.filter(item => item.days > 30 && item.days <= 90);
+  summary.textContent = `${stale.length} застаріли · ${soon.length} перевірити невдовзі`;
+  const visible = profiles.filter(item => item.days > 30).slice(0, 24);
+  const escape = value => String(value).replace(/[&<>"']/g, character => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[character]));
+  list.innerHTML = visible.length ? visible.map(({college,days}) => `<a href="university.html?id=${encodeURIComponent(college.slug)}" target="_blank" rel="noopener"><strong>${escape(college.name)}</strong><span>${college.checkedAt} · ${days} днів</span><b>${days > 90 ? 'Potentially outdated' : 'Review soon'} ↗</b></a>`).join('') : '<p class="admin-list__note">Усі перевірені профілі свіжі.</p>';
+}
+
 function renderRows() {
   const search = $('admin-search').value.trim().toLocaleLowerCase();
   const filtered = members.filter(member => `${member.email} ${member.name}`.toLocaleLowerCase().includes(search));
@@ -88,6 +104,7 @@ async function loadDashboard() {
 }
 
 async function init() {
+  renderFreshness();
   if (!config?.apiKey || !config?.projectId) { showGate('Налаштування Firebase відсутні.'); return; }
   try {
     const [appApi, authModule, firestoreModule] = await Promise.all([
@@ -110,6 +127,7 @@ async function init() {
       $('admin-gate').hidden = true;
       $('admin-dashboard').hidden = false;
       $('admin-identity').textContent = user.email;
+      renderFreshness();
       await loadDashboard();
     });
   } catch (error) {

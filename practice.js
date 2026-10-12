@@ -810,7 +810,7 @@ document.addEventListener("keydown", event => {
   const rating = {"1":"again","2":"good"}[event.key];
   if (meaningRevealed && rating) nextSession(rating);
 });
-document.querySelectorAll("[data-practice-lang]").forEach(button => button.addEventListener("click", () => { practiceLanguage = button.dataset.practiceLang; history.replaceState({}, "", `practice.html?lang=${practiceLanguage}`); renderLanguage(); if (currentSessionCard()) { updateSession(); if (currentSessionCard().sentenceStatus === "correct") refreshSessionTranslation(); } }));
+document.querySelectorAll("[data-practice-lang]").forEach(button => button.addEventListener("click", () => { practiceLanguage = button.dataset.practiceLang; globalThis.FullRidePreferences?.update({interface:{language:practiceLanguage}}); history.replaceState({}, "", `practice.html?lang=${practiceLanguage}`); renderLanguage(); if (currentSessionCard()) { updateSession(); if (currentSessionCard().sentenceStatus === "correct") refreshSessionTranslation(); } }));
 window.addEventListener('fullride:preferences',()=>renderDailyGoal());
 window.addEventListener("fullride:cloud-data", () => {
   flashcards=loadCards();

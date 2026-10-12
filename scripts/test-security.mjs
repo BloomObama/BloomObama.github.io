@@ -20,5 +20,8 @@ assert.match(headers, /\/admin\s+Cache-Control: no-store\s+X-Robots-Tag: noindex
 const rules = read('firestore.rules');
 assert.match(rules, /request\.auth\.token\.email_verified == true/);
 assert.match(rules, /allow list: if isSiteAdmin\(\)/);
+assert.match(rules, /studentData\.profile\.keys\(\)\.hasAll/);
+assert.match(rules, /studentData\.categories\.size\(\) <= 500/);
+assert.match(rules, /studentData\.applications\.size\(\) <= 100/);
 assert.match(rules, /match \/\{document=\*\*\}\s*\{\s*allow read, write: if false;/);
 console.log('Security headers and Firestore rule invariants passed');

@@ -7,19 +7,19 @@
     uk: {
       menu:"Відкрити меню", close:"Закрити меню", navigation:"Навігація", tools:"Інструменти",
       home:"Головна", finder:"Університети", practice:"Практика", resources:"IELTS", sat:"SAT", compare:"Порівняння",
-      saved:"Обране", roi:"Калькулятор ROI", method:"Як користуватися", about:"Про проєкт",
+      saved:"Обране", plan:"Мій маршрут", roi:"Калькулятор ROI", method:"Як користуватися", about:"Про проєкт",
       contact:"Контакти", settings:"Налаштування", account:"Мій акаунт", tagline:"Ваш шлях до вступу"
     },
     ru: {
       menu:"Открыть меню", close:"Закрыть меню", navigation:"Навигация", tools:"Инструменты",
       home:"Главная", finder:"Университеты", practice:"Практика", resources:"IELTS", sat:"SAT", compare:"Сравнение",
-      saved:"Избранное", roi:"Калькулятор ROI", method:"Как пользоваться", about:"О проекте",
+      saved:"Избранное", plan:"Мой маршрут", roi:"Калькулятор ROI", method:"Как пользоваться", about:"О проекте",
       contact:"Контакты", settings:"Настройки", account:"Мой аккаунт", tagline:"Ваш путь к поступлению"
     },
     en: {
       menu:"Open menu", close:"Close menu", navigation:"Explore", tools:"Tools",
       home:"Home", finder:"Universities", practice:"Practice", resources:"IELTS", sat:"SAT", compare:"Compare",
-      saved:"Saved", roi:"ROI calculator", method:"How it works", about:"About",
+      saved:"Saved", plan:"My route", roi:"ROI calculator", method:"How it works", about:"About",
       contact:"Contact", settings:"Settings", account:"My account", tagline:"Your path to admission"
     }
   };
@@ -31,6 +31,7 @@
     sat:'<rect x="3" y="3" width="18" height="18" rx="3"/><path d="M7 9h10m-10 5h4m3 0h3m-7 3h4"/>',
     compare:'<path d="M4 7h16m-4-4 4 4-4 4M20 17H4m4-4-4 4 4 4"/>',
     saved:'<path d="m12 2 3 6.3 7 .9-5.1 4.9 1.3 7L12 17.8 5.8 21l1.3-7L2 9.2l7-.9z"/>',
+    plan:'<path d="M5 3h14v18H5z"/><path d="M8 8h8m-8 4h8m-8 4h5"/>',
     roi:'<path d="M4 20h16M6 16v-5m4 5V7m4 9V9m4 7V4"/>',
     method:'<circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2.3 4.7-4.7 2.3 2.3-4.7z"/>',
     about:'<circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-10v.5"/>',
@@ -40,7 +41,7 @@
   };
   const route = [
     ["home","home"], ["finder","finder"], ["practice","practice"], ["resources","resources"], ["sat","sat"], ["compare","compare"],
-    ["saved","saved"], ["roi","roi"], ["method","method"], ["about","about"], ["contact","contact"], ["settings","settings"]
+    ["saved","saved"], ["plan","plan"], ["roi","roi"], ["method","method"], ["about","about"], ["contact","contact"], ["settings","settings"]
   ];
   const icon = key => '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' + icons[key] + '</svg>';
   const language = () => {
@@ -52,6 +53,7 @@
   const onHome = file === "index.html";
   const href = (key, lang) => {
     if (key === "practice" || key === "compare" || key === "settings") return key + ".html?lang=" + lang;
+    if (key === "plan") return "planner.html?lang=" + lang;
     if (key === "resources") return "ielts-resources.html?lang=" + lang;
     if (key === "sat") return "sat-resources.html?lang=" + lang;
     const section = key === "home" ? "top" : key;
@@ -77,6 +79,7 @@
 
   function activeRoute() {
     if (file === "settings.html") return "settings";
+    if (file === "planner.html") return "plan";
     if (file === "practice.html") return "resources";
     if (file === "ielts-resources.html") return "resources";
     if (file === "sat-resources.html") return "sat";
@@ -210,6 +213,6 @@
 
 if ("serviceWorker" in navigator && location.protocol === "https:") {
   window.addEventListener("load", () => {
-    navigator.serviceWorker.register("sw.js?v=6",{updateViaCache:'none'}).catch(() => {});
+    navigator.serviceWorker.register("sw.js?v=7",{updateViaCache:'none'}).catch(() => {});
   });
 }

@@ -25,12 +25,29 @@ Object.assign(profileTranslations.en, { federalPassport:"Federal institution sna
 Object.assign(profileTranslations.uk, { policiesVerified:"Умови подачі перевірено" });
 Object.assign(profileTranslations.ru, { policiesVerified:"Условия подачи проверены" });
 Object.assign(profileTranslations.en, { policiesVerified:"Admissions policies verified" });
+Object.assign(profileTranslations.uk, { fitTitle:'Ваш Fit',fitIntro:'Оцінка використовує лише ваш профіль і відомі дані університету. Це не ймовірність вступу.',academicFit:'Академічна відповідність',financialFit:'Фінансова відповідність',englishFit:'Англійська',testingFit:'SAT / ACT',overallFit:'Готовність вимог',confidenceFit:'Актуальність даних',editProfile:'Заповнити профіль',addApplication:'Додати до заявок',openRoi:'Розрахувати сценарій витрат',reportIncorrect:'Повідомити про неточність',strong:'Сильна',reasonable:'Реалістична',competitive:'Конкурентна','very-competitive':'Дуже конкурентна',possible:'Можливо',difficult:'Складно','very-difficult':'Дуже складно','requirement-met':'Вимогу виконано','requirement-not-met':'Вимогу не виконано','test-optional':'Test optional','missing-required-test':'Немає обов’язкового тесту',ready:'Готово','missing-requirements':'Не вистачає вимог',unknown:'Невідомо',fresh:'Fresh','review-soon':'Скоро перевірити','potentially-outdated':'Можливо застаріло',incomplete:'Неповні дані' });
+Object.assign(profileTranslations.ru, { fitTitle:'Ваш Fit',fitIntro:'Оценка использует только ваш профиль и известные данные университета. Это не вероятность поступления.',academicFit:'Академическое соответствие',financialFit:'Финансовое соответствие',englishFit:'Английский',testingFit:'SAT / ACT',overallFit:'Готовность требований',confidenceFit:'Актуальность данных',editProfile:'Заполнить профиль',addApplication:'Добавить в заявки',openRoi:'Рассчитать сценарий расходов',reportIncorrect:'Сообщить о неточности',strong:'Сильное',reasonable:'Разумное',competitive:'Конкурентное','very-competitive':'Очень конкурентное',possible:'Возможно',difficult:'Сложно','very-difficult':'Очень сложно','requirement-met':'Требование выполнено','requirement-not-met':'Требование не выполнено','test-optional':'Test optional','missing-required-test':'Нет обязательного теста',ready:'Готово','missing-requirements':'Не хватает требований',unknown:'Неизвестно',fresh:'Fresh','review-soon':'Скоро проверить','potentially-outdated':'Возможно устарело',incomplete:'Неполные данные' });
+Object.assign(profileTranslations.en, { fitTitle:'Your Fit',fitIntro:'This assessment uses only your profile and known university data. It is not an admission probability.',academicFit:'Academic fit',financialFit:'Financial fit',englishFit:'English',testingFit:'SAT / ACT',overallFit:'Requirements',confidenceFit:'Data confidence',editProfile:'Complete profile',addApplication:'Add application',openRoi:'Model cost scenario',reportIncorrect:'Report incorrect data',strong:'Strong',reasonable:'Reasonable',competitive:'Competitive','very-competitive':'Very competitive',possible:'Possible',difficult:'Difficult','very-difficult':'Very difficult','requirement-met':'Requirement met','requirement-not-met':'Requirement not met','test-optional':'Test optional','missing-required-test':'Missing required test',ready:'Ready','missing-requirements':'Missing requirements',unknown:'Unknown',fresh:'Fresh','review-soon':'Review soon','potentially-outdated':'Potentially outdated',incomplete:'Incomplete' });
 
 const params = new URLSearchParams(location.search);
 let profileLanguage = globalThis.FullRidePreferences?.language() || 'uk';
 const profileT = key => profileTranslations[profileLanguage][key] || key;
 const college = colleges.find(item => item.slug === params.get("id"));
 const profile = college ? collegeProfiles[college.slug] : null;
+
+function fitMarkup() {
+  const fit=globalThis.AdmitVectorStudent?.fit?.(college);
+  if(!fit)return '';
+  const cells=[['academicFit',fit.academic],['financialFit',fit.financial],['englishFit',fit.english],['testingFit',fit.testing],['overallFit',fit.overall],['confidenceFit',fit.confidence]];
+  const tuition=college.finderFacts?.tuition??college.facts?.tuitionOut??'';
+  const roi=`index.html?lang=${profileLanguage}&roiCollege=${encodeURIComponent(college.slug)}&roiTuition=${encodeURIComponent(tuition)}#roi`;
+  return `<section id="profile-fit" class="profile-section profile-fit" aria-labelledby="fit-title"><div class="profile-section-heading"><div><p>FIT / PROFILE</p><h2 id="fit-title">${profileT('fitTitle')}</h2></div><p>${profileT('fitIntro')}</p></div><div class="profile-fit-grid">${cells.map(([label,item])=>`<article><span>${profileT(label)}</span><strong class="fit-tone fit-tone--${item.tone}">${profileT(item.key)}</strong></article>`).join('')}</div><div class="profile-fit-actions"><a href="planner.html?lang=${profileLanguage}&view=profile">${profileT('editProfile')}</a><button type="button" data-add-application>${profileT('addApplication')}</button><a href="${roi}">${profileT('openRoi')}</a></div></section>`;
+}
+function reportUrl() {
+  const subject=encodeURIComponent(`AdmitVector data report: ${college.name}`);
+  const body=encodeURIComponent(`University ID: ${college.catalogId || college.slug}\nUniversity: ${college.name}\nField: \nCurrent value: \nSource URL: \nVerified at: ${college.checkedAt||'not verified'}\nPage: ${location.href}\n\nDescribe the issue:\n`);
+  return `mailto:admitvector@gmail.com?subject=${subject}&body=${body}`;
+}
 
 const hasValue = value => value !== null && value !== undefined && value !== "";
 const scorecardUrl = item => item?.catalogId ? `https://collegescorecard.ed.gov/school/?${item.catalogId}` : item?.source;
@@ -223,9 +240,10 @@ function renderProfile() {
       </div>
     </section>
 
-    <nav class="profile-jump-nav" aria-label="${profileT('navigation')}">${[['profile-overview','overview'],['profile-admissions','policies'],['profile-preparation','checklist'],['profile-photos','gallery'],['profile-references','sources']].map(([id,key],index) => `<a href="#${id}"><span aria-hidden="true">0${index+1}</span>${profileT(key)}</a>`).join('')}</nav>
+    <nav class="profile-jump-nav" aria-label="${profileT('navigation')}">${[['profile-fit','fitTitle'],['profile-overview','overview'],['profile-admissions','policies'],['profile-preparation','checklist'],['profile-photos','gallery'],['profile-references','sources']].map(([id,key],index) => `<a href="#${id}"><span aria-hidden="true">0${index+1}</span>${profileT(key)}</a>`).join('')}</nav>
 
     ${college.verified ? "" : `<div class="profile-notice">${profileT("pendingNotice")}</div>`}
+    ${fitMarkup()}
 
     <section id="profile-overview" class="profile-section profile-stats" aria-labelledby="stats-title">
       <div class="profile-section-heading"><div><p>01 / ${profileT("cycle")}</p><h2 id="stats-title">${stats.cycle}</h2></div>${college.basicOnly ? "" : `<a href="${stats.statsSource}" target="_blank" rel="noopener noreferrer">${profileT("statsSource")}</a>`}</div>
@@ -259,10 +277,11 @@ function renderProfile() {
 
     <section id="profile-references" class="profile-section profile-sources" aria-labelledby="sources-title">
       <div class="profile-section-heading"><div><p>05 / Sources</p><h2 id="sources-title">${profileT("sources")}</h2></div></div>
-      <div class="profile-source-list">${sourceLinks(college)}${profile ? `<a href="${profile.statsSource}" target="_blank" rel="noopener noreferrer"><span>${profileT("statsSource").replace(" ↗","")}</span><b>↗</b></a>` : ""}${hasFederalFacts ? `<a href="${scorecardUrl(college)}" target="_blank" rel="noopener noreferrer"><span>${profileT("scorecardSource").replace(" ↗","")}</span><b>↗</b></a>` : ""}</div>
+      <div class="profile-source-list">${sourceLinks(college)}${profile ? `<a href="${profile.statsSource}" target="_blank" rel="noopener noreferrer"><span>${profileT("statsSource").replace(" ↗","")}</span><b>↗</b></a>` : ""}${hasFederalFacts ? `<a href="${scorecardUrl(college)}" target="_blank" rel="noopener noreferrer"><span>${profileT("scorecardSource").replace(" ↗","")}</span><b>↗</b></a>` : ""}<a href="${reportUrl()}"><span>${profileT('reportIncorrect')}</span><b>→</b></a></div>
     </section>`;
   bindProfileInteractions();
+  document.querySelector('[data-add-application]')?.addEventListener('click',event=>{globalThis.AdmitVectorStudent?.upsertApplication({collegeSlug:college.slug,plan:'RD',category:globalThis.AdmitVectorStudent.value.categories[college.slug]||'competitive'});event.currentTarget.textContent=profileT('ready');});
 }
 
-document.querySelectorAll("[data-profile-lang]").forEach(button => button.addEventListener("click", () => { profileLanguage = button.dataset.profileLang; renderProfile(); }));
+document.querySelectorAll("[data-profile-lang]").forEach(button => button.addEventListener("click", () => { profileLanguage = button.dataset.profileLang; globalThis.FullRidePreferences?.update({interface:{language:profileLanguage}});const url=new URL(location.href);url.searchParams.set('lang',profileLanguage);history.replaceState({},'',url);renderProfile(); }));
 renderProfile();
