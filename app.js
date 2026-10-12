@@ -79,6 +79,9 @@ Object.assign(translations.en, {
 Object.assign(translations.uk, { partialOnly:'Частково перевірено', partialBadge:'Вимог перевірено: {count}/5', auditText:'Кожну вимогу перевіряємо окремо за офіційним джерелом. Федеральна статистика — історичний зріз, не правила вступу.', coverageText:'Повністю: {full} · Частково: {partial} · Підтверджених вимог: {fields} / {total}', partialCard:'Підтверджені вимоги вже доступні у профілі. Решта очікують перевірки; не вважайте їх відсутністю вимог.' });
 Object.assign(translations.ru, { partialOnly:'Частично проверено', partialBadge:'Требований проверено: {count}/5', auditText:'Каждое требование проверяем отдельно по официальному источнику. Федеральная статистика — исторический срез, не правила поступления.', coverageText:'Полностью: {full} · Частично: {partial} · Подтверждённых требований: {fields} / {total}', partialCard:'Подтверждённые требования уже доступны в профиле. Остальные ждут проверки; это не означает отсутствия требований.' });
 Object.assign(translations.en, { partialOnly:'Partially verified', partialBadge:'Policies verified: {count}/5', auditText:'Each policy is reviewed separately against an official source. Federal statistics are a historical snapshot, not current admissions rules.', coverageText:'Complete: {full} · Partial: {partial} · Verified policies: {fields} / {total}', partialCard:'Verified policies are available in the profile. Other policies still await review; missing information does not mean no requirement.' });
+Object.assign(translations.uk, { heroFind:'Знайти університети',heroProfile:'Створити профіль',updatedPrefix:'Остання перевірка джерел:',noResultsAction:'Очистити фільтри' });
+Object.assign(translations.ru, { heroFind:'Найти университеты',heroProfile:'Создать профиль',updatedPrefix:'Последняя проверка источников:',noResultsAction:'Очистить фильтры' });
+Object.assign(translations.en, { heroFind:'Find universities',heroProfile:'Create profile',updatedPrefix:'Latest source review:',noResultsAction:'Clear filters' });
 Object.assign(translations.uk, {orientationLabel:'ПЕРШИЙ КРОК',orientationTitle:'Куди вступати до університету США?',orientationIntro:'Почніть із власного бюджету й вимог, а не з рейтингу. Так легше знайти університети США, до яких ви справді можете податися, і перевірити кожну важливу умову.',orientationAidTitle:'Потрібна фінансова допомога?',orientationAidText:'Дивіться правила саме для іноземних абітурієнтів. У перевірених профілях є окремі джерела для допомоги, тестів, мови, внеску й дедлайну.',orientationAidLink:'Переглянути перевірені університети →',orientationGuideTitle:'Не знаєте, з чого почати?',orientationGuideText:'Короткий маршрут допоможе скласти список: визначити бюджет, звірити вимоги до SAT/ACT та англійської і не пропустити строки подачі.',orientationGuideLink:'Як обрати університет →',orientationCostTitle:'Скільки це коштуватиме?',orientationCostText:'Навчання — не вся сума. Додайте проживання, подачу заявок, документи й переїзд до попереднього плану витрат.',orientationCostLink:'Відкрити калькулятор →'});
 Object.assign(translations.ru, {orientationLabel:'ПЕРВЫЙ ШАГ',orientationTitle:'Куда поступать в университет США?',orientationIntro:'Начните со своего бюджета и требований, а не с рейтинга. Так проще найти университеты США, в которые вы действительно можете подать заявку, и проверить каждое важное условие.',orientationAidTitle:'Нужна финансовая помощь?',orientationAidText:'Смотрите правила именно для иностранных абитуриентов. В проверенных профилях есть отдельные источники по помощи, тестам, языку, взносам и срокам.',orientationAidLink:'Посмотреть проверенные университеты →',orientationGuideTitle:'Не знаете, с чего начать?',orientationGuideText:'Короткий маршрут поможет составить список: определить бюджет, сверить требования к SAT/ACT и английскому и не пропустить сроки подачи.',orientationGuideLink:'Как выбрать университет →',orientationCostTitle:'Сколько это будет стоить?',orientationCostText:'Обучение — не вся сумма. Добавьте проживание, подачу заявок, документы и переезд в предварительный бюджет.',orientationCostLink:'Открыть калькулятор →'});
 Object.assign(translations.en, {orientationLabel:'FIRST STEP',orientationTitle:'Which U.S. university should you apply to?',orientationIntro:'Start with your budget and application requirements, not a ranking. Narrow down universities you can realistically apply to and verify each important condition.',orientationAidTitle:'Need financial aid?',orientationAidText:'Read policies for international applicants specifically. Reviewed profiles link separately to aid, testing, English, fees and deadline sources.',orientationAidLink:'Browse reviewed universities →',orientationGuideTitle:'Not sure where to begin?',orientationGuideText:'Follow a short route to set your budget, check SAT/ACT and English requirements, and keep track of application deadlines.',orientationGuideLink:'How to choose a university →',orientationCostTitle:'What will it cost?',orientationCostText:'Tuition is only part of the total. Add living costs, applications, documents and travel to your first budget estimate.',orientationCostLink:'Open the calculator →'});
@@ -259,6 +262,7 @@ function updateLanguage() {
   document.querySelectorAll(".seo-guide-entry__label").forEach(element => { element.textContent = guideLabel; });
   document.querySelectorAll("[data-lang]").forEach(button => button.classList.toggle("active", button.dataset.lang === language));
   q("practice-nav-link")?.setAttribute("href", `practice.html?lang=${language}`);
+  document.querySelector('[data-hero-planner]')?.setAttribute('href',`planner.html?lang=${language}`);
   if (q("record-label")) q("record-label").textContent = recordLabels[language];
   if (q("random-college-count")) q("random-college-count").textContent = formatCount(colleges.length);
   updateDiscoveryUI();
@@ -276,6 +280,8 @@ function render() {
   renderComparisonUI();
   if (q("audit-count")) q("audit-count").textContent = `${formatCount(colleges.filter(college => college.verified).length)} / ${formatCount(colleges.length)}`;
   if (q('audit-coverage')) q('audit-coverage').textContent = t('coverageText').replace('{full}',formatCount(colleges.filter(c=>c.verified).length)).replace('{partial}',formatCount(colleges.filter(c=>!c.verified&&FullRidePolicy.count(c)>0).length)).replace('{fields}',formatCount(colleges.reduce((n,c)=>n+FullRidePolicy.count(c),0))).replace('{total}',formatCount(colleges.length*5));
+  const latestReview=colleges.map(college=>college.checkedAt).filter(Boolean).sort().at(-1);
+  if(q('data-updated'))q('data-updated').textContent=latestReview?`${t('updatedPrefix')} ${formatAuditDate(latestReview)}`:t('updated');
   const hasInput = hasFinderInput();
   q("search-prompt").hidden = hasInput;
   q("results-shell").hidden = !hasInput;
@@ -354,6 +360,7 @@ function render() {
       <small>${t("savedLocal")}</small>
     </aside>` : "";
   q("results").innerHTML = cards + singleMatchPanel;
+  if(!matches.length)q('results').innerHTML=`<div class="empty finder-empty"><strong>${t('noResults')}</strong><button type="button" data-clear-no-results>${t('noResultsAction')}</button></div>`;
   const campusCards = q("results").querySelectorAll("[data-campus]");
   const revealCampus = card => {
     const url = decodeURIComponent(card.dataset.campus || "");
@@ -443,7 +450,14 @@ q("continue-search")?.addEventListener("click", () => {
   window.setTimeout(() => q("search")?.focus(), 350);
 });
 document.addEventListener("keydown", event => {
-  if (event.key === "Escape" && document.body.classList.contains("shortlist-open")) closeShortlistDrawer();
+  if (!document.body.classList.contains("shortlist-open")) return;
+  if (event.key === "Escape") { closeShortlistDrawer(); return; }
+  if (event.key !== "Tab") return;
+  const focusable=[...q('shortlist-drawer').querySelectorAll('a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),[tabindex]:not([tabindex="-1"])')].filter(element=>element.getClientRects().length);
+  if(!focusable.length)return;
+  const first=focusable[0],last=focusable.at(-1);
+  if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}
+  else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}
 });
 q("reset")?.addEventListener("click", () => {
   q("search").value = "";
@@ -474,6 +488,7 @@ q("results")?.addEventListener("click", event => {
     return;
   }
   if (event.target.closest("[data-random-again]")) showRandomCollege();
+  if(event.target.closest('[data-clear-no-results]'))q('reset')?.click();
 });
 q("comparison-chips")?.addEventListener("click", event => {
   const removeButton = event.target.closest("[data-compare-remove]");

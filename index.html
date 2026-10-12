@@ -18,10 +18,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="icon" type="image/png" sizes="96x96" href="/favicon-mark.png" />
-    <link rel="stylesheet" href="styles.css?v=14" />
+    <link rel="stylesheet" href="styles.css?v=15" />
     <link rel="stylesheet" href="auth.css?v=3" />
     <link rel="stylesheet" href="site-refresh.css?v=2" />
-    <link rel="stylesheet" href="theme-accent.css?v=6" />
+    <link rel="stylesheet" href="theme-accent.css?v=7" />
     <link rel="stylesheet" href="finder.css?v=1" />
     <link rel="stylesheet" href="preferences.css?v=4" />
     <link rel="stylesheet" href="catalog-theme.css?v=5" />
@@ -61,10 +61,14 @@
             <div class="eyebrow eyebrow-light"><span></span><span data-i18n="eyebrow">Незалежна база для абітурієнтів з України</span></div>
             <h1 id="page-title" data-i18n-html="title">Шукайте університети,<br /><em>а не випадкові поради.</em></h1>
             <p class="intro-copy" data-i18n="intro">AdmitVector допомагає звузити пошук американських університетів із сильною need-based financial aid для іноземних студентів. Кожен запис веде на офіційне джерело.</p>
+            <div class="intro-actions" aria-label="Основні дії">
+              <a class="intro-action intro-action--primary" href="#finder" data-i18n="heroFind">Знайти університети</a>
+              <a class="intro-action" href="planner.html?lang=uk" data-hero-planner data-i18n="heroProfile">Створити профіль</a>
+            </div>
             <div class="intro-meta">
               <span><b id="college-count">5 002</b> <span id="record-label">університетів у базі</span></span>
               <span class="dot"></span>
-              <span data-i18n="updated">Оновлено 3 жовтня 2026</span>
+              <span id="data-updated" data-i18n="updated">Дата останньої перевірки завантажується</span>
             </div>
           </div>
           <div class="campus-mosaic" aria-label="University campuses">
@@ -88,7 +92,7 @@
         <div class="data-audit" role="status">
           <span class="data-audit-mark" aria-hidden="true">✓</span>
           <div><strong data-i18n="auditTitle">Аудит даних 2026–27</strong><p data-i18n="auditText">Перевіряємо кожну вимогу окремо, за офіційним джерелом. Федеральна статистика — історичний зріз, не правила вступу.</p><p id="audit-coverage"></p></div>
-          <span id="audit-count" class="data-audit-count">58 / 5 002</span>
+          <span id="audit-count" class="data-audit-count">— / 5 002</span>
         </div>
         <a class="seo-directory-entry" href="universities/" data-seo-directory-link><span class="seo-directory-entry__label">Переглянути університети з повністю перевіреними умовами</span><span aria-hidden="true">↗</span></a>
         <a class="seo-directory-entry" href="guide.html" data-seo-guide-link><span class="seo-guide-entry__label">Як обрати університет США та перевірити фінансову допомогу</span><span aria-hidden="true">↗</span></a>
@@ -352,7 +356,7 @@
     <script src="finder-core.js?v=1" defer></script>
     <script src="college-data.js?v=3" defer></script>
     <script src="compare-store.js?v=1" defer></script>
-    <script src="app.js?v=27" defer></script>
+    <script src="app.js?v=28" defer></script>
     <script src="roi-data.js?v=9" defer></script>
     <script src="roi.js?v=12" defer></script>
     <script src="firebase-config.js?v=1" defer></script>

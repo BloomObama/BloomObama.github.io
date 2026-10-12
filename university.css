@@ -137,6 +137,10 @@
   .gallery-image,.gallery-image:first-child,.gallery-image:nth-child(2):last-child { min-height:250px; grid-row:auto; }
   .profile-gallery.is-single .gallery-image { min-height:280px; }
 }
+@media (max-width:480px) {
+  .profile-fit-grid { grid-template-columns:1fr; }
+  .profile-fit-grid article { min-width:0; }
+}
 @media (prefers-reduced-motion:reduce) {
   html:has(.profile-page) { scroll-behavior:auto; }
   .profile-root *, .profile-root *::before { transition:none !important; animation:none !important; }

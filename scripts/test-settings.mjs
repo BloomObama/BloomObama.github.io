@@ -44,8 +44,9 @@ try {
  page.on('pageerror',e=>errors.push(e.message));
  await page.goto(base+'settings.html?lang=ru');
  await page.waitForFunction(()=>FullRideAuth.state.status==='guest');
+ await page.locator('.fr-rail__link[data-rail-route="settings"]').waitFor({state:'attached'});
  assert.equal(await page.locator('.settings-section').count(),6);
- assert.equal(await page.locator('.fr-rail__link[href^="settings.html"]').count(),1);
+ assert.equal(await page.locator('.fr-rail__link[data-rail-route="settings"]').count(),1);
  const fill=(name,value)=>page.locator('[name="'+name+'"]').fill(value);
  const select=async(name,value)=>{const choice=page.locator('[data-setting="'+name+'"][data-value="'+value+'"]');if(await choice.count())await choice.click();else await page.locator('[name="'+name+'"]').selectOption(value);};
  await fill('profile.name','Мария');await fill('profile.notes','<script>window.bad=1</script>');
@@ -82,13 +83,13 @@ try {
  assert(calendarText.includes('RRULE:FREQ=WEEKLY'));assert(calendarText.includes('TRIGGER:-P7D'));assert(calendarText.includes('SUMMARY:Deadline\\, university\\;'));
  const [download]=await Promise.all([page.waitForEvent('download'),page.locator('#settings-export').click()]);
  const backup=JSON.parse(await fs.readFile(await download.path(),'utf8'));
- assert.equal(backup.preferences.value.profile.name,'Мария');assert.equal(backup.version,2);
+ assert.equal(backup.preferences.value.profile.name,'Мария');assert.equal(backup.version,3);
  page.on('dialog',dialog=>dialog.accept());
  await fill('profile.name','Другой');await page.locator('#settings-form [type="submit"]').click();
  await page.locator('#settings-import-file').setInputFiles({name:'backup.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(backup))});
  await page.waitForFunction(()=>document.querySelector('[name="profile.name"]').value==='Мария');
  const previous=await page.evaluate(()=>JSON.stringify(FullRideSettings.backup().state));
- await page.locator('#settings-import-file').setInputFiles({name:'bad.json',mimeType:'application/json',buffer:Buffer.from('{"app":"FullRide UA","version":2,"state":{"schemaVersion":1,"cards":[]},"__proto__":{"bad":true}}')});
+ await page.locator('#settings-import-file').setInputFiles({name:'bad.json',mimeType:'application/json',buffer:Buffer.from('{"app":"FullRide UA","version":3,"state":{"schemaVersion":1,"cards":[]},"__proto__":{"bad":true}}')});
  await page.waitForFunction(()=>document.getElementById('settings-status').textContent.includes('Данные не изменены'));
  assert.equal(await page.evaluate(()=>JSON.stringify(FullRideSettings.backup().state)),previous,'invalid restore leaves progress untouched');
  // Reminders are opt-in; their time/frequency uses the device timezone.
@@ -155,7 +156,12 @@ try {
  await page.setViewportSize({width:390,height:844});
  for(const [file,target]of [['index.html?lang=ru#finder','#search'],['practice-test.html?lang=ru','.practice-decks'],['compare.html?lang=ru','.compare-hero'],['university.html?id=harvard&lang=ru','.profile-section'],['ielts-resources.html?lang=ru','.resource-card']]){
    await page.goto(base+file);await page.locator(target).first().waitFor();
-   assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2),'large text fits mobile '+file);
+   const mobileFit=await page.evaluate(()=>({
+     fits:document.documentElement.scrollWidth<=innerWidth+2,
+     width:document.documentElement.scrollWidth,
+     offenders:[...document.querySelectorAll('body *')].filter(el=>{const r=el.getBoundingClientRect();return r.width&&r.right>innerWidth+2&&getComputedStyle(el).visibility!=='hidden';}).slice(0,8).map(el=>({tag:el.tagName.toLowerCase(),className:el.className,text:el.textContent?.trim().slice(0,60),right:Math.round(el.getBoundingClientRect().right)}))
+   }));
+   assert(mobileFit.fits,'large text fits mobile '+file+': '+JSON.stringify(mobileFit));
    assert.equal(await page.evaluate(()=>FullRidePreferences.motionBehavior()),'auto','scripted scroll also respects reduced motion');
  }
  await page.goto(base+'settings.html?lang=ru');

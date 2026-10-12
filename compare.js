@@ -85,6 +85,21 @@ function renderEmpty() {
     </div>`;
 }
 
+function renderMobileComparison(selected, sections, rowState, onlyDifferences) {
+  cq("comparison-root").innerHTML = `<div class="comparison-mobile">${selected.map(college => `
+    <article class="comparison-mobile-card">
+      <header>
+        <img src="${college.photoThumb || college.photo}" alt="" loading="lazy" decoding="async" />
+        <div><span>${FullRidePolicy.escape(college.location || ct('unknown'))}</span><h2>${FullRidePolicy.escape(college.name)}</h2><a href="university.html?id=${encodeURIComponent(college.slug)}&lang=${compareLanguage}">${ct("openProfile")} →</a></div>
+        <button type="button" data-remove-compare="${college.slug}" aria-label="${ct("remove")}: ${FullRidePolicy.escape(college.name)}">×</button>
+      </header>
+      ${sections.map(section => {
+        const rows=section.rows.filter(row=>!(onlyDifferences&&rowState.get(row.key).equal));
+        return rows.length?`<section><h3>${ct(section.title)}</h3><dl>${rows.map(row=>`<div class="${rowState.get(row.key).equal?'is-equal':'is-different'}"><dt>${ct(row.label)}</dt><dd>${row.display(college)}</dd></div>`).join('')}</dl></section>`:'';
+      }).join('')}
+    </article>`).join('')}</div>`;
+}
+
 function renderComparison() {
   const selected = selectedColleges();
   const pendingDetails = selected.filter(college => !college._detailsLoaded);
@@ -115,6 +130,10 @@ function renderComparison() {
   }));
   const differentCount = [...rowState.values()].filter(state => !state.equal).length;
   cq("difference-summary").textContent = selected.length < 2 ? ct("oneCollege") : ct("summary").replace("{different}", differentCount).replace("{total}", allRows.length);
+  if (matchMedia('(max-width:700px)').matches) {
+    renderMobileComparison(selected,sections,rowState,onlyDifferences);
+    return;
+  }
   const gridStyle = `--columns:${selected.length};--table-min:${190 + selected.length * 245}px`;
 
   const heading = `
@@ -183,5 +202,7 @@ document.querySelectorAll("[data-compare-lang]").forEach(button => button.addEve
   updateCompareLanguage();
 }));
 window.addEventListener("fullride:cloud-data", renderComparison);
+let compareResizeTimer;
+window.addEventListener('resize',()=>{clearTimeout(compareResizeTimer);compareResizeTimer=setTimeout(renderComparison,120)});
 
 updateCompareLanguage();

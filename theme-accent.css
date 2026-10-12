@@ -34,6 +34,7 @@ body.has-side-rail { background:#faf7f2; }
 .has-side-rail .shortlist-drawer__summary>strong { background:#d7a34f; color:#421c2c; }
 .has-side-rail .shortlist-drawer__summary span { color:#4e2230; }
 .has-side-rail .shortlist-drawer__summary small { color:#77676a; }
+html[data-theme="dark"] .has-side-rail .shortlist-drawer__summary small { color:#d8cbd0; }
 .has-side-rail .shortlist-drawer__list { background:linear-gradient(#fbf7f1,#f7efe6); }
 .has-side-rail .saved-drawer-card { overflow:hidden; border-color:#e2cdb6; border-radius:16px; background:#fffdf9; box-shadow:0 8px 22px rgba(77,34,44,.08); }
 .has-side-rail .saved-drawer-card__photo { background:#eadfd3; }

@@ -42,7 +42,7 @@ try {
     assert.deepEqual(failures,[]);
   };
   await visit('harvard');
-  assert.equal(await page.locator('.profile-jump-nav a').count(),5);
+  assert.equal(await page.locator('.profile-jump-nav a').count(),6);
   const check = page.locator('[data-profile-check="checkApplication"]');
   await check.check();
   assert.match(await page.locator('[data-checklist-count]').textContent(),/1/);

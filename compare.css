@@ -69,6 +69,7 @@
 .compare-note>span:first-child { width:23px; height:23px; flex:0 0 auto; display:grid; place-items:center; border:1px solid #a7b5c4; border-radius:50%; color:#8c6722; font:500 .58rem var(--mono); }
 .compare-page-toast { padding:.75rem 1rem; position:fixed; z-index:50; right:1rem; bottom:1rem; visibility:hidden; opacity:0; transform:translateY(10px); border-left:3px solid var(--acid); background:var(--forest); color:#fff; font-size:.7rem; transition:.2s; }
 .compare-page-toast.is-visible { visibility:visible; opacity:1; transform:none; }
+.comparison-mobile{display:grid;gap:1rem;padding:1rem}.comparison-mobile-card{overflow:hidden;border:1px solid #b9c6d4;border-radius:14px;background:#fff}.comparison-mobile-card>header{position:relative;display:grid;grid-template-columns:92px minmax(0,1fr);gap:1rem;min-height:100px;padding:1rem}.comparison-mobile-card>header img{width:92px;height:92px;border-radius:10px;object-fit:cover}.comparison-mobile-card>header span{color:#69798b;font:.58rem var(--mono)}.comparison-mobile-card>header h2{margin:.25rem 2rem .45rem 0;color:var(--forest);font-size:1.05rem;line-height:1.15}.comparison-mobile-card>header a{color:#76591d;font-size:.68rem;font-weight:800;text-decoration:none}.comparison-mobile-card>header button{position:absolute;top:.8rem;right:.8rem;width:32px;height:32px;border:1px solid #c5ced7;border-radius:50%;background:#fff;color:#526477}.comparison-mobile-card section{border-top:1px solid #d9e1e9}.comparison-mobile-card section h3{margin:0;padding:.65rem 1rem;background:#193754;color:var(--acid);font:.57rem var(--mono);text-transform:uppercase}.comparison-mobile-card dl{margin:0}.comparison-mobile-card dl>div{display:grid;grid-template-columns:minmax(105px,.7fr) minmax(0,1.3fr);gap:.75rem;padding:.8rem 1rem;border-top:1px solid #e3e9ef}.comparison-mobile-card dl>div:first-child{border-top:0}.comparison-mobile-card dl>div.is-different{box-shadow:inset 3px 0 #e9bc5d}.comparison-mobile-card dt{color:#69798b;font:.58rem/1.4 var(--mono);text-transform:uppercase}.comparison-mobile-card dd{min-width:0;margin:0;color:#25384e;font-size:.72rem;line-height:1.45}
 
 @media (max-width:900px) {
   .compare-hero { min-height:320px; grid-template-columns:1fr; gap:1.5rem; }
@@ -93,6 +94,7 @@
   .compare-empty { min-height:440px; padding:3rem 1rem; }
   .compare-empty__visual span { width:72px; height:98px; }
   .compare-empty h2 { font-size:1.6rem; }
+  .comparison-scroll{display:none}
 }
 
 @media (prefers-reduced-motion:reduce) {
