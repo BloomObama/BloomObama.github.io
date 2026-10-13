@@ -22,9 +22,13 @@
     princetonText:"Content review and strategy with paper and adaptive online tests. Check formats and availability on the publisher's page.",
     rightsText:"AdmitVector did not create or acquire rights to these materials and is not affiliated with the organizations or publishers named here. We provide our own brief descriptions and direct links to original sources; we do not copy or host books, tests or questions. Confirm availability, pricing and content on the owner's website."
   });
+  Object.assign(translations.uk,{search:"Матеріал, навичка або видавець",reset:"Скинути фільтри",empty:"Нічого не знайдено. Спробуйте інший запит або фільтр."});
+  Object.assign(translations.ru,{search:"Материал, навык или издатель",reset:"Сбросить фильтры",empty:"Ничего не найдено. Попробуйте другой запрос или фильтр."});
+  Object.assign(translations.en,{search:"Resource, skill or publisher",reset:"Reset filters",empty:"No results found. Try another search or filter."});
   const bankLabel = {uk:"Банк завдань",ru:"Банк заданий",en:"Question bank"};
   let lang = globalThis.FullRidePreferences?.language() || "uk";
   let filter = "all";
+  let searchTerm = "";
   const cards = [...document.querySelectorAll(".sat-card")];
   const render = () => {
     const t = translations[lang];
@@ -36,15 +40,57 @@
         else element.textContent = value;
       }
     });
+    document.querySelectorAll("[data-sat-placeholder]").forEach(element => {
+      element.placeholder = t[element.dataset.satPlaceholder] || "";
+    });
     document.querySelector("#sat-bank .sat-card__kind").textContent = bankLabel[lang];
     document.querySelectorAll("[data-sat-lang]").forEach(button => button.classList.toggle("active",button.dataset.satLang === lang));
     document.querySelectorAll("[data-sat-filter]").forEach(button => {const active = button.dataset.satFilter === filter;button.classList.toggle("is-active",active);button.setAttribute("aria-pressed",String(active));});
     let count = 0;
-    cards.forEach(card => {card.hidden = filter !== "all" && card.dataset.satKind !== filter;if (!card.hidden) count++;});
+    const terms = searchTerm.split(/\s+/).filter(Boolean);
+    cards.forEach(card => {
+      const matchesType = filter === "all" || card.dataset.satKind === filter;
+      const haystack = card.textContent.toLocaleLowerCase();
+      const matchesSearch = terms.every(term => haystack.includes(term));
+      card.hidden = !(matchesType && matchesSearch);
+      if (!card.hidden) count++;
+    });
     document.getElementById("sat-count").textContent = t.found.replace("{count}",String(count));
+    document.getElementById("sat-empty").hidden = count > 0;
     document.title = lang === "ru" ? "Подготовка к SAT: официальные курсы, тесты и книги | AdmitVector" : lang === "en" ? "SAT preparation: official courses, tests and books | AdmitVector" : "Підготовка до SAT: офіційні курси, тести й книги | AdmitVector";
   };
   document.querySelectorAll("[data-sat-lang]").forEach(button => button.addEventListener("click",() => {lang = button.dataset.satLang;globalThis.FullRidePreferences?.update({interface:{language:lang}});history.replaceState({},"",`sat-resources.html?lang=${lang}`);render();}));
   document.querySelectorAll("[data-sat-filter]").forEach(button => button.addEventListener("click",() => {filter = button.dataset.satFilter;render();}));
+  document.getElementById("sat-search").addEventListener("input",event => {searchTerm = event.target.value.trim().toLocaleLowerCase();render();});
+  document.getElementById("sat-reset").addEventListener("click",() => {filter = "all";searchTerm = "";document.getElementById("sat-search").value = "";render();});
+  const enableAutoHidingToolbar = () => {
+    const toolbar = document.querySelector(".sat-toolbar");
+    if (!toolbar) return;
+    const desktop = matchMedia("(min-width:721px)");
+    let lastY = scrollY;
+    let stickyStart = 0;
+    let frame = 0;
+    const measure = () => {
+      toolbar.classList.remove("is-scroll-hidden");
+      stickyStart = toolbar.getBoundingClientRect().top + scrollY - 82;
+      lastY = scrollY;
+    };
+    const update = () => {
+      frame = 0;
+      const y = scrollY;
+      const delta = y - lastY;
+      const nearHome = y <= stickyStart + 12;
+      const editing = toolbar.contains(document.activeElement);
+      if (!desktop.matches || nearHome || editing || delta < -6) toolbar.classList.remove("is-scroll-hidden");
+      else if (delta > 6) toolbar.classList.add("is-scroll-hidden");
+      lastY = y;
+    };
+    const queue = () => {if (!frame) frame = requestAnimationFrame(update);};
+    addEventListener("scroll",queue,{passive:true});
+    addEventListener("resize",measure,{passive:true});
+    desktop.addEventListener?.("change",measure);
+    measure();
+  };
   render();
+  enableAutoHidingToolbar();
 })();

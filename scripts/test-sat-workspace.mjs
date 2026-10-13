@@ -9,6 +9,24 @@ try{
   const page=await browser.newPage({viewport:{width:1440,height:900}});
   const errors=[];page.on('pageerror',error=>errors.push(error.message));
   await page.goto('http://127.0.0.1:8765/sat-resources.html?lang=en',{waitUntil:'domcontentloaded'});
+  assert(await page.locator('.sat-card').count()===14,'14 SAT resources render');
+  await page.locator('#sat-search').fill('Kaplan');
+  assert(await page.locator('.sat-card:visible').count()===1,'SAT search narrows the resource library');
+  await page.locator('#sat-reset').click();
+  assert(await page.locator('.sat-card:visible').count()===14,'SAT reset restores the full library');
+  await page.locator('[data-sat-filter="book"]').click();
+  assert(await page.locator('.sat-card:visible').count()===4,'SAT resource filters still work');
+  await page.locator('#sat-reset').click();
+  await page.locator('.sat-toolbar').scrollIntoViewIfNeeded();
+  await page.waitForTimeout(500);
+  await page.screenshot({path:join(tmpdir(),'admitvector-sat-library-desktop.png')});
+  await page.locator('#sat-search').blur();
+  await page.evaluate(()=>scrollBy(0,700));
+  await page.waitForTimeout(450);
+  assert(await page.locator('.sat-toolbar').evaluate(el=>el.classList.contains('is-scroll-hidden')),'SAT toolbar hides while scrolling down');
+  await page.evaluate(()=>scrollBy(0,-220));
+  await page.waitForTimeout(450);
+  assert(await page.locator('.sat-toolbar').evaluate(el=>!el.classList.contains('is-scroll-hidden')),'SAT toolbar returns while scrolling up');
   assert(await page.locator('[data-sat-step]').count()===4,'four independent route controls');
   await page.locator('[data-sat-step="plan"]').click();
   assert(await page.locator('#sat-workspace-title').textContent()==='Your study plan','plan panel opens');
@@ -46,6 +64,7 @@ try{
   assert(await page.locator('#sat-workspace-title').textContent()==='Ваш план подготовки','panel localizes');
   await page.setViewportSize({width:390,height:844});
   await page.reload({waitUntil:'domcontentloaded'});
+  assert(await page.locator('.sat-toolbar').evaluate(el=>getComputedStyle(el).position==='static'&&getComputedStyle(el).opacity==='1'),'mobile SAT search stays in the page flow');
   await page.locator('[data-sat-step="plan"]').click();
   await page.waitForTimeout(650);
   assert(await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth+1),'mobile layout has no horizontal overflow');
@@ -58,5 +77,5 @@ try{
   await page.evaluate(()=>FullRidePreferences.setAccount(null));
   assert(await page.locator('#sat-progress-percent').textContent()===progress,'guest progress returns after account switch');
   assert(errors.length===0,'no runtime errors: '+errors.join('; '));
-  console.log('PASS: four SAT panels, plan/tasks, score, skill, session, persistent progress, localization, mobile layout');
+  console.log('PASS: SAT search and filters, auto-hiding toolbar, four workspaces, persistent progress, localization, mobile layout');
 }finally{await browser.close();}
