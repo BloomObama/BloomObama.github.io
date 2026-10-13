@@ -129,6 +129,37 @@ const tr = key => resourceCopy[resourceLanguage][key] || resourceCopy.en[key] ||
 const local = value => value?.[resourceLanguage] || value?.en || value || "";
 const escapeHtml = value => String(value).replace(/[&<>"']/g, character => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[character]));
 
+function enableAutoHidingToolbar() {
+  const toolbar = document.querySelector('.resource-toolbar');
+  if (!toolbar) return;
+  let lastY = Math.max(0,window.scrollY);
+  let stickyStart = 0;
+  let ticking = false;
+  const measure = () => {
+    toolbar.classList.remove('is-scroll-hidden');
+    const top = Number.parseFloat(getComputedStyle(toolbar).top) || 0;
+    stickyStart = toolbar.getBoundingClientRect().top + window.scrollY - top;
+  };
+  const update = () => {
+    const currentY = Math.max(0,window.scrollY);
+    const delta = currentY - lastY;
+    const desktop = matchMedia('(min-width:761px)').matches;
+    const nearHome = currentY <= stickyStart + 6;
+    const editing = toolbar.contains(document.activeElement);
+    if (!desktop || nearHome || editing || delta < -6) toolbar.classList.remove('is-scroll-hidden');
+    else if (delta > 6) toolbar.classList.add('is-scroll-hidden');
+    lastY = currentY;
+    ticking = false;
+  };
+  measure();
+  addEventListener('resize',measure,{passive:true});
+  addEventListener('scroll',() => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(update);
+  },{passive:true});
+}
+
 function visual(resource, detail = false) {
   if (resource.image) return `<img src="${resource.image}" alt="${escapeHtml(resource.title)}" ${detail ? "" : 'loading="lazy"'} width="240" height="320" />`;
   return `<span class="resource-card__monogram"><b>${escapeHtml(resource.mark)}</b><small>${escapeHtml(resource.source)}<br />OFFICIAL RESOURCE</small></span>`;
@@ -209,3 +240,4 @@ document.querySelector("[data-resource-close]").addEventListener("click",closeDi
 byId("resource-dialog").addEventListener("click",event => { if (event.target === byId("resource-dialog")) closeDialog(); });
 byId("resource-dialog").addEventListener("cancel",event => { event.preventDefault(); closeDialog(); });
 renderLanguage();
+enableAutoHidingToolbar();

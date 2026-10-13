@@ -32,6 +32,13 @@ try {
   await page.locator('[data-resource-lang="en"]').click();
   passed.push(check("language switch updates the page",await page.locator("#library-title").textContent() === "Choose what you need now"));
   passed.push(check("resource route is active in side navigation",await page.locator('[data-rail-route="resources"]').getAttribute("aria-current") === "page"));
+  await page.locator('.resource-toolbar').scrollIntoViewIfNeeded();
+  await page.evaluate(() => scrollBy(0,700));
+  await page.waitForFunction(() => document.querySelector('.resource-toolbar').classList.contains('is-scroll-hidden'));
+  passed.push(check("filter toolbar slides away while scrolling down",await page.locator('.resource-toolbar').evaluate(element => getComputedStyle(element).pointerEvents === 'none')));
+  await page.evaluate(() => scrollBy(0,-220));
+  await page.waitForFunction(() => !document.querySelector('.resource-toolbar').classList.contains('is-scroll-hidden'));
+  passed.push(check("filter toolbar returns while scrolling up",await page.locator('.resource-toolbar').evaluate(element => getComputedStyle(element).pointerEvents === 'auto')));
   await page.locator('[data-path-resource="bc-mocks"]').click();
   passed.push(check("preparation path opens its promised resource",await page.locator("#resource-dialog-title").textContent() === "Free IELTS Practice & Mock Tests"));
   await page.locator("[data-resource-close]").click();
