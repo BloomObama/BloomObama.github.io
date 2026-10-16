@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "cycle": "2026–27",
+  "records": {
+    "150455": {
+      "fields": {
+        "fee": {
+          "status": "verified",
+          "value": "Earlham's current cost page says students can apply for free. This verifies that the college application itself has no fee; FAFSA, English testing, credential evaluation, visa, travel, housing and enrollment costs are separate.",
+          "source": "https://earlham.edu/cost-affordability/tuition-and-costs/",
+          "checkedAt": "2026-10-16",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "feeWaiver": true
+          },
+          "evidence": {
+            "hash": "986cf4707daa7a86ad7e60224ea12a6f209ed22e743a493107c1df7c897d70bc",
+            "quote": "Not sure if you can afford Earlham? Apply for free and find out!"
+          }
+        }
+      }
+    },
+    "212674": {
+      "fields": {
+        "fee": {
+          "status": "verified",
+          "value": "Gettysburg's current admissions FAQ lists a $60 application fee. Qualified applicants may request a fee waiver through their admissions counselor. International applicants follow the same Common Application process, with additional international documents where applicable.",
+          "source": "https://www.gettysburg.edu/admissions-aid/admissions/faq",
+          "checkedAt": "2026-10-16",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "feeWaiver": true
+          },
+          "evidence": {
+            "hash": "4eddf50cdd4af5a919a759cd92c7fd88625966dcdb25a2880248ed348fd9611c",
+            "quote": "The application fee is $60; fee waivers are available to qualified students"
+          }
+        }
+      }
+    }
+  }
+}

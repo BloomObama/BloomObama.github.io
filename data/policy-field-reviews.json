@@ -2068,6 +2068,22 @@
             "hash": "738211af1c7e1a5803133f495333559bf9e1b9d2b68f6ebfce4904cecdfce963",
             "quote": "2027-28 Application Deadlines"
           }
+        },
+        "fee": {
+          "status": "verified",
+          "value": "Earlham's current cost page says students can apply for free. This verifies that the college application itself has no fee; FAFSA, English testing, credential evaluation, visa, travel, housing and enrollment costs are separate.",
+          "source": "https://earlham.edu/cost-affordability/tuition-and-costs/",
+          "checkedAt": "2026-10-16",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "feeWaiver": true
+          },
+          "evidence": {
+            "hash": "986cf4707daa7a86ad7e60224ea12a6f209ed22e743a493107c1df7c897d70bc",
+            "quote": "Not sure if you can afford Earlham? Apply for free and find out!"
+          }
         }
       }
     },
@@ -3800,16 +3816,16 @@
           }
         },
         "deadline": {
-          "status": "conflict",
-          "value": "The international admissions page gives ED I November 1, EA November 15, ED II January 20 and RD January 15, but its ED II agreement is due January 15. https://www.gettysburg.edu/admissions-aid/international-students/financial-aid-international-students instead lists aid deadlines ED I November 15, EA December 1 and ED II January 15 while saying forms follow the admission deadline. Confirm application, ED agreement and both international financial forms separately with admissions; these dates are not approved as one consistent schedule.",
-          "source": "https://www.gettysburg.edu/admissions-aid/international-students/",
-          "checkedAt": "2026-10-03",
+          "status": "verified",
+          "value": "International first-year application deadlines: Early Decision I November 1, Early Action November 15, Early Decision II January 20, and Regular Decision January 15. The ED agreement is a separate supporting document: November 1 for EDI and January 15 for EDII. International financial forms are due by the chosen application deadline.",
+          "source": "https://www.gettysburg.edu/admissions-aid/admissions/international",
+          "checkedAt": "2026-10-16",
           "cycle": "2026–27",
           "method": "editorial",
           "reviewer": "FullRide editorial",
           "evidence": {
-            "hash": "e2f7257fc7ff04e6e18bd4d965fb4e5e1254a11d794d505bf70c6b434cb31282",
-            "quote": "Early Decision II: January 20"
+            "hash": "5196648787447c183398f8290c038bbd066fc351252c268ccbfe78bd36dbb979",
+            "quote": "Early Decision I: November 1 Early Action: November 15 Early Decision II: January 20 Regular Decision: January 15"
           }
         },
         "aid": {
@@ -3843,6 +3859,22 @@
           "evidence": {
             "hash": "e2f7257fc7ff04e6e18bd4d965fb4e5e1254a11d794d505bf70c6b434cb31282",
             "quote": "Gettysburg does not have a minimum score to apply"
+          }
+        },
+        "fee": {
+          "status": "verified",
+          "value": "Gettysburg's current admissions FAQ lists a $60 application fee. Qualified applicants may request a fee waiver through their admissions counselor. International applicants follow the same Common Application process, with additional international documents where applicable.",
+          "source": "https://www.gettysburg.edu/admissions-aid/admissions/faq",
+          "checkedAt": "2026-10-16",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "feeWaiver": true
+          },
+          "evidence": {
+            "hash": "4eddf50cdd4af5a919a759cd92c7fd88625966dcdb25a2880248ed348fd9611c",
+            "quote": "The application fee is $60; fee waivers are available to qualified students"
           }
         }
       }
