@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "cycle": "2026–27",
+  "records": {
+    "109651": {
+      "fields": {
+        "deadline": {
+          "status": "verified",
+          "value": "For Fall 2027, ArtCenter lists an Early Action deadline of November 15 and a regular priority date of February 1. Most undergraduate majors use rolling admission after the priority date until the major fills. Entertainment Design is the exception: its priority deadline is February 1 for fall and October 1 for spring, and the department decides whether to keep accepting applications afterward.",
+          "source": "https://www.artcenter.edu/apply.html",
+          "checkedAt": "2026-10-16",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "5a6f403a3c56c44efd2d8edac38e43913138ef95144fe5d169abee29e71b3c4e",
+            "quote": "Early Action Deadline for Fall 2027 is November 15 and the Regular Priority Application Date is February 1"
+          }
+        }
+      }
+    },
+    "137546": {
+      "fields": {
+        "aid": {
+          "status": "verified",
+          "value": "International applicants are automatically considered for Stetson scholarships after admission and may separately apply for premier merit programs. Need-based aid may not be available to international students, and U.S. federal aid is unavailable. The university requires a Certification of Finances and proof of one year's funding before issuing the I-20; scholarship awards count toward that total.",
+          "source": "https://www.stetson.edu/administration/financial-aid/international-students.php",
+          "checkedAt": "2026-10-16",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "35d30176d7dc89cc550359b3c41bee34f945b14d776970d1c6fc2373d2311bde",
+            "quote": "Once admitted to Stetson University, you will automatically be considered for one of our generous scholarships."
+          }
+        },
+        "english": {
+          "status": "verified",
+          "value": "Applicants who are neither from an English-speaking country nor educated at an English-speaking school for at least three years must prove proficiency. Accepted minimums are TOEFL 4.0 on the new 1–6 scale (approximately the previous 79), TOEFL Essentials 9, IELTS 6.0 or Duolingo 95; completing ELS Intensive English 112 is also accepted. Official scores must come directly from the testing agency.",
+          "source": "https://www.stetson.edu/administration/admissions/international-students.php",
+          "checkedAt": "2026-10-16",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "englishStatus": "required"
+          },
+          "evidence": {
+            "hash": "c03cab729d517bb8d9c94f6c26514ed2578d4af9bbd09126e7455410f3e29939",
+            "quote": "you have not attended an English-speaking school for at least three years, you must provide proof of English proficiency"
+          }
+        },
+        "deadline": {
+          "status": "verified",
+          "value": "For Fall 2027 first-year admission, Stetson lists binding Early Decision I on November 1, non-binding Early Action on November 15, and binding Early Decision II on January 5. Regular Admission is shown only as a priority deadline without a date on this page, so applicants should confirm the current regular deadline directly before applying.",
+          "source": "https://www.stetson.edu/administration/admissions/application-types.php",
+          "checkedAt": "2026-10-16",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "12a8215521ac2d017a7eea601c6bfe845061c9f1b9a269f3ccacdf366ea6eeef",
+            "quote": "Early Decision II | January 5 | Yes"
+          }
+        }
+      }
+    }
+  }
+}
