@@ -2438,6 +2438,89 @@
         }
       }
     },
+    "156408": {
+      "fields": {
+        "aid": {
+          "status": "verified",
+          "value": "International admission is need-aware: Centre says limited finances can prevent admission. Highly qualified international applicants may receive limited need-based grants and are automatically considered for annual merit scholarships of $20,000–$45,000. Full need-based funding is not offered. The separately applied-for Lincoln Scholars Program is the only full-funding route and covers tuition, fees, room and board plus wraparound funds. Every international applicant must submit the Certificate of Finance; Centre does not require CSS Profile or a separate aid application.",
+          "source": "https://www.centre.edu/admission-aid/international-applicants/international-student-financial-aid",
+          "checkedAt": "2026-10-16",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "aidCategory": "need-aware",
+            "needBlind": false,
+            "aidShort": "Need-aware; limited need grants + automatic merit"
+          },
+          "evidence": {
+            "hash": "b0ed05c600f857511d171b53687cbd005c73db8e0884dba1a91f071c97e13c04",
+            "quote": "we are not be able to offer admission due to a lack of finances"
+          }
+        },
+        "testing": {
+          "status": "verified",
+          "value": "SAT or ACT scores are optional for international first-year applicants. English-proficiency testing is a separate requirement and is not replaced by the test-optional policy.",
+          "source": "https://www.centre.edu/admission-aid/international-applicants/international-admission-requirements",
+          "checkedAt": "2026-10-16",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "testFlexible": true
+          },
+          "evidence": {
+            "hash": "a9f41c2724fbcc5335f1c0fd4698d647ad560a17580279872ad41140bc733f80",
+            "quote": "SAT/ACT Scores (Optional)"
+          }
+        },
+        "english": {
+          "status": "verified",
+          "value": "International applicants must provide English proficiency unless Centre approves a curriculum-based waiver. Published minimums are TOEFL iBT 93, TOEFL Essentials 9.5, IELTS 7.0, Pearson PTE 64 or Duolingo 125. Applicants completing an English-language IB or Cambridge A-Level curriculum may request a waiver, which is evaluated only after the other application materials arrive.",
+          "source": "https://www.centre.edu/admission-aid/international-applicants/international-admission-requirements",
+          "checkedAt": "2026-10-16",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "englishStatus": "required"
+          },
+          "evidence": {
+            "hash": "a9f41c2724fbcc5335f1c0fd4698d647ad560a17580279872ad41140bc733f80",
+            "quote": "All international applicants are required to provide proof of English proficiency."
+          }
+        },
+        "fee": {
+          "status": "verified",
+          "value": "Centre's international first-year application through the Common Application is free. This statement covers the college application fee, not English testing, credential translation, visa, travel, enrollment or other costs.",
+          "source": "https://www.centre.edu/admission-aid/international-applicants",
+          "checkedAt": "2026-10-16",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "attributes": {
+            "feeWaiver": true
+          },
+          "evidence": {
+            "hash": "a242f6b11827f880a4b02401fb1f8f81e66c59fe8ed231b5d6a6965e92651250",
+            "quote": "It’s easy and absolutely free to apply to Centre online using the Common Application."
+          }
+        },
+        "deadline": {
+          "status": "verified",
+          "value": "Centre's current application timetable lists Early Decision I on November 1, Early Action on November 15, Early Decision II on January 15 and Regular Decision on February 1. The page does not label a specific entry year, so applicants should verify that the timetable is still current before submission.",
+          "source": "https://www.centre.edu/admission-aid/international-applicants",
+          "checkedAt": "2026-10-16",
+          "cycle": "2026–27",
+          "method": "editorial",
+          "reviewer": "FullRide editorial",
+          "evidence": {
+            "hash": "a242f6b11827f880a4b02401fb1f8f81e66c59fe8ed231b5d6a6965e92651250",
+            "quote": "Early Decision II — application deadline January 15; Regular Decision — application deadline February 1"
+          }
+        }
+      }
+    },
     "164368": {
       "fields": {
         "aid": {

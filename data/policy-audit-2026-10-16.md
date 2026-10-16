@@ -16,6 +16,12 @@ Coverage after these batches: **96 complete profiles, 24 partial profiles, 569 v
 
 Coverage after this batch: **98 complete profiles, 22 partial profiles, 573 verified fields**. Proposal: `data/policy-review-batches/2026-10-16-03.json`.
 
+## Batch 4
+
+- Centre College (156408): all five international first-year fields are now verified from current institution-owned pages. Admission is need-aware and international aid is limited; automatic merit awards range from $20,000 to $45,000 per year, while the separately applied-for Lincoln Scholars Program is Centre's only full-funding route. SAT/ACT is optional. English proficiency is required with published minimums of TOEFL iBT 93, TOEFL Essentials 9.5, IELTS 7.0, PTE 64 or Duolingo 125, subject to the stated curriculum-based waiver process. The Common Application is free. The current timetable lists EDI November 1, EA November 15, EDII January 15 and RD February 1; because the page does not label an entry year, the profile tells applicants to reconfirm before submission.
+
+Coverage after this batch: **99 complete profiles, 22 partial profiles, 578 verified fields**. Proposal: `data/policy-review-batches/2026-10-16-04.json`.
+
 ## Held back
 
 - New England Conservatory's official undergraduate page currently states a $125 non-refundable fee and documents exceptional-financial-need waiver evidence. The site's robots policy blocks the bounded source collector, so no reproducible full-page snapshot was admitted to the review store and the field remains unverified.
